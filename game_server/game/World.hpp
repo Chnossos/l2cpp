@@ -53,7 +53,6 @@ public:
     static void moveCharacterBackToPreviews(Character &);
 
     static auto addCharacter(OptRef<Player> = std::nullopt) -> Character &;
-    static auto addMonster(u32 id) -> OptRef<Monster>;
     static auto addNpc(u32 id) -> OptRef<Npc>;
 
     static void scheduleForDeletion(Actor &, ClockDuration timeFromNow = ClockDuration::zero());

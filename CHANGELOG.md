@@ -11,6 +11,10 @@ In no particular order:
 - Social actions;
 - Skill usage prerequisites + effects conditions.
 
+## [0.24.3] - 2026-05-20
+### Fixed
+- Level up message and animation were sent twice
+
 ## [0.24.2] - 2026-05-20
 ### Fixed
 - Dual weapons attack animation was not playing

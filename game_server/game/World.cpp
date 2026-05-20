@@ -59,7 +59,7 @@ static void addGremlin()
 {
     static u32 count = 1;
 
-    if (auto const gremlin = World::addMonster(1))
+    if (auto const gremlin = World::addNpc(1))
         gremlin->setPosX(gremlin->position().x + (count++ % 2 ? 35 : -35));
 }
 
@@ -248,29 +248,9 @@ void World::moveCharacterBackToPreviews(Character & c)
 auto World::addCharacter(OptRef<Player> p) -> Character &
 {
     auto & c = addActor<Character>(std::move(p));
-    c.onAbnormalEffectListChanged += [&c] { send(c, SC::AbnormalEffectListPacket{c}); };
-    c.onLeveledUp                 += [&c]
-    {
-        send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased});
-        broadcastAround(c, SC::SocialActionPerformPacket{c, SocialAction::LevelUpAnimation}, true);
-    };
+    c.onAbnormalEffectListChanged += [&c] { send(c, SC::AbnormalEffectListPacket{c});                                 };
+    c.onLeveledUp                 += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
     return c;
-}
-
-auto World::addMonster(u32 const id) -> OptRef<Monster>
-{
-    OptRef<Monster> m;
-
-    if (auto const npc = addNpc(id); npc && npc->type() == ActorType::Monster)
-    {
-        m = static_cast<Monster &>(*npc);
-
-        auto & loot = npc->addComponent<Loot>();
-        loot.xp = 29;
-        loot.sp = 2;
-    }
-
-    return m;
 }
 
 auto World::addNpc(u32 id) -> OptRef<Npc>
@@ -289,6 +269,13 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
 
         npc->appearance().collisionHeight = 15;
         npc->appearance().collisionRadius = 10;
+
+        if (npc->type() == ActorType::Monster)
+        {
+            auto & loot = npc->addComponent<Loot>();
+            loot.xp = 29;
+            loot.sp = 2;
+        }
 
         npc->onDied += [&n = *npc]
         {
