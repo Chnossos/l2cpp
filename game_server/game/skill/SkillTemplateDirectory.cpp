@@ -161,7 +161,7 @@ namespace
             else if (id == 1217) // Greater Heal
             {
                 skill.setTargetType(SkillTargetType::Single);
-                skill.setTargetNature(Self | Friendly);
+                skill.setTargetNature(Self | Friendly | Ennemy);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(371);
             }
             else if (id == 1229) // Chant of Life
