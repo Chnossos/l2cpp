@@ -24,7 +24,10 @@ void ActorAttackStanceTimerSystem::updateImpl(ClockDuration const elapsed, Actor
                 actor.state = ActorState::Idle;
 
             World::broadcastAround(actor, Network::Packet::Server::AttackStanceTogglePacket(false, actor), true);
+
+            actor.delComponent<AttackStanceTimer>();
         }
-        timer->elapsedSinceStart += elapsed;
+        else
+            timer->elapsedSinceStart += elapsed;
     }
 }
