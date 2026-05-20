@@ -6,6 +6,7 @@
 // Project includes
 #include "Action.hpp"
 #include "../components/Position.hpp"
+#include "../constants/ActorState.hpp"
 
 class MoveAction final : public Action
 {
@@ -21,10 +22,11 @@ public:
 private:
     void onStarted() override;
     void updateImpl(ClockDuration) override;
+    void onFinished() override;
     void onCanceled() override;
 
-private:
-    Position _origin, _target;
-    Input    _input;
-    float    _currentDistance = 0, _totalDistance = 0;
+    Position   _origin, _target;
+    Input      _input;
+    float      _currentDistance = 0, _totalDistance = 0;
+    ActorState _previousState;
 };
