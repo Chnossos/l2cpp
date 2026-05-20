@@ -248,12 +248,8 @@ void World::moveCharacterBackToPreviews(Character & c)
 auto World::addCharacter(OptRef<Player> p) -> Character &
 {
     auto & c = addActor<Character>(std::move(p));
-    c.onAbnormalEffectListChanged += [&c] { send(c, SC::AbnormalEffectListPacket{c}); };
-    c.onLeveledUp                 += [&c]
-    {
-        send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased});
-        broadcastAround(c, SC::SocialActionPerformPacket{c, SocialAction::LevelUpAnimation}, true);
-    };
+    c.onAbnormalEffectListChanged += [&c] { send(c, SC::AbnormalEffectListPacket{c});                                 };
+    c.onLeveledUp                 += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
     return c;
 }
 

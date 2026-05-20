@@ -4,6 +4,7 @@
 #include "ActorStatsUpdateSystem.hpp"
 
 // Project includes
+#include "../../network/packets/server/action/SocialActionPerformPacket.hpp"
 #include "../../network/packets/server/status/StatsUpdatePacket.hpp"
 #include "../World.hpp"
 #include "../actor/Character.hpp"
@@ -82,7 +83,7 @@ void ActorStatsUpdateSystem::updateCharacterStatus(SC::StatsUpdatePacket & priva
     {
         privatePacket.addStat(Stat::Level, newStatus.level());
         if (newStatus.level() > oldStatus.level())
-            fire c.onLeveledUp();
+            World::broadcastAround(c, SC::SocialActionPerformPacket{c, SocialAction::LevelUpAnimation}, true);
     }
 }
 
