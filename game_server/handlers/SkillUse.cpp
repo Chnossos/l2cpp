@@ -9,7 +9,9 @@
 #include "../utils/Target.hpp"
 #include "_Common.hpp"
 
-DEFINE_PACKET_HANDLER(SkillUse)
+#include <l2cpp/utils/Enum.hpp>
+
+DEFINE_PACKET_HANDLER(SkillUse) try
 {
     PacketReader reader(player.connection().readBuffer().subspan(3));
 
@@ -19,18 +21,32 @@ DEFINE_PACKET_HANDLER(SkillUse)
 
     auto & c         = *player.currentCharacter();
     auto const skill = c.skills().skill(static_cast<SkillId>(skillId));
-    L2CPP_B_ASSERT(skill, "Character does not possess skill id '{}'", skillId);
 
+    bool canCast = true;
+    auto const updateCanCast = [&canCast] (bool const condition) { if (canCast) canCast = condition; };
+
+    // Player has learned this skill
+    updateCanCast(skill.has_value());
+
+    // Skill is activatable
+    using l2cpp::Utils::Enum::isAnyOf;
+    updateCanCast(isAnyOf(skill->tmplate().type(), SkillType::Active, SkillType::Toggle));
+
+    // Caster is alive and ready to start (or queue) a new skill
+    updateCanCast(c.isAlive() && isAnyOf(c.state, ActorState::Idle, ActorState::CombatIdle, ActorState::Casting));
+
+    // Skill doesn't need a target, or else target is valid at the time of the request
     auto const target = c.target();
+    updateCanCast(!skill->tmplate().needsTarget() ||
+                  (target && Utils::Target::isValidTarget(c, skill->tmplate(), *target, forceAttack)));
 
-    if (bool canCast = c.isAlive() && (target || !skill->tmplate().needsTarget()))
-    {
-        if (skill->tmplate().needsTarget())
-            canCast = Utils::Target::isValidTarget(c, skill->tmplate(), target, forceAttack);
-
-        if (canCast)
-            return c.doNext<SkillAction>(skill->tmplate(), forceAttack);
-    }
-
+    if (canCast)
+        c.doNext<SkillAction>(skill->tmplate(), forceAttack);
+    else
+        player.connection().send(ActionFailedPacket{});
+}
+catch (...)
+{
     player.connection().send(ActionFailedPacket{});
+    throw;
 }

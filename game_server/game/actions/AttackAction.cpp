@@ -63,6 +63,8 @@ void AttackAction::updateImpl(ClockDuration const)
 
 void AttackAction::onFinished()
 {
+    performer().state = ActorState::CombatIdle;
+
     auto & actor = performer();
     for (auto * const a : {&actor, &_target})
     {

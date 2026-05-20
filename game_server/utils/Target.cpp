@@ -22,8 +22,11 @@ bool Utils::Target::isValidTarget(Actor const & emitter, SkillTemplate const & s
     if (target == emitter)
         return targetNature & Self;
 
-    if (!target.isAlive())
+    if (targetNature & Corpse)
     {
+        if (target.isAlive())
+            return false;
+
         switch (target.type())
         {
             case ActorType::Character: return targetNature & Character; // e.g. Ressurection      is Corpse | Character
@@ -31,15 +34,20 @@ bool Utils::Target::isValidTarget(Actor const & emitter, SkillTemplate const & s
             case ActorType::Npc:       return targetNature & Npc;       // e.g. NPC Corpse Remove is Corpse | Npc
         }
     }
+    else if (!target.isAlive())
+        return false;
+
+    if (targetNature & Party || targetNature & Clan || targetNature & Alliance)
+        return false;
 
     switch (target.type())
     {
         case ActorType::Npc:
         case ActorType::Character:
-            return targetNature & Friendly || forceAttack;
+            return (targetNature & Friendly || forceAttack) || targetNature & Character;
 
         case ActorType::Monster:
-            return targetNature & Ennemy;
+            return targetNature & Ennemy || targetNature & Monster;
     }
 
     return false;

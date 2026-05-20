@@ -11,6 +11,12 @@ In no particular order:
 - Social actions;
 - Skill usage prerequisites + effects conditions.
 
+## [0.24.4] - 2026-05-20
+### Fixed
+- It's no longer possible to execute a skill that was queued on a target that died from the main action when said skill is not meant to target corpses
+- Mass Resurrection requires a valid target to be casted
+- Free-target heal spells (e.g. _Greater Heal_) are allowed to target ennemies 
+
 ## [0.24.3] - 2026-05-20
 ### Fixed
 - Level up message and animation were sent twice

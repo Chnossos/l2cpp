@@ -25,6 +25,7 @@ bool MoveAction::canBeInterruptedByAnotherAction() const
 
 void MoveAction::onStarted()
 {
+    _previousState = performer().state;
     performer().state = ActorState::Moving;
     performer().setPosition(_origin);
 
@@ -37,7 +38,13 @@ void MoveAction::updateImpl(ClockDuration)
     setFinished(_currentDistance >= _totalDistance);
 }
 
+void MoveAction::onFinished()
+{
+    performer().state = _previousState;
+}
+
 void MoveAction::onCanceled()
 {
+    performer().state = _previousState;
     World::broadcastAround(performer(), Network::Packet::Server::ActorMoveStopPacket{performer()}, true);
 }
