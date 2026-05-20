@@ -172,7 +172,7 @@ namespace
             }
             else if (id == 1254) // Mass Resurrection
             {
-                skill.setTargetType(SkillTargetType::Aura);
+                skill.setTargetType(SkillTargetType::AoE);
                 skill.setTargetNature(Corpse | Character);
                 skill.addAbnormalEffectFactory<ResurrectionEffectFactory>();
             }
