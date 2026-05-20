@@ -11,6 +11,10 @@ In no particular order:
 - Social actions;
 - Skill usage prerequisites + effects conditions.
 
+## [0.24.2] - 2026-05-20
+### Fixed
+- Dual weapons attack animation was not playing
+
 ## [0.24.1] - 2026-05-18
 ### Fixed
 - In-game time was not the same for everyone

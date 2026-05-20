@@ -20,7 +20,7 @@ namespace SM = Network::Packet::Server;
 AttackAction::AttackAction(Actor & performer, Actor & target, StatValue const pAtkSpeed) noexcept
     : Action(ActionType::Attack, performer)
     , _target(target)
-    , _hitDuration(Utils::Chrono::Clock::toDuration(1s / (pAtkSpeed / 500.)))
+    , _hitDuration(Utils::Chrono::Clock::toDuration(1s / (pAtkSpeed / 500)))
 {}
 
 bool AttackAction::canBeInterruptedByAnotherAction() const { return false; }
@@ -51,7 +51,7 @@ void AttackAction::onStarted()
 
     SM::AttackPacket p(performer(), _target);
     for (decltype(hitCount) i = 0; i < hitCount; ++i) // split dual hits damage
-        p.addHit({_target, 50u / hitCount, false, soulShotGrade});
+        p.addHit({_target, 250u / hitCount, false, soulShotGrade});
 
     World::broadcastAround(performer(), std::move(p), true);
 }
@@ -64,18 +64,20 @@ void AttackAction::updateImpl(ClockDuration const)
 void AttackAction::onFinished()
 {
     auto & actor = performer();
-
-    // Enable attack stance on target once it gets hit
-    World::broadcastAround(_target, SM::AttackStanceTogglePacket(true, _target), true);
-
-    actor  .getOrAddComponent<AttackStanceTimer>().restart();
-    _target.getOrAddComponent<AttackStanceTimer>().restart();
+    for (auto * const a : {&actor, &_target})
+    {
+        if (auto const timer = a->component<AttackStanceTimer>())
+            timer->restart();
+        else
+        {
+            a->addComponent<AttackStanceTimer>().restart();
+            World::broadcastAround(*a, SM::AttackStanceTogglePacket(true, *a), true);
+        }
+    }
 
     _target.takeDamage(actor, 250);
 
-    // TODO: consume the soulshot charge here (not before because could have been canceled with stun/para/…)
-
-    // Physical attacking never stops unless another action is requested (e.g. actor moves) or target dies
+    // Physical attacking never stops unless another action is requested (e.g. actor moves) or target died
     if (!actor.nextAction() && _target.isAlive())
         actor.doNext<AttackAction>(_target, actor.stats()[StatId::PAtkSpeed]);
 }
