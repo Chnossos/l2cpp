@@ -234,8 +234,8 @@ void Actor::doNext(std::unique_ptr<Action> action)
         _impl->currentAction = std::move(action);
     else if (_impl->currentAction->canBeInterruptedByAnotherAction())
     {
+        cancelAction();
         _impl->currentAction = std::move(action);
-        _impl->nextAction    = nullptr;
     }
     else
         _impl->nextAction = std::move(action);

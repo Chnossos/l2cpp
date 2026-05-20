@@ -25,12 +25,14 @@ namespace SC = Network::Packet::Server;
 
 struct SkillAction::SkillActionImpl
 {
-    SkillTemplate const &   skill;
-    bool                    forceAttack;
-    ClockDuration           castingElapsed       = ClockDuration::zero();
-    ClockDuration           castingDuration      = ClockDuration::zero();
-    ClockDuration           notifyTargetsTrigger = ClockDuration::zero();
-    std::vector<Ref<Actor>> targets;
+    SkillTemplate const &       skill;
+    bool                        forceAttack;
+    ClockDuration               castingElapsed       = ClockDuration::zero();
+    ClockDuration               castingDuration      = ClockDuration::zero();
+    ClockDuration               notifyTargetsTrigger = ClockDuration::zero();
+    std::optional<GameObjectId> targetId;
+    std::vector<Ref<Actor>>     targets;
+    ActorState                  previousState;
 };
 
 template class Pimpl<SkillAction::SkillActionImpl>;
@@ -44,45 +46,10 @@ SkillAction::SkillAction(Actor & performer, SkillTemplate const & skill, bool co
     L2CPP_B_ASSERT(l2cpp::Utils::Enum::isAnyOf(_impl->skill.type(), SkillType::Active, SkillType::Toggle),
                    "Unsupported skill type '{}'", std::to_underlying(_impl->skill.type()));
 
-    if (_impl->skill.castDuration() != ClockDuration::zero())
-    {
-        if (_impl->skill.isMagic())
-        {
-            auto const mAtkSpeedRatio   = performer.stats()[StatId::MAtkSpeed] / 333;
-            _impl->castingDuration      = Utils::Chrono::Clock::toDuration(_impl->skill.castDuration() / mAtkSpeedRatio);
-
-            if (_impl->castingDuration <= 550ms) // Avoid broken animations
-                _impl->castingDuration  = 550ms;
-        }
-        else
-        {
-            auto const pAtkSpeedRatio   = performer.stats()[StatId::PAtkSpeed] / 300;
-            _impl->castingDuration      = Utils::Chrono::Clock::toDuration(_impl->skill.castDuration() / pAtkSpeedRatio);
-
-            if (_impl->castingDuration < 500ms) // Avoid broken animations
-                _impl->castingDuration = 500ms;
-        }
-
-        // Skill targets must be notified 350ms (including latency) before the end of the animation to display correctly
-        _impl->notifyTargetsTrigger = _impl->castingDuration - 350ms;
-    }
-
-    if (_impl->skill.targetType() == SkillTargetType::Self)
-    {
-        _impl->targets.emplace_back(performer);
-    }
-    else if (_impl->skill.targetType() != SkillTargetType::Aura)
-    {
-        if (auto const target = performer.target())
-            _impl->targets.emplace_back(target);
-        else
-        {
-            World::send(performer, SC::ActionFailedPacket{});
-            L2CPP_THROW("Skill '{}' needs a target to be performed", _impl->skill.fullName());
-        }
-    }
-    else if (Utils::Target::isValidTarget(performer, _impl->skill, performer, false))
-        _impl->targets.emplace_back(performer);
+    auto const target = performer.target();
+    L2CPP_B_ASSERT(!skill.needsTarget() || target, "Skill '{}' needs a target", skill.id());
+    if (skill.needsTarget())
+        _impl->targetId = target->id();
 }
 
 SkillAction::SkillAction(SkillAction &&) noexcept = default;
@@ -93,19 +60,64 @@ bool SkillAction::canBeInterruptedByAnotherAction() const { return false; }
 
 void SkillAction::onStarted()
 {
-    auto const & skill = _impl->skill;
+    // We check everything again here because the action could've been queued, and by the time it gets executed,
+    // many things may have changed.
 
-    if (skill.type() == SkillType::Active)
+    if (!performer().isAlive())
+        return setFinished(true);
+
+    if (_impl->skill.type() == SkillType::Toggle)
     {
-        Actor const & target = (_impl->targets.empty() ? performer() : _impl->targets[0].get());
-
-        World::send(performer(), SC::UiGaugePacket{GaugeColor::Blue, _impl->castingDuration});
-        World::broadcastAround(performer(), SC::SkillUsePacket{
-            performer(), target, skill.uid(), _impl->castingDuration, skill.cooldownDuration(), false
-        }, true);
-    }
-    else // Toggle
+        _impl->targets.emplace_back(performer());
         setFinished(true);
+        return;
+    }
+
+    OptRef<Actor> target;
+    if (_impl->skill.targetType() == SkillTargetType::Self)
+    {
+        target = performer();
+    }
+    else if (_impl->skill.needsTarget())
+    {
+        target = World::actor(*_impl->targetId);
+        if (!target || !Utils::Target::isValidTarget(performer(), _impl->skill, target, _impl->forceAttack))
+            return setFinished(true); // Target doesn't exist or isn't valid anymore, do nothing
+    }
+
+    if (target)
+        _impl->targets.emplace_back(target);
+
+    if (_impl->skill.castDuration() != ClockDuration::zero())
+    {
+        if (_impl->skill.isMagic())
+        {
+            auto const mAtkSpeedRatio = performer().stats()[StatId::MAtkSpeed] / 333;
+            _impl->castingDuration    = Utils::Chrono::Clock::toDuration(_impl->skill.castDuration() / mAtkSpeedRatio);
+
+            if (_impl->skill.castDuration() > 550ms && _impl->castingDuration <= 550ms) // Avoid broken animations
+                _impl->castingDuration  = 550ms;
+        }
+        else
+        {
+            auto const pAtkSpeedRatio = performer().stats()[StatId::PAtkSpeed] / 300;
+            _impl->castingDuration    = Utils::Chrono::Clock::toDuration(_impl->skill.castDuration() / pAtkSpeedRatio);
+
+            if (_impl->skill.castDuration() > 500ms && _impl->castingDuration < 500ms) // Avoid broken animations
+                _impl->castingDuration = 500ms;
+        }
+
+        // Skill targets must be sent 350ms (including latency) before the end of the animation to display correctly
+        _impl->notifyTargetsTrigger = _impl->castingDuration - 350ms;
+    }
+
+    _impl->previousState = performer().state;
+    performer().state = ActorState::Casting;
+
+    SC::SkillUsePacket p{performer(), target ? *target : performer(), _impl->skill.uid(),
+                         _impl->castingDuration, _impl->skill.cooldownDuration(), false};
+    World::broadcastAround(performer(), std::move(p), true);
+    World::send(performer(), SC::UiGaugePacket{GaugeColor::Blue, _impl->castingDuration});
 }
 
 void SkillAction::updateImpl(ClockDuration const elapsed)
@@ -130,22 +142,29 @@ void SkillAction::updateImpl(ClockDuration const elapsed)
 
 void SkillAction::onFinished()
 {
-    L2CPP_B_ASSERT(!_impl->targets.empty() || _impl->skill.targetType() == SkillTargetType::Aura,
-                   "No target at the end of skill casting, cannot apply effects");
-
     for (auto & target : _impl->targets)
         _impl->skill.applyEffects(performer(), target);
+
+    performer().state = _impl->previousState;
 }
 
 void SkillAction::onCanceled()
 {
     World::broadcastAround(performer(), SC::SkillCancelPacket{performer()}, true);
+
+    performer().state = _impl->previousState;
 }
 
 void SkillAction::selectTargets()
 {
-    L2CPP_B_ASSERT(_impl->skill.type() == SkillType::Active,
-                   "Skill whose type is not Active inside {}", __FUNCTION__);
+    auto const targetType = _impl->skill.targetType();
+
+    using enum SkillTargetType;
+    if (!l2cpp::Utils::Enum::isAnyOf(targetType, AoE, Aura))
+        return;
+
+    if (targetType == Aura && Utils::Target::isValidTarget(performer(), _impl->skill, performer(), _impl->forceAttack))
+        _impl->targets.emplace_back(performer());
 
     auto const & target = _impl->targets.empty() ? performer() : _impl->targets.at(0).get();
     World::forEachActorAround(target, [&] (auto & a)
