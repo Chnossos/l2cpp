@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 cmake_policy(SET CMP0111 OLD) # Temporarily fix Conan CMake errors
-project(l2cpp VERSION 0.24.4)
+project(l2cpp VERSION 0.25.0)
 
 set(CMAKE_CXX_STANDARD          23)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)

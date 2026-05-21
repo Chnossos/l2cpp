@@ -11,6 +11,13 @@ In no particular order:
 - Social actions;
 - Skill usage prerequisites + effects conditions.
 
+## [0.5.0] - 2026-05-22
+### Added
+- Skill usage message
+- Skill effect on/off messages 
+- Heal and damage amount messages
+- Item (un)equiped message
+
 ## [0.24.4] - 2026-05-20
 ### Fixed
 - It's no longer possible to execute a skill that was queued on a target that died from the main action when said skill is not meant to target corpses
