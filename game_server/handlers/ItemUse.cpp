@@ -4,13 +4,17 @@
 #pragma once
 
 // Project includes
-#include "_Common.hpp"
 #include "../game/World.hpp"
 #include "../game/actor/Character.hpp"
 #include "../game/components/Gear.hpp"
 #include "../game/inventory/ItemStorage.hpp"
-#include "../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
+#include "../network/packets/server/chat/ChatSystemSayPacket.hpp"
 #include "../network/packets/server/inventory/InventoryUpdatePacket.hpp"
+#include "../network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp"
+#include "../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
+#include "_Common.hpp"
+
+#include <l2cpp/utils/Enum.hpp>
 
 // C++ includes
 #include <ranges>
@@ -39,12 +43,28 @@ DEFINE_PACKET_HANDLER(ItemUse)
                 InventoryUpdatePacket p;
                 if (!transaction.oldItems.empty())
                 {
-                    for (auto const & oldItem : transaction.oldItems | std::views::values)
+                    for (Item const & oldItem : transaction.oldItems | std::views::values)
+                    {
                         p.appendModifiedItem(oldItem);
+
+                        using enum ItemCategory;
+                        if (l2cpp::Utils::Enum::isAnyOf(oldItem.tmplate.category, Armor, Accessory, Weapon))
+                        {
+                            ChatSystemSayPacket msg{SystemMessageId::_1_HasBeenDisarmed};
+                            msg.appendArg(SysMsgArg::ItemName{oldItem.tmplate.id});
+                            player.connection().send(msg);
+                        }
+                    }
                 }
 
                 if (transaction.curItem)
+                {
                     p.appendModifiedItem(*transaction.curItem);
+
+                    ChatSystemSayPacket msg{SystemMessageId::YouAreEquippedWith_1};
+                    msg.appendArg(SysMsgArg::ItemName{transaction.curItem->tmplate.id});
+                    player.connection().send(msg);
+                }
 
                 if (item->tmplate.id == 6619) // FIXME: if any bow, find matching arrows to equip in left hand
                 {
@@ -56,7 +76,8 @@ DEFINE_PACKET_HANDLER(ItemUse)
                 }
 
                 player.connection().send(p);
-                World::broadcastAround(character, CharacterStatusUpdatePacket(character), true);
+                player.connection().send(CharacterStatusUpdatePacket{character});
+                World::broadcastAround(character, CharacterStatusUpdateBroadcastPacket{character});
             }
             break;
         }
