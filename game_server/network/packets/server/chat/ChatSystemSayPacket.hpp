@@ -10,6 +10,8 @@
 #include "../i18n/SystemMessageArgument.hpp"
 
 class Actor;
+class Skill;
+class SkillTemplate;
 
 namespace Network::Packet::Server { class ChatSystemSayPacket; }
 
@@ -23,6 +25,9 @@ public:
     ChatSystemSayPacket & appendArg(T && arg) { return appendArgImpl(arg); }
 
     ChatSystemSayPacket & appendName(Actor const &);
+    ChatSystemSayPacket & appendName(Skill const &);
+    ChatSystemSayPacket & appendName(SkillUid);
+    ChatSystemSayPacket & appendName(SkillTemplate const &);
 
 private:
     ChatSystemSayPacket & appendArgImpl(SystemMessageArgument const & arg);
