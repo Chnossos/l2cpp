@@ -21,6 +21,9 @@
 #include <l2cpp/details/Pimpl.hpp>
 #include <l2cpp/utils/Enum.hpp>
 
+// C++ includes
+#include <algorithm>
+
 namespace SC = Network::Packet::Server;
 
 struct SkillAction::SkillActionImpl
@@ -69,7 +72,12 @@ void SkillAction::onStarted()
     if (_impl->skill.type() == SkillType::Toggle)
     {
         _impl->targets.emplace_back(performer());
-        sendUseSystemMessage();
+
+        // Only send message on toggled-on, not toggled-off
+        auto const isThisToggle = [this] (auto const & e) { return e->skillUid() == _impl->skill.uid(); };
+        if (std::ranges::none_of(performer().abnormalEffects(), isThisToggle))
+            sendUseSystemMessage();
+
         return setFinished(true);
     }
 
