@@ -397,17 +397,17 @@ void World::distributeLoot(Loot const & loot, DamageDealtTable const & attackerD
     std::optional<SC::ChatSystemSayPacket> msg;
     /**/ if (newXp > oldXp && newSp > oldSp)
     {
-        msg.emplace(SystemMessageId::EarnedXpAndSp);
+        msg.emplace(SystemMessageId::Earned_1_XpAnd_2_Sp);
         *msg << SysMsgArg::Number{newXp - oldXp} << SysMsgArg::Number{newSp - oldSp};
     }
     else if (newXp > oldXp)
     {
-        msg.emplace(SystemMessageId::EarnedXp);
+        msg.emplace(SystemMessageId::Earned_1_Xp);
         *msg << SysMsgArg::Number{newXp - oldXp};
     }
     else if (newSp > oldSp)
     {
-        msg.emplace(SystemMessageId::EarnedSp);
+        msg.emplace(SystemMessageId::Earned_1_Sp);
         *msg << SysMsgArg::Number{newSp - oldSp};
     }
 

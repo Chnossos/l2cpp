@@ -4,7 +4,7 @@
 #include "SkillAction.hpp"
 
 // Project includes
-#include "../../network/packets/server/action/ActionFailedPacket.hpp"
+#include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
 #include "../../network/packets/server/skill/SkillCancelPacket.hpp"
 #include "../../network/packets/server/skill/SkillSetTargetsPacket.hpp"
 #include "../../network/packets/server/skill/SkillUsePacket.hpp"
@@ -69,8 +69,8 @@ void SkillAction::onStarted()
     if (_impl->skill.type() == SkillType::Toggle)
     {
         _impl->targets.emplace_back(performer());
-        setFinished(true);
-        return;
+        sendUseSystemMessage();
+        return setFinished(true);
     }
 
     OptRef<Actor> target;
@@ -114,10 +114,16 @@ void SkillAction::onStarted()
     _impl->previousState = performer().state;
     performer().state = ActorState::Casting;
 
-    SC::SkillUsePacket p{performer(), target ? *target : performer(), _impl->skill.uid(),
-                         _impl->castingDuration, _impl->skill.cooldownDuration(), false};
-    World::broadcastAround(performer(), std::move(p), true);
+    sendUseSystemMessage();
     World::send(performer(), SC::UiGaugePacket{GaugeColor::Blue, _impl->castingDuration});
+
+    bool const isCritical = false;
+    if (isCritical)
+        World::send(performer(), Network::Packet::Server::ChatSystemSayPacket{SystemMessageId::MagicCriticalHit});
+
+    SC::SkillUsePacket p{performer(), target ? *target : performer(), _impl->skill.uid(),
+                         _impl->castingDuration, _impl->skill.cooldownDuration(), isCritical};
+    World::broadcastAround(performer(), std::move(p), true);
 }
 
 void SkillAction::updateImpl(ClockDuration const elapsed)
@@ -172,4 +178,11 @@ void SkillAction::selectTargets()
         if (Utils::Target::isValidTarget(performer(), _impl->skill, a, _impl->forceAttack))
             _impl->targets.emplace_back(a);
     });
+}
+
+void SkillAction::sendUseSystemMessage() const
+{
+    Network::Packet::Server::ChatSystemSayPacket msg{SystemMessageId::Use_1};
+    msg.appendArg(SysMsgArg::SkillName{_impl->skill.uid()});
+    World::send(performer(), std::move(msg));
 }

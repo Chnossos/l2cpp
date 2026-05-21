@@ -8,11 +8,17 @@
 
 enum class SystemMessageId : u32
 {
-    DisconnectedFromServer =    0,
-    WelcomeToTheWorldOfL2  =   34,
-    EarnedXp               =   45,
-    EarnedXpAndSp          =   95,
-    YourLevelHasIncreased  =   96,
-    EarnedSp               =  331,
-    CustomMessage          =  614,
+    DisconnectedFromServer   =    0,
+    WelcomeToTheWorldOfL2    =   34,
+    YouHitFor_1_Damage       =   35,
+    Earned_1_Xp              =   45,
+    Use_1                    =   46,
+    Using_1                  =   47,
+    Earned_1_XpAnd_2_Sp      =   95,
+    YourLevelHasIncreased    =   96,
+    Earned_1_Sp              =  331,
+    _1_2                     =  614,
+    _1_HpHaveBeenRestored    = 1066,
+    _2sHpHasBeenRestoredBy_1 = 1067,
+    MagicCriticalHit         = 1280,
 };

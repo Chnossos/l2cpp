@@ -96,7 +96,7 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand)
         }
         else
         {
-            ChatSystemSayPacket p{SystemMessageId::CustomMessage};
+            ChatSystemSayPacket p{SystemMessageId::_1_2};
             if (args.size() > 1)
                 p << SysMsgArg::Text(std::format(L"Failed to spawn npc/monster \"{}\":", args[1]));
             else
