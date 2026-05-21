@@ -9,6 +9,8 @@
 #include "../../../../game/constants/SystemMessageId.hpp"
 #include "../i18n/SystemMessageArgument.hpp"
 
+class Actor;
+
 namespace Network::Packet::Server { class ChatSystemSayPacket; }
 
 class Network::Packet::Server::ChatSystemSayPacket final : public l2cpp::Network::Packet
@@ -19,6 +21,8 @@ public:
 public:
     template<class T> requires std::is_base_of_v<SystemMessageArgument, T>
     ChatSystemSayPacket & appendArg(T && arg) { return appendArgImpl(arg); }
+
+    ChatSystemSayPacket & appendName(Actor const &);
 
 private:
     ChatSystemSayPacket & appendArgImpl(SystemMessageArgument const & arg);

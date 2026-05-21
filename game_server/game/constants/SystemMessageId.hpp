@@ -11,6 +11,7 @@ enum class SystemMessageId : u32
     DisconnectedFromServer   =    0,
     WelcomeToTheWorldOfL2    =   34,
     YouHitFor_1_Damage       =   35,
+    _1_HitYouFor_2_Damage    =   36,
     Earned_1_Xp              =   45,
     Use_1                    =   46,
     Using_1                  =   47,
