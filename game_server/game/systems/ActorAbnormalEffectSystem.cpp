@@ -4,6 +4,7 @@
 #include "ActorAbnormalEffectSystem.hpp"
 
 // Project includes
+#include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
 #include "../World.hpp"
 
 #include <l2cpp/utils/Enum.hpp>
@@ -21,14 +22,20 @@ void ActorAbnormalEffectSystem::updateImpl(ClockDuration const elapsed, Actor & 
 {
     bool updateList = false;
 
+    std::list<SkillUid> addedEffects, removedEffects;
+
     auto & effects = actor.abnormalEffects();
     for (auto it = effects.begin(); it != effects.end(); )
     {
         if ((*it)->elapsed() == ClockDuration::zero()) // Effect just got applied
+        {
+            addedEffects.emplace_back((*it)->skillUid());
             updateList = needToUpdateList(updateList, **it);
+        }
 
         if ((*it)->update(elapsed))
         {
+            removedEffects.emplace_back((*it)->skillUid());
             updateList = needToUpdateList(updateList, **it);
             it = effects.erase(it);
         }
@@ -37,5 +44,23 @@ void ActorAbnormalEffectSystem::updateImpl(ClockDuration const elapsed, Actor & 
     }
 
     if (updateList)
+    {
+        addedEffects.unique();
+        for (auto const skillUid : addedEffects)
+        {
+            Network::Packet::Server::ChatSystemSayPacket msg{SystemMessageId::YouCanFeel_1sEffect};
+            msg.appendName(skillUid);
+            World::send(actor, std::move(msg));
+        }
+
+        removedEffects.unique();
+        for (auto const skillUid : removedEffects)
+        {
+            Network::Packet::Server::ChatSystemSayPacket msg{SystemMessageId::TheEffectOf_1_HasWornOff};
+            msg.appendName(skillUid);
+            World::send(actor, std::move(msg));
+        }
+
         fire actor.onAbnormalEffectListChanged();
+    }
 }

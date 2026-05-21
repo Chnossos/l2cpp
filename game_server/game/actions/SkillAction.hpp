@@ -27,6 +27,7 @@ private:
     void onFinished() override;
     void onCanceled() override;
     void selectTargets();
+    void sendUseSystemMessage() const;
 
 private:
     struct SkillActionImpl;

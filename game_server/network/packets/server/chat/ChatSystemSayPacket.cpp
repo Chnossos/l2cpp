@@ -3,6 +3,11 @@
 
 #include "ChatSystemSayPacket.hpp"
 
+// Project includes
+#include "../../../../game/actor/Npc.hpp"
+#include "../../../../game/components/NpcAppearance.hpp"
+#include "../../../../game/skill/Skill.hpp"
+
 using Network::Packet::Server::ChatSystemSayPacket;
 
 ChatSystemSayPacket::ChatSystemSayPacket(SystemMessageId const messageId)
@@ -11,6 +16,32 @@ ChatSystemSayPacket::ChatSystemSayPacket(SystemMessageId const messageId)
     *this << messageId;
 
     appendCounterAndStoreOffset(_argsCountOffset);
+}
+
+ChatSystemSayPacket & ChatSystemSayPacket::appendName(Actor const & actor)
+{
+    if (actor.type() == ActorType::Character)
+        appendArgImpl(SysMsgArg::Text{actor.name()});
+    else
+        appendArgImpl(SysMsgArg::NpcName{static_cast<Npc const &>(actor).appearance().id()});
+
+    return *this;
+}
+
+ChatSystemSayPacket & ChatSystemSayPacket::appendName(Skill const & skill)
+{
+    return appendName(skill.tmplate());
+}
+
+ChatSystemSayPacket & ChatSystemSayPacket::appendName(SkillUid const uid)
+{
+    appendArgImpl(SysMsgArg::SkillName{uid});
+    return *this;
+}
+
+ChatSystemSayPacket & ChatSystemSayPacket::appendName(SkillTemplate const & skill)
+{
+    return appendName(skill.uid());
 }
 
 ChatSystemSayPacket & ChatSystemSayPacket::appendArgImpl(SystemMessageArgument const & arg)

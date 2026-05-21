@@ -6,6 +6,7 @@
 // Project includes
 #include "../../Player.hpp"
 #include "../../network/Connection.hpp"
+#include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
 #include "../../network/packets/server/status/StatsUpdatePacket.hpp"
 #include "../World.hpp"
 #include "../components/ActorAutoRegen.hpp"
@@ -185,17 +186,55 @@ void Actor::cancelAction()
 
 void Actor::takeDamage(OptRef<Actor> emitter, double const amount)
 {
-    if (!isAlive() || amount == 0)
+    if (!isAlive() || amount <= 0)
         return;
 
-    if (emitter && amount > 0)
+    auto & stats = *component<Stats>();
+    auto & curHp = stats[StatId::CurHp];
+
+    if ((curHp -= amount) < 1) // almost zero HPs is considered zero HPs
+        curHp = 0;
+
+    if (emitter)
+    {
         _impl->attackerDamageAmounts[emitter->id()] += amount;
 
-    auto & stats = *component<Stats>();
-    auto & hp    = stats[StatId::CurHp] -= amount;
+        SC::ChatSystemSayPacket msg1{SystemMessageId::_1_HitYouFor_2_Damage};
+        msg1.appendName(emitter);
+        msg1.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
+        World::send(*this, std::move(msg1));
 
-    /**/ if (hp < 1)                    hp = 0;
-    else if (hp > stats[StatId::MaxHp]) hp = stats[StatId::MaxHp];
+        SC::ChatSystemSayPacket msg2{SystemMessageId::YouHitFor_1_Damage};
+        msg2.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
+        World::send(emitter, std::move(msg2));
+    }
+}
+
+void Actor::heal(Actor const & emitter, double const amount)
+{
+    auto       & stats = *component<Stats>();
+    auto       & curHp = stats[StatId::CurHp];
+    auto const   maxHp = stats[StatId::MaxHp];
+
+    auto const recovered = curHp + amount > maxHp ? maxHp - curHp : amount;
+
+    if ((curHp += amount) > maxHp)
+        curHp = maxHp;
+
+    if (recovered > 0) // Do not send message if no HP actually recovered
+    {
+        SC::ChatSystemSayPacket msg1{SystemMessageId::_1_HpHaveBeenRestored};
+        msg1.appendArg(SysMsgArg::Number{static_cast<u32>(recovered)});
+        World::send(*this, std::move(msg1));
+
+        if (emitter != *this)
+        {
+            SC::ChatSystemSayPacket msg2{SystemMessageId::_2sHpHasBeenRestoredBy_1};
+            msg2.appendArg(SysMsgArg::Text{emitter.name()});
+            msg2.appendArg(SysMsgArg::Text{name()});
+            World::send(emitter, std::move(msg2));
+        }
+    }
 }
 
 void Actor::die()

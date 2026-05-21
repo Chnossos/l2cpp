@@ -4,12 +4,16 @@
 #pragma once
 
 // Project includes
-#include "_Common.hpp"
 #include "../game/World.hpp"
 #include "../game/actor/Character.hpp"
 #include "../game/components/Gear.hpp"
-#include "../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
+#include "../network/packets/server/chat/ChatSystemSayPacket.hpp"
 #include "../network/packets/server/inventory/InventoryUpdatePacket.hpp"
+#include "../network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp"
+#include "../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
+#include "_Common.hpp"
+
+#include <l2cpp/utils/Enum.hpp>
 
 // C++ includes
 #include <ranges>
@@ -33,11 +37,23 @@ DEFINE_PACKET_HANDLER(ItemUnequip)
         {
             InventoryUpdatePacket p;
 
-            for (auto const & i : transaction.oldItems | std::views::values)
-                p.appendModifiedItem(i);
+            for (Item const & oldItem : transaction.oldItems | std::views::values)
+            {
+                p.appendModifiedItem(oldItem);
+
+
+                using enum ItemCategory;
+                if (l2cpp::Utils::Enum::isAnyOf(oldItem.tmplate.category, Armor, Accessory, Weapon))
+                {
+                    ChatSystemSayPacket msg{SystemMessageId::_1_HasBeenDisarmed};
+                    msg.appendArg(SysMsgArg::ItemName{oldItem.tmplate.id});
+                    player.connection().send(msg);
+                }
+            }
 
             player.connection().send(p);
-            World::broadcastAround(c, CharacterStatusUpdatePacket(c), true);
+            player.connection().send(CharacterStatusUpdatePacket{c});
+            World::broadcastAround(c, CharacterStatusUpdateBroadcastPacket{c});
         }
     }
 }
