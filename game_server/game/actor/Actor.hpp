@@ -92,6 +92,7 @@ public:
     void cancelAction();
 
     void takeDamage(OptRef<Actor> emitter, double amount);
+    void heal(Actor const & emitter, double amount);
     void die();
     void revive();
 

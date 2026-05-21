@@ -184,50 +184,50 @@ void Actor::cancelAction()
     _impl->nextAction.reset();
 }
 
-void Actor::takeDamage(OptRef<Actor> emitter, double amount)
+void Actor::takeDamage(OptRef<Actor> emitter, double const amount)
 {
-    if (!isAlive() || amount == 0)
+    if (!isAlive() || amount <= 0)
         return;
 
-    auto       & stats = *component<Stats>();
-    auto const   maxHp = stats[StatId::MaxHp];
-    auto       & curHp = stats[StatId::CurHp];
+    auto & stats = *component<Stats>();
+    auto & curHp = stats[StatId::CurHp];
 
-    if (amount > 0) // damage
+    if ((curHp -= amount) < 1) // almost zero HPs is considered zero HPs
+        curHp = 0;
+
+    if (emitter)
     {
-        if ((curHp -= amount) < 1) // almost zero HPs is considered zero HPs
-            curHp = 0;
+        _impl->attackerDamageAmounts[emitter->id()] += amount;
 
-        if (emitter)
-        {
-            _impl->attackerDamageAmounts[emitter->id()] += amount;
-
-            SC::ChatSystemSayPacket p{SystemMessageId::YouHitFor_1_Damage};
-            p.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
-            World::send(emitter, std::move(p));
-        }
+        SC::ChatSystemSayPacket p{SystemMessageId::YouHitFor_1_Damage};
+        p.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
+        World::send(emitter, std::move(p));
     }
-    else // heal
+}
+
+void Actor::heal(Actor const & emitter, double const amount)
+{
+    auto       & stats = *component<Stats>();
+    auto       & curHp = stats[StatId::CurHp];
+    auto const   maxHp = stats[StatId::MaxHp];
+
+    auto const recovered = curHp + amount > maxHp ? maxHp - curHp : amount;
+
+    if ((curHp += amount) > maxHp)
+        curHp = maxHp;
+
+    if (recovered > 0) // Do not send message if no HP actually recovered
     {
-        amount = std::abs(amount); // Help with readability and debugging
+        SC::ChatSystemSayPacket msg1{SystemMessageId::_1_HpHaveBeenRestored};
+        msg1.appendArg(SysMsgArg::Number{static_cast<u32>(recovered)});
+        World::send(*this, std::move(msg1));
 
-        auto const recovered = curHp + amount > maxHp ? maxHp - curHp : amount;
-        if ((curHp += amount) > maxHp)
-            curHp = maxHp;
-
-        if (emitter && recovered > 0) // Do not send message if no HP actually recovered
+        if (emitter != *this)
         {
-            SC::ChatSystemSayPacket msg1{SystemMessageId::_1_HpHaveBeenRestored};
-            msg1.appendArg(SysMsgArg::Number{static_cast<u32>(recovered)});
-            World::send(*this, std::move(msg1));
-
-            if (*emitter != *this)
-            {
-                SC::ChatSystemSayPacket msg2{SystemMessageId::_2sHpHasBeenRestoredBy_1};
-                msg2.appendArg(SysMsgArg::Text{emitter->name()});
-                msg2.appendArg(SysMsgArg::Text{name()});
-                World::send(emitter, std::move(msg2));
-            }
+            SC::ChatSystemSayPacket msg2{SystemMessageId::_2sHpHasBeenRestoredBy_1};
+            msg2.appendArg(SysMsgArg::Text{emitter.name()});
+            msg2.appendArg(SysMsgArg::Text{name()});
+            World::send(emitter, std::move(msg2));
         }
     }
 }
