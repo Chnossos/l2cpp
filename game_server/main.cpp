@@ -20,6 +20,7 @@ int main(int const argc, char const * const argv[])
 #endif
 
     setupLogger();
+    SPDLOG_INFO("Starting {} version {}", L2CPP_SUBPROJECT_NAME, L2CPP_VERSION);
 
     {
         // std::locale const currentLocale(getCurrentLocale());
