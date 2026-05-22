@@ -6,7 +6,7 @@
 // Project includes
 #include "../../Typedefs.hpp"
 
-enum class SocialAction : u32
+enum class SocialActionId : u32
 {
     Hello            =  2,
     Victory          =  3,
@@ -21,5 +21,6 @@ enum class SocialAction : u32
     Dance            = 12,
     Sad              = 13,
 
-    LevelUpAnimation = 15,
+    LevelUpAnimation        = 15,
+    HeroNominationAnimation = 16,
 };

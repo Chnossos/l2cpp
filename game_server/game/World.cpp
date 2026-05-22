@@ -33,7 +33,7 @@
 #include "components/Position.hpp"
 #include "constants/Profession.hpp"
 #include "constants/Sex.hpp"
-#include "constants/SocialAction.hpp"
+#include "constants/SocialActionId.hpp"
 #include "constants/SystemMessageId.hpp"
 #include "ecs/System.hpp"
 #include "lobby/CharacterCreationParameters.hpp"
