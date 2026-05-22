@@ -5,6 +5,7 @@
 
 // Project includes
 #include "../game/World.hpp"
+#include "../game/actions/SocialAction.hpp"
 #include "../game/actor/Character.hpp"
 #include "../game/actor/Monster.hpp"
 #include "../game/actor/NpcDirectory.hpp"
@@ -141,5 +142,13 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand)
             c.status().setXp(nbr);
         else
             c.status().setSp(nbr);
+    }
+    else if (args[0] == L"social")
+    {
+        std::wistringstream iss(text);
+        std::wstring cmd;
+        u32 actionId;
+        iss >> cmd >> actionId;
+        c.doNext<SocialAction>(static_cast<SocialActionId>(actionId));
     }
 }
