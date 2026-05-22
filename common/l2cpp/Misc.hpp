@@ -3,11 +3,13 @@
 
 #pragma once
 
+// Project includes
+#include "Typedefs.hpp"
+
+// C++ includes
 #include <memory>
 #include <span>
 #include <string>
-
-#include "Typedefs.hpp"
 
 namespace l2cpp
 {

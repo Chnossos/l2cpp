@@ -201,6 +201,7 @@ int main() try
 
     spdlog::set_pattern("[%^%R:%S.%e%$] [%L] %v [%s:%#]");
     spdlog::set_level(spdlog::level::trace);
+    SPDLOG_INFO("Starting {} version {}", L2CPP_SUBPROJECT_NAME, L2CPP_VERSION);
 
     SPDLOG_INFO("Initializing database…");
     Database::init({"sql/accounts.sql", "sql/ls_data.sql"});

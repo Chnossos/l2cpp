@@ -9,6 +9,10 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.27.0] - 2026-05-22
+### Added
+- Display project name and version on program startup
+
 ## [0.26.2] - 2026-05-22
 ### Fixed
 - Broadcast max distance was way too low (client makes actors disappear from 6000 units onward)
