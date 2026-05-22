@@ -9,6 +9,11 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.26.1] - 2026-05-22
+### Fixed
+- Client can actually send 2-bytes OpCodes
+- ManorList OpCode was wrong
+
 ## [0.26.0] - 2026-05-22
 ### Added
 - Player can request and perform social actions
