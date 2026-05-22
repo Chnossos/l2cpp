@@ -22,6 +22,7 @@ namespace Network
         InventoryOpen               = 0x0f,
         ItemUnequip                 = 0x11,
         ItemUse                     = 0x14,
+        SocialActionPerform         = 0x1b,
         SkillUse                    = 0x2f,
         UiShortcutSet               = 0x33,
         UiShortcutUnset             = 0x35,

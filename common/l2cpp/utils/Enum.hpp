@@ -22,6 +22,13 @@ namespace l2cpp::Utils::Enum
             && std::to_underlying(index)  < std::to_underlying(end);
     }
 
+    template<typename E> requires std::is_enum_v<E>
+    constexpr bool isInContiguousInclusiveRange(E index, E start, E end)
+    {
+        return std::to_underlying(index) >= std::to_underlying(start)
+            && std::to_underlying(index) <= std::to_underlying(end);
+    }
+
     template<typename E, typename... Args> requires (std::is_enum_v<E> && ... && std::is_same_v<E, Args>)
     constexpr bool isAnyOf(E value, E arg1, Args... args)
     {

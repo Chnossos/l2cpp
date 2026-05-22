@@ -31,6 +31,7 @@ namespace Handler
     HANDLER(QuestList)
     HANDLER(SkillList)
     HANDLER(SkillUse)
+    HANDLER(SocialActionPerform)
     HANDLER(TargetClear)
     HANDLER(UiConfirmationModalAnswer)
     HANDLER(UiShortcutSet)
@@ -63,6 +64,7 @@ std::unordered_map<byte, std::pair<PacketHandler, std::string_view>> gPacketHand
     HANDLER(QuestList),
     HANDLER(SkillList),
     HANDLER(SkillUse),
+    HANDLER(SocialActionPerform),
     HANDLER(TargetClear),
     HANDLER(UiConfirmationModalAnswer),
     HANDLER(UiShortcutSet),
