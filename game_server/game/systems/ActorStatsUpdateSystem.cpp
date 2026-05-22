@@ -83,7 +83,7 @@ void ActorStatsUpdateSystem::updateCharacterStatus(SC::StatsUpdatePacket & priva
     {
         privatePacket.addStat(Stat::Level, newStatus.level());
         if (newStatus.level() > oldStatus.level())
-            World::broadcastAround(c, SC::SocialActionPerformPacket{c, SocialAction::LevelUpAnimation}, true);
+            World::broadcastAround(c, SC::SocialActionPerformPacket{c, SocialActionId::LevelUpAnimation}, true);
     }
 }
 

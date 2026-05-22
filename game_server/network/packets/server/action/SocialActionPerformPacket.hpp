@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/constants/SocialAction.hpp"
+#include "../../../../game/constants/SocialActionId.hpp"
 
 #include <l2cpp/network/Packet.hpp>
 
@@ -14,5 +14,5 @@ namespace Network::Packet::Server { struct SocialActionPerformPacket; }
 
 struct Network::Packet::Server::SocialActionPerformPacket final : public l2cpp::Network::Packet
 {
-    SocialActionPerformPacket(Actor const & performer, SocialAction actionId);
+    SocialActionPerformPacket(Actor const & performer, SocialActionId actionId);
 };

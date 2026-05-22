@@ -8,7 +8,7 @@
 
 using Network::Packet::Server::SocialActionPerformPacket;
 
-SocialActionPerformPacket::SocialActionPerformPacket(Actor const & performer, SocialAction const actionId)
+SocialActionPerformPacket::SocialActionPerformPacket(Actor const & performer, SocialActionId const actionId)
     : Packet(0x2d, "SocialActionPerform")
 {
     *this

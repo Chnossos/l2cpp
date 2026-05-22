@@ -3,11 +3,10 @@
 
 #pragma once
 
-// Project includes
-
 enum class ActionType
 {
     Move,
     Attack,
     Skill,
+    Social,
 };
