@@ -5,13 +5,15 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 
 ## [Unreleased]
 In no particular order:
-- More system messages so the game feels more alive (especially during combat);
 - Restore buffs on reconnection;
 - Move static data from files to database;
-- Social actions;
 - Skill usage prerequisites + effects conditions.
 
-## [0.5.0] - 2026-05-22
+## [0.26.0] - 2026-05-22
+### Added
+- Player can request and perform social actions
+
+## [0.25.0] - 2026-05-21
 ### Added
 - Skill usage message
 - Skill effect on/off messages 

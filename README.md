@@ -25,16 +25,16 @@ Unless explicitely specified, don't assume anything to be available. Here's what
 - [x] Server list always displays 2 server (to test one up, one down), both lead to game server.
 
 **Game Server**
-- [x] Protocol `656` only; 
-- [x] Character creation (with starting items);
-- [x] World entering (every character spawns at Talking Island);
-- [x] Moving around;
-- [x] Inventory list (gear items can be equipped and unequipped);
-- [x] Mini-map;
-- [x] Character status;
-- [x] Target select and unselect;
-- [x] game loop to handle over-time actions and updates (regen, auto-attacks, DoTs…);
-- [x] Skills list (admins can use `//learn <skill_id> <skill_level>` command);
+- [x] Protocol `656` only 
+- [x] Character creation (with starting items)
+- [x] World entering (every character spawns at Talking Island)
+- [x] Moving around
+- [x] Inventory list (gear items can be equipped and unequipped)
+- [x] Mini-map
+- [x] Character status
+- [x] Target select and unselect
+- [x] game loop to handle over-time actions and updates (regen, auto-attacks, DoTs…)
+- [x] Skills list (admins can use `//learn <skill_id> <skill_level>` command)
 - [x] Skill use, available effects:
   - Instant buff (e.g. `Wind Walk`)
   - Toggle buff (e.g. `Super Haste`)
@@ -43,16 +43,17 @@ Unless explicitely specified, don't assume anything to be available. Here's what
   - Instant heal (e.g. `Battle Heal`)
   - Heal over time (e.g. `Chant of Life`)
   - Resurrection (e.g. `Mass Resurrection`)
-- [x] Skill target types: `self`, `single`, `aoe`, `aura`
+- [x] Skill target types: `self`, `single`, `aura`, `aoe`
 - [x] Skill target nature (can be combined): `self`, `ennemy`, `friendly`, `corpse`, `character`, `monster`, `npc`, etc. 
-- [x] Skill casting cancellation with ESC key;
-- [x] Shortcuts: `skill`, `item`, `action`;
-- [x] Chat (no restrictions);
-- [x] Auto-attacking (until target is dead);
-- [x] Status (health, mana…) modifications broadcasting (once per world update);
-- [x] In-game time;
-- [x] Corpse removal after a few seconds;
-- [x] System messages and confirmation modals (eg. for resurrection);
+- [x] Skill casting cancellation with ESC key
+- [x] Shortcuts: `skill`, `item`, `action`
+- [x] Chat (no restrictions)
+- [x] Auto-attacking (until target is dead)
+- [x] Status (health, mana…) modifications broadcasting (once per world update)
+- [x] In-game time
+- [x] Corpse removal after a few seconds
+- [x] System messages and confirmation modals (e.g. for resurrection)
+- [x] Social actions
 
 ## What's coming next
 
