@@ -8,7 +8,7 @@
 
 namespace Network
 {
-    enum class ClientOpCode : byte
+    enum class ClientOpCode : PacketOpCode
     {
         Protocol                    = 0x00,
         Move                        = 0x01,
@@ -36,6 +36,7 @@ namespace Network
         QuestList                   = 0x63,
         UiConfirmationModalAnswer   = 0xc5,
         MiniMapShow                 = 0xcd,
-        ManorList                   = 0xd0,
+
+        ManorList                   = 0x08d0,
     };
 }
