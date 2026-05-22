@@ -13,4 +13,4 @@ class Player;
 
 using PacketHandler = void(*)(Player &);
 
-extern std::unordered_map<byte, std::pair<PacketHandler, std::string_view>> gPacketHandlers;
+extern std::unordered_map<PacketOpCode, std::pair<PacketHandler, std::string_view>> gPacketHandlers;

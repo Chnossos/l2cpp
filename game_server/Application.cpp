@@ -200,14 +200,19 @@ void Application::ApplicationImpl::onSocketAccepted(boost::asio::ip::tcp::socket
 
     auto onPacketReceived = [&player] (std::span<byte const> const buffer)
     {
-        auto const size   = *reinterpret_cast<PacketHeader const *>(buffer.data());
-        auto const opCode = buffer[sizeof(size)]; // client opcode is always one byte
-        auto const body   = buffer.subspan(sizeof(size) + sizeof(opCode));
+        auto const size = *reinterpret_cast<PacketHeader const *>(buffer.data());
+
+        PacketOpCode opCode;
+        if (buffer[sizeof(size)] == 0xd0)
+            opCode = *reinterpret_cast<PacketOpCode const *>(buffer.data() + sizeof(size));
+        else
+            opCode = buffer[sizeof(size)];
+
+        auto const body = buffer.subspan(sizeof(size) + (opCode > 0xff ? 2 : 1));
 
         if (auto const it = gPacketHandlers.find(opCode); it != gPacketHandlers.end())
         {
             auto const & [handler, handlerName] = it->second;
-
             if (opCode > 0xff)
                 SPDLOG_INFO("'{}' → 0x{:04x} ({:4} bytes) ({})", player.connection().id(), opCode, size, handlerName);
             else
@@ -224,7 +229,11 @@ void Application::ApplicationImpl::onSocketAccepted(boost::asio::ip::tcp::socket
         }
         else
         {
-            SPDLOG_WARN("'{}' → 0x{:02x}   ({:4} bytes) (?)", player.connection().id(), opCode, size);
+            if (opCode > 0xff)
+                SPDLOG_WARN("'{}' → 0x{:04x} ({:4} bytes) (?)", player.connection().id(), opCode, size);
+            else
+                SPDLOG_WARN("'{}' → 0x{:02x}   ({:4} bytes) (?)", player.connection().id(), opCode, size);
+
             hexdump(body);
         }
 
