@@ -162,13 +162,13 @@ namespace
         SQLite::Statement query{Database::instance(), R"(
             SELECT
                 id
-              , template_id
-              , quantity
-              , enchant_level
+                 , template_id
+                 , quantity
+                 , enchant_level
             FROM
                 items
             WHERE
-                owner_id = :character_id AND storage_id = 0 AND equipped = FALSE
+                owner_id = :character_id AND storage_id = 0 AND (equipped IS NULL OR equipped == FALSE)
         )"};
         query.bind(":character_id", characterId);
 
@@ -213,6 +213,8 @@ namespace
             }
         }
 
+        // Delete all shortcuts that have been emptied during the game session (could be all of them)
+
         std::string queryText = R"(
             DELETE FROM
                 character_shortcuts
@@ -231,6 +233,7 @@ namespace
         query.bind(":profession",   std::to_underlying(c.profession()));
         L2CPP_F_ASSERT([&] { query.exec(); }, "Failed to remove emptied shortcuts");
 
+        // Update existing shortcut entries with current values
         query = SQLite::Statement{Database::instance(), R"(
             INSERT OR REPLACE INTO character_shortcuts
                 ( character_id,  profession, "index",  type,  target_id)
