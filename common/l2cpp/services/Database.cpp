@@ -11,6 +11,8 @@ void Database::init(std::vector<std::filesystem::path> const & files)
 {
     auto & db = instance();
 
+    L2CPP_F_ASSERT([&db] { db.exec("PRAGMA foreign_keys = ON"); }, "Failed to enable foreign keys check");
+
     for (auto const & path : files)
         db.exec(Utils::readWholeTextFile(path));
 }

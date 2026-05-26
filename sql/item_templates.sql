@@ -6,8 +6,9 @@ CREATE TABLE IF NOT EXISTS item_templates (
   , gear_slot INTEGER NOT NULL
 );
 
-INSERT OR REPLACE INTO item_templates VALUES
+INSERT OR IGNORE INTO item_templates VALUES
 (1345, 'Shining Arrow',            5, 5, 256),
+(5588, 'Tutorial Guide',           5, 0, 0),
 (6377, 'Imperial Crusader Shield', 0, 5, 256),
 (6408, 'Formal Wear',              1, 0, 131072),
 (6611, 'Infinity Blade',           0, 5, 128),

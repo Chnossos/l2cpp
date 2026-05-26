@@ -73,6 +73,7 @@ bool Application::ApplicationImpl::load() const try
         "sql/characters.sql",
         "sql/character_previews.sql",
         "sql/character_professions.sql",
+        "sql/character_statuses.sql",
         "sql/character_shortcuts.sql",
         "sql/item_templates.sql",
         "sql/items.sql",
