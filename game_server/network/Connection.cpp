@@ -191,13 +191,13 @@ void Connection::send(l2cpp::Network::Packet & p, std::source_location const & s
         auto const name = p.name().empty() ? "?" : p.name();
         if (p.opCode() > 0xff)
         {
-            SPDLOG_INFO("'{}' ← 0x{:04x} ({:4} bytes) ({}) (from {}:{})", _impl->id, p.opCode(), p.opCode(), p.size(),
+            SPDLOG_INFO("'{}' ← 0x{:04x} ({:4} bytes) ({}) (from {}:{})", _impl->id, p.opCode(), p.size(),
                        name, std::filesystem::path(src.file_name()).filename().string(), src.line());
         }
         else
         {
-            SPDLOG_INFO("'{}' ← 0x{:02x}   ({:4} bytes) ({}) (from {}:{})", _impl->id, p.opCode(), p.opCode(), p.size(),
-                       name, std::filesystem::path(src.file_name()).filename().string(), src.line());
+            SPDLOG_INFO("'{}' ← 0x{:02x}   ({:4} bytes) ({}) (from {}:{})", _impl->id, p.opCode(), p.size(),
+                        name, std::filesystem::path(src.file_name()).filename().string(), src.line());
         }
 
         if constexpr (Config::hexdumpPackets)
