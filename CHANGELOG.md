@@ -9,6 +9,10 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.27.1] - 2026-05-26
+### Fixed
+- Packet OpCode was displayed in place of packet size in logs
+
 ## [0.27.0] - 2026-05-22
 ### Added
 - Display project name and version on program startup
