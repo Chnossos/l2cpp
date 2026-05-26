@@ -7,6 +7,5 @@ CREATE TABLE IF NOT EXISTS character_statuses (
   , mp           INTEGER NOT NULL
   , cp           INTEGER NOT NULL
   , PRIMARY KEY (character_id, profession)
-  , FOREIGN KEY (character_id) REFERENCES characters            (id)         ON DELETE CASCADE
-  , FOREIGN KEY (profession)   REFERENCES character_professions (profession) ON DELETE CASCADE
+  , FOREIGN KEY (character_id, profession) REFERENCES character_professions (character_id, profession) ON DELETE CASCADE
 );
