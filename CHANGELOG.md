@@ -9,6 +9,16 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.28.0] - 2026-05-26
+### Added
+- Starting items can be assigned globally, and/or per profession
+
+### Changed
+- Database foreign key checks enabled
+
+### Fixed
+- `character_statuses.sql` was missing during database initialization
+
 ## [0.27.1] - 2026-05-26
 ### Fixed
 - Packet OpCode was displayed in place of packet size in logs
