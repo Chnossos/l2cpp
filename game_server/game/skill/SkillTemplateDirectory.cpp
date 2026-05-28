@@ -172,7 +172,7 @@ namespace
             }
             else if (id == 1254) // Mass Resurrection
             {
-                skill.setTargetType(SkillTargetType::AoE);
+                skill.setTargetType(SkillTargetType::Multiple);
                 skill.setTargetNature(Corpse | Character);
                 skill.addAbnormalEffectFactory<ResurrectionEffectFactory>();
             }
@@ -185,7 +185,7 @@ namespace
             }
             else if (id == 1295) // Aqua Splash
             {
-                skill.setTargetType(SkillTargetType::AoE);
+                skill.setTargetType(SkillTargetType::Multiple);
                 skill.setTargetNature(Ennemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Water, 41);
             }

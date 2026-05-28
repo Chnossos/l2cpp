@@ -139,7 +139,7 @@ void SkillAction::updateImpl(ClockDuration const elapsed)
     // TODO: ensure target is still valid
 
     using enum SkillTargetType;
-    if (l2cpp::Utils::Enum::isAnyOf(_impl->skill.targetType(), AoE, Aura) &&
+    if (l2cpp::Utils::Enum::isAnyOf(_impl->skill.targetType(), Multiple, Aura) &&
         Utils::Chrono::thresholdCrossed(_impl->castingElapsed, elapsed, _impl->notifyTargetsTrigger))
     {
         selectTargets();
@@ -174,7 +174,7 @@ void SkillAction::selectTargets()
     auto const targetType = _impl->skill.targetType();
 
     using enum SkillTargetType;
-    if (!l2cpp::Utils::Enum::isAnyOf(targetType, AoE, Aura))
+    if (!l2cpp::Utils::Enum::isAnyOf(targetType, Multiple, Aura))
         return;
 
     if (targetType == Aura && Utils::Target::isValidTarget(performer(), _impl->skill, performer(), _impl->forceAttack))

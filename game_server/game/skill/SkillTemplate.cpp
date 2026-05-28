@@ -38,7 +38,7 @@ auto SkillTemplate::isMagic()      const -> bool              { return _isMagic;
 
 auto SkillTemplate::needsTarget() const -> bool
 {
-    return l2cpp::Utils::Enum::isAnyOf(_targetType, SkillTargetType::Single, SkillTargetType::AoE);
+    return l2cpp::Utils::Enum::isAnyOf(_targetType, SkillTargetType::Single, SkillTargetType::Multiple);
 }
 
 auto SkillTemplate::castDuration()     const -> ClockDuration     { return _castDuration;     }

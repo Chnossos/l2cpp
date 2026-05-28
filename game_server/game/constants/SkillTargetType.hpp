@@ -13,11 +13,11 @@ enum class SkillTargetType
     /// <b>Examples:</b> <i>Wind Strike</i>, <i>Resurrection</i>…
     Single,
 
+    /// Skill effects apply to and around the target.
+    /// <b>Examples:</b> <i>Aqua Splash</i>, <i>Mass Resurrection</i>…
+    Multiple,
+
     /// Skill effects apply to and around self, no target needed.
     /// <b>Examples:</b> <i>Group Heal</i>, <i>Chant of Life</i>…
     Aura,
-
-    /// Skill effects apply to and around the target.
-    /// <b>Examples:</b> <i>Aqua Splash</i>, <i>Mass Resurrection</i>…
-    AoE,
 };
