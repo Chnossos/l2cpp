@@ -53,6 +53,7 @@ Actor::Actor(ActorType const type)
     auto & skills = addComponent<SkillDirectory>();
     skills.learn(18,   1); // Hate Aura
     skills.learn(78,   1); // War Cry
+    skills.learn(81,   1); // Punch of Doom
     skills.learn(129,  1); // Poison
     skills.learn(1016, 1); // Resurrection
     skills.learn(1027, 1); // Group Heal

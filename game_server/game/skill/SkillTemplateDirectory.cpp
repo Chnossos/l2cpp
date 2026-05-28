@@ -121,6 +121,13 @@ namespace
                 skill.setTargetNature(Self);
                 skill.addAbnormalEffectFactory<BuffEffectFactory>(20s, StatId::PAtkMultiplier, .2);
             }
+            else if (id == 81) // Punch of Doom
+            {
+                skill.setTargetType(EffectTargetType::Single);
+                skill.setTargetNature(Ennemy);
+                skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Fire, 9214);
+                // skill.addAbnormalEffectFactory< StateEffectFactory>(StateModifier::Shock, 9s);
+            }
             else if (id == 129) // Poison
             {
                 skill.setTargetType(EffectTargetType::Single);
