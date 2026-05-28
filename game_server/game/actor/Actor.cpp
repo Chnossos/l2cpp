@@ -61,6 +61,7 @@ Actor::Actor(ActorType const type)
     skills.learn(1216, 1); // Self Heal
     skills.learn(1217, 1); // Greater Heal
     skills.learn(1229, 1); // Chant of Life
+    skills.learn(1231, 1); // Aura Flare
     skills.learn(1254, 1); // Mass Resurrection
     skills.learn(1256, 1); // Heart of Paagrio
     skills.learn(1295, 1); // Aqua Splash

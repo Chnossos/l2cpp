@@ -170,6 +170,13 @@ namespace
                 skill.setTargetNature(Self | Party);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(12, 15s, 1s);
             }
+            else if (id == 1231) // Aura Flare
+            {
+                skill.setTargetType(EffectTargetType::Single);
+                skill.setTargetNature(Ennemy);
+                skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Neutral, 39);
+                skill.addAbnormalEffectFactory<  BuffEffectFactory>(3s, StatId::MDefMultiplier, .5);
+            }
             else if (id == 1254) // Mass Resurrection
             {
                 skill.setTargetType(EffectTargetType::Multiple);
