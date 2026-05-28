@@ -3,7 +3,7 @@
 
 #pragma once
 
-enum class SkillTargetType
+enum class EffectTargetType
 {
     /// Skill effects automatically apply to self only, no target needed.
     /// <b>Examples:</b> <i>War Cry</i>, <i>Self Heal</i>…

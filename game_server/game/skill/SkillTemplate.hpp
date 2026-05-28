@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
+#include "../constants/EffectTargetType.hpp"
 #include "../constants/SkillTargetNature.hpp"
-#include "../constants/SkillTargetType.hpp"
 #include "../constants/SkillType.hpp"
 #include "../effects/factories/AbnormalEffectFactory.hpp"
 #include "SkillUid.hpp"
@@ -25,7 +25,7 @@ public:
     auto fullName()         const -> std::string_view;
     auto level()            const -> SkillLevel;
     auto type()             const -> SkillType;
-    auto targetType()       const -> SkillTargetType;
+    auto targetType()       const -> EffectTargetType;
     auto targetNature()     const -> SkillTargetNature;
     auto isMagic()          const -> bool;
     auto needsTarget()      const -> bool;
@@ -34,11 +34,11 @@ public:
     auto effects()          const -> std::span<std::unique_ptr<AbnormalEffectFactory> const>;
 
 public:
-    void setType(SkillType type);
-    void setTargetType(SkillTargetType type);
-    void setTargetNature(SkillTargetNature nature);
-    void setIsMagic(bool isMagic);
-    void setCastDuration(ClockDuration castDuration);
+    void setType(SkillType);
+    void setTargetType(EffectTargetType);
+    void setTargetNature(SkillTargetNature);
+    void setIsMagic(bool);
+    void setCastDuration(ClockDuration);
 
     template<class T> requires std::is_base_of_v<AbnormalEffectFactory, T>
     void addAbnormalEffectFactory(auto &&... args) {
@@ -52,7 +52,7 @@ private:
     SkillId           _id;
     SkillLevel        _level;
     SkillType         _type;
-    SkillTargetType   _targetType;
+    EffectTargetType  _targetType;
     SkillTargetNature _targetNature;
     std::string       _name;
     std::string       _fullName;

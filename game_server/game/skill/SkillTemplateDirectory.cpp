@@ -113,7 +113,7 @@ namespace
 
             /**/ if (id == 18) // Hate Aura
             {
-                skill.setTargetType(SkillTargetType::Aura);
+                skill.setTargetType(EffectTargetType::Aura);
                 skill.setTargetNature(Ennemy);
             }
             else if (id == 78) // War Cry
@@ -123,25 +123,25 @@ namespace
             }
             else if (id == 129) // Poison
             {
-                skill.setTargetType(SkillTargetType::Single);
+                skill.setTargetType(EffectTargetType::Single);
                 skill.setTargetNature(Ennemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Poison, 72, 30s, 3s);
             }
             else if (id == 1016) // Resurrection
             {
-                skill.setTargetType(SkillTargetType::Single);
+                skill.setTargetType(EffectTargetType::Single);
                 skill.setTargetNature(Corpse | Character);
                 skill.addAbnormalEffectFactory<ResurrectionEffectFactory>();
             }
             else if (id == 1027) // Group Heal
             {
-                skill.setTargetType(SkillTargetType::Aura);
+                skill.setTargetType(EffectTargetType::AuraIncludingSelf);
                 skill.setTargetNature(Self | Party | Character);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(66);
             }
             else if (id == 1177) // Wind Strike
             {
-                skill.setTargetType(SkillTargetType::Single);
+                skill.setTargetType(EffectTargetType::Single);
                 // skill.setTargetNature(Ennemy);
                 // skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Wind, 12);
                 skill.setTargetNature(Self | Ennemy);
@@ -149,43 +149,43 @@ namespace
             }
             else if (id == 1204) // Wind Walk
             {
-                skill.setTargetType(SkillTargetType::Single);
+                skill.setTargetType(EffectTargetType::Single);
                 skill.setTargetNature(Self | Friendly | Ennemy);
                 skill.addAbnormalEffectFactory<BuffEffectFactory>(20s, StatId::MoveSpeedBonus, 33);
             }
             else if (id == 1216) // Self Heal
             {
-                skill.setTargetType(SkillTargetType::Self);
+                skill.setTargetType(EffectTargetType::Self);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(42);
             }
             else if (id == 1217) // Greater Heal
             {
-                skill.setTargetType(SkillTargetType::Single);
+                skill.setTargetType(EffectTargetType::Single);
                 skill.setTargetNature(Self | Friendly | Ennemy);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(371);
             }
             else if (id == 1229) // Chant of Life
             {
-                skill.setTargetType(SkillTargetType::Aura);
+                skill.setTargetType(EffectTargetType::AuraIncludingSelf);
                 skill.setTargetNature(Self | Party);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(12, 15s, 1s);
             }
             else if (id == 1254) // Mass Resurrection
             {
-                skill.setTargetType(SkillTargetType::Multiple);
+                skill.setTargetType(EffectTargetType::Multiple);
                 skill.setTargetNature(Corpse | Character);
                 skill.addAbnormalEffectFactory<ResurrectionEffectFactory>();
             }
             else if (id == 1256) // Heart of Paagrio
             {
-                skill.setTargetType(SkillTargetType::Aura);
+                skill.setTargetType(EffectTargetType::AuraIncludingSelf);
                 skill.setTargetNature(Self | Party | Clan | Alliance);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(91);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(31, 15s, 1s);
             }
             else if (id == 1295) // Aqua Splash
             {
-                skill.setTargetType(SkillTargetType::Multiple);
+                skill.setTargetType(EffectTargetType::Multiple);
                 skill.setTargetNature(Ennemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Water, 41);
             }

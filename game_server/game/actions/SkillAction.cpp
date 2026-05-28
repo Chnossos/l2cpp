@@ -82,7 +82,7 @@ void SkillAction::onStarted()
     }
 
     OptRef<Actor> target;
-    if (_impl->skill.targetType() == SkillTargetType::Self)
+    if (_impl->skill.targetType() == EffectTargetType::Self)
     {
         target = performer();
     }
@@ -138,7 +138,7 @@ void SkillAction::updateImpl(ClockDuration const elapsed)
 {
     // TODO: ensure target is still valid
 
-    using enum SkillTargetType;
+    using enum EffectTargetType;
     if (l2cpp::Utils::Enum::isAnyOf(_impl->skill.targetType(), Multiple, Aura) &&
         Utils::Chrono::thresholdCrossed(_impl->castingElapsed, elapsed, _impl->notifyTargetsTrigger))
     {
@@ -173,7 +173,7 @@ void SkillAction::selectTargets()
 {
     auto const targetType = _impl->skill.targetType();
 
-    using enum SkillTargetType;
+    using enum EffectTargetType;
     if (!l2cpp::Utils::Enum::isAnyOf(targetType, Multiple, Aura))
         return;
 
