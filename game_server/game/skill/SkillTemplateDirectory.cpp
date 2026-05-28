@@ -187,7 +187,7 @@ namespace
             else if (id == 1254) // Mass Resurrection
             {
                 skill.setTargetType(EffectTargetType::Multiple);
-                skill.setTargetNature(Corpse | Character);
+                skill.setTargetNature(Corpse | Character | Friendly);
                 skill.addAbnormalEffectFactory<ResurrectionEffectFactory>();
             }
             else if (id == 1256) // Heart of Paagrio
