@@ -20,7 +20,7 @@ bool Utils::Target::isValidTarget(Actor const & emitter, SkillTemplate const & s
         return false;
 
     if (target == emitter)
-        return targetNature & Self;
+        return targetNature & Self || targetNature & Party || targetNature & Clan || targetNature & Alliance;
 
     if (targetNature & Corpse)
     {

@@ -143,7 +143,7 @@ namespace
             else if (id == 1027) // Group Heal
             {
                 skill.setTargetType(EffectTargetType::AuraIncludingSelf);
-                skill.setTargetNature(Self | Party | Character);
+                skill.setTargetNature(Party);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(66);
             }
             else if (id == 1177) // Wind Strike
@@ -174,7 +174,7 @@ namespace
             else if (id == 1229) // Chant of Life
             {
                 skill.setTargetType(EffectTargetType::AuraIncludingSelf);
-                skill.setTargetNature(Self | Party);
+                skill.setTargetNature(Party);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(12, 15s, 1s);
             }
             else if (id == 1231) // Aura Flare
@@ -193,7 +193,7 @@ namespace
             else if (id == 1256) // Heart of Paagrio
             {
                 skill.setTargetType(EffectTargetType::AuraIncludingSelf);
-                skill.setTargetNature(Self | Party | Clan | Alliance);
+                skill.setTargetNature(Party | Clan | Alliance);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(91);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(31, 15s, 1s);
             }
