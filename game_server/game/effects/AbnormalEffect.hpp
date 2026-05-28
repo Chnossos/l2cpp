@@ -59,7 +59,7 @@ private:
     "default_name": "Wind Walk",
     "category": "active/magic",
     "target_type": "Single",
-    "target_nature": ["Self", "Friendly", "Ennemy"],
+    "target_nature": ["Self", "Friendly", "Enemy"],
     "cast_duration": 4000,
     "cooldown": 6000,
     "cast_range": 400,

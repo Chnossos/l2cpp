@@ -44,7 +44,7 @@ Unless explicitely specified, don't assume anything to be available. Here's what
   - Heal over time (e.g. `Chant of Life`)
   - Resurrection (e.g. `Mass Resurrection`)
 - [x] Skill target types: `self`, `single`, `aura`, `aoe`
-- [x] Skill target nature (can be combined): `self`, `ennemy`, `friendly`, `corpse`, `character`, `monster`, `npc`, etc. 
+- [x] Skill target nature (can be combined): `self`, `enemy`, `friendly`, `corpse`, `character`, `monster`, `npc`, etc. 
 - [x] Skill casting cancellation with ESC key
 - [x] Shortcuts: `skill`, `item`, `action`
 - [x] Chat (no restrictions)

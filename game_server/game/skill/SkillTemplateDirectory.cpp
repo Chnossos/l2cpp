@@ -114,7 +114,7 @@ namespace
             /**/ if (id == 18) // Hate Aura
             {
                 skill.setTargetType(EffectTargetType::Aura);
-                skill.setTargetNature(Ennemy);
+                skill.setTargetNature(Enemy);
             }
             else if (id == 78) // War Cry
             {
@@ -124,14 +124,14 @@ namespace
             else if (id == 81) // Punch of Doom
             {
                 skill.setTargetType(EffectTargetType::Single);
-                skill.setTargetNature(Ennemy);
+                skill.setTargetNature(Enemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Fire, 9214);
                 // skill.addAbnormalEffectFactory< StateEffectFactory>(StateModifier::Shock, 9s);
             }
             else if (id == 129) // Poison
             {
                 skill.setTargetType(EffectTargetType::Single);
-                skill.setTargetNature(Ennemy);
+                skill.setTargetNature(Enemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Poison, 72, 30s, 3s);
             }
             else if (id == 1016) // Resurrection
@@ -149,15 +149,15 @@ namespace
             else if (id == 1177) // Wind Strike
             {
                 skill.setTargetType(EffectTargetType::Single);
-                // skill.setTargetNature(Ennemy);
+                // skill.setTargetNature(Enemy);
                 // skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Wind, 12);
-                skill.setTargetNature(Self | Ennemy);
+                skill.setTargetNature(Self | Enemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Wind, 120);
             }
             else if (id == 1204) // Wind Walk
             {
                 skill.setTargetType(EffectTargetType::Single);
-                skill.setTargetNature(Self | Friendly | Ennemy);
+                skill.setTargetNature(Self | Friendly | Enemy);
                 skill.addAbnormalEffectFactory<BuffEffectFactory>(20s, StatId::MoveSpeedBonus, 33);
             }
             else if (id == 1216) // Self Heal
@@ -168,7 +168,7 @@ namespace
             else if (id == 1217) // Greater Heal
             {
                 skill.setTargetType(EffectTargetType::Single);
-                skill.setTargetNature(Self | Friendly | Ennemy);
+                skill.setTargetNature(Self | Friendly | Enemy);
                 skill.addAbnormalEffectFactory<HealEffectFactory>(371);
             }
             else if (id == 1229) // Chant of Life
@@ -180,7 +180,7 @@ namespace
             else if (id == 1231) // Aura Flare
             {
                 skill.setTargetType(EffectTargetType::Single);
-                skill.setTargetNature(Ennemy);
+                skill.setTargetNature(Enemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Neutral, 39);
                 skill.addAbnormalEffectFactory<  BuffEffectFactory>(3s, StatId::MDefMultiplier, .5);
             }
@@ -200,7 +200,7 @@ namespace
             else if (id == 1295) // Aqua Splash
             {
                 skill.setTargetType(EffectTargetType::Multiple);
-                skill.setTargetNature(Ennemy);
+                skill.setTargetNature(Enemy);
                 skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Water, 41);
             }
             else if (id == 7029) // Super Haste

@@ -137,7 +137,7 @@ In no particular order:
 - **Skill:**
   - Load operating type (active, passive, etc.)
   - Load physical/magical status
-  - Split target type (single target, AoE, aura…) from target nature (ennemy, friendly, self…)
+  - Split target type (single target, AoE, aura…) from target nature (enemy, friendly, self…)
   - Demonstration skills: instant buff, toggle buff, single target damage, multiple targets damage, poison over time…
   - Casting speed is dependent on mAtkSpeed/pAtkSpeed depending on physical/magical status
 - **Abnormal Effects:**

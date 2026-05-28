@@ -7,7 +7,7 @@ enum class SkillTargetNature
 {
     None        = 0b0000000000000000, ///< Skill is animation only
     Self        = 0b0000000000000001, ///< Target can be self
-    Ennemy      = 0b0000000000000010, ///< Target can be an ennemy (opponent, clan war, monster…)
+    Enemy       = 0b0000000000000010, ///< Target can be an enemy (opponent, clan war, monster…)
     Friendly    = 0b0000000000000100, ///< Target can be friendly (same team, party, clan…)
     Corpse      = 0b0000000000001000, ///< Target can be a corpse
     Character   = 0b0000000000010000, ///< Target can be a character

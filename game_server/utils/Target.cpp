@@ -47,7 +47,7 @@ bool Utils::Target::isValidTarget(Actor const & emitter, SkillTemplate const & s
             return (targetNature & Friendly || forceAttack) || targetNature & Character;
 
         case ActorType::Monster:
-            return targetNature & Ennemy || targetNature & Monster;
+            return targetNature & Enemy || targetNature & Monster;
     }
 
     return false;
