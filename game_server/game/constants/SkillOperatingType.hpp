@@ -3,7 +3,7 @@
 
 #pragma once
 
-enum class SkillType
+enum class SkillOperatingType
 {
     Unknown = -1,
     Active,

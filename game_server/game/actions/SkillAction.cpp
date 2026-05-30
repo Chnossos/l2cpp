@@ -27,6 +27,7 @@
 
 namespace SC = Network::Packet::Server;
 using enum EffectTargetType;
+using enum SkillOperatingType;
 using l2cpp::Utils::Enum::isAnyOf;
 using Utils::Target::isValidTarget;
 
@@ -51,8 +52,8 @@ SkillAction::SkillAction(Actor & performer, SkillTemplate const & skill, bool co
     : Action(ActionType::Skill, performer)
     , _impl(skill, forceAttack)
 {
-    L2CPP_B_ASSERT(l2cpp::Utils::Enum::isAnyOf(_impl->skill.type(), SkillType::Active, SkillType::Toggle),
-                   "Unsupported skill type '{}'", std::to_underlying(_impl->skill.type()));
+    L2CPP_B_ASSERT(isAnyOf(_impl->skill.operatingType(), Active, Toggle),
+                   "Unsupported skill oeprating type '{}'", std::to_underlying(_impl->skill.operatingType()));
 
     auto const target = performer.target();
     L2CPP_B_ASSERT(!skill.needsTarget() || target, "Skill '{}' needs a target", skill.id());
@@ -74,7 +75,7 @@ void SkillAction::onStarted()
     if (!performer().isAlive())
         return setFinished(true);
 
-    if (_impl->skill.type() == SkillType::Toggle)
+    if (_impl->skill.operatingType() == Toggle)
     {
         _impl->targets[_impl->skill.targetType()].emplace_back(performer());
 

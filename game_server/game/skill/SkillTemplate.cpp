@@ -15,7 +15,7 @@
 SkillTemplate::SkillTemplate(SkillId const id, std::string name, SkillLevel const lvl)
     : _id(id)
     , _level(lvl)
-    , _type(SkillType::Unknown)
+    , _operatingType(SkillOperatingType::Unknown)
     , _name(std::move(name))
     , _fullName(std::format("{} lv. {}", _name, _level))
     , _icon(std::format("icon.skill{:04}", _id))
@@ -24,13 +24,13 @@ SkillTemplate::SkillTemplate(SkillId const id, std::string name, SkillLevel cons
     , _cooldownDuration(ClockDuration::zero())
 {}
 
-auto SkillTemplate::uid()          const -> SkillUid          { return {_id, _level}; }
-auto SkillTemplate::id()           const -> SkillId           { return _id;           }
-auto SkillTemplate::name()         const -> std::string_view  { return _name;         }
-auto SkillTemplate::fullName()     const -> std::string_view  { return _fullName;     }
-auto SkillTemplate::level()        const -> SkillLevel        { return _level;        }
-auto SkillTemplate::type()         const -> SkillType         { return _type;         }
-auto SkillTemplate::targetType()   const -> EffectTargetType
+auto SkillTemplate::uid()           const -> SkillUid           { return {_id, _level};  }
+auto SkillTemplate::id()            const -> SkillId            { return _id;            }
+auto SkillTemplate::name()          const -> std::string_view   { return _name;          }
+auto SkillTemplate::fullName()      const -> std::string_view   { return _fullName;      }
+auto SkillTemplate::level()         const -> SkillLevel         { return _level;         }
+auto SkillTemplate::operatingType() const -> SkillOperatingType { return _operatingType; }
+auto SkillTemplate::targetType()    const -> EffectTargetType
 {
     return _effects.empty() ? EffectTargetType::Self : _effects.front()->targetType();
 }
@@ -51,9 +51,9 @@ auto SkillTemplate::cooldownDuration() const -> ClockDuration { return _cooldown
 
 auto SkillTemplate::effects() const -> std::span<std::unique_ptr<EffectFactory> const> { return _effects; }
 
-void SkillTemplate::setType(SkillType const type)                     { _type         = type;         }
-void SkillTemplate::setIsMagic(bool const isMagic)                    { _isMagic      = isMagic;      }
-void SkillTemplate::setCastDuration(ClockDuration const castDuration) { _castDuration = castDuration; }
+void SkillTemplate::setOperatingType(SkillOperatingType const type)   { _operatingType = type;         }
+void SkillTemplate::setIsMagic(bool const isMagic)                    { _isMagic       = isMagic;      }
+void SkillTemplate::setCastDuration(ClockDuration const castDuration) { _castDuration  = castDuration; }
 
 void SkillTemplate::applyEffects(Actor & source, Actor & target) const
 {
@@ -64,7 +64,7 @@ void SkillTemplate::applyEffects(Actor & source, Actor & target) const
     auto v = effects | std::views::filter([this] (auto const & effect) { return effect->skillUid() == uid(); });
     std::ranges::for_each(v, [] (auto const & effect) { return effect->cancel(); });
 
-    if (!v.empty() && _type == SkillType::Toggle)
+    if (!v.empty() && _operatingType == SkillOperatingType::Toggle)
         return; // Avoid restarting a skill we just toggled off
 
     for (auto const & e : _effects)

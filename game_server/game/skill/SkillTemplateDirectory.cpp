@@ -96,15 +96,15 @@ namespace
             {
                 case SkillOperateType::ActiveTarget:
                 case SkillOperateType::ActiveNoTarget:
-                    skill.setType(SkillType::Active);
+                    skill.setOperatingType(SkillOperatingType::Active);
                     break;
 
                 case SkillOperateType::Passive:
-                    skill.setType(SkillType::Passive);
+                    skill.setOperatingType(SkillOperatingType::Passive);
                     break;
 
                 case SkillOperateType::Toggle:
-                    skill.setType(SkillType::Toggle);
+                    skill.setOperatingType(SkillOperatingType::Toggle);
                     break;
             }
 
@@ -189,7 +189,7 @@ namespace
             }
             else if (id == 7029) // Super Haste
             {
-                skill.setType(SkillType::Toggle); // Enforce toggle mode for this one because it makes more sense
+                skill.setOperatingType(SkillOperatingType::Toggle); // Enforce toggle mode for this one because it makes more sense
                 skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::MoveSpeedMultiplier, 5);
                 skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::PAtkSpeedMultiplier, 5);
                 skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::MAtkSpeedMultiplier, 5);

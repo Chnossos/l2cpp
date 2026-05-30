@@ -29,7 +29,7 @@ DEFINE_PACKET_HANDLER(SkillUse) try
 
     // Skill is activatable
     using l2cpp::Utils::Enum::isAnyOf;
-    updateCanCast(isAnyOf(skill->tmplate().type(), SkillType::Active, SkillType::Toggle));
+    updateCanCast(isAnyOf(skill->tmplate().operatingType(), SkillOperatingType::Active, SkillOperatingType::Toggle));
 
     // Caster is alive and ready to start (or queue) a new skill
     using enum ActorState;

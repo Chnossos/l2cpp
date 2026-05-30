@@ -16,7 +16,7 @@ SkillListPacket::SkillListPacket(SkillDirectory const & skills)
     for (auto const & skill : skills | std::views::values)
     {
         *this
-            << (skill.tmplate().type() == SkillType::Passive ? 1 : 0)
+            << (skill.tmplate().operatingType() == SkillOperatingType::Passive ? 1 : 0)
             << static_cast<u32>(skill.tmplate().level())
             << static_cast<u32>(skill.tmplate().id())
         ;

@@ -5,8 +5,8 @@
 
 // Project includes
 #include "../constants/EffectTargetType.hpp"
+#include "../constants/SkillOperatingType.hpp"
 #include "../constants/SkillTargetNature.hpp"
-#include "../constants/SkillType.hpp"
 #include "../effects/factories/EffectFactory.hpp"
 #include "SkillUid.hpp"
 
@@ -24,7 +24,7 @@ public:
     auto name()             const -> std::string_view;
     auto fullName()         const -> std::string_view;
     auto level()            const -> SkillLevel;
-    auto type()             const -> SkillType;
+    auto operatingType()    const -> SkillOperatingType;
     auto targetType()       const -> EffectTargetType;
     auto targetNature()     const -> SkillTargetNature;
     auto needsTarget()      const -> bool;
@@ -34,7 +34,7 @@ public:
     auto effects()          const -> std::span<std::unique_ptr<EffectFactory> const>;
 
 public:
-    void setType(SkillType);
+    void setOperatingType(SkillOperatingType);
     void setIsMagic(bool);
     void setCastDuration(ClockDuration);
 
@@ -50,15 +50,15 @@ private:
     void addEffectFactoryImpl(std::unique_ptr<EffectFactory>);
 
 private:
-    SkillId           _id;
-    SkillLevel        _level;
-    SkillType         _type;
-    std::string       _name;
-    std::string       _fullName;
-    std::string       _icon;
-    bool              _isMagic;
-    ClockDuration     _castDuration;
-    ClockDuration     _cooldownDuration;
+    SkillId            _id;
+    SkillLevel         _level;
+    SkillOperatingType _operatingType;
+    std::string        _name;
+    std::string        _fullName;
+    std::string        _icon;
+    bool               _isMagic;
+    ClockDuration      _castDuration;
+    ClockDuration      _cooldownDuration;
 
     std::vector<std::unique_ptr<EffectFactory>> _effects;
 };
