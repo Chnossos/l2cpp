@@ -17,8 +17,8 @@ HealEffectFactory::HealEffectFactory(
   , ClockDuration     const   tickDuration
   , ClockDuration     const   initialTriggerDuration
 )
-    : AbnormalEffectFactory{
-        AbnormalEffectType::Damage, skillTemplate, targetType, targetNature,
+    : EffectFactory{
+        EffectType::Damage, skillTemplate, targetType, targetNature,
         totalDuration, tickDuration, initialTriggerDuration
     }
     , _power{power}
@@ -26,6 +26,6 @@ HealEffectFactory::HealEffectFactory(
 
 void HealEffectFactory::apply(Actor & source, Actor & target)
 {
-    target.addAbnormalEffect<HealEffect>(source, target, _skillTemplate.uid(), _power,
-                                         _totalDuration, _tickDuration, _initialTriggerDuration);
+    target.addEffect<HealEffect>(source, target, _skillTemplate.uid(), _power,
+                                 _totalDuration, _tickDuration, _initialTriggerDuration);
 }

@@ -5,9 +5,9 @@
 
 // Project includes
 #include "../../constants/DamageElementType.hpp"
-#include "AbnormalEffectFactory.hpp"
+#include "EffectFactory.hpp"
 
-class DamageEffectFactory : public AbnormalEffectFactory
+class DamageEffectFactory : public EffectFactory
 {
 public:
     DamageEffectFactory(

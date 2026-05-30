@@ -15,9 +15,8 @@ HealEffect::HealEffect(
   , ClockDuration const   tickDuration
   , ClockDuration const   initialTriggerDuration
 )
-    : AbnormalEffect(AbnormalEffectType::Heal, source, target, skillUid,
-                     effectDuration, tickDuration, initialTriggerDuration)
-    , _healAmount(healAmount)
+    : Effect{EffectType::Heal, source, target, skillUid, effectDuration, tickDuration, initialTriggerDuration}
+    , _healAmount{healAmount}
 {}
 
 void HealEffect::onTick()

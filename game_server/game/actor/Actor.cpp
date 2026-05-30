@@ -32,7 +32,7 @@ struct Actor::ActorImpl
     OptRef<Actor> target;
     std::unique_ptr<Action> currentAction, nextAction;
 
-    std::list<std::unique_ptr<AbnormalEffect>> _abnormalEffects;
+    std::list<std::unique_ptr<Effect>> _effects;
 
     DamageDealtTable attackerDamageAmounts;
 };
@@ -149,13 +149,8 @@ auto Actor::currentAction() -> OptRef<Action>
 
 auto Actor::nextAction() -> OptRef<Action> { return _impl->nextAction ? OptRef(*_impl->nextAction) : std::nullopt; }
 
-auto Actor::abnormalEffects() -> std::list<std::unique_ptr<AbnormalEffect>> & {
-    return _impl->_abnormalEffects;
-}
-
-auto Actor::abnormalEffects() const -> std::list<std::unique_ptr<AbnormalEffect>> const & {
-    return _impl->_abnormalEffects;
-}
+auto Actor::effects()       -> std::list<std::unique_ptr<Effect>>       & { return _impl->_effects; }
+auto Actor::effects() const -> std::list<std::unique_ptr<Effect>> const & { return _impl->_effects; }
 
 auto Actor::attackerDamageAmounts() const -> DamageDealtTable const & {
     return _impl->attackerDamageAmounts;
@@ -241,7 +236,7 @@ void Actor::heal(Actor const & emitter, double const amount)
 
 void Actor::die()
 {
-    _impl->_abnormalEffects.clear();
+    _impl->_effects.clear();
     fire onAbnormalEffectListChanged();
 
     delComponent<ActorAutoRegen>();
@@ -282,4 +277,4 @@ void Actor::doNext(std::unique_ptr<Action> action)
         _impl->nextAction = std::move(action);
 }
 
-void Actor::addAbnormalEffect(std::unique_ptr<AbnormalEffect> e) { _impl->_abnormalEffects.emplace_back(std::move(e)); }
+void Actor::addEffect(std::unique_ptr<Effect> e) { _impl->_effects.emplace_back(std::move(e)); }

@@ -13,10 +13,10 @@ ResurrectionEffectFactory::ResurrectionEffectFactory(
   , EffectTargetType  const   targetType
   , SkillTargetNature const   targetNature
 )
-    : AbnormalEffectFactory{AbnormalEffectType::Resurrection, skillTemplate, targetType, targetNature}
+    : EffectFactory{EffectType::Resurrection, skillTemplate, targetType, targetNature}
 {}
 
 void ResurrectionEffectFactory::apply(Actor & source, Actor & target)
 {
-    target.addAbnormalEffect<ResurrectionEffect>(source, target, _skillTemplate.uid());
+    target.addEffect<ResurrectionEffect>(source, target, _skillTemplate.uid());
 }

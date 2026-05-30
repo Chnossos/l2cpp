@@ -4,15 +4,20 @@
 #pragma once
 
 // Project includes
-#include "AbnormalEffect.hpp"
+#include "Effect.hpp"
 
-class HealEffect : public AbnormalEffect
+class HealEffect : public Effect
 {
 public:
-    HealEffect(Actor & source, Actor & target, SkillUid skillUid, StatValue healAmount,
-               ClockDuration effectDuration         = ClockDuration::zero(),
-               ClockDuration tickDuration           = ClockDuration::zero(),
-               ClockDuration initialTriggerDuration = ClockDuration::zero());
+    HealEffect(
+        Actor         & source
+      , Actor         & target
+      , SkillUid        skillUid
+      , StatValue       healAmount
+      , ClockDuration   effectDuration         = ClockDuration::zero()
+      , ClockDuration   tickDuration           = ClockDuration::zero()
+      , ClockDuration   initialTriggerDuration = ClockDuration::zero()
+    );
 
 private:
     void onTick() override;

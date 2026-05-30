@@ -4,9 +4,9 @@
 #pragma once
 
 // Project includes
-#include "AbnormalEffectFactory.hpp"
+#include "EffectFactory.hpp"
 
-class HealEffectFactory : public AbnormalEffectFactory
+class HealEffectFactory : public EffectFactory
 {
 public:
     HealEffectFactory(

@@ -5,19 +5,21 @@
 
 // Project includes
 #include "../constants/DamageElementType.hpp"
-#include "AbnormalEffect.hpp"
+#include "Effect.hpp"
 
-class DamageEffect : public AbnormalEffect
+class DamageEffect : public Effect
 {
 public:
-    DamageEffect(Actor             & source,
-                 Actor             & target,
-                 SkillUid            skillUid,
-                 DamageElementType   type,
-                 StatValue           damage,
-                 ClockDuration       effectDuration         = ClockDuration::zero(),
-                 ClockDuration       tickDuration           = ClockDuration::zero(),
-                 ClockDuration       initialTriggerDuration = ClockDuration::zero());
+    DamageEffect(
+        Actor             & source
+      , Actor             & target
+      , SkillUid            skillUid
+      , DamageElementType   type
+      , StatValue           damage
+      , ClockDuration       effectDuration         = ClockDuration::zero()
+      , ClockDuration       tickDuration           = ClockDuration::zero()
+      , ClockDuration       initialTriggerDuration = ClockDuration::zero()
+    );
 
 private:
     void onTick() override;

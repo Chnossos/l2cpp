@@ -32,9 +32,9 @@ BuffEffect::BuffEffect(
   , StatId        const   modifiedStat
   , StatValue     const   value
 )
-    : AbnormalEffect(AbnormalEffectType::Buff, source, target, skillUid, duration)
-    , _modifiedStat(modifiedStat)
-    , _value(value)
+    : Effect{EffectType::Buff, source, target, skillUid, duration}
+    , _modifiedStat{modifiedStat}
+    , _value{value}
 {}
 
 void BuffEffect::onStarted()

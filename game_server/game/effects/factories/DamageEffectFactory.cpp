@@ -18,17 +18,15 @@ DamageEffectFactory::DamageEffectFactory(
   , ClockDuration     const   tickDuration
   , ClockDuration     const   initialTriggerDuration
 )
-    : AbnormalEffectFactory{
-        AbnormalEffectType::Damage, skillTemplate, targetType, targetNature,
-        totalDuration, tickDuration, initialTriggerDuration
-    }
+    : EffectFactory{EffectType::Damage, skillTemplate, targetType, targetNature,
+                    totalDuration, tickDuration, initialTriggerDuration}
     , _elementType{elementType}
     , _power{power}
 {}
 
 void DamageEffectFactory::apply(Actor & source, Actor & target)
 {
-    target.addAbnormalEffect<DamageEffect>(source, target, _skillTemplate.uid(), _elementType, _power,
-                                           _totalDuration, _tickDuration, _initialTriggerDuration);
+    target.addEffect<DamageEffect>(source, target, _skillTemplate.uid(), _elementType, _power,
+                                   _totalDuration, _tickDuration, _initialTriggerDuration);
 }
 

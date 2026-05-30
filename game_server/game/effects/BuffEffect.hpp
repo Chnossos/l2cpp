@@ -4,13 +4,19 @@
 #pragma once
 
 // Project includes
-#include "AbnormalEffect.hpp"
+#include "Effect.hpp"
 
-class BuffEffect : public AbnormalEffect
+class BuffEffect : public Effect
 {
 public:
-    BuffEffect(Actor & source, Actor & target, SkillUid skillUid,
-               ClockDuration duration, StatId modifiedStat, StatValue value);
+    BuffEffect(
+        Actor         & source
+      , Actor         & target
+      , SkillUid        skillUid
+      , ClockDuration   duration
+      , StatId          modifiedStat
+      , StatValue       value
+    );
 
 private:
     void onStarted() override;

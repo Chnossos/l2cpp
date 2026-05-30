@@ -49,7 +49,7 @@ auto SkillTemplate::isMagic()          const -> bool          { return _isMagic;
 auto SkillTemplate::castDuration()     const -> ClockDuration { return _castDuration;     }
 auto SkillTemplate::cooldownDuration() const -> ClockDuration { return _cooldownDuration; }
 
-auto SkillTemplate::effects() const -> std::span<std::unique_ptr<AbnormalEffectFactory> const> { return _effects; }
+auto SkillTemplate::effects() const -> std::span<std::unique_ptr<EffectFactory> const> { return _effects; }
 
 void SkillTemplate::setType(SkillType const type)                     { _type         = type;         }
 void SkillTemplate::setIsMagic(bool const isMagic)                    { _isMagic      = isMagic;      }
@@ -57,7 +57,7 @@ void SkillTemplate::setCastDuration(ClockDuration const castDuration) { _castDur
 
 void SkillTemplate::applyEffects(Actor & source, Actor & target) const
 {
-    auto & effects = target.abnormalEffects();
+    auto & effects = target.effects();
 
     // FIXME: do not apply buff if already applied but applied power is superior than the one we try to apply (got it?)
 
@@ -69,4 +69,9 @@ void SkillTemplate::applyEffects(Actor & source, Actor & target) const
 
     for (auto const & e : _effects)
         e->apply(source, target);
+}
+
+void SkillTemplate::addEffectFactoryImpl(std::unique_ptr<EffectFactory> factory)
+{
+    _effects.emplace_back(std::move(factory));
 }

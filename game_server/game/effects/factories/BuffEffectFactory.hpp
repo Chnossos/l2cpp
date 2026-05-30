@@ -5,9 +5,9 @@
 
 // Project includes
 #include "../../constants/StatId.hpp"
-#include "AbnormalEffectFactory.hpp"
+#include "EffectFactory.hpp"
 
-class BuffEffectFactory : public AbnormalEffectFactory
+class BuffEffectFactory : public EffectFactory
 {
 public:
     BuffEffectFactory(

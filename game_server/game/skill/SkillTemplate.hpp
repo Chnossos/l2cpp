@@ -7,7 +7,7 @@
 #include "../constants/EffectTargetType.hpp"
 #include "../constants/SkillTargetNature.hpp"
 #include "../constants/SkillType.hpp"
-#include "../effects/factories/AbnormalEffectFactory.hpp"
+#include "../effects/factories/EffectFactory.hpp"
 #include "SkillUid.hpp"
 
 // C++ includes
@@ -31,20 +31,23 @@ public:
     auto isMagic()          const -> bool;
     auto castDuration()     const -> ClockDuration;
     auto cooldownDuration() const -> ClockDuration;
-    auto effects()          const -> std::span<std::unique_ptr<AbnormalEffectFactory> const>;
+    auto effects()          const -> std::span<std::unique_ptr<EffectFactory> const>;
 
 public:
     void setType(SkillType);
     void setIsMagic(bool);
     void setCastDuration(ClockDuration);
 
-    template<class T> requires std::is_base_of_v<AbnormalEffectFactory, T>
-    void addAbnormalEffectFactory(auto &&... args) {
-        _effects.emplace_back(std::make_unique<T>(*this, std::forward<decltype(args)>(args)...));
+    template<class T> requires std::is_base_of_v<EffectFactory, T>
+    void addEffectFactory(auto &&... args) {
+        addEffectFactoryImpl(std::make_unique<T>(*this, std::forward<decltype(args)>(args)...));
     }
 
 public:
     void applyEffects(Actor & source, Actor & target) const;
+
+private:
+    void addEffectFactoryImpl(std::unique_ptr<EffectFactory>);
 
 private:
     SkillId           _id;
@@ -57,5 +60,5 @@ private:
     ClockDuration     _castDuration;
     ClockDuration     _cooldownDuration;
 
-    std::vector<std::unique_ptr<AbnormalEffectFactory>> _effects;
+    std::vector<std::unique_ptr<EffectFactory>> _effects;
 };

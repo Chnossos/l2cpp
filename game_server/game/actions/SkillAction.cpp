@@ -80,7 +80,7 @@ void SkillAction::onStarted()
 
         // Only send message on toggled-on, not toggled-off
         auto const matchToggle = [this] (auto const & e) { return e->skillUid() == _impl->skill.uid(); };
-        if (std::ranges::none_of(performer().abnormalEffects(), matchToggle))
+        if (std::ranges::none_of(performer().effects(), matchToggle))
             sendUseSkillSystemMessage();
 
         // Toggle skills don't have a cast animation, we can skip to applying the effects

@@ -113,91 +113,86 @@ namespace
 
             /**/ if (id == 18) // Hate Aura
             {
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(
-                    Type::Aura, Nature::Enemy, DamageElementType::Neutral, 0);
+                skill.addEffectFactory<DamageEffectFactory>(Type::Aura, Nature::Enemy, DamageElementType::Neutral, 0);
             }
             else if (id == 78) // War Cry
             {
-                skill.addAbnormalEffectFactory<BuffEffectFactory>(
-                    Type::Self, Nature::Self, 20s, StatId::PAtkMultiplier, .2);
+                skill.addEffectFactory<BuffEffectFactory>(Type::Self, Nature::Self, 20s, StatId::PAtkMultiplier, .2);
             }
             else if (id == 81) // Punch of Doom
             {
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(
-                    Type::Single, Nature::Enemy, DamageElementType::Fire, 9214);
+                skill.addEffectFactory<DamageEffectFactory>(Type::Single, Nature::Enemy, DamageElementType::Fire, 9214);
 
-                // skill.addAbnormalEffectFactory<StateEffectFactory>(
+                // skill.addEffectFactory<StateEffectFactory>(
                 //  Type::Self, Nature::Self, StateModifier::Shock, 9s);
             }
             else if (id == 129) // Poison
             {
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(
+                skill.addEffectFactory<DamageEffectFactory>(
                     Type::Single, Nature::Enemy, DamageElementType::Poison, 72, 30s, 3s);
             }
             else if (id == 1016) // Resurrection
             {
-                skill.addAbnormalEffectFactory<ResurrectionEffectFactory>(
-                    Type::Single, Nature::Corpse | Nature::Character);
+                skill.addEffectFactory<ResurrectionEffectFactory>(Type::Single, Nature::Corpse | Nature::Character);
             }
             else if (id == 1027) // Group Heal
             {
-                skill.addAbnormalEffectFactory<HealEffectFactory>(Type::AuraIncludingSelf, Nature::Party, 66);
+                skill.addEffectFactory<HealEffectFactory>(Type::AuraIncludingSelf, Nature::Party, 66);
             }
             else if (id == 1177) // Wind Strike
             {
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(
+                skill.addEffectFactory<DamageEffectFactory>(
                     Type::Single, Nature::Self | Nature::Enemy, DamageElementType::Wind, 120);
             }
             else if (id == 1204) // Wind Walk
             {
-                skill.addAbnormalEffectFactory<BuffEffectFactory>(
+                skill.addEffectFactory<BuffEffectFactory>(
                     Type::Single, Nature::Self | Nature::Friendly | Nature::Enemy, 20s, StatId::MoveSpeedBonus, 33);
             }
             else if (id == 1216) // Self Heal
             {
-                skill.addAbnormalEffectFactory<HealEffectFactory>(Type::Self, Nature::Self, 42);
+                skill.addEffectFactory<HealEffectFactory>(Type::Self, Nature::Self, 42);
             }
             else if (id == 1217) // Greater Heal
             {
-                skill.addAbnormalEffectFactory<HealEffectFactory>(
+                skill.addEffectFactory<HealEffectFactory>(
                     Type::Single, Nature::Self | Nature::Friendly | Nature::Enemy, 371);
             }
             else if (id == 1229) // Chant of Life
             {
-                skill.addAbnormalEffectFactory<HealEffectFactory>(Type::AuraIncludingSelf, Nature::Party, 12, 15s, 1s);
+                skill.addEffectFactory<HealEffectFactory>(Type::AuraIncludingSelf, Nature::Party, 12, 15s, 1s);
             }
             else if (id == 1231) // Aura Flare
             {
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(
+                skill.addEffectFactory<DamageEffectFactory>(
                     Type::Single, Nature::Enemy, DamageElementType::Neutral, 39);
 
-                skill.addAbnormalEffectFactory<BuffEffectFactory>(
-                    Type::Self, Nature::Self, 3s, StatId::MDefMultiplier, .5);
+                skill.addEffectFactory<BuffEffectFactory>(Type::Self, Nature::Self, 3s, StatId::MDefMultiplier, .5);
             }
             else if (id == 1254) // Mass Resurrection
             {
-                skill.addAbnormalEffectFactory<ResurrectionEffectFactory>(
+                skill.addEffectFactory<ResurrectionEffectFactory>(
                     Type::Multiple, Nature::Corpse | Nature::Character | Nature::Friendly);
             }
             else if (id == 1256) // Heart of Paagrio
             {
-                skill.addAbnormalEffectFactory<HealEffectFactory>(
+                skill.addEffectFactory<HealEffectFactory>(
                     Type::AuraIncludingSelf, Nature::Party | Nature::Clan | Nature::Alliance, 91);
 
-                skill.addAbnormalEffectFactory<HealEffectFactory>(
+                skill.addEffectFactory<HealEffectFactory>(
                     Type::AuraIncludingSelf, Nature::Party | Nature::Clan | Nature::Alliance, 31, 15s, 1s);
             }
             else if (id == 1295) // Aqua Splash
             {
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(
+                skill.addEffectFactory<DamageEffectFactory>(
                     Type::Multiple, Nature::Enemy, DamageElementType::Water, 41);
             }
             else if (id == 7029) // Super Haste
             {
                 skill.setType(SkillType::Toggle); // Enforce toggle mode for this one because it makes more sense
-                skill.addAbnormalEffectFactory<ToggleBuffEffectFactory>(StatId::MoveSpeedMultiplier, 5);
-                skill.addAbnormalEffectFactory<ToggleBuffEffectFactory>(StatId::PAtkSpeedMultiplier, 5);
-                skill.addAbnormalEffectFactory<ToggleBuffEffectFactory>(StatId::MAtkSpeedMultiplier, 5);
+                skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::MoveSpeedMultiplier, 5);
+                skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::PAtkSpeedMultiplier, 5);
+                skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::MAtkSpeedMultiplier, 5);
             }
         }
         catch (l2cpp::Exception const & e)
