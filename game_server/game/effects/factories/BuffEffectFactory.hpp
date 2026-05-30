@@ -10,13 +10,20 @@
 class BuffEffectFactory : public AbnormalEffectFactory
 {
 public:
-    BuffEffectFactory(SkillTemplate const & skillTemplate, ClockDuration duration, StatId modifiedStat, double value);
+    BuffEffectFactory(
+        SkillTemplate     const & skillTemplate
+      , EffectTargetType          targetType
+      , SkillTargetNature         targetNature
+      , ClockDuration             duration
+      , StatId                    modifiedStat
+      , StatValue                 value
+    );
 
 public:
     void apply(Actor & source, Actor & target) override;
 
 private:
-    StatId _modifiedStat;
-    double _value;
+    StatId    _modifiedStat;
+    StatValue _value;
 };
 

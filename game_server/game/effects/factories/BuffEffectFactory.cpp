@@ -9,14 +9,16 @@
 #include "../BuffEffect.hpp"
 
 BuffEffectFactory::BuffEffectFactory(
-    SkillTemplate const & skillTemplate
-  , ClockDuration const   duration
-  , StatId        const   modifiedStat
-  , double        const   value
+    SkillTemplate     const & skillTemplate
+  , EffectTargetType  const   targetType
+  , SkillTargetNature const   targetNature
+  , ClockDuration     const   duration
+  , StatId            const   modifiedStat
+  , StatValue         const   value
 )
-    : AbnormalEffectFactory(AbnormalEffectType::Buff, skillTemplate, duration)
-    , _modifiedStat(modifiedStat)
-    , _value(value)
+    : AbnormalEffectFactory{AbnormalEffectType::Buff, skillTemplate, targetType, targetNature, duration}
+    , _modifiedStat{modifiedStat}
+    , _value{value}
 {}
 
 void BuffEffectFactory::apply(Actor & source, Actor & target)

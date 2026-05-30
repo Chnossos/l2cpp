@@ -4,6 +4,7 @@
 #pragma once
 
 // Project includes
+#include "../constants/EffectTargetType.hpp"
 #include "Action.hpp"
 
 #include <l2cpp/Pimpl.hpp>
@@ -26,8 +27,11 @@ private:
     void updateImpl(ClockDuration) override;
     void onFinished() override;
     void onCanceled() override;
-    void selectTargets();
-    void sendUseSystemMessage() const;
+    void sendUseSkillSystemMessage() const;
+    void selectAoeTargets(EffectTargetType);
+    void adjustCastingDuration();
+    bool atLeastOneEffectAffectsSelf() const;
+    bool atLeastOneEffectIsAoe() const;
 
 private:
     struct SkillActionImpl;

@@ -8,6 +8,6 @@
 
 struct ToggleBuffEffectFactory : public BuffEffectFactory
 {
-    ToggleBuffEffectFactory(SkillTemplate const & skillTemplate, StatId modifiedStat, double value);
+    ToggleBuffEffectFactory(SkillTemplate const & skillTemplate, StatId modifiedStat, StatValue value);
 };
 

@@ -8,8 +8,12 @@
 #include "../../skill/SkillTemplate.hpp"
 #include "../ResurrectionEffect.hpp"
 
-ResurrectionEffectFactory::ResurrectionEffectFactory(SkillTemplate const & skillTemplate)
-    : AbnormalEffectFactory(AbnormalEffectType::Resurrection, skillTemplate)
+ResurrectionEffectFactory::ResurrectionEffectFactory(
+    SkillTemplate     const & skillTemplate
+  , EffectTargetType  const   targetType
+  , SkillTargetNature const   targetNature
+)
+    : AbnormalEffectFactory{AbnormalEffectType::Resurrection, skillTemplate, targetType, targetNature}
 {}
 
 void ResurrectionEffectFactory::apply(Actor & source, Actor & target)

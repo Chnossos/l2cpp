@@ -9,13 +9,17 @@
 AbnormalEffectFactory::AbnormalEffectFactory(
     AbnormalEffectType const   type
   , SkillTemplate      const & skillTemplate
+  , EffectTargetType   const   targetType
+  , SkillTargetNature  const   targetNature
   , ClockDuration      const   totalDuration
   , ClockDuration      const   tickDuration
   , ClockDuration      const   initialTriggerDuration
 )
-    : _skillTemplate(skillTemplate)
-    , _totalDuration(totalDuration)
-    , _tickDuration(tickDuration)
-    , _initialTriggerDuration(initialTriggerDuration)
-    , _type(type)
+    : _skillTemplate{skillTemplate}
+    , _totalDuration{totalDuration}
+    , _tickDuration{tickDuration}
+    , _initialTriggerDuration{initialTriggerDuration}
+    , _type{type}
+    , _targetType{targetType}
+    , _targetNature{targetNature}
 {}

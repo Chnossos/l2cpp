@@ -9,7 +9,11 @@
 class ResurrectionEffectFactory : public AbnormalEffectFactory
 {
 public:
-    explicit ResurrectionEffectFactory(SkillTemplate const & skillTemplate);
+    ResurrectionEffectFactory(
+        SkillTemplate     const & skillTemplate
+      , EffectTargetType          targetType
+      , SkillTargetNature         targetNature
+    );
 
 public:
     void apply(Actor & source, Actor & target) override;

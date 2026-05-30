@@ -6,7 +6,6 @@
 #include "../game/actor/Character.hpp"
 #include "../game/components/SkillDirectory.hpp"
 #include "../network/packets/server/action/ActionFailedPacket.hpp"
-#include "../utils/Target.hpp"
 #include "_Common.hpp"
 
 #include <l2cpp/utils/Enum.hpp>
@@ -33,12 +32,11 @@ DEFINE_PACKET_HANDLER(SkillUse) try
     updateCanCast(isAnyOf(skill->tmplate().type(), SkillType::Active, SkillType::Toggle));
 
     // Caster is alive and ready to start (or queue) a new skill
-    updateCanCast(c.isAlive() && isAnyOf(c.state, ActorState::Idle, ActorState::CombatIdle, ActorState::Casting));
+    using enum ActorState;
+    updateCanCast(c.isAlive() && isAnyOf(c.state, Idle, CombatIdle, Casting, Moving));
 
     // Skill doesn't need a target, or else target is valid at the time of the request
-    auto const target = c.target();
-    updateCanCast(!skill->tmplate().needsTarget() ||
-                  (target && Utils::Target::isValidTarget(c, skill->tmplate(), *target, forceAttack)));
+    updateCanCast(!skill->tmplate().needsTarget() || c.target());
 
     if (canCast)
         c.doNext<SkillAction>(skill->tmplate(), forceAttack);

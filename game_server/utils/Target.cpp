@@ -9,45 +9,36 @@
 
 #include <l2cpp/utils/EnumMask.hpp>
 
-bool Utils::Target::isValidTarget(Actor const & emitter, SkillTemplate const & skill,
-                                  Actor const & target, bool const forceAttack)
+bool Utils::Target::isValidTarget(Actor const & emitter, SkillTargetNature const targetNature,
+                                  Actor const & target, bool const forceAttack, bool const ignoreDeathStatus)
 {
     using enum SkillTargetNature;
 
-    EnumMask const targetNature = skill.targetNature();
+    EnumMask const nature = targetNature;
 
-    if (targetNature == None) [[unlikely]]
+    if (nature == None) [[unlikely]]
+        return false;
+
+    if (nature & Corpse)
+        return target.isAlive() ? false : isValidTarget(emitter, nature & ~Corpse, target, forceAttack, true);
+
+    if (!target.isAlive() && !ignoreDeathStatus)
         return false;
 
     if (target == emitter)
-        return targetNature & Self || targetNature & Party || targetNature & Clan || targetNature & Alliance;
+        return nature & Self || nature & Party || nature & Clan || nature & Alliance;
 
-    if (targetNature & Corpse)
-    {
-        if (target.isAlive())
-            return false;
-
-        switch (target.type())
-        {
-            case ActorType::Character: return targetNature & Character; // e.g. Ressurection      is Corpse | Character
-            case ActorType::Monster:   return targetNature & Monster;   // e.g. Corpse Life Drain is Corpse | Monster
-            case ActorType::Npc:       return targetNature & Npc;       // e.g. NPC Corpse Remove is Corpse | Npc
-        }
-    }
-    else if (!target.isAlive())
-        return false;
-
-    if (targetNature & Party || targetNature & Clan || targetNature & Alliance)
-        return false;
+    if (nature & Party || nature & Clan || nature & Alliance)
+        return false; // TODO
 
     switch (target.type())
     {
         case ActorType::Npc:
         case ActorType::Character:
-            return (targetNature & Friendly || forceAttack) || targetNature & Character;
+            return (nature & Friendly || forceAttack) || nature & Character;
 
         case ActorType::Monster:
-            return targetNature & Enemy || targetNature & Monster;
+            return nature & Enemy || nature & Monster;
     }
 
     return false;

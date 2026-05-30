@@ -16,8 +16,6 @@ SkillTemplate::SkillTemplate(SkillId const id, std::string name, SkillLevel cons
     : _id(id)
     , _level(lvl)
     , _type(SkillType::Unknown)
-    , _targetType(EffectTargetType::Self)
-    , _targetNature(SkillTargetNature::None)
     , _name(std::move(name))
     , _fullName(std::format("{} lv. {}", _name, _level))
     , _icon(std::format("icon.skill{:04}", _id))
@@ -32,24 +30,29 @@ auto SkillTemplate::name()         const -> std::string_view  { return _name;   
 auto SkillTemplate::fullName()     const -> std::string_view  { return _fullName;     }
 auto SkillTemplate::level()        const -> SkillLevel        { return _level;        }
 auto SkillTemplate::type()         const -> SkillType         { return _type;         }
-auto SkillTemplate::targetType()   const -> EffectTargetType  { return _targetType;   }
-auto SkillTemplate::targetNature() const -> SkillTargetNature { return _targetNature; }
-auto SkillTemplate::isMagic()      const -> bool              { return _isMagic;      }
+auto SkillTemplate::targetType()   const -> EffectTargetType
+{
+    return _effects.empty() ? EffectTargetType::Self : _effects.front()->targetType();
+}
+
+auto SkillTemplate::targetNature() const -> SkillTargetNature
+{
+    return _effects.empty() ? SkillTargetNature::None : _effects.front()->targetNature();
+}
 
 auto SkillTemplate::needsTarget() const -> bool
 {
-    return l2cpp::Utils::Enum::isAnyOf(_targetType, EffectTargetType::Single, EffectTargetType::Multiple);
+    return l2cpp::Utils::Enum::isAnyOf(targetType(), EffectTargetType::Single, EffectTargetType::Multiple);
 }
 
-auto SkillTemplate::castDuration()     const -> ClockDuration     { return _castDuration;     }
-auto SkillTemplate::cooldownDuration() const -> ClockDuration     { return _cooldownDuration; }
+auto SkillTemplate::isMagic()          const -> bool          { return _isMagic;          }
+auto SkillTemplate::castDuration()     const -> ClockDuration { return _castDuration;     }
+auto SkillTemplate::cooldownDuration() const -> ClockDuration { return _cooldownDuration; }
 
 auto SkillTemplate::effects() const -> std::span<std::unique_ptr<AbnormalEffectFactory> const> { return _effects; }
 
-void SkillTemplate::setType(SkillType const type)                     { _type = type;                 }
-void SkillTemplate::setTargetType(EffectTargetType const type)        { _targetType = type;           }
-void SkillTemplate::setTargetNature(SkillTargetNature const nature)   { _targetNature = nature;       }
-void SkillTemplate::setIsMagic(bool const isMagic)                    { _isMagic = isMagic;           }
+void SkillTemplate::setType(SkillType const type)                     { _type         = type;         }
+void SkillTemplate::setIsMagic(bool const isMagic)                    { _isMagic      = isMagic;      }
 void SkillTemplate::setCastDuration(ClockDuration const castDuration) { _castDuration = castDuration; }
 
 void SkillTemplate::applyEffects(Actor & source, Actor & target) const

@@ -27,16 +27,14 @@ public:
     auto type()             const -> SkillType;
     auto targetType()       const -> EffectTargetType;
     auto targetNature()     const -> SkillTargetNature;
-    auto isMagic()          const -> bool;
     auto needsTarget()      const -> bool;
+    auto isMagic()          const -> bool;
     auto castDuration()     const -> ClockDuration;
     auto cooldownDuration() const -> ClockDuration;
     auto effects()          const -> std::span<std::unique_ptr<AbnormalEffectFactory> const>;
 
 public:
     void setType(SkillType);
-    void setTargetType(EffectTargetType);
-    void setTargetNature(SkillTargetNature);
     void setIsMagic(bool);
     void setCastDuration(ClockDuration);
 
@@ -52,8 +50,6 @@ private:
     SkillId           _id;
     SkillLevel        _level;
     SkillType         _type;
-    EffectTargetType  _targetType;
-    SkillTargetNature _targetNature;
     std::string       _name;
     std::string       _fullName;
     std::string       _icon;
