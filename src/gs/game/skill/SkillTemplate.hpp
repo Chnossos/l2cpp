@@ -1,0 +1,61 @@
+/// @author    Chnossos
+/// @date      Created on 2026-03-11
+
+#pragma once
+
+// Project includes
+#include <gs/game/constants/EffectTargetType.hpp>
+#include <gs/game/constants/SkillOperatingType.hpp>
+#include <gs/game/constants/SkillTargetNature.hpp>
+#include <gs/game/effects/factories/EffectFactory.hpp>
+#include <gs/game/skill/SkillUid.hpp>
+
+// C++ includes
+#include <span>
+
+class SkillTemplate
+{
+public:
+    SkillTemplate(SkillId id, std::string name, SkillLevel lvl);
+
+public:
+    auto uid()              const -> SkillUid;
+    auto id()               const -> SkillId;
+    auto name()             const -> std::string_view;
+    auto fullName()         const -> std::string_view;
+    auto level()            const -> SkillLevel;
+    auto operatingType()    const -> SkillOperatingType;
+    auto targetType()       const -> EffectTargetType;
+    auto targetNature()     const -> SkillTargetNature;
+    auto needsTarget()      const -> bool;
+    auto isMagic()          const -> bool;
+    auto castDuration()     const -> ClockDuration;
+    auto cooldownDuration() const -> ClockDuration;
+    auto effects()          const -> std::span<std::unique_ptr<EffectFactory> const>;
+
+public:
+    void setOperatingType(SkillOperatingType);
+    void setIsMagic(bool);
+    void setCastDuration(ClockDuration);
+
+    template<class T> requires std::is_base_of_v<EffectFactory, T>
+    void addEffectFactory(auto &&... args) {
+        addEffectFactoryImpl(std::make_unique<T>(*this, std::forward<decltype(args)>(args)...));
+    }
+
+private:
+    void addEffectFactoryImpl(std::unique_ptr<EffectFactory>);
+
+private:
+    SkillId            _id;
+    SkillLevel         _level;
+    SkillOperatingType _operatingType;
+    std::string        _name;
+    std::string        _fullName;
+    std::string        _icon;
+    bool               _isMagic;
+    ClockDuration      _castDuration;
+    ClockDuration      _cooldownDuration;
+
+    std::vector<std::unique_ptr<EffectFactory>> _effects;
+};

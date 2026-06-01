@@ -9,6 +9,18 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.30.0.1] - 2026-06-01
+### Changed
+- All Pimpl-related `struct <name>Impl` got renamed to `struct Impl`
+- `MiniMapShow` renamed to `MiniMapToggle`
+- Remains of `AbnormalEffect` got renamed to `Effect`
+- `l2cpp::Exception` renamed to `Core::Exception`
+- All sources moved to top-level folder `src`
+- `login_server` renamed to `ls`
+- `game_server` renamed to `gs`
+- `common/l2cpp` renamed to `common`
+- `#include` style has changed to be more readable (and sortable)
+
 ## [0.30.0] - 2026-06-01
 ### Added
 - Character deletion (instantaneous)

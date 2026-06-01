@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.23)
 cmake_policy(SET CMP0111 OLD) # Temporarily fix Conan CMake errors
-project(l2cpp VERSION 0.30.0)
+project(l2cpp VERSION 0.30.0.1)
 
 set(CMAKE_CXX_STANDARD          23)
 set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
@@ -12,8 +12,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(/EHsc /W4 /utf-8)
 endif()
 
-add_subdirectory(common)
-include_directories(common)
-
-add_subdirectory(login_server)
-add_subdirectory(game_server)
+include_directories(src)
+add_subdirectory(src/common)
+add_subdirectory(src/ls)
+add_subdirectory(src/gs)
