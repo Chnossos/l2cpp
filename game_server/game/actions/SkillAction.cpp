@@ -112,7 +112,7 @@ void SkillAction::onStarted()
 
     bool const isCritical = false;
     if (isCritical)
-        World::send(performer(), Network::Packet::Server::ChatSystemSayPacket{SystemMessageId::MagicCriticalHit});
+        World::send(performer(), SC::ChatSystemSayPacket{SystemMessageId::MagicCriticalHit});
 
     SC::SkillUsePacket p{performer(), target ? *target : performer(), _impl->skill.uid(),
                          _impl->castingDuration, _impl->skill.cooldownDuration(), isCritical};
@@ -173,14 +173,20 @@ void SkillAction::onFinished()
 void SkillAction::onCanceled()
 {
     if (_impl->castingStarted)
+    {
         World::broadcastAround(performer(), SC::SkillCancelPacket{performer()}, true);
+
+        SC::ChatSystemSayPacket msg{SystemMessageId::_1sCastingHasBeenInterrupted};
+        msg.appendName(_impl->skill);
+        World::send(performer(), std::move(msg));
+    }
 
     performer().state = _impl->previousState;
 }
 
 void SkillAction::sendUseSkillSystemMessage() const
 {
-    Network::Packet::Server::ChatSystemSayPacket msg{SystemMessageId::Use_1};
+    SC::ChatSystemSayPacket msg{SystemMessageId::Use_1};
     msg.appendArg(SysMsgArg::SkillName{_impl->skill.uid()});
     World::send(performer(), std::move(msg));
 }
