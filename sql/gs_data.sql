@@ -1,3 +1,17 @@
+-- For test purposes only:
+DELETE FROM starting_items;
+INSERT INTO starting_items (profession, item_template_id, quantity, equipped) VALUES
+(NULL, 6408, NULL, TRUE),  -- Formal Wear
+(NULL, 6621, NULL, FALSE), -- Infinity Spear
+(NULL, 6611, NULL, TRUE),  -- Infinity Blade
+(NULL, 6377, NULL, TRUE),  -- Imperial Crusader Shield
+(NULL, 6618, NULL, FALSE), -- Infinity Fangs
+(NULL, 6619, NULL, FALSE), -- Infinity Bow
+(NULL, 1345, 100,  FALSE); -- Arrow (S-grade)
+
+INSERT INTO starting_items (profession, item_template_id, quantity, equipped) VALUES
+(NULL, 5588, NULL, NULL);  -- Tutorial Guide
+
 INSERT OR IGNORE INTO characters (
     account_id
   , name
