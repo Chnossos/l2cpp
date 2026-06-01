@@ -12,8 +12,8 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(/EHsc /W4 /utf-8)
 endif()
 
-add_subdirectory(common)
-include_directories(common)
+add_subdirectory(src/common)
+include_directories(src/common)
 
-add_subdirectory(login_server)
-add_subdirectory(game_server)
+add_subdirectory(src/login_server)
+add_subdirectory(src/game_server)
