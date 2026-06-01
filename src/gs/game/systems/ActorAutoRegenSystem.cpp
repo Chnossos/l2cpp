@@ -9,6 +9,8 @@
 #include <gs/game/components/Stats.hpp>
 #include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
 
+static constexpr auto gRegenTick = 3s;
+
 /// @returns @c true if rounded-down stat has changed value, else @c false
 static bool addRegenTicks(StatValue & stat, StatValue const regenPerSecond, size_t const ticks, StatValue const statMax)
 {
@@ -22,33 +24,16 @@ void ActorAutoRegenSystem::updateImpl(ClockDuration const elapsed, Actor & actor
     using enum StatId;
 
     auto const autoRegen = actor.component<ActorAutoRegen>();
-    if (autoRegen && (autoRegen->elapsedSinceLastUpdate += elapsed) >= 3s)
+    if (autoRegen && (autoRegen->elapsedSinceLastUpdate += elapsed) >= gRegenTick)
     {
         // A lot of time could have elapsed since last update, account for that
         size_t const ticks = std::chrono::floor<std::chrono::seconds>(autoRegen->elapsedSinceLastUpdate).count();
 
-        autoRegen->elapsedSinceLastUpdate %= 3s;
+        autoRegen->elapsedSinceLastUpdate %= gRegenTick;
 
         auto & stats = *actor.component<Stats>();
-        std::unordered_map<Stat, StatValue> updates;
-
-        if (addRegenTicks(stats[CurHp], stats[HpRegen], ticks, stats[MaxHp]))
-            updates.try_emplace(Stat::CurHp, stats[CurHp]);
-
-        if (addRegenTicks(stats[CurMp], stats[MpRegen], ticks, stats[MaxMp]))
-            updates.try_emplace(Stat::CurMp, stats[CurMp]);
-
-        if (addRegenTicks(stats[CurCp], stats[CpRegen], ticks, stats[MaxCp]))
-            updates.try_emplace(Stat::CurCp, stats[CurCp]);
-
-        if (!updates.empty())
-        {
-            Network::Packets::Server::StatsUpdatePacket p(actor);
-
-            for (auto const [stat, value] : updates)
-                p.addStat(stat, value);
-
-            World::broadcastToSubscribers(actor, std::move(p), true);
-        }
+        addRegenTicks(stats[CurHp], stats[HpRegen], ticks, stats[MaxHp]);
+        addRegenTicks(stats[CurMp], stats[MpRegen], ticks, stats[MaxMp]);
+        addRegenTicks(stats[CurCp], stats[CpRegen], ticks, stats[MaxCp]);
     }
 }
