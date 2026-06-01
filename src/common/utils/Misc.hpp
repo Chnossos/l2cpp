@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../Typedefs.hpp"
+#include <common/Typedefs.hpp>
 
 // C++ includes
 #include <memory>

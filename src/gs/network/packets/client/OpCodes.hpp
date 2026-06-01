@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../Typedefs.hpp"
+#include <gs/Typedefs.hpp>
 
 namespace Network
 {

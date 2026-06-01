@@ -4,10 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../ecs/Component.hpp"
-#include "../skill/Skill.hpp"
-
 #include <common/Pimpl.hpp>
+#include <gs/game/ecs/Component.hpp>
+#include <gs/game/skill/Skill.hpp>
 
 /// List of skills a (N)PC has learned.
 class SkillDirectory : public Component

@@ -5,6 +5,7 @@
 
 // Project includes
 #include <common/core/Exception.hpp>
+// ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
 
 struct GameObject::Impl

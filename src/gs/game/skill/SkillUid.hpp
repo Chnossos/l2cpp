@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-
 #include <common/network/Serialization.hpp>
+#include <gs/Typedefs.hpp>
 
 namespace Network::Packets::Server { struct EffectListPacket; }
 

@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../ecs/Component.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/ecs/Component.hpp>
 
 struct ActorStatus : public Component
 {

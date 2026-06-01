@@ -4,9 +4,9 @@
 #pragma once
 
 // Project includes
-#include "_Common.hpp"
-#include "../game/actor/Character.hpp"
-#include "../network/packets/server/inventory/InventoryListPacket.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/inventory/InventoryListPacket.hpp>
 
 DEFINE_PACKET_HANDLER(InventoryOpen)
 {

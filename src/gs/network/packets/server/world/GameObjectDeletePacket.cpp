@@ -4,7 +4,7 @@
 #include "GameObjectDeletePacket.hpp"
 
 // Project includes
-#include "../../../../game/GameObject.hpp"
+#include <gs/game/GameObject.hpp>
 
 using Network::Packets::Server::GameObjectDeletePacket;
 

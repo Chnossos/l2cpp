@@ -4,7 +4,7 @@
 #include "SkillUid.hpp"
 
 // Project includes
-#include "../../network/packets/server/status/EffectListPacket.hpp"
+#include <gs/network/packets/server/status/EffectListPacket.hpp>
 
 DEFINE_PACKET_SERIALIZATION_OPERATOR(SkillUid, uid)
 {

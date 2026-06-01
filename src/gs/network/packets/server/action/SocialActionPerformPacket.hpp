@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/constants/SocialActionId.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/constants/SocialActionId.hpp>
 
 class Actor;
 

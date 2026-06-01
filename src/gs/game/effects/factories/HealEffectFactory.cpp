@@ -4,9 +4,9 @@
 #include "HealEffectFactory.hpp"
 
 // Project includes
-#include "../../actor/Actor.hpp"
-#include "../../skill/SkillTemplate.hpp"
-#include "../HealEffect.hpp"
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/effects/HealEffect.hpp>
+#include <gs/game/skill/SkillTemplate.hpp>
 
 HealEffectFactory::HealEffectFactory(
     SkillTemplate     const & skillTemplate

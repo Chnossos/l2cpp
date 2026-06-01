@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/constants/CharacterCreationResult.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/constants/CharacterCreationResult.hpp>
 
 namespace Network::Packets::Server { struct CharacterCreatePacket; }
 

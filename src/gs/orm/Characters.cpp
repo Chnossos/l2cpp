@@ -4,21 +4,20 @@
 #include "Characters.hpp"
 
 // Project includes
-#include "../game/actor/Character.hpp"
-#include "../game/components/CharacterStatus.hpp"
-#include "../game/components/Position.hpp"
-#include "../game/components/SkillDirectory.hpp"
-#include "../game/components/Stats.hpp"
-#include "../game/inventory/Item.hpp"
-#include "../game/inventory/ItemStorage.hpp"
-#include "../game/inventory/ItemTemplateDirectory.hpp"
-#include "../game/ui/ActionShortcut.hpp"
-#include "../game/ui/ItemShortcut.hpp"
-#include "../game/ui/ShortcutBar.hpp"
-#include "../game/ui/SkillShortcut.hpp"
-#include "../utils/Conversion.hpp"
-
 #include <common/services/Database.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/game/inventory/Item.hpp>
+#include <gs/game/inventory/ItemStorage.hpp>
+#include <gs/game/inventory/ItemTemplateDirectory.hpp>
+#include <gs/game/ui/ActionShortcut.hpp>
+#include <gs/game/ui/ItemShortcut.hpp>
+#include <gs/game/ui/ShortcutBar.hpp>
+#include <gs/game/ui/SkillShortcut.hpp>
+#include <gs/utils/Conversion.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

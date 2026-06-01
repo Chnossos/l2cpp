@@ -2,13 +2,13 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "../game/World.hpp"
-#include "../game/actor/Character.hpp"
-#include "../game/components/CharacterSelectionData.hpp"
-#include "../network/packets/server/client/ClientForceDisconnectPacket.hpp"
-#include "../network/packets/server/lobby/CharacterSelectPacket.hpp"
-#include "../orm/Lobby.hpp"
-#include "_Common.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/CharacterSelectionData.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/client/ClientForceDisconnectPacket.hpp>
+#include <gs/network/packets/server/lobby/CharacterSelectPacket.hpp>
+#include <gs/orm/Lobby.hpp>
 
 DEFINE_PACKET_HANDLER(CharacterSelect) try
 {

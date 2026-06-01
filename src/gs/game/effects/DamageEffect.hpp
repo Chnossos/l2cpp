@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../constants/DamageElementType.hpp"
-#include "Effect.hpp"
+#include <gs/game/constants/DamageElementType.hpp>
+#include <gs/game/effects/Effect.hpp>
 
 class DamageEffect : public Effect
 {

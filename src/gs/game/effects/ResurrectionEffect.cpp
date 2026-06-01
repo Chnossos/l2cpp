@@ -4,7 +4,7 @@
 #include "ResurrectionEffect.hpp"
 
 // Project includes
-#include "../actor/Character.hpp"
+#include <gs/game/actor/Character.hpp>
 
 ResurrectionEffect::ResurrectionEffect(Actor & source, Actor & target, SkillUid const skillUid)
     : Effect{EffectType::Resurrection, source, target, skillUid}

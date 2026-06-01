@@ -2,9 +2,9 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "../game/actions/MoveAction.hpp"
-#include "../game/actor/Character.hpp"
-#include "_Common.hpp"
+#include <gs/game/actions/MoveAction.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
 
 // Taken from Ruk33
 // ================

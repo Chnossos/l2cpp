@@ -2,15 +2,15 @@
 /// @date      Created on 2026-03-02
 
 // Project includes
-#include "../game/actor/Character.hpp"
-#include "../game/components/SkillDirectory.hpp"
-#include "../game/inventory/ItemStorage.hpp"
-#include "../game/ui/ActionShortcut.hpp"
-#include "../game/ui/ItemShortcut.hpp"
-#include "../game/ui/ShortcutBar.hpp"
-#include "../game/ui/SkillShortcut.hpp"
-#include "../network/packets/server/ui/UiShortcutSetPacket.hpp"
-#include "_Common.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/inventory/ItemStorage.hpp>
+#include <gs/game/ui/ActionShortcut.hpp>
+#include <gs/game/ui/ItemShortcut.hpp>
+#include <gs/game/ui/ShortcutBar.hpp>
+#include <gs/game/ui/SkillShortcut.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/ui/UiShortcutSetPacket.hpp>
 
 DEFINE_PACKET_HANDLER(UiShortcutSet)
 {

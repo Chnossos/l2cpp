@@ -4,18 +4,16 @@
 #include "Character.hpp"
 
 // Project includes
-#include "../../network/packets/server/ui/UiConfirmationModalShowPacket.hpp"
-#include "../World.hpp"
-#include "../components/CharacterStatus.hpp"
-#include "../components/PlayerAppearance.hpp"
-#include "../components/SkillDirectory.hpp"
-#include "../inventory/ItemStorage.hpp"
-#include "../skill/SkillTemplateDirectory.hpp"
-#include "../ui/ShortcutBar.hpp"
-
 #include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/PlayerAppearance.hpp>
+#include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/inventory/ItemStorage.hpp>
+#include <gs/game/ui/ShortcutBar.hpp>
+#include <gs/network/packets/server/ui/UiConfirmationModalShowPacket.hpp>
 
 enum class ConfirmationModalSystemMessageId : u32
 {

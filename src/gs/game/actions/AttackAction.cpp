@@ -4,16 +4,15 @@
 #include "AttackAction.hpp"
 
 // Project includes
-#include "../../network/packets/server/combat/AttackPacket.hpp"
-#include "../../network/packets/server/combat/AttackStanceTogglePacket.hpp"
-#include "../../utils/Chrono.hpp"
-#include "../World.hpp"
-#include "../actor/Character.hpp"
-#include "../components/AttackStanceTimer.hpp"
-#include "../components/Gear.hpp"
-#include "../components/Stats.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/AttackStanceTimer.hpp>
+#include <gs/game/components/Gear.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/network/packets/server/combat/AttackPacket.hpp>
+#include <gs/network/packets/server/combat/AttackStanceTogglePacket.hpp>
+#include <gs/utils/Chrono.hpp>
 
 namespace SM = Network::Packets::Server;
 

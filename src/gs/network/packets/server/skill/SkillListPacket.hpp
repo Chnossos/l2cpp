@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/components/SkillDirectory.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/components/SkillDirectory.hpp>
 
 namespace Network::Packets::Server { struct SkillListPacket; }
 

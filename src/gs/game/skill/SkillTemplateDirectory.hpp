@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "SkillTemplate.hpp"
+#include <gs/game/skill/SkillTemplate.hpp>
 
 // C++ includes/
 #include <filesystem>

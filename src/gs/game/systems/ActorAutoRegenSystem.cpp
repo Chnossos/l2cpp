@@ -4,10 +4,10 @@
 #include "ActorAutoRegenSystem.hpp"
 
 // Project includes
-#include "../../network/packets/server/status/StatsUpdatePacket.hpp"
-#include "../World.hpp"
-#include "../components/ActorAutoRegen.hpp"
-#include "../components/Stats.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/components/ActorAutoRegen.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
 
 /// @returns @c true if rounded-down stat has changed value, else @c false
 static bool addRegenTicks(StatValue & stat, StatValue const regenPerSecond, size_t const ticks, StatValue const statMax)

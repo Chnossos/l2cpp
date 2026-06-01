@@ -4,15 +4,14 @@
 #include "BuffEffect.hpp"
 
 // Project includes
-#include "../../network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp"
-#include "../../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
-#include "../../network/packets/server/status/NpcStatusUpdatePacket.hpp"
-#include "../World.hpp"
-#include "../actor/Character.hpp"
-#include "../actor/Npc.hpp"
-#include "../components/Stats.hpp"
-
 #include <common/utils/Enum.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/actor/Npc.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdatePacket.hpp>
+#include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
 
 namespace
 {

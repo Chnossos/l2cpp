@@ -4,10 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../../../../Typedefs.hpp"
-#include "../../../../game/constants/StatId.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/Typedefs.hpp>
+#include <gs/game/constants/StatId.hpp>
 
 class Actor;
 

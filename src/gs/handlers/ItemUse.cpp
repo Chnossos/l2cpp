@@ -4,17 +4,16 @@
 #pragma once
 
 // Project includes
-#include "../game/World.hpp"
-#include "../game/actor/Character.hpp"
-#include "../game/components/Gear.hpp"
-#include "../game/inventory/ItemStorage.hpp"
-#include "../network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "../network/packets/server/inventory/InventoryUpdatePacket.hpp"
-#include "../network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp"
-#include "../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
-#include "_Common.hpp"
-
 #include <common/utils/Enum.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/Gear.hpp>
+#include <gs/game/inventory/ItemStorage.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
+#include <gs/network/packets/server/inventory/InventoryUpdatePacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdatePacket.hpp>
 
 // C++ includes
 #include <ranges>

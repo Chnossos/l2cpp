@@ -4,10 +4,10 @@
 #include "Skill.hpp"
 
 // Project includes
-#include "SkillTemplateDirectory.hpp"
-
 #include <common/core/Exception.hpp>
+// ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
+#include <gs/game/skill/SkillTemplateDirectory.hpp>
 
 // C++ includes
 #include <chrono>

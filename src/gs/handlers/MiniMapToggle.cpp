@@ -2,7 +2,7 @@
 /// @date      Created on 2026-02-28
 
 // Project includes
-#include "_Common.hpp"
+#include <gs/handlers/_Common.hpp>
 
 DEFINE_PACKET_HANDLER(MiniMapToggle)
 {

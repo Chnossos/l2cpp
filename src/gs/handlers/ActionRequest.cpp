@@ -2,17 +2,17 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "_Common.hpp"
-#include "../game/World.hpp"
-#include "../game/actions/AttackAction.hpp"
-#include "../game/actor/Character.hpp"
-#include "../game/actor/Monster.hpp"
-#include "../game/components/Position.hpp"
-#include "../game/components/Stats.hpp"
-#include "../network/packets/server/action/ActionFailedPacket.hpp"
-#include "../network/packets/server/status/StatsUpdatePacket.hpp"
-#include "../network/packets/server/target/TargetMonsterSelectPacket.hpp"
-#include "../network/packets/server/target/TargetSelectPacket.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actions/AttackAction.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/actor/Monster.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/action/ActionFailedPacket.hpp>
+#include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
+#include <gs/network/packets/server/target/TargetMonsterSelectPacket.hpp>
+#include <gs/network/packets/server/target/TargetSelectPacket.hpp>
 
 DEFINE_PACKET_HANDLER(ActionRequest) try
 {

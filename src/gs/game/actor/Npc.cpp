@@ -4,8 +4,8 @@
 #include "Npc.hpp"
 
 // Project includes
-#include "../components/NpcAppearance.hpp"
-#include "../components/NpcStatus.hpp"
+#include <gs/game/components/NpcAppearance.hpp>
+#include <gs/game/components/NpcStatus.hpp>
 
 Npc::Npc(u32 const id)
     : Npc(ActorType::Npc, id)

@@ -4,13 +4,13 @@
 #include "ActorStatsUpdateSystem.hpp"
 
 // Project includes
-#include "../../network/packets/server/action/SocialActionPerformPacket.hpp"
-#include "../../network/packets/server/status/StatsUpdatePacket.hpp"
-#include "../World.hpp"
-#include "../actor/Character.hpp"
-#include "../actor/Npc.hpp"
-#include "../components/CharacterStatus.hpp"
-#include "../components/Stats.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/actor/Npc.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/network/packets/server/action/SocialActionPerformPacket.hpp>
+#include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
 
 // C++ includes
 #include <unordered_set>

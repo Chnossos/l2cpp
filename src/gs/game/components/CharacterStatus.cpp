@@ -4,9 +4,8 @@
 #include "CharacterStatus.hpp"
 
 // Project includes
-#include "../gameplay/ExperienceTable.hpp"
-
 #include <common/core/Exception.hpp>
+#include <gs/game/gameplay/ExperienceTable.hpp>
 
 auto CharacterStatus::level()      const -> u32  { return ExperienceTable::level(_xp); }
 auto CharacterStatus::xp()         const -> u32  { return _xp;                         }

@@ -2,20 +2,20 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "../game/World.hpp"
-#include "../game/actor/Character.hpp"
-#include "../game/actor/Npc.hpp"
-#include "../game/components/ActorAutoRegen.hpp"
-#include "../game/components/Stats.hpp"
-#include "../network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "../network/packets/server/client/ClientForceDisconnectPacket.hpp"
-#include "../network/packets/server/inventory/InventoryListPacket.hpp"
-#include "../network/packets/server/status/ActorDiePacket.hpp"
-#include "../network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp"
-#include "../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
-#include "../network/packets/server/status/NpcStatusUpdatePacket.hpp"
-#include "../network/packets/server/ui/UiShortcutListPacket.hpp"
-#include "_Common.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/actor/Npc.hpp>
+#include <gs/game/components/ActorAutoRegen.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
+#include <gs/network/packets/server/client/ClientForceDisconnectPacket.hpp>
+#include <gs/network/packets/server/inventory/InventoryListPacket.hpp>
+#include <gs/network/packets/server/status/ActorDiePacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdatePacket.hpp>
+#include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
+#include <gs/network/packets/server/ui/UiShortcutListPacket.hpp>
 
 DEFINE_PACKET_HANDLER(EnterWorld) try
 {

@@ -4,8 +4,8 @@
 #include "SkillSetTargetsPacket.hpp"
 
 // Project includes
-#include "../../../../game/actor/Actor.hpp"
-#include "../../../../game/skill/Skill.hpp"
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/skill/Skill.hpp>
 
 using Network::Packets::Server::SkillSetTargetsPacket;
 

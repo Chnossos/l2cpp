@@ -4,8 +4,8 @@
 #include "ActorDeletionTimerSystem.hpp"
 
 // Project includes
-#include "../World.hpp"
-#include "../components/DeletionTimer.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/components/DeletionTimer.hpp>
 
 void ActorDeletionTimerSystem::updateImpl(ClockDuration const elapsed, Actor & actor)
 {

@@ -4,11 +4,10 @@
 #include "Rsa.hpp"
 
 // Project includes
-#include "../Constants.hpp"
-
 #include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
+#include <ls/Constants.hpp>
 
 // Third-party includes
 #include <openssl/err.h>

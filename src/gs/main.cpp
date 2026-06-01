@@ -2,10 +2,8 @@
 /// @date      Created on 2026-02-17
 
 // Project includes
-#include "Application.hpp"
-
-#include <common/CompileTimeConfig.hpp>
 #include <common/core/Exception.hpp>
+#include <gs/Application.hpp>
 
 // Third-party
 #include <spdlog/spdlog.h>

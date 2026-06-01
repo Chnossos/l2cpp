@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/combat/Hit.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/combat/Hit.hpp>
 
 class Actor;
 

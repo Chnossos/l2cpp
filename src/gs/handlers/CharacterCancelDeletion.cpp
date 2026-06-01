@@ -2,9 +2,9 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "_Common.hpp"
-#include "../game/World.hpp"
-#include "../game/actor/Character.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
 
 DECLARE_PACKET_HANDLER(CharacterList)
 

@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../game/constants/SkillTargetNature.hpp"
+#include <gs/game/constants/SkillTargetNature.hpp>
 
 class Actor;
 

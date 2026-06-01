@@ -4,9 +4,8 @@
 #include "ItemShortcut.hpp"
 
 // Project includes
-#include "../inventory/Item.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/inventory/Item.hpp>
 
 ItemShortcut::ItemShortcut(Index const index, Item const & item)
     : Shortcut{index, ShortcutType::Item}

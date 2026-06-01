@@ -2,12 +2,11 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "../game/World.hpp"
-#include "../game/lobby/CharacterCreationParameters.hpp"
-#include "../network/packets/server/lobby/CharacterCreatePacket.hpp"
-#include "_Common.hpp"
-
 #include <common/utils/Enum.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/lobby/CharacterCreationParameters.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/lobby/CharacterCreatePacket.hpp>
 
 // C++ includes
 #include <regex>

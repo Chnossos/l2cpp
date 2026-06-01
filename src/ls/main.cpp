@@ -2,19 +2,18 @@
 /// @date      Created on 2026-02-13
 
 // Project includes
-#include "Constants.hpp"
-#include "Orm.hpp"
-#include "crypto/Blowfish.hpp"
-#include "crypto/Checksum.hpp"
-#include "crypto/Rsa.hpp"
-#include "network/Connection.hpp"
-#include "network/OpCodes.hpp"
-
 #include <common/Typedefs.hpp>
 #include <common/core/Exception.hpp>
 #include <common/network/Packet.hpp>
 #include <common/network/SocketListener.hpp>
 #include <common/services/Database.hpp>
+#include <ls/Constants.hpp>
+#include <ls/Orm.hpp>
+#include <ls/crypto/Blowfish.hpp>
+#include <ls/crypto/Checksum.hpp>
+#include <ls/crypto/Rsa.hpp>
+#include <ls/network/Connection.hpp>
+#include <ls/network/OpCodes.hpp>
 
 // Third-party includes
 #include <boost/asio/signal_set.hpp>

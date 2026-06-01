@@ -4,11 +4,11 @@
 #include "NpcStatusUpdatePacket.hpp"
 
 // Project includes
-#include "../../../../game/actor/Npc.hpp"
-#include "../../../../game/components/Gear.hpp"
-#include "../../../../game/components/NpcAppearance.hpp"
-#include "../../../../game/components/Position.hpp"
-#include "../../../../game/components/Stats.hpp"
+#include <gs/game/actor/Npc.hpp>
+#include <gs/game/components/Gear.hpp>
+#include <gs/game/components/NpcAppearance.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/components/Stats.hpp>
 
 using Network::Packets::Server::NpcStatusUpdatePacket;
 

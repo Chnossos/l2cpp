@@ -4,13 +4,12 @@
 #include "Player.hpp"
 
 // Project includes
-#include "game/World.hpp"
-#include "game/actor/Character.hpp"
-#include "network/Connection.hpp"
-
 #include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/network/Connection.hpp>
 
 struct Player::Impl
 {

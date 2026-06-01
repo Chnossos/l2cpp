@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../ecs/Component.hpp"
+#include <gs/game/ecs/Component.hpp>
 
 // C++ includes
 #include <string>

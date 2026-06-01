@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "_Common.hpp"
-#include "../game/actor/Character.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
 
 DEFINE_PACKET_HANDLER(UiConfirmationModalAnswer)
 {

@@ -3,7 +3,8 @@
 
 #include "Action.hpp"
 
-#include "../actor/Actor.hpp"
+// Project includes
+#include <gs/game/actor/Actor.hpp>
 
 Action::Action(ActionType const type, Actor & performer) noexcept
     : _type(type)

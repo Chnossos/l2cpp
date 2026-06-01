@@ -1,12 +1,12 @@
 /// @author    Chnossos
 /// @date      Created on 2026-04-14
 
-#include "Effect.hpp"
+#include <gs/game/effects/Effect.hpp>
 
 // Project includes
-#include "../../utils/Chrono.hpp"
-#include "../actor/Character.hpp"
-#include "../skill/Skill.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/skill/Skill.hpp>
+#include <gs/utils/Chrono.hpp>
 
 Effect::Effect(
     EffectType      const   type

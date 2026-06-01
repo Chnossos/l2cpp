@@ -4,7 +4,7 @@
 #include "PacketHandlers.hpp"
 
 // Project includes
-#include "../network/packets/client/OpCodes.hpp"
+#include <gs/network/packets/client/OpCodes.hpp>
 
 namespace Handler
 {

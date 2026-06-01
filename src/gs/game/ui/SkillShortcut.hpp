@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../skill/SkillUid.hpp"
-#include "Shortcut.hpp"
+#include <gs/game/skill/SkillUid.hpp>
+#include <gs/game/ui/Shortcut.hpp>
 
 class SkillShortcut : public Shortcut
 {

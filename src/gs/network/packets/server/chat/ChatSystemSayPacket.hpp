@@ -6,8 +6,8 @@
 // ReSharper disable CppNonExplicitConvertingConstructor
 
 // Project includes
-#include "../../../../game/constants/SystemMessageId.hpp"
-#include "../i18n/SystemMessageArgument.hpp"
+#include <gs/game/constants/SystemMessageId.hpp>
+#include <gs/network/packets/server/i18n/SystemMessageArgument.hpp>
 
 class Actor;
 class Skill;

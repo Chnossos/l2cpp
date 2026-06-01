@@ -4,7 +4,7 @@
 #include "Stats.hpp"
 
 // Project includes
-#include "../actor/Character.hpp"
+#include <gs/game/actor/Character.hpp>
 
 Stats::Stats()
 {

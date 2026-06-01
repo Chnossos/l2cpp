@@ -4,7 +4,8 @@
 #pragma once
 
 // Project includes
-#include "ActorAppearance.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/components/ActorAppearance.hpp>
 
 class NpcAppearance : public ActorAppearance
 {

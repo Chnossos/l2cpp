@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../constants/ActionType.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/constants/ActionType.hpp>
 
 class Actor;
 

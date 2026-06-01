@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../actor/Actor.hpp"
-#include "System.hpp"
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/ecs/System.hpp>
 
 struct ActorSystem : public System
 {

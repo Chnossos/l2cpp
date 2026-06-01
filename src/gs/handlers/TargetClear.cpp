@@ -2,10 +2,10 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "_Common.hpp"
-#include "../game/World.hpp"
-#include "../game/actor/Character.hpp"
-#include "../network/packets/server/target/TargetClearPacket.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/target/TargetClearPacket.hpp>
 
 DEFINE_PACKET_HANDLER(TargetClear)
 {

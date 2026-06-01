@@ -4,10 +4,10 @@
 #include "ActorAttackStanceTimerSystem.hpp"
 
 // Project includes
-#include "../World.hpp"
-#include "../../network/packets/server/combat/AttackStanceTogglePacket.hpp"
-#include "../../utils/Chrono.hpp"
-#include "../components/AttackStanceTimer.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/components/AttackStanceTimer.hpp>
+#include <gs/network/packets/server/combat/AttackStanceTogglePacket.hpp>
+#include <gs/utils/Chrono.hpp>
 
 namespace
 {

@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../Pimpl.hpp"
-#include "../Typedefs.hpp"
+#include <common/Pimpl.hpp>
+#include <common/Typedefs.hpp>
 
 // Third-party includes
 #include <boost/asio/ip/tcp.hpp>

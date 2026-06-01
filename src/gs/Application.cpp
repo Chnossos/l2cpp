@@ -4,18 +4,6 @@
 #include "Application.hpp"
 
 // Project includes
-#include "Player.hpp"
-#include "game/World.hpp"
-#include "game/actor/NpcDirectory.hpp"
-#include "game/inventory/ItemTemplateDirectory.hpp"
-#include "game/skill/SkillTemplateDirectory.hpp"
-#include "handlers/PacketHandlers.hpp"
-#include "network/Connection.hpp"
-#include "network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "network/packets/server/client/ClientForceDisconnectPacket.hpp"
-#include "orm/Uids.hpp"
-#include "utils/Chrono.hpp"
-
 #include <common/CompileTimeConfig.hpp>
 #include <common/core/Exception.hpp>
 #include <common/details/Pimpl.hpp>
@@ -23,6 +11,17 @@
 #include <common/network/SocketListener.hpp>
 #include <common/services/Database.hpp>
 #include <common/utils/Misc.hpp>
+#include <gs/Player.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/NpcDirectory.hpp>
+#include <gs/game/inventory/ItemTemplateDirectory.hpp>
+#include <gs/game/skill/SkillTemplateDirectory.hpp>
+#include <gs/handlers/PacketHandlers.hpp>
+#include <gs/network/Connection.hpp>
+#include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
+#include <gs/network/packets/server/client/ClientForceDisconnectPacket.hpp>
+#include <gs/orm/Uids.hpp>
+#include <gs/utils/Chrono.hpp>
 
 // Third-party includes
 #include <boost/asio.hpp>

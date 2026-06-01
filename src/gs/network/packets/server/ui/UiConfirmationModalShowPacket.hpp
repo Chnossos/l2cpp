@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../i18n/SystemMessageArgument.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/network/packets/server/i18n/SystemMessageArgument.hpp>
 
 namespace Network::Packets::Server { class UiConfirmationModalShowPacket; }
 

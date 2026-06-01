@@ -4,10 +4,10 @@
 #pragma once
 
 // Project includes
-#include "../../../Typedefs.hpp"
-#include "../../constants/EffectType.hpp"
-#include "../../constants/EffectTargetType.hpp"
-#include "../../constants/SkillTargetNature.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/constants/EffectTargetType.hpp>
+#include <gs/game/constants/EffectType.hpp>
+#include <gs/game/constants/SkillTargetNature.hpp>
 
 class Actor;
 class SkillTemplate;

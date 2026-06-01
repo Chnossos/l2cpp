@@ -1,7 +1,7 @@
 /// @author    Chnossos
 /// @date      Created on 2026-03-02
 
-#include "Shortcut.hpp"
+#include <gs/game/ui/Shortcut.hpp>
 
 // Project includes
 #include <common/network/Packet.hpp>

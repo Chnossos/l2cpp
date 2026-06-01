@@ -4,9 +4,8 @@
 #include "Auth.hpp"
 
 // Project includes
-#include "../utils/Conversion.hpp"
-
 #include <common/services/Database.hpp>
+#include <gs/utils/Conversion.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

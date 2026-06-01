@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "Item.hpp"
-
 #include <common/Pimpl.hpp>
+#include <gs/game/inventory/Item.hpp>
 
 // C++ includes
 #include <functional>

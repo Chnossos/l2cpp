@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../constants/ActorType.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/constants/ActorType.hpp>
 
 // C++ includes
 #include <filesystem>

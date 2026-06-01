@@ -4,9 +4,8 @@
 #include "NpcDirectory.hpp"
 
 // Project includes
-#include "../../utils/Conversion.hpp"
-
 #include <common/core/Exception.hpp>
+#include <gs/utils/Conversion.hpp>
 
 // Third-pary includes
 #include <boost/algorithm/string/predicate.hpp>

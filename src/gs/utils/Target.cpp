@@ -4,10 +4,9 @@
 #include "Target.hpp"
 
 // Project includes
-#include "../game/actor/Actor.hpp"
-#include "../game/skill/SkillTemplate.hpp"
-
 #include <common/utils/EnumMask.hpp>
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/skill/SkillTemplate.hpp>
 
 bool Utils::Target::isValidTarget(Actor const & emitter, SkillTargetNature const targetNature,
                                   Actor const & target, bool const forceAttack, bool const ignoreDeathStatus)

@@ -4,10 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../ecs/Component.hpp"
-
 #include <common/Network/Serialization.hpp>
+#include <gs/Typedefs.hpp>
+#include <gs/game/ecs/Component.hpp>
 
 struct Position : public Component
 {

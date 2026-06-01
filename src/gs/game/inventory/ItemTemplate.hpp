@@ -4,9 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../constants/GearSlot.hpp"
-#include "../constants/ItemCategory.hpp"
-#include "../constants/ItemGrade.hpp"
+#include <gs/game/constants/GearSlot.hpp>
+#include <gs/game/constants/ItemCategory.hpp>
+#include <gs/game/constants/ItemGrade.hpp>
 
 // C++ includes
 #include <string>

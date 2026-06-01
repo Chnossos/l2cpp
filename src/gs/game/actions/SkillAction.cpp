@@ -4,22 +4,20 @@
 #include "SkillAction.hpp"
 
 // Project includes
-#include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "../../network/packets/server/skill/SkillCancelPacket.hpp"
-#include "../../network/packets/server/skill/SkillSetTargetsPacket.hpp"
-#include "../../network/packets/server/skill/SkillUsePacket.hpp"
-#include "../../network/packets/server/ui/UiGaugePacket.hpp"
-#include "../../utils/Chrono.hpp"
-#include "../../utils/Target.hpp"
-#include "../World.hpp"
-#include "../actor/Actor.hpp"
-#include "../components/Stats.hpp"
-#include "../skill/Skill.hpp"
-
 #include <common/core/Exception.hpp>
-// ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
 #include <common/utils/Enum.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/game/skill/Skill.hpp>
+#include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
+#include <gs/network/packets/server/skill/SkillCancelPacket.hpp>
+#include <gs/network/packets/server/skill/SkillSetTargetsPacket.hpp>
+#include <gs/network/packets/server/skill/SkillUsePacket.hpp>
+#include <gs/network/packets/server/ui/UiGaugePacket.hpp>
+#include <gs/utils/Chrono.hpp>
+#include <gs/utils/Target.hpp>
 
 // C++ includes
 #include <algorithm>

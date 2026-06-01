@@ -4,10 +4,9 @@
 #include "SkillDirectory.hpp"
 
 // Project includes
-#include "../skill/SkillTemplateDirectory.hpp"
-
 #include <common/core/Exception.hpp>
 #include <common/details/Pimpl.hpp>
+#include <gs/game/skill/SkillTemplateDirectory.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

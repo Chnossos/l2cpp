@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../Player.hpp"
-#include "../network/Connection.hpp"
+#include <gs/Player.hpp>
+#include <gs/network/Connection.hpp>
 #include <common/core/Exception.hpp>
 #include <common/network/Packet.hpp>
 #include <common/network/PacketReader.hpp>

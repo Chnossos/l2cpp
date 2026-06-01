@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../constants/StatId.hpp"
-#include "../skill/SkillUid.hpp"
-#include "../constants/EffectType.hpp"
+#include <gs/game/constants/EffectType.hpp>
+#include <gs/game/skill/SkillUid.hpp>
 
 class Actor;
 

@@ -4,8 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../ecs/Component.hpp"
+#include <gs/game/ecs/Component.hpp>
 
 struct ActorAppearance : public Component
 {

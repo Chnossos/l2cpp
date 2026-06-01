@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../game/actor/Actor.hpp"
+#include <gs/game/actor/Actor.hpp>
 
 namespace Utils::Maths
 {

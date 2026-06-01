@@ -4,8 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "ActorStatus.hpp"
+#include <gs/game/components/ActorStatus.hpp>
 
 class CharacterStatus final : public ActorStatus
 {

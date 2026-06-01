@@ -4,9 +4,9 @@
 #include "ResurrectionEffectFactory.hpp"
 
 // Project includes
-#include "../../actor/Actor.hpp"
-#include "../../skill/SkillTemplate.hpp"
-#include "../ResurrectionEffect.hpp"
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/effects/ResurrectionEffect.hpp>
+#include <gs/game/skill/SkillTemplate.hpp>
 
 ResurrectionEffectFactory::ResurrectionEffectFactory(
     SkillTemplate     const & skillTemplate

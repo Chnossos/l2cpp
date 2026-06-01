@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/skill/SkillUid.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/skill/SkillUid.hpp>
 
 class Actor;
 class Skill;

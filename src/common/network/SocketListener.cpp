@@ -4,7 +4,7 @@
 #include "SocketListener.hpp"
 
 // Project includes
-#include "../details/Pimpl.hpp"
+#include <common/details/Pimpl.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

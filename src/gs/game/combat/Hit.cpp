@@ -4,10 +4,9 @@
 #include "Hit.hpp"
 
 // Project includes
-#include "../actor/Actor.hpp"
-
 #include <common/details/Pimpl.hpp>
 #include <common/network/Packet.hpp>
+#include <gs/game/actor/Actor.hpp>
 
 struct Hit::Impl
 {
@@ -18,8 +17,12 @@ struct Hit::Impl
     HitStatus status;
     u8 flags;
 
-    Impl(u32 const targetId_, u32 const damage_, bool const isCritical_,
-         std::optional<ItemGrade> soulShotUsed_, HitStatus const status_
+    Impl(
+        u32                      const targetId_
+      , u32                      const damage_
+      , bool                     const isCritical_
+      , std::optional<ItemGrade>       soulShotUsed_
+      , HitStatus                const status_
     )
         : targetId(targetId_)
         , damage(damage_)

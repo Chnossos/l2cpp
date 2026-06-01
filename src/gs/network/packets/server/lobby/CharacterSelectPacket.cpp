@@ -4,13 +4,13 @@
 #include "CharacterSelectPacket.hpp"
 
 // Project includes
-#include "../../../../Player.hpp"
-#include "../../../../game/World.hpp"
-#include "../../../../game/actor/Character.hpp"
-#include "../../../../game/components/CharacterStatus.hpp"
-#include "../../../../game/components/PlayerAppearance.hpp"
-#include "../../../../game/components/Position.hpp"
-#include "../../../../game/components/Stats.hpp"
+#include <gs/Player.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/PlayerAppearance.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/components/Stats.hpp>
 
 using Network::Packets::Server::CharacterSelectPacket;
 

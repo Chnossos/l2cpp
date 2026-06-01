@@ -4,10 +4,9 @@
 #include "ItemStorage.hpp"
 
 // Project includes
-#include "../../Typedefs.hpp"
-
 #include <common/core/Exception.hpp>
 #include <common/details/Pimpl.hpp>
+#include <gs/Typedefs.hpp>
 
 // C++ includes
 #include <ranges>

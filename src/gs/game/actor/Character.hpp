@@ -4,11 +4,10 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../constants/Profession.hpp"
-#include "Actor.hpp"
-
 #include <common/Pimpl.hpp>
+#include <gs/Typedefs.hpp>
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/constants/Profession.hpp>
 
 class CharacterStatus;
 class ItemStorage;

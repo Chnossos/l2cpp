@@ -4,8 +4,8 @@
 #include "EffectListPacket.hpp"
 
 // Project includes
-#include "../../../../game/actor/Actor.hpp"
-#include "../../../../game/skill/SkillUid.hpp"
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/skill/SkillUid.hpp>
 
 using Network::Packets::Server::EffectListPacket;
 

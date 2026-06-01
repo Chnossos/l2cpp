@@ -4,10 +4,10 @@
 #pragma once
 
 // Project includes
-#include "../game/World.hpp"
-#include "../game/actor/Character.hpp"
-#include "../network/packets/server/lobby/CharacterDeletePacket.hpp"
-#include "_Common.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/lobby/CharacterDeletePacket.hpp>
 
 DECLARE_PACKET_HANDLER(CharacterList);
 

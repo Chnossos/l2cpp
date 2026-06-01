@@ -4,9 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../constants/StatId.hpp"
-#include "../ecs/Component.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/constants/StatId.hpp>
+#include <gs/game/ecs/Component.hpp>
 
 // C++ includes
 #include <array>

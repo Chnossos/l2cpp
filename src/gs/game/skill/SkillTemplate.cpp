@@ -4,9 +4,8 @@
 #include "SkillTemplate.hpp"
 
 // Project includes
-#include "../actor/Actor.hpp"
-
 #include <common/utils/Enum.hpp>
+#include <gs/game/actor/Actor.hpp>
 
 // C++ includes
 #include <algorithm>

@@ -4,12 +4,12 @@
 #include "CharacterStatusUpdateBroadcastPacket.hpp"
 
 // Project includes
-#include "../../../../game/actor/Character.hpp"
-#include "../../../../game/components/Gear.hpp"
-#include "../../../../game/components/CharacterStatus.hpp"
-#include "../../../../game/components/Stats.hpp"
-#include "../../../../game/components/Position.hpp"
-#include "../../../../game/components/PlayerAppearance.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/Gear.hpp>
+#include <gs/game/components/PlayerAppearance.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/components/Stats.hpp>
 
 using namespace Network::Packets::Server;
 

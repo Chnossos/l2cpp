@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../constants/SocialActionId.hpp"
-#include "Action.hpp"
+#include <gs/game/actions/Action.hpp>
+#include <gs/game/constants/SocialActionId.hpp>
 
 class SocialAction : public Action
 {

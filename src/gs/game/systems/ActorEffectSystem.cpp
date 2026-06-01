@@ -4,10 +4,9 @@
 #include "ActorEffectSystem.hpp"
 
 // Project includes
-#include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "../World.hpp"
-
 #include <common/utils/Enum.hpp>
+#include <gs/game/World.hpp>
+#include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 
 /// Update the effect list if we remove any non-damage effect, or it's damage over time
 static bool needToUpdateList(bool const currentValue, Effect const & effect)

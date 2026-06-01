@@ -4,7 +4,7 @@
 #include "DamageEffect.hpp"
 
 // Project includes
-#include "../actor/Actor.hpp"
+#include <gs/game/actor/Actor.hpp>
 
 DamageEffect::DamageEffect(
     Actor                   & source

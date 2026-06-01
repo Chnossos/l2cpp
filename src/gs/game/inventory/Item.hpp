@@ -4,10 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../GameObject.hpp"
-#include "ItemTemplate.hpp"
-
 #include <common/network/Serialization.hpp>
+#include <gs/game/GameObject.hpp>
+#include <gs/game/inventory/ItemTemplate.hpp>
 
 struct Item : public GameObject
 {

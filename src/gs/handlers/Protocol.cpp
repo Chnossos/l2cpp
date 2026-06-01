@@ -2,8 +2,8 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "../network/packets/server/auth/ProtocolHandshakePacket.hpp"
-#include "_Common.hpp"
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/auth/ProtocolHandshakePacket.hpp>
 
 using namespace Network::Packets::Server;
 

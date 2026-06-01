@@ -4,9 +4,8 @@
 #include "Uids.hpp"
 
 // Project includes
-#include "../game/inventory/Item.hpp"
-
 #include <common/services/Database.hpp>
+#include <gs/game/inventory/Item.hpp>
 
 void Orm::loadUids()
 {

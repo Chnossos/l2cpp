@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../game/inventory/ItemTemplate.hpp"
+#include <gs/game/inventory/ItemTemplate.hpp>
 
 // C++ includes
 #include <unordered_map>

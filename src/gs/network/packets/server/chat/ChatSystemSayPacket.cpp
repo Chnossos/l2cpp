@@ -4,9 +4,9 @@
 #include "ChatSystemSayPacket.hpp"
 
 // Project includes
-#include "../../../../game/actor/Npc.hpp"
-#include "../../../../game/components/NpcAppearance.hpp"
-#include "../../../../game/skill/Skill.hpp"
+#include <gs/game/actor/Npc.hpp>
+#include <gs/game/components/NpcAppearance.hpp>
+#include <gs/game/skill/Skill.hpp>
 
 using Network::Packets::Server::ChatSystemSayPacket;
 

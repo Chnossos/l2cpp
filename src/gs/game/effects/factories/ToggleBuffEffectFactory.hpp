@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "BuffEffectFactory.hpp"
+#include <gs/game/effects/factories/BuffEffectFactory.hpp>
 
 struct ToggleBuffEffectFactory : public BuffEffectFactory
 {

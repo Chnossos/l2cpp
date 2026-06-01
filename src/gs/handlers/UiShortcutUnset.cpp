@@ -2,9 +2,9 @@
 /// @date      Created on 2026-03-03
 
 // Project includes
-#include "../game/actor/Character.hpp"
-#include "../game/ui/ShortcutBar.hpp"
-#include "_Common.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/ui/ShortcutBar.hpp>
+#include <gs/handlers/_Common.hpp>
 
 DEFINE_PACKET_HANDLER(UiShortcutUnset)
 {

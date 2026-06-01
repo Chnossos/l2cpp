@@ -5,9 +5,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/constants/ChatType.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/constants/ChatType.hpp>
 
 namespace Network::Packets::Server { struct ChatSayPacket; }
 

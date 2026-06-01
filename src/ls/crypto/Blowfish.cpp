@@ -4,7 +4,7 @@
 #include "Blowfish.hpp"
 
 // Project includes
-#include "../Constants.hpp"
+#include <ls/Constants.hpp>
 
 // Third-party includes
 #include <openssl/blowfish.h>

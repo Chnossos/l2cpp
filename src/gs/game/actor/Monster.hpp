@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "Npc.hpp"
+#include <gs/game/actor/Npc.hpp>
 
 class Monster : public Npc
 {

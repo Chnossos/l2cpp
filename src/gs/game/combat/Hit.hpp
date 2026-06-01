@@ -4,12 +4,11 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../../game/constants/HitStatus.hpp"
-#include "../../game/constants/ItemGrade.hpp"
-
 #include <common/Pimpl.hpp>
 #include <common/network/Serialization.hpp>
+#include <gs/Typedefs.hpp>
+#include <gs/game/constants/HitStatus.hpp>
+#include <gs/game/constants/ItemGrade.hpp>
 
 class Actor;
 

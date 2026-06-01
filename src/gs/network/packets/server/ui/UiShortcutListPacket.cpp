@@ -4,7 +4,7 @@
 #include "UiShortcutListPacket.hpp"
 
 // Project includes
-#include "../../../../game/ui/ShortcutBar.hpp"
+#include <gs/game/ui/ShortcutBar.hpp>
 
 // C++ includes
 #include <algorithm>

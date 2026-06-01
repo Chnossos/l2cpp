@@ -4,9 +4,9 @@
 #include "DamageEffectFactory.hpp"
 
 // Project includes
-#include "../../actor/Actor.hpp"
-#include "../../skill/SkillTemplate.hpp"
-#include "../DamageEffect.hpp"
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/effects/DamageEffect.hpp>
+#include <gs/game/skill/SkillTemplate.hpp>
 
 DamageEffectFactory::DamageEffectFactory(
     SkillTemplate     const & skillTemplate

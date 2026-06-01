@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../game/inventory/ItemStorage.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/game/inventory/ItemStorage.hpp>
 
 namespace Network::Packets::Server { struct InventoryListPacket; }
 

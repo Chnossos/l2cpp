@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "Action.hpp"
+#include <gs/game/actions/Action.hpp>
 
 class AttackAction : public Action
 {

@@ -4,7 +4,7 @@
 #include "ItemTemplateDirectory.hpp"
 
 // Project includes
-#include "../../orm/Items.hpp"
+#include <gs/orm/Items.hpp>
 
 auto ItemTemplateDirectory::size() -> size_t
 {

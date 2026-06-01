@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../constants/StatId.hpp"
-#include "EffectFactory.hpp"
+#include <gs/game/constants/StatId.hpp>
+#include <gs/game/effects/factories/EffectFactory.hpp>
 
 class BuffEffectFactory : public EffectFactory
 {

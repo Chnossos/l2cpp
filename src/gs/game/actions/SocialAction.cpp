@@ -4,12 +4,11 @@
 #include "SocialAction.hpp"
 
 // Project includes
-#include "../../network/packets/server/action/SocialActionPerformPacket.hpp"
-#include "../World.hpp"
-#include "../actor/Actor.hpp"
-
 #include <common/core/Exception.hpp>
 #include <common/utils/Enum.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Actor.hpp>
+#include <gs/network/packets/server/action/SocialActionPerformPacket.hpp>
 
 SocialAction::SocialAction(Actor & performer, SocialActionId const actionId)
     : Action{ActionType::Social, performer}

@@ -4,19 +4,18 @@
 #include "Lobby.hpp"
 
 // Project includes
-#include "../game/World.hpp"
-#include "../game/actor/Character.hpp"
-#include "../game/components/CharacterSelectionData.hpp"
-#include "../game/components/CharacterStatus.hpp"
-#include "../game/components/Gear.hpp"
-#include "../game/components/PlayerAppearance.hpp"
-#include "../game/components/Position.hpp"
-#include "../game/components/Stats.hpp"
-#include "../game/inventory/ItemStorage.hpp"
-#include "../game/inventory/ItemTemplateDirectory.hpp"
-#include "../utils/Conversion.hpp"
-
 #include <common/services/Database.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/CharacterSelectionData.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/Gear.hpp>
+#include <gs/game/components/PlayerAppearance.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/game/inventory/ItemStorage.hpp>
+#include <gs/game/inventory/ItemTemplateDirectory.hpp>
+#include <gs/utils/Conversion.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

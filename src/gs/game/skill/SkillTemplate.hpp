@@ -4,11 +4,11 @@
 #pragma once
 
 // Project includes
-#include "../constants/EffectTargetType.hpp"
-#include "../constants/SkillOperatingType.hpp"
-#include "../constants/SkillTargetNature.hpp"
-#include "../effects/factories/EffectFactory.hpp"
-#include "SkillUid.hpp"
+#include <gs/game/constants/EffectTargetType.hpp>
+#include <gs/game/constants/SkillOperatingType.hpp>
+#include <gs/game/constants/SkillTargetNature.hpp>
+#include <gs/game/effects/factories/EffectFactory.hpp>
+#include <gs/game/skill/SkillUid.hpp>
 
 // C++ includes
 #include <span>

@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "SkillTemplate.hpp"
-
 #include <common/Pimpl.hpp>
+#include <gs/game/skill/SkillTemplate.hpp>
 
 // C++ includes
 #include <unordered_map>

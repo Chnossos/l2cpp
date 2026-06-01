@@ -4,18 +4,18 @@
 #include "Actor.hpp"
 
 // Project includes
-#include "../../Player.hpp"
-#include "../../network/Connection.hpp"
-#include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "../../network/packets/server/status/StatsUpdatePacket.hpp"
-#include "../World.hpp"
-#include "../components/ActorAutoRegen.hpp"
-#include "../components/ActorIdentity.hpp"
-#include "../components/AttackStanceTimer.hpp"
-#include "../components/Gear.hpp"
-#include "../components/Position.hpp"
-#include "../components/SkillDirectory.hpp"
-#include "../components/Stats.hpp"
+#include <gs/Player.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/components/ActorAutoRegen.hpp>
+#include <gs/game/components/ActorIdentity.hpp>
+#include <gs/game/components/AttackStanceTimer.hpp>
+#include <gs/game/components/Gear.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/components/Stats.hpp>
+#include <gs/network/Connection.hpp>
+#include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
+#include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
 
 // ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>

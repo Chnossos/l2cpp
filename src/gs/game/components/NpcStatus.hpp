@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "ActorStatus.hpp"
+#include <gs/game/components/ActorStatus.hpp>
 
 /// @note NPCs start at max level unless overriden.
 class NpcStatus final : public ActorStatus

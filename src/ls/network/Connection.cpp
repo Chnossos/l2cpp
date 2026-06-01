@@ -4,11 +4,10 @@
 #include "Connection.hpp"
 
 // Project includes
-#include "../crypto/Blowfish.hpp"
-#include "../crypto/Checksum.hpp"
-
 #include <common/core/Exception.hpp>
 #include <common/network/Packet.hpp>
+#include <ls/crypto/Blowfish.hpp>
+#include <ls/crypto/Checksum.hpp>
 
 // Third-party includes
 #include <boost/asio/read.hpp>

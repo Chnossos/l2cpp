@@ -2,8 +2,8 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "../orm/Auth.hpp"
-#include "_Common.hpp"
+#include <gs/handlers/_Common.hpp>
+#include <gs/orm/Auth.hpp>
 
 DECLARE_PACKET_HANDLER(CharacterList)
 

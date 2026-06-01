@@ -4,7 +4,7 @@
 #include "Packet.hpp"
 
 // Project includes
-#include "../details/Pimpl.hpp"
+#include <common/details/Pimpl.hpp>
 
 // C++ includes
 #include <vector>

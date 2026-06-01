@@ -4,7 +4,7 @@
 #include "HealEffect.hpp"
 
 // Project includes
-#include "../actor/Actor.hpp"
+#include <gs/game/actor/Actor.hpp>
 
 HealEffect::HealEffect(
     Actor               & source

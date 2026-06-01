@@ -4,9 +4,8 @@
 #include "NpcStatus.hpp"
 
 // Project includes
-#include "../gameplay/ExperienceTable.hpp"
-
 #include <common/core/Exception.hpp>
+#include <gs/game/gameplay/ExperienceTable.hpp>
 
 NpcStatus::NpcStatus()
     : _level(ExperienceTable::maxLevel())

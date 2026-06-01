@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../inventory/Item.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/inventory/Item.hpp>
 
 struct GearTransaction
 {

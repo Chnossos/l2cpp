@@ -4,10 +4,9 @@
 #pragma once
 
 // Project includes
-#include "Component.hpp"
-
-#include <common/core/Exception.hpp>
 #include <common/OptRef.hpp>
+#include <common/core/Exception.hpp>
+#include <gs/game/ecs/Component.hpp>
 
 // C++ includes
 #include <memory>

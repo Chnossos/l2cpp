@@ -2,8 +2,8 @@
 /// @date      Created on 2026-02-27
 
 // Project includes
-#include "../game/actor/Character.hpp"
-#include "_Common.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
 
 DEFINE_PACKET_HANDLER(MoveUpdate)
 {

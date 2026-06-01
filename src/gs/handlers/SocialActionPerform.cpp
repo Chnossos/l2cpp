@@ -4,12 +4,11 @@
 #pragma once
 
 // Project includes
-#include "../game/actions/SocialAction.hpp"
-#include "../game/actor/Character.hpp"
-#include "../network/packets/server/action/ActionFailedPacket.hpp"
-#include "_Common.hpp"
-
 #include <common/utils/Enum.hpp>
+#include <gs/game/actions/SocialAction.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/action/ActionFailedPacket.hpp>
 
 DEFINE_PACKET_HANDLER(SocialActionPerform) try
 {

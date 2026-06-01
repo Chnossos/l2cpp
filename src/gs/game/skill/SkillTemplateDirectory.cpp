@@ -4,14 +4,13 @@
 #include "SkillTemplateDirectory.hpp"
 
 // Project includes
-#include "../../utils/Conversion.hpp"
-#include "../effects/factories/DamageEffectFactory.hpp"
-#include "../effects/factories/HealEffectFactory.hpp"
-#include "../effects/factories/ResurrectionEffectFactory.hpp"
-#include "../effects/factories/ToggleBuffEffectFactory.hpp"
-
 #include <common/core/Exception.hpp>
 #include <common/utils/EnumMask.hpp>
+#include <gs/game/effects/factories/DamageEffectFactory.hpp>
+#include <gs/game/effects/factories/HealEffectFactory.hpp>
+#include <gs/game/effects/factories/ResurrectionEffectFactory.hpp>
+#include <gs/game/effects/factories/ToggleBuffEffectFactory.hpp>
+#include <gs/utils/Conversion.hpp>
 
 // Third-pary includes
 #include <boost/algorithm/string/classification.hpp>

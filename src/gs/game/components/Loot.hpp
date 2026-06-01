@@ -4,8 +4,8 @@
 #pragma once
 
 // C++ includes
-#include "../../Typedefs.hpp"
-#include "../ecs/Component.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/ecs/Component.hpp>
 
 struct Loot : public Component
 {

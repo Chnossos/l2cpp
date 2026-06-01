@@ -4,7 +4,7 @@
 #include "EffectFactory.hpp"
 
 // Project includes
-#include "../../actor/Actor.hpp"
+#include <gs/game/actor/Actor.hpp>
 
 EffectFactory::EffectFactory(
     EffectType        const   type

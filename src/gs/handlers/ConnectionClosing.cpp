@@ -2,9 +2,9 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "../game/World.hpp"
-#include "../network/packets/server/client/ClientExitGamePacket.hpp"
-#include "_Common.hpp"
+#include <gs/game/World.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/client/ClientExitGamePacket.hpp>
 
 DEFINE_PACKET_HANDLER(ConnectionClosing)
 {

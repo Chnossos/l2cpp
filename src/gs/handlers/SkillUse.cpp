@@ -2,13 +2,12 @@
 /// @date      Created on 2026-02-27
 
 // Project includes
-#include "../game/actions/SkillAction.hpp"
-#include "../game/actor/Character.hpp"
-#include "../game/components/SkillDirectory.hpp"
-#include "../network/packets/server/action/ActionFailedPacket.hpp"
-#include "_Common.hpp"
-
 #include <common/utils/Enum.hpp>
+#include <gs/game/actions/SkillAction.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/SkillDirectory.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/action/ActionFailedPacket.hpp>
 
 DEFINE_PACKET_HANDLER(SkillUse) try
 {

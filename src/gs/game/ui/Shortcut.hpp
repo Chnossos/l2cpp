@@ -4,10 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../../Typedefs.hpp"
-#include "../constants/ShortcutType.hpp"
-
 #include <common/network/Serialization.hpp>
+#include <gs/Typedefs.hpp>
+#include <gs/game/constants/ShortcutType.hpp>
 
 class Shortcut
 {

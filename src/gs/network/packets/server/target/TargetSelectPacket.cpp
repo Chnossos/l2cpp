@@ -4,8 +4,8 @@
 #include "TargetSelectPacket.hpp"
 
 // Project includes
-#include "../../../../game/actor/Character.hpp"
-#include "../../../../game/components/Position.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/components/Position.hpp>
 
 using Network::Packets::Server::TargetSelectPacket;
 

@@ -4,11 +4,10 @@
 #pragma once
 
 // Project includes
-#include "../constants/EffectTargetType.hpp"
-#include "../constants/SkillTargetNature.hpp"
-#include "Action.hpp"
-
 #include <common/Pimpl.hpp>
+#include <gs/game/actions/Action.hpp>
+#include <gs/game/constants/EffectTargetType.hpp>
+#include <gs/game/constants/SkillTargetNature.hpp>
 
 // C++ includes
 #include <functional>

@@ -4,9 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../Pimpl.hpp"
-#include "../Typedefs.hpp"
-#include "../utils/Traits.hpp"
+#include <common/Pimpl.hpp>
+#include <common/Typedefs.hpp>
+#include <common/utils/Traits.hpp>
 
 // C++ includes
 #include <chrono>

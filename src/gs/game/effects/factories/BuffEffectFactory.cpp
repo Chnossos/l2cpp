@@ -1,12 +1,12 @@
 /// @author    Chnossos
 /// @date      Created on 2026-04-24
 
-#include "BuffEffectFactory.hpp"
+#include <gs/game/effects/factories/BuffEffectFactory.hpp>
 
 // Project includes
-#include "../../actor/Actor.hpp"
-#include "../../skill/SkillTemplate.hpp"
-#include "../BuffEffect.hpp"
+#include <gs/game/actor/Actor.hpp>
+#include <gs/game/effects/BuffEffect.hpp>
+#include <gs/game/skill/SkillTemplate.hpp>
 
 BuffEffectFactory::BuffEffectFactory(
     SkillTemplate     const & skillTemplate

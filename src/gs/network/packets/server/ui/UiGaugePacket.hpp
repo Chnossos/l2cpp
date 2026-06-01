@@ -4,9 +4,8 @@
 #pragma once
 
 // Project includes
-#include "../../../../Typedefs.hpp"
-
 #include <common/network/Packet.hpp>
+#include <gs/Typedefs.hpp>
 
 namespace Network::Packets::Server { struct UiGaugePacket; }
 

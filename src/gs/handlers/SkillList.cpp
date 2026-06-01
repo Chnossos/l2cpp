@@ -2,9 +2,9 @@
 /// @date      Created on 2026-02-27
 
 // Project includes
-#include "_Common.hpp"
-#include "../game/actor/Character.hpp"
-#include "../network/packets/server/skill/SkillListPacket.hpp"
+#include <gs/game/actor/Character.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/skill/SkillListPacket.hpp>
 
 DEFINE_PACKET_HANDLER(SkillList)
 {

@@ -4,16 +4,15 @@
 #pragma once
 
 // Project includes
-#include "../GameObject.hpp"
-#include "../actions/Action.hpp"
-#include "../constants/ActorState.hpp"
-#include "../constants/ActorType.hpp"
-#include "../constants/Team.hpp"
-#include "../ecs/Entity.hpp"
-#include "../effects/Effect.hpp"
-
 #include <common/Event.hpp>
 #include <common/Pimpl.hpp>
+#include <gs/game/GameObject.hpp>
+#include <gs/game/actions/Action.hpp>
+#include <gs/game/constants/ActorState.hpp>
+#include <gs/game/constants/ActorType.hpp>
+#include <gs/game/constants/Team.hpp>
+#include <gs/game/ecs/Entity.hpp>
+#include <gs/game/effects/Effect.hpp>
 
 class Gear;
 class SkillDirectory;

@@ -4,12 +4,12 @@
 #include "MoveAction.hpp"
 
 // Project includes
-#include "../../Player.hpp"
-#include "../../network/Connection.hpp"
-#include "../../network/packets/server/movement/ActorMovePacket.hpp"
-#include "../../network/packets/server/movement/ActorMoveStopPacket.hpp"
-#include "../World.hpp"
-#include "../actor/Actor.hpp"
+#include <gs/Player.hpp>
+#include <gs/game/World.hpp>
+#include <gs/game/actor/Actor.hpp>
+#include <gs/network/Connection.hpp>
+#include <gs/network/packets/server/movement/ActorMovePacket.hpp>
+#include <gs/network/packets/server/movement/ActorMoveStopPacket.hpp>
 
 MoveAction::MoveAction(Actor & performer, Position const & origin, Position const & target, Input const input)
     : Action(ActionType::Move, performer)

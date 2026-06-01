@@ -4,10 +4,9 @@
 #pragma once
 
 // Project includes
-#include "../ecs/Component.hpp"
-#include "../inventory/GearTransaction.hpp"
-
 #include <common/Pimpl.hpp>
+#include <gs/game/ecs/Component.hpp>
+#include <gs/game/inventory/GearTransaction.hpp>
 
 /// Handles the items that the character currently wears
 class Gear : public Component

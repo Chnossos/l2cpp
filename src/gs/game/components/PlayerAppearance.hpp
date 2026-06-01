@@ -4,10 +4,11 @@
 #pragma once
 
 // Project includes
-#include "../constants/Profession.hpp"
-#include "../constants/Race.hpp"
-#include "../constants/Sex.hpp"
-#include "ActorAppearance.hpp"
+#include <gs/Typedefs.hpp>
+#include <gs/game/components/ActorAppearance.hpp>
+#include <gs/game/constants/Profession.hpp>
+#include <gs/game/constants/Race.hpp>
+#include <gs/game/constants/Sex.hpp>
 
 class PlayerAppearance : public ActorAppearance
 {

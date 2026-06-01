@@ -4,7 +4,7 @@
 #include "StatsUpdatePacket.hpp"
 
 // Project includes
-#include "../../../../game/actor/Actor.hpp"
+#include <gs/game/actor/Actor.hpp>
 
 using Network::Packets::Server::StatsUpdatePacket;
 

@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "../ecs/ActorSystem.hpp"
+#include <gs/game/ecs/ActorSystem.hpp>
 
 struct ActorDeletionTimerSystem : public ActorSystem
 {

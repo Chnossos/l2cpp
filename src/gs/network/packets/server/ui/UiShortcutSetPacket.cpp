@@ -4,7 +4,7 @@
 #include "UiShortcutSetPacket.hpp"
 
 // Project includes
-#include "../../../../game/ui/Shortcut.hpp"
+#include <gs/game/ui/Shortcut.hpp>
 
 using Network::Packets::Server::UiShortcutSetPacket;
 

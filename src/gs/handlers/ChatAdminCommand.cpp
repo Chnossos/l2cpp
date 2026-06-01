@@ -4,19 +4,19 @@
 #pragma once
 
 // Project includes
-#include "../game/World.hpp"
-#include "../game/actions/SocialAction.hpp"
-#include "../game/actor/Character.hpp"
-#include "../game/actor/Monster.hpp"
-#include "../game/actor/NpcDirectory.hpp"
-#include "../game/components/CharacterStatus.hpp"
-#include "../game/components/PlayerAppearance.hpp"
-#include "../game/components/SkillDirectory.hpp"
-#include "../network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "../network/packets/server/skill/SkillListPacket.hpp"
-#include "../network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp"
-#include "../network/packets/server/status/NpcStatusUpdatePacket.hpp"
-#include "_Common.hpp"
+#include <gs/game/World.hpp>
+#include <gs/game/actions/SocialAction.hpp>
+#include <gs/game/actor/Character.hpp>
+#include <gs/game/actor/Monster.hpp>
+#include <gs/game/actor/NpcDirectory.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/PlayerAppearance.hpp>
+#include <gs/game/components/SkillDirectory.hpp>
+#include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
+#include <gs/network/packets/server/skill/SkillListPacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
+#include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
 
 // Third-party includes
 #include <boost/algorithm/string/split.hpp>

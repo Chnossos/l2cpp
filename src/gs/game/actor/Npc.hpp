@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "Actor.hpp"
+#include <gs/game/actor/Actor.hpp>
 
 class NpcAppearance;
 class NpcStatus;

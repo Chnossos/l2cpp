@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "Shortcut.hpp"
+#include <gs/game/ui/Shortcut.hpp>
 
 // C++ includes
 #include <array>

@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include "Effect.hpp"
+#include <gs/game/effects/Effect.hpp>
 
 class HealEffect : public Effect
 {

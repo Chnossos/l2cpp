@@ -4,7 +4,7 @@
 #include "Maths.hpp"
 
 // Project includes
-#include "../game/components/Position.hpp"
+#include <gs/game/components/Position.hpp>
 
 auto Utils::Maths::distance(Position const & pos1, Position const & pos2) -> double
 {

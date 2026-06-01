@@ -4,9 +4,9 @@
 #pragma once
 
 // Project includes
-#include "Action.hpp"
-#include "../components/Position.hpp"
-#include "../constants/ActorState.hpp"
+#include <gs/game/actions/Action.hpp>
+#include <gs/game/components/Position.hpp>
+#include <gs/game/constants/ActorState.hpp>
 
 class MoveAction final : public Action
 {
