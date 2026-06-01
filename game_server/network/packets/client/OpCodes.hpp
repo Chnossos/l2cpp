@@ -36,7 +36,7 @@ namespace Network
         CharacterCancelDeletion     = 0x62,
         QuestList                   = 0x63,
         UiConfirmationModalAnswer   = 0xc5,
-        MiniMapShow                 = 0xcd,
+        MiniMapToggle               = 0xcd,
 
         ManorList                   = 0x08d0,
     };

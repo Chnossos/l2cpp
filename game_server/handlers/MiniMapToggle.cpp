@@ -4,7 +4,7 @@
 // Project includes
 #include "_Common.hpp"
 
-DEFINE_PACKET_HANDLER(MiniMapShow)
+DEFINE_PACKET_HANDLER(MiniMapToggle)
 {
-    player.connection().send(Packet(0x9d, "MiniMapShow") << 1665);
+    player.connection().send(Packet(0x9d, "MiniMapToggle") << 1665);
 }

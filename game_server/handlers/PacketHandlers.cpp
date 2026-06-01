@@ -25,7 +25,7 @@ namespace Handler
     HANDLER(ItemUnequip)
     HANDLER(ItemUse)
     HANDLER(ManorList)
-    HANDLER(MiniMapShow)
+    HANDLER(MiniMapToggle)
     HANDLER(Move)
     HANDLER(MoveUpdate)
     HANDLER(Protocol)
@@ -59,7 +59,7 @@ std::unordered_map<PacketOpCode, std::pair<PacketHandler, std::string_view>> gPa
     HANDLER(ItemUnequip),
     HANDLER(ItemUse),
     HANDLER(ManorList),
-    HANDLER(MiniMapShow),
+    HANDLER(MiniMapToggle),
     HANDLER(Move),
     HANDLER(MoveUpdate),
     HANDLER(Protocol),
