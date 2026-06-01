@@ -43,9 +43,6 @@ public:
         addEffectFactoryImpl(std::make_unique<T>(*this, std::forward<decltype(args)>(args)...));
     }
 
-public:
-    void applyEffects(Actor & source, Actor & target) const;
-
 private:
     void addEffectFactoryImpl(std::unique_ptr<EffectFactory>);
 

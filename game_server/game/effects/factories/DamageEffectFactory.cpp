@@ -29,4 +29,3 @@ void DamageEffectFactory::apply(Actor & source, Actor & target)
     target.addEffect<DamageEffect>(source, target, _skillTemplate.uid(), _elementType, _power,
                                    _totalDuration, _tickDuration, _initialTriggerDuration);
 }
-

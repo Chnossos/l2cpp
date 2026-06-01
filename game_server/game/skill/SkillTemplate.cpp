@@ -55,22 +55,6 @@ void SkillTemplate::setOperatingType(SkillOperatingType const type)   { _operati
 void SkillTemplate::setIsMagic(bool const isMagic)                    { _isMagic       = isMagic;      }
 void SkillTemplate::setCastDuration(ClockDuration const castDuration) { _castDuration  = castDuration; }
 
-void SkillTemplate::applyEffects(Actor & source, Actor & target) const
-{
-    auto & effects = target.effects();
-
-    // FIXME: do not apply buff if already applied but applied power is superior than the one we try to apply (got it?)
-
-    auto v = effects | std::views::filter([this] (auto const & effect) { return effect->skillUid() == uid(); });
-    std::ranges::for_each(v, [] (auto const & effect) { return effect->cancel(); });
-
-    if (!v.empty() && _operatingType == SkillOperatingType::Toggle)
-        return; // Avoid restarting a skill we just toggled off
-
-    for (auto const & e : _effects)
-        e->apply(source, target);
-}
-
 void SkillTemplate::addEffectFactoryImpl(std::unique_ptr<EffectFactory> factory)
 {
     _effects.emplace_back(std::move(factory));

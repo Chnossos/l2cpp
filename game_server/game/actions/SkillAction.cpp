@@ -23,7 +23,7 @@
 
 // C++ includes
 #include <algorithm>
-#include <spdlog/spdlog.h>
+#include <ranges>
 
 namespace SC = Network::Packet::Server;
 using enum EffectTargetType;
@@ -69,8 +69,8 @@ bool SkillAction::canBeInterruptedByAnotherAction() const { return false; }
 
 void SkillAction::onStarted()
 {
-    // We check everything again here because the action could've been queued, and by the time it gets executed,
-    // many things may have changed.
+    // We check many conditions again here because the action could've been queued, and by the time it gets executed,
+    // the whole situation could've changed.
 
     if (!performer().isAlive())
         return setFinished(true);
@@ -118,19 +118,14 @@ void SkillAction::onStarted()
                          _impl->castingDuration, _impl->skill.cooldownDuration(), isCritical};
     World::broadcastAround(performer(), std::move(p), true);
     _impl->castingStarted = true;
-    SPDLOG_DEBUG("onStarted() end");
 }
 
 void SkillAction::updateImpl(ClockDuration const elapsed)
 {
-    // TODO: ensure target is still valid
-
     if (Utils::Chrono::thresholdCrossed(_impl->castingElapsed, elapsed, _impl->notifyTargetsTrigger))
     {
-        SPDLOG_DEBUG("notify threshold crossed");
-
         for (auto const & effect : _impl->skill.effects())
-            selectAoeTargets(effect->targetType());
+            selectTargets(effect->targetType(), effect->targetNature());
 
         // Do we need the animation on multiple targets?
         if (isAnyOf(_impl->skill.targetType(), Multiple, Aura, AuraIncludingSelf))
@@ -148,6 +143,8 @@ void SkillAction::updateImpl(ClockDuration const elapsed)
         }
     }
 
+    // TODO: ensure targets are still valid at every update
+
     setFinished((_impl->castingElapsed += elapsed) >= _impl->castingDuration);
 }
 
@@ -155,15 +152,20 @@ void SkillAction::onFinished()
 {
     if (_impl->castingStarted)
     {
-        // Each effect has its own set of valid targets
-        for (auto const & effect : _impl->skill.effects())
+        if (_impl->skill.operatingType() == Toggle)
         {
-            for (Actor & target : _impl->targets[effect->targetType()])
-            {
-                // Filter targets here
-                if (isValidTarget(performer(), effect->targetNature(), target, _impl->forceAttack))
-                    effect->apply(performer(), target);
-            }
+            Actor & self           = _impl->targets[Self].front();
+            auto const matchToggle = [this] (auto const & e) { return e->skillUid() == _impl->skill.uid(); };
+
+            if (std::ranges::any_of(self.effects(), matchToggle))
+                cancelCurrentEffects();
+            else
+                applyEffects();
+        }
+        else
+        {
+            cancelCurrentEffects();
+            applyEffects();
         }
     }
 
@@ -191,7 +193,7 @@ void SkillAction::sendUseSkillSystemMessage() const
     World::send(performer(), std::move(msg));
 }
 
-void SkillAction::selectAoeTargets(EffectTargetType const targetType)
+void SkillAction::selectTargets(EffectTargetType const targetType, SkillTargetNature const targetNature)
 {
     // For now, we consider that all effects use the same range, so no need to scan the area again for the same type
     if (_impl->targets.contains(targetType))
@@ -205,10 +207,13 @@ void SkillAction::selectAoeTargets(EffectTargetType const targetType)
             return;
 
         case Single:
-            _impl->targets[targetType].emplace_back(
-                _impl->targetId == performer().id() ? performer() : *World::actor(*_impl->targetId)
-            );
+        {
+            target = _impl->targetId == performer().id() ? performer() : *World::actor(*_impl->targetId);
+            if (isValidTarget(performer(), targetNature, target, _impl->forceAttack))
+                _impl->targets[targetType].emplace_back(target);
+
             return;
+        }
 
         case Multiple:
             target = _impl->targetId == performer().id() ? performer() : *World::actor(*_impl->targetId);
@@ -224,7 +229,11 @@ void SkillAction::selectAoeTargets(EffectTargetType const targetType)
             break;
     }
 
-    World::forEachActorAround(target, [&] (auto & actor) { _impl->targets[targetType].emplace_back(actor); });
+    World::forEachActorAround(target, [&] (auto & actor)
+    {
+        if (isValidTarget(performer(), targetNature, actor, _impl->forceAttack))
+            _impl->targets[targetType].emplace_back(actor);
+    });
 }
 
 void SkillAction::adjustCastingDuration()
@@ -250,16 +259,33 @@ void SkillAction::adjustCastingDuration()
     _impl->notifyTargetsTrigger = std::max(_impl->castingDuration - 350ms, ClockDuration::zero());
 }
 
-bool SkillAction::atLeastOneEffectAffectsSelf() const
+void SkillAction::cancelCurrentEffects() const
 {
-    return std::ranges::any_of(_impl->skill.effects(), [] (auto const & effect) {
-        return isAnyOf(effect->targetType(), Self, AuraIncludingSelf);
+    forEachTarget([this] (auto & target) mutable
+    {
+        auto v = target.effects() | std::views::filter([this] (auto const & e) {
+            return e->skillUid() == _impl->skill.uid();
+        });
+        std::ranges::for_each(v, [] (auto const & effect) { return effect->cancel(); });
     });
 }
 
-bool SkillAction::atLeastOneEffectIsAoe() const
+void SkillAction::applyEffects() const
 {
-    return std::ranges::any_of(_impl->skill.effects(), [] (auto const & effect) {
-        return isAnyOf(effect->targetType(), Multiple, Aura, AuraIncludingSelf);
-    });
+    // Each effect has its own set of valid targets
+    for (auto const & effect : _impl->skill.effects())
+    {
+        for (Actor & target : _impl->targets.at(effect->targetType()))
+            effect->apply(performer(), target);
+    }
+}
+
+void SkillAction::forEachTarget(std::function<void(Actor &)> const & f) const
+{
+    if (f)
+    {
+        for (auto & targets : _impl->targets | std::views::values)
+            for (auto & target : targets)
+                f(target);
+    }
 }

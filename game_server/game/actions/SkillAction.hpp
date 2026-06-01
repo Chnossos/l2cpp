@@ -5,9 +5,13 @@
 
 // Project includes
 #include "../constants/EffectTargetType.hpp"
+#include "../constants/SkillTargetNature.hpp"
 #include "Action.hpp"
 
 #include <l2cpp/Pimpl.hpp>
+
+// C++ includes
+#include <functional>
 
 class SkillTemplate;
 
@@ -28,10 +32,11 @@ private:
     void onFinished() override;
     void onCanceled() override;
     void sendUseSkillSystemMessage() const;
-    void selectAoeTargets(EffectTargetType);
+    void selectTargets(EffectTargetType, SkillTargetNature);
     void adjustCastingDuration();
-    bool atLeastOneEffectAffectsSelf() const;
-    bool atLeastOneEffectIsAoe() const;
+    void cancelCurrentEffects() const;
+    void applyEffects() const;
+    void forEachTarget(std::function<void(Actor &)> const &) const;
 
 private:
     struct SkillActionImpl;

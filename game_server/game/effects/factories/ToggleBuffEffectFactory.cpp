@@ -7,4 +7,3 @@ ToggleBuffEffectFactory::ToggleBuffEffectFactory(SkillTemplate const & skillTemp
                                                  StatId const modifiedStat, StatValue const value)
         : BuffEffectFactory{skillTemplate, EffectTargetType::Self, SkillTargetNature::Self, -1s, modifiedStat, value}
 {}
-
