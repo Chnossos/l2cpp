@@ -10,9 +10,13 @@ Even though I never played C4 (began on Interlude), I'm targeting this one becau
 
 Go fast (but not too fast) and break things. YAGNI. Implement game design patterns I've studied years ago. Don't be too clever but have fun implementing and testing. DO **NOT** USE MULTIPLE THREADS. Leverage async code instead.
 
+## Future releases
+
+See the _Unrealeased_ section of [CHANGELOG.md](CHANGELOG.md)
+
 ## What's available?
 
-Unless explicitely specified, don't assume anything to be available. Here's what's been done so far:
+If it's not in the list, it's probably not implemented, or very (very) partially implemented. Here's what's been done so far:
 
 **Core**
 - [x] Packet creation, reading and sending;
@@ -25,41 +29,186 @@ Unless explicitely specified, don't assume anything to be available. Here's what
 - [x] Server list always displays 2 server (to test one up, one down), both lead to game server.
 
 **Game Server**
-- [x] Protocol `656` only 
-- [x] Character creation (with starting items)
-- [x] World entering (every character spawns at Talking Island)
-- [x] Moving around
-- [x] Inventory list (gear items can be equipped and unequipped)
-- [x] Starting items (customizable globally / per profession, can be already equipped at creation)
-- [x] Mini-map
-- [x] Character status
-- [x] Status (health, mana…) modifications broadcasting (once per world update)
-- [x] Target select and unselect (status depends on target type + target danger level)
-- [x] game loop to handle over-time actions and updates (regen, auto-attacks, DoTs…)
-- [x] Skills list (admins can use `//learn <skill_id> <skill_level>` command)
-- [x] Skill use, available effects:
-  - Instant buff (e.g. `Wind Walk`)
-  - Toggle buff (e.g. `Super Haste`)
-  - Instant damage (e.g. `Wind Strike`)
-  - Damage over time (e.g. `Poison`)
-  - Instant heal (e.g. `Battle Heal`)
-  - Heal over time (e.g. `Chant of Life`)
-  - Resurrection (e.g. `Mass Resurrection`)
-- [x] Skills can have multiple effects, where each effect can have different targets (be creative!)
-- [x] Skill effects target types: `Self`, `Single`, `Multiple`, `Aura`, `AuraIncludingSelf`
-- [x] Skill target nature (can be combined): `Self`, `Enemy`, `Friendly`, `Corpse`, `Character`, `Monster`, `Npc`, etc. 
-- [x] Skill casting cancellation with ESC key
-- [x] Shortcuts: `skill`, `item`, `action` (no macro yet)
-- [x] Chat (no restrictions)
-- [x] Auto-attacking (until target is dead)
-- [x] In-game time
-- [x] Corpse removal after a few seconds
-- [x] System messages and confirmation modals (e.g. for resurrection)
-- [x] Social actions
-
-## What's coming next
-
-See the _Unrealeased_ section of [CHANGELOG.md](CHANGELOG.md)
+<table>
+  <tr>
+    <th>Category</th>
+    <th>Feature</th>
+    <th>Status</th>
+    <th>Details</th>
+  </tr>
+  <tr>
+    <td align="center">Authentication</td>
+    <td>Supported protocols</td>
+    <td align="center"><code>656</code></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center" rowspan=3>Lobby</td>
+    <td>Character creation</td>
+    <td align="center">🟠</td>
+    <td>Base stats are the same for all races/profession.</td>
+  </tr>
+  <tr>
+    <td>Character deletion</td>
+    <td align="center">🟢</td>
+    <td>⚠️ Deletion is instantaneous!</td>
+  </tr>
+  <tr>
+    <td>Character selection</td>
+    <td align="center">🟢</td>
+    <td>Every character spawns at Talking Island.</td>
+  </tr>
+  <tr>
+    <td align="center" rowspan=4>Inventory</td>
+    <td>List</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Equip gear</td>
+    <td align="center">🟠</td>
+    <td>No effects applied yet.</td>
+  </tr>
+  <tr>
+    <td>Starting items</td>
+    <td align="center">🟢</td>
+    <td>Can be configured per starting profession and/or globally.<br>Gear items can be set to equipped.</td>
+  </tr>
+  <tr>
+    <td>Item templates database</td>
+    <td align="center">🟠</td>
+    <td>Most templates are missing due to datapack conversion effort needed.</td>
+  </tr>
+  <tr>
+    <td align="center" rowspan=2>Status Window</td>
+    <td>Display values</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Refresh on update</td>
+    <td align="center">🟢</td>
+    <td>Optimization: max. once per World update.</td>
+  </tr>
+  <tr>
+    <td align="center" rowspan=3>Mini-Map</td>
+    <td>Open/Close</td>
+    <td align="center">🟠</td>
+    <td>World map only.</td>
+  </tr>
+  <tr>
+    <td>Party members location</td>
+    <td align="center">🔴</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>In-game time</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center" rowspan=5>Social</td>
+    <td>Send/Receive messages</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Send/Receive private messages</td>
+    <td align="center">🟠</td>
+    <td>Visually only.</td>
+  </tr>
+  <tr>
+    <td>Chat restrictions</td>
+    <td align="center">🔴</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>System messages</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Social actions</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center" rowspan="2">Combat</td>
+    <td>Auto-attacking</td>
+    <td align="center">🟢</td>
+    <td>Until target is dead.</td>
+  </tr>
+  <tr>
+    <td>Corpse removal</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center" rowspan=8>Skills</td>
+    <td>List</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Learn</td>
+    <td align="center">🟠</td>
+    <td>Via admin command only.</td>
+  </tr>
+  <tr>
+    <td>Use</td>
+    <td align="center">🟢</td>
+    <td>Single and multiple targets animation.</td>
+  </tr>
+  <tr>
+    <td>Effects</td>
+    <td align="center">🟠</td>
+    <td>
+      Available effects:
+      <ul style="list-style: '– ';">
+          <li>Instant buff (e.g. <code>Wind Walk</code>)</li>
+          <li>Toggle buff (e.g. <code>Super Haste</code>)</li>
+          <li>Instant damage (e.g. <code>Wind Strike</code>)</li>
+          <li>Damage over time (e.g. <code>Poison</code>)</li>
+          <li>Instant heal (e.g. <code>Battle Heal</code>)</li>
+          <li>Heal over time (e.g. <code>Chant of Life</code>)</li>
+          <li>Resurrection (e.g. <code>Mass Resurrection</code>)</li>
+      </ul>
+    </td>
+  </tr>
+  <tr>
+    <td>Prerequisites</td>
+    <td align="center">🟠</td>
+    <td>No mana/health consumption yet.<br>Target matching combination is possible.</td>
+  </tr>
+  <tr>
+    <td>Skill templates database</td>
+    <td align="center">🟠</td>
+    <td>All skills loaded with bare minimum info.</td>
+  </tr>
+  <tr>
+  <tr>
+    <td>Cast cancellation</td>
+    <td align="center">🟢</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td align="center">Shortcuts</td>
+    <td>Add/Replace/Remove</td>
+    <td align="center">🟠</td>
+    <td>Limited to skills, items and actions.</td>
+  </tr>
+  <tr>
+    <td align="center" rowspan="2">Movement</td>
+    <td>Left-click</td>
+    <td align="center">🟠</td>
+    <td>No checks done whatsoever.</td>
+  </tr>
+  <tr>
+    <td>Geodata</td>
+    <td align="center">🔴</td>
+    <td></td>
+  </tr>
+</table>
 
 ## How to build
 
@@ -79,7 +228,11 @@ cmake --build build --preset conan-release # or conan-debug
 
 ## How to run
 
-Build, then start a login server, then a game server. Now log in with a game client supporting protocol 656 and voilà!
+1. Download a game client supporting protocol 656
+2. Build the project
+3. Start a login server from the project root
+4. Start a game server from the project root
+5. Use the client to log in, and voilà!
 
 ## Credits
 
