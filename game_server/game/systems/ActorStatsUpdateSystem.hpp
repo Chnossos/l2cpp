@@ -6,7 +6,7 @@
 // Project includes
 #include "../ecs/ActorSystem.hpp"
 
-namespace Network::Packet::Server { class StatsUpdatePacket; }
+namespace Network::Packets::Server { class StatsUpdatePacket; }
 
 class Character;
 class CharacterStatus;
@@ -17,12 +17,12 @@ struct ActorStatsUpdateSystem : public ActorSystem
     void updateImpl(ClockDuration elapsed, Actor &) override;
 
 private:
-    void updateCharacterStats(Network::Packet::Server::StatsUpdatePacket & privatePacket,
-                              Network::Packet::Server::StatsUpdatePacket & publicPacket,
+    void updateCharacterStats(Network::Packets::Server::StatsUpdatePacket & privatePacket,
+                              Network::Packets::Server::StatsUpdatePacket & publicPacket,
                               Character &, Stats const & oldStats) const;
 
-    void updateCharacterStatus(Network::Packet::Server::StatsUpdatePacket & privatePacket,
-                               Network::Packet::Server::StatsUpdatePacket & publicPacket,
+    void updateCharacterStatus(Network::Packets::Server::StatsUpdatePacket & privatePacket,
+                               Network::Packets::Server::StatsUpdatePacket & publicPacket,
                                Character &, CharacterStatus const & oldStatus) const;
 
     void updateNpcStats(Npc &, Stats const & oldStats) const;

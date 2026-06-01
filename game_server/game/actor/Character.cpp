@@ -13,7 +13,7 @@
 #include "../skill/SkillTemplateDirectory.hpp"
 #include "../ui/ShortcutBar.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <l2cpp/details/Pimpl.hpp>
 
@@ -84,7 +84,7 @@ void Character::offerResurrection(Actor const & emitter)
 
     using enum ConfirmationModalSystemMessageId;
 
-    Network::Packet::Server::UiConfirmationModalShowPacket p(std::to_underlying(ResurrectionProposal));
+    Network::Packets::Server::UiConfirmationModalShowPacket p(std::to_underlying(ResurrectionProposal));
     p << SysMsgArg::Text(emitter.name());
     p << SysMsgArg::Text(name());
 

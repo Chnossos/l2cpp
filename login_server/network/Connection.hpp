@@ -9,7 +9,7 @@
 // Third-party
 #include <boost/asio/ip/tcp.hpp>
 
-namespace l2cpp::Network { class Packet; }
+namespace Network { class Packet; }
 
 struct Connection
 {
@@ -32,7 +32,7 @@ struct Connection
 
     void asyncReadNextPacket();
 
-    void send(l2cpp::Network::Packet & p, bool encryptPacket = true,
+    void send(Network::Packet & p, bool encryptPacket = true,
               std::source_location src = std::source_location::current());
 
 private:

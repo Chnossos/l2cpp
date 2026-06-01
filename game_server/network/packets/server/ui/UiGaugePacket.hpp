@@ -8,7 +8,7 @@
 
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct UiGaugePacket; }
+namespace Network::Packets::Server { struct UiGaugePacket; }
 
 enum class GaugeColor : u32
 {
@@ -18,7 +18,7 @@ enum class GaugeColor : u32
     Green, ///< Used to show mount's hunger
 };
 
-struct Network::Packet::Server::UiGaugePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::UiGaugePacket final : public Network::Packet
 {
     UiGaugePacket(GaugeColor color, ClockDuration duration);
 };

@@ -9,9 +9,9 @@
 class Actor;
 class Character;
 
-namespace Network::Packet::Server { struct TargetSelectPacket; }
+namespace Network::Packets::Server { struct TargetSelectPacket; }
 
-struct Network::Packet::Server::TargetSelectPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::TargetSelectPacket final : public Network::Packet
 {
     explicit TargetSelectPacket(Character const & source, Actor const & target);
 };

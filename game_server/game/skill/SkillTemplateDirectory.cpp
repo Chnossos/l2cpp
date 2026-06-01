@@ -10,7 +10,7 @@
 #include "../effects/factories/ResurrectionEffectFactory.hpp"
 #include "../effects/factories/ToggleBuffEffectFactory.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/utils/EnumMask.hpp>
 
 // Third-pary includes
@@ -51,9 +51,9 @@ namespace
             auto const & [it, ok] = infos.try_emplace(tmpl.uid(), std::move(tmpl));
             L2CPP_B_ASSERT(ok, "Skill '{}' ({}) has already been loaded", it->second.fullName(), it->second.id());
         }
-        catch (l2cpp::Exception const & e)
+        catch (Core::Exception const & e)
         {
-            SPDLOG_ERROR("Failed to load skill from '{}:{}':\n{}", path.string(), i, l2cpp::formatExceptionStack(e));
+            SPDLOG_ERROR("Failed to load skill from '{}:{}':\n{}", path.string(), i, Core::formatExceptionStack(e));
         }
     }
 
@@ -195,9 +195,9 @@ namespace
                 skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::MAtkSpeedMultiplier, 5);
             }
         }
-        catch (l2cpp::Exception const & e)
+        catch (Core::Exception const & e)
         {
-            SPDLOG_ERROR("Failed to load skill from '{}:{}':\n{}", path.string(), i, l2cpp::formatExceptionStack(e));
+            SPDLOG_ERROR("Failed to load skill from '{}:{}':\n{}", path.string(), i, Core::formatExceptionStack(e));
         }
         // cast_style: 0=instant/passive 1=cast_time_non_zero 2=magic_skills_only 3=physical_skills_only
         //             4=hp_drain_magic 5=bow_skill 6=seal_of_ruler 7=physical_projectile 8=double_attack

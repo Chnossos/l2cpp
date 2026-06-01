@@ -4,7 +4,7 @@
 #include "ShortcutBar.hpp"
 
 // Project includes
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 
 auto ShortcutBar::at(Shortcut::Index const index) const -> OptRef<Shortcut>
 {

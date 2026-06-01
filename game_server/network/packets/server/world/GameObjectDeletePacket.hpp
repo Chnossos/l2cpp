@@ -8,9 +8,9 @@
 
 class GameObject;
 
-namespace Network::Packet::Server { struct GameObjectDeletePacket; }
+namespace Network::Packets::Server { struct GameObjectDeletePacket; }
 
-struct Network::Packet::Server::GameObjectDeletePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::GameObjectDeletePacket final : public Network::Packet
 {
     explicit GameObjectDeletePacket(GameObject const &);
 };

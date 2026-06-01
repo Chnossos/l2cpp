@@ -20,7 +20,7 @@
 // ReSharper disable once CppUnusedIncludeDirective
 #include <l2cpp/details/Pimpl.hpp>
 
-namespace SC = Network::Packet::Server; // Server -> Client
+namespace SC = Network::Packets::Server; // Server -> Client
 
 struct Actor::Impl
 {

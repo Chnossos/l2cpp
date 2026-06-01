@@ -13,9 +13,9 @@ class Actor;
 class Skill;
 class SkillTemplate;
 
-namespace Network::Packet::Server { class ChatSystemSayPacket; }
+namespace Network::Packets::Server { class ChatSystemSayPacket; }
 
-class Network::Packet::Server::ChatSystemSayPacket final : public l2cpp::Network::Packet
+class Network::Packets::Server::ChatSystemSayPacket final : public Network::Packet
 {
 public:
     explicit ChatSystemSayPacket(SystemMessageId messageId);
@@ -37,6 +37,6 @@ private:
 };
 
 template<class T> requires std::is_base_of_v<SystemMessageArgument, T>
-Network::Packet::Server::ChatSystemSayPacket & operator<<(Network::Packet::Server::ChatSystemSayPacket & p, T && arg) {
+Network::Packets::Server::ChatSystemSayPacket & operator<<(Network::Packets::Server::ChatSystemSayPacket & p, T && arg) {
     return p.appendArg(std::forward<T>(arg));
 }

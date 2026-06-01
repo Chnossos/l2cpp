@@ -3,7 +3,7 @@
 
 #include "CharacterDeletePacket.hpp"
 
-using Network::Packet::Server::CharacterDeletePacket;
+using Network::Packets::Server::CharacterDeletePacket;
 
 CharacterDeletePacket::CharacterDeletePacket()
     : Packet{0x23, "CharacterDeleteOk"}

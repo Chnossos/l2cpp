@@ -8,9 +8,9 @@
 
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct CharacterCreatePacket; }
+namespace Network::Packets::Server { struct CharacterCreatePacket; }
 
-struct Network::Packet::Server::CharacterCreatePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::CharacterCreatePacket final : public Network::Packet
 {
     explicit CharacterCreatePacket(CharacterCreationResult result);
 };

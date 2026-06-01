@@ -6,7 +6,7 @@
 // C++ includes
 #include <format>
 
-std::string l2cpp::hexdump(void const * const ptr, size_t const size)
+std::string Utils::hexdump(void const * const ptr, size_t const size)
 {
     // line format: "012345: 00 11 22 33 44 55 66 77 88 99 AA BB CC DD EE FF 0123456789ABCDEF"
     constexpr size_t maxLineWidth = 6 + 2 + 16 * 3 + 16;

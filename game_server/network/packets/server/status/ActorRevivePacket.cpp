@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/actor/Actor.hpp"
 
-using Network::Packet::Server::ActorRevivePacket;
+using Network::Packets::Server::ActorRevivePacket;
 
 ActorRevivePacket::ActorRevivePacket(Actor const & target)
     : Packet(0x07, "ActorRevive")

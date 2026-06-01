@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/actor/Actor.hpp"
 
-using Network::Packet::Server::StatsUpdatePacket;
+using Network::Packets::Server::StatsUpdatePacket;
 
 StatsUpdatePacket::StatsUpdatePacket(Actor const & emitter)
     : Packet(0x0e, "StatsUpdate")

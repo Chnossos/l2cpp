@@ -6,7 +6,7 @@
 // Project includes
 #include "../../utils/Conversion.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 
 // Third-pary includes
 #include <boost/algorithm/string/predicate.hpp>
@@ -69,9 +69,9 @@ namespace
 
             info->titleColor = titleColor;
         }
-        catch (l2cpp::Exception const & e)
+        catch (Core::Exception const & e)
         {
-            SPDLOG_ERROR("Failed to load skill from '{}:{}':\n{}", path.string(), i, l2cpp::formatExceptionStack(e));
+            SPDLOG_ERROR("Failed to load skill from '{}:{}':\n{}", path.string(), i, Core::formatExceptionStack(e));
         }
     }
 
@@ -102,9 +102,9 @@ namespace
 
             (info.type == ActorType::Npc ? npcs : monsters).try_emplace(info.id, std::move(info));
         }
-        catch (l2cpp::Exception const & e)
+        catch (Core::Exception const & e)
         {
-            SPDLOG_ERROR("Failed to load NPC from '{}:{}':\n{}", path.string(), i, l2cpp::formatExceptionStack(e));
+            SPDLOG_ERROR("Failed to load NPC from '{}:{}':\n{}", path.string(), i, Core::formatExceptionStack(e));
         }
     }
 }

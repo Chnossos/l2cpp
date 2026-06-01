@@ -13,7 +13,7 @@
 #include "../../../../game/components/Position.hpp"
 #include "../../../../game/components/Stats.hpp"
 
-using Network::Packet::Server::CharacterListPacket;
+using Network::Packets::Server::CharacterListPacket;
 
 CharacterListPacket::CharacterListPacket(Player const & player, std::vector<Ref<Character>> const & characters)
     : Packet(0x13, "CharacterList")

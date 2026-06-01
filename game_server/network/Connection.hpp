@@ -14,7 +14,7 @@
 // C++ includes
 #include <span>
 
-namespace l2cpp::Network { class Packet; }
+namespace Network { class Packet; }
 namespace Network { class Connection; }
 
 class Network::Connection
@@ -35,8 +35,8 @@ public:
 
 public:
     void asyncReadNextPacket();
-    void send(l2cpp::Network::Packet & p, std::source_location const & src = std::source_location::current());
-    void send(l2cpp::Network::Packet && p,
+    void send(Network::Packet & p, std::source_location const & src = std::source_location::current());
+    void send(Network::Packet && p,
               std::source_location const & src = std::source_location::current()) { send(p, src); }
     void close();
 

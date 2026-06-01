@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/actor/Actor.hpp"
 
-using Network::Packet::Server::SocialActionPerformPacket;
+using Network::Packets::Server::SocialActionPerformPacket;
 
 SocialActionPerformPacket::SocialActionPerformPacket(Actor const & performer, SocialActionId const actionId)
     : Packet(0x2d, "SocialActionPerform")

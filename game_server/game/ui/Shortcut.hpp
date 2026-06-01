@@ -28,8 +28,8 @@ public:
     virtual auto targetId()  const -> u32 = 0;
 
 private:
-    void serialize(l2cpp::Network::Packet &) const;
-    virtual void serializeImpl(l2cpp::Network::Packet &) const = 0;
+    void serialize(Network::Packet &) const;
+    virtual void serializeImpl(Network::Packet &) const = 0;
 
 private:
     Index        _index;

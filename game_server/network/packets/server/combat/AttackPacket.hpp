@@ -10,9 +10,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { class AttackPacket; }
+namespace Network::Packets::Server { class AttackPacket; }
 
-class Network::Packet::Server::AttackPacket final : public l2cpp::Network::Packet
+class Network::Packets::Server::AttackPacket final : public Network::Packet
 {
 public:
     explicit AttackPacket(Actor const & attacker, Actor const & mainTarget);

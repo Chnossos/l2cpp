@@ -5,7 +5,7 @@
 #include "Application.hpp"
 
 #include <l2cpp/CompileTimeConfig.hpp>
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 
 // Third-party
 #include <spdlog/spdlog.h>
@@ -36,13 +36,13 @@ int main(int const argc, char const * const argv[])
         if (app.load())
             code = app.run();
     }
-    catch (l2cpp::Exception const & e)
+    catch (Core::Exception const & e)
     {
-        SPDLOG_CRITICAL("Caught top-level exception:\n{}", l2cpp::formatExceptionStack(e));
+        SPDLOG_CRITICAL("Caught top-level exception:\n{}", Core::formatExceptionStack(e));
     }
     catch (std::exception const & e)
     {
-        SPDLOG_CRITICAL("Caught top-level exception:\n{}", l2cpp::formatExceptionStack(e));
+        SPDLOG_CRITICAL("Caught top-level exception:\n{}", Core::formatExceptionStack(e));
     }
     catch (...)
     {

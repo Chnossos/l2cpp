@@ -42,7 +42,7 @@ auto SkillTemplate::targetNature() const -> SkillTargetNature
 
 auto SkillTemplate::needsTarget() const -> bool
 {
-    return l2cpp::Utils::Enum::isAnyOf(targetType(), EffectTargetType::Single, EffectTargetType::Multiple);
+    return Utils::Enum::isAnyOf(targetType(), EffectTargetType::Single, EffectTargetType::Multiple);
 }
 
 auto SkillTemplate::isMagic()          const -> bool          { return _isMagic;          }

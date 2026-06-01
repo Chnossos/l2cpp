@@ -4,7 +4,7 @@
 #include "Item.hpp"
 
 // Project includes
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/network/Packet.hpp>
 
 namespace
@@ -40,7 +40,7 @@ Item::Item(ItemId const id)
     : uid(id)
 {}
 
-l2cpp::Network::Packet & operator<<(l2cpp::Network::Packet & p, Item const & item)
+Network::Packet & operator<<(Network::Packet & p, Item const & item)
 {
     return p
         << typeFromCategory(item.tmplate.category)

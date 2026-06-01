@@ -6,7 +6,7 @@
 // C++ includes
 #include <utility>
 
-namespace l2cpp::Utils::Enum
+namespace Utils::Enum
 {
     template<typename E, typename Func> requires std::is_enum_v<E> && std::invocable<Func, E>
     constexpr void foreach(E begin, E end, Func f)

@@ -8,9 +8,9 @@
 
 class Character;
 
-namespace Network::Packet::Server { class CharacterStatusUpdatePacket; }
+namespace Network::Packets::Server { class CharacterStatusUpdatePacket; }
 
-class Network::Packet::Server::CharacterStatusUpdatePacket final : public l2cpp::Network::Packet
+class Network::Packets::Server::CharacterStatusUpdatePacket final : public Network::Packet
 {
 public:
     explicit CharacterStatusUpdatePacket(Character const &);

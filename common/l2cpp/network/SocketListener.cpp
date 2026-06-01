@@ -17,7 +17,7 @@ namespace ip = boost::asio::ip;
 
 using boost::system::error_code;
 
-using SL = l2cpp::Network::SocketListener;
+using SL = Network::SocketListener;
 using TcpAcceptor = ip::tcp::acceptor;
 
 struct SL::Impl
@@ -36,7 +36,7 @@ struct SL::Impl
     bool handleError(u16 port, error_code const & ec);
 };
 
-template class Pimpl<l2cpp::Network::SocketListener::Impl>;
+template class Pimpl<Network::SocketListener::Impl>;
 
 bool SL::Impl::listen(ip::address addr, u16 const port, AcceptCallback cb)
 {

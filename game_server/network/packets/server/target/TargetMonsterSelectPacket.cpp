@@ -9,7 +9,7 @@
 #include "../../../../game/components/CharacterStatus.hpp"
 #include "../../../../game/components/NpcStatus.hpp"
 
-using Network::Packet::Server::TargetMonsterSelectPacket;
+using Network::Packets::Server::TargetMonsterSelectPacket;
 
 TargetMonsterSelectPacket::TargetMonsterSelectPacket(Character const & source, Monster const & target)
     : Packet(0xa6, "TargetMonsterSelect")

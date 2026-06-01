@@ -6,9 +6,9 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct ClientGoBackToCharacterSelectionPacket; }
+namespace Network::Packets::Server { struct ClientGoBackToCharacterSelectionPacket; }
 
-struct Network::Packet::Server::ClientGoBackToCharacterSelectionPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ClientGoBackToCharacterSelectionPacket final : public Network::Packet
 {
     explicit ClientGoBackToCharacterSelectionPacket(bool ok);
 };

@@ -7,7 +7,7 @@
 #include "../game/actor/Character.hpp"
 #include "../network/packets/server/chat/ChatSayPacket.hpp"
 
-using Network::Packet::Server::ChatSayPacket;
+using Network::Packets::Server::ChatSayPacket;
 
 DEFINE_PACKET_HANDLER(ChatSay)
 {

@@ -3,7 +3,7 @@
 
 #include "ProtocolHandshakePacket.hpp"
 
-using namespace Network::Packet::Server;
+using namespace Network::Packets::Server;
 
 ProtocolHandshakeOkPacket::ProtocolHandshakeOkPacket(std::span<byte const> const encryptionKey)
 {

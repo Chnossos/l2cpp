@@ -4,7 +4,7 @@
 #include "PlayerAppearance.hpp"
 
 // Project includes
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/utils/Enum.hpp>
 
 PlayerAppearance::PlayerAppearance() noexcept
@@ -28,8 +28,8 @@ auto PlayerAppearance::nameColor()          const -> u32        { return _nameCo
 void PlayerAppearance::setStartingProfession(Profession const p)
 {
     using enum Profession;
-    L2CPP_B_ASSERT(l2cpp::Utils::Enum::isAnyOf(p, HumanFighter, ElvenFighter, DarkFighter, OrcFighter, DwarvenFighter,
-                                                  HumanMystic,  ElvenMystic,  DarkMystic,  OrcMystic),
+    L2CPP_B_ASSERT(Utils::Enum::isAnyOf(p, HumanFighter, ElvenFighter, DarkFighter, OrcFighter, DwarvenFighter,
+                                           HumanMystic,  ElvenMystic,  DarkMystic,  OrcMystic),
                    "Profession '{}' is not a valid starting profession", std::to_underlying(p));
 
     _startingProfession = p;

@@ -4,7 +4,7 @@
 #include "ExperienceTable.hpp"
 
 // Project includes
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 
 // C++ includes
 #include <array>

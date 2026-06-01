@@ -6,9 +6,9 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct ClientExitGamePacket; }
+namespace Network::Packets::Server { struct ClientExitGamePacket; }
 
-struct Network::Packet::Server::ClientExitGamePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ClientExitGamePacket final : public Network::Packet
 {
     ClientExitGamePacket();
 };

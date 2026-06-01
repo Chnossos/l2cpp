@@ -8,7 +8,7 @@
 #include "game/actor/Character.hpp"
 #include "network/Connection.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <l2cpp/details/Pimpl.hpp>
 

@@ -8,9 +8,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct AttackStanceTogglePacket; }
+namespace Network::Packets::Server { struct AttackStanceTogglePacket; }
 
-struct Network::Packet::Server::AttackStanceTogglePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::AttackStanceTogglePacket final : public Network::Packet
 {
     AttackStanceTogglePacket(bool enable, Actor const & target);
 };

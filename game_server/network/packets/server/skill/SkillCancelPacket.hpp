@@ -8,9 +8,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct SkillCancelPacket; }
+namespace Network::Packets::Server { struct SkillCancelPacket; }
 
-struct Network::Packet::Server::SkillCancelPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::SkillCancelPacket final : public Network::Packet
 {
     explicit SkillCancelPacket(Actor const & caster);
 };

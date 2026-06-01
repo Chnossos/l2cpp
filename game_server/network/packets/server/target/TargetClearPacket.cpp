@@ -7,7 +7,7 @@
 #include "../../../../game/actor/Character.hpp"
 #include "../../../../game/components/Position.hpp"
 
-using Network::Packet::Server::TargetClearPacket;
+using Network::Packets::Server::TargetClearPacket;
 
 TargetClearPacket::TargetClearPacket(Character const & c)
     : Packet(0x2a, "TargetClear")

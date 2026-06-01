@@ -10,9 +10,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct ChatNpcSayPacket; }
+namespace Network::Packets::Server { struct ChatNpcSayPacket; }
 
-struct Network::Packet::Server::ChatNpcSayPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ChatNpcSayPacket final : public Network::Packet
 {
     ChatNpcSayPacket(Actor const & emitter, ChatType type, std::wstring_view const & message);
 };

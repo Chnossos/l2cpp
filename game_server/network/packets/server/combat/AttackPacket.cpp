@@ -8,7 +8,7 @@
 #include "../../../../game/components/Gear.hpp"
 #include "../../../../game/components/Position.hpp"
 
-using Network::Packet::Server::AttackPacket;
+using Network::Packets::Server::AttackPacket;
 
 static constexpr size_t positionSize = sizeof(Position::x) + sizeof(Position::y) + sizeof(Position::z);
 

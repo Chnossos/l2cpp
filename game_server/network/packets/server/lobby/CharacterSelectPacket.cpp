@@ -12,7 +12,7 @@
 #include "../../../../game/components/Position.hpp"
 #include "../../../../game/components/Stats.hpp"
 
-using Network::Packet::Server::CharacterSelectPacket;
+using Network::Packets::Server::CharacterSelectPacket;
 
 CharacterSelectPacket::CharacterSelectPacket(Character const & c, u32 const encryptionKey)
     : Packet(0x15, "CharacterSelect")

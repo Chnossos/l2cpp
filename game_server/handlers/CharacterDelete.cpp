@@ -30,9 +30,9 @@ try
     player.connection().send(CharacterDeletePacket{});
     handleCharacterList(player);
 }
-catch (l2cpp::Exception const & e)
+catch (Core::Exception const & e)
 {
-    SPDLOG_ERROR("Failed to delete character:{}\n", l2cpp::formatExceptionStack(e));
+    SPDLOG_ERROR("Failed to delete character:{}\n", Core::formatExceptionStack(e));
     player.connection().send(CharacterDeletePacket{CharacterDeletionFailureReason::GeneralFailure});
     throw;
 }

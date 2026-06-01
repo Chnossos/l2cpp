@@ -3,7 +3,7 @@
 
 #include "UiConfirmationModalShowPacket.hpp"
 
-using Network::Packet::Server::UiConfirmationModalShowPacket;
+using Network::Packets::Server::UiConfirmationModalShowPacket;
 
 UiConfirmationModalShowPacket::UiConfirmationModalShowPacket(u32 const systemMessageId)
     : Packet(0xed, "UiConfirmationModalShow")

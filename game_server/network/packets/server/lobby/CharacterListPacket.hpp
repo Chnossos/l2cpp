@@ -9,9 +9,9 @@
 class Character;
 class Player;
 
-namespace Network::Packet::Server { struct CharacterListPacket; }
+namespace Network::Packets::Server { struct CharacterListPacket; }
 
-struct Network::Packet::Server::CharacterListPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::CharacterListPacket final : public Network::Packet
 {
     explicit CharacterListPacket(Player const &, std::vector<Ref<Character>> const & characters);
 };

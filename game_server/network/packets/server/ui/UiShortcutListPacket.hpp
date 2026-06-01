@@ -8,9 +8,9 @@
 
 class ShortcutBar;
 
-namespace Network::Packet::Server { struct UiShortcutListPacket; }
+namespace Network::Packets::Server { struct UiShortcutListPacket; }
 
-struct Network::Packet::Server::UiShortcutListPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::UiShortcutListPacket final : public Network::Packet
 {
     explicit UiShortcutListPacket(ShortcutBar const &);
 };

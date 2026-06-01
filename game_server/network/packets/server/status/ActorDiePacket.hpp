@@ -8,9 +8,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct ActorDiePacket; }
+namespace Network::Packets::Server { struct ActorDiePacket; }
 
-struct Network::Packet::Server::ActorDiePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ActorDiePacket final : public Network::Packet
 {
     explicit ActorDiePacket(Actor const &);
 };

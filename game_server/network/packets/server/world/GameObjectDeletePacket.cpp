@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/GameObject.hpp"
 
-using Network::Packet::Server::GameObjectDeletePacket;
+using Network::Packets::Server::GameObjectDeletePacket;
 
 GameObjectDeletePacket::GameObjectDeletePacket(GameObject const & object)
     : Packet(0x12, "GameObjectDelete")

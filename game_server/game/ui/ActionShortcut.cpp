@@ -16,7 +16,7 @@ auto ActionShortcut::targetId() const -> u32
     return _actionId;
 }
 
-void ActionShortcut::serializeImpl(l2cpp::Network::Packet & p) const
+void ActionShortcut::serializeImpl(Network::Packet & p) const
 {
     p << _actionId;
 }

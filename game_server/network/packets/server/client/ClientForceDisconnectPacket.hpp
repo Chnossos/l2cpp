@@ -6,9 +6,9 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct ClientForceDisconnectPacket; }
+namespace Network::Packets::Server { struct ClientForceDisconnectPacket; }
 
-struct Network::Packet::Server::ClientForceDisconnectPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ClientForceDisconnectPacket final : public Network::Packet
 {
     ClientForceDisconnectPacket();
 };

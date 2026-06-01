@@ -13,9 +13,9 @@
 static bool needToUpdateList(bool const currentValue, Effect const & effect)
 {
     using enum EffectType;
-    return currentValue                                             // short-circuit
-        || l2cpp::Utils::Enum::isAnyOf(effect.type(), Buff, Debuff) // Non hp modifying effect
-        || effect.duration() != ClockDuration::zero();              // is damage or heal over time (it has an icon)
+    return currentValue                                      // short-circuit
+        || Utils::Enum::isAnyOf(effect.type(), Buff, Debuff) // Non hp modifying effect
+        || effect.duration() != ClockDuration::zero();       // is damage or heal over time (it has an icon)
 }
 
 void ActorEffectSystem::updateImpl(ClockDuration const elapsed, Actor & actor)
@@ -48,7 +48,7 @@ void ActorEffectSystem::updateImpl(ClockDuration const elapsed, Actor & actor)
         addedEffects.unique();
         for (auto const skillUid : addedEffects)
         {
-            Network::Packet::Server::ChatSystemSayPacket msg{SystemMessageId::YouCanFeel_1sEffect};
+            Network::Packets::Server::ChatSystemSayPacket msg{SystemMessageId::YouCanFeel_1sEffect};
             msg.appendName(skillUid);
             World::send(actor, std::move(msg));
         }
@@ -56,7 +56,7 @@ void ActorEffectSystem::updateImpl(ClockDuration const elapsed, Actor & actor)
         removedEffects.unique();
         for (auto const skillUid : removedEffects)
         {
-            Network::Packet::Server::ChatSystemSayPacket msg{SystemMessageId::TheEffectOf_1_HasWornOff};
+            Network::Packets::Server::ChatSystemSayPacket msg{SystemMessageId::TheEffectOf_1_HasWornOff};
             msg.appendName(skillUid);
             World::send(actor, std::move(msg));
         }

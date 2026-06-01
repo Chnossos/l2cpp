@@ -10,9 +10,9 @@
 #include <span>
 #include <string>
 
-namespace l2cpp::Network { class PacketReader; }
+namespace Network { class PacketReader; }
 
-class l2cpp::Network::PacketReader
+class Network::PacketReader
 {
 public:
     explicit PacketReader(std::span<byte const> packet) noexcept: cursor(std::move(packet)) {}

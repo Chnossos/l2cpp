@@ -19,8 +19,8 @@ namespace
     bool isSpeedStat(StatId const statId)
     {
         using enum StatId;
-        return l2cpp::Utils::Enum::isAnyOf(statId, MoveSpeedMultiplier, MoveSpeedBonus,
-                                                   PAtkSpeedMultiplier, PAtkSpeedBonus);
+        return Utils::Enum::isAnyOf(statId, MoveSpeedMultiplier, MoveSpeedBonus,
+                                            PAtkSpeedMultiplier, PAtkSpeedBonus);
     }
 }
 
@@ -53,7 +53,7 @@ void BuffEffect::modifyStat(StatValue const newValue) const
     stats[_modifiedStat] += newValue;
     stats.compute(target());
 
-    namespace SC   = Network::Packet::Server;
+    namespace SC = Network::Packets::Server;
 
     if (target().type() == ActorType::Character)
     {
@@ -66,7 +66,7 @@ void BuffEffect::modifyStat(StatValue const newValue) const
     else
     {
         auto const & npc = static_cast<Npc const &>(target());
-        World::broadcastAround(npc, Network::Packet::Server::NpcStatusUpdatePacket(npc));
+        World::broadcastAround(npc, Network::Packets::Server::NpcStatusUpdatePacket(npc));
     }
 }
 

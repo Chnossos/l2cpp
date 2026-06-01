@@ -7,7 +7,7 @@
 #include "../../../../game/actor/Character.hpp"
 #include "../../../../game/components/Position.hpp"
 
-using Network::Packet::Server::TargetSelectPacket;
+using Network::Packets::Server::TargetSelectPacket;
 
 TargetSelectPacket::TargetSelectPacket(Character const & source, Actor const & target)
     : Packet(0x29, "TargetSelect")

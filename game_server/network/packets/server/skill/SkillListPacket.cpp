@@ -6,7 +6,7 @@
 // C++ includes
 #include <ranges>
 
-using Network::Packet::Server::SkillListPacket;
+using Network::Packets::Server::SkillListPacket;
 
 SkillListPacket::SkillListPacket(SkillDirectory const & skills)
     : Packet(0x58, "SkillList")

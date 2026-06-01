@@ -4,14 +4,14 @@
 #pragma once
 
 // Project includes
-#include "Typedefs.hpp"
+#include "../Typedefs.hpp"
 
 // C++ includes
 #include <memory>
 #include <span>
 #include <string>
 
-namespace l2cpp
+namespace Utils
 {
     auto hexdump(void const * ptr, size_t size) -> std::string;
     inline auto hexdump(std::span<byte const> const buffer) -> std::string {

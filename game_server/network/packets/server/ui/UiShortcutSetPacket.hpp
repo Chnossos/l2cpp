@@ -8,9 +8,9 @@
 
 class Shortcut;
 
-namespace Network::Packet::Server { struct UiShortcutSetPacket; }
+namespace Network::Packets::Server { struct UiShortcutSetPacket; }
 
-struct Network::Packet::Server::UiShortcutSetPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::UiShortcutSetPacket final : public Network::Packet
 {
     explicit UiShortcutSetPacket(Shortcut const &);
 };

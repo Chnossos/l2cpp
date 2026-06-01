@@ -8,9 +8,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct ActorMoveStopPacket; }
+namespace Network::Packets::Server { struct ActorMoveStopPacket; }
 
-struct Network::Packet::Server::ActorMoveStopPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ActorMoveStopPacket final : public Network::Packet
 {
     explicit ActorMoveStopPacket(Actor const & actor);
 };

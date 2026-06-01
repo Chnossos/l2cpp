@@ -6,7 +6,7 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-l2cpp::Network::Packet & operator<<(l2cpp::Network::Packet & p, Shortcut const & s)
+Network::Packet & operator<<(Network::Packet & p, Shortcut const & s)
 {
     s.serialize(p);
     return p;
@@ -22,7 +22,7 @@ Shortcut::Shortcut(u32 const index, ShortcutType const type)
 auto Shortcut::index() const -> Index        { return _index; }
 auto Shortcut::type()  const -> ShortcutType { return _type;  }
 
-void Shortcut::serialize(l2cpp::Network::Packet & p) const
+void Shortcut::serialize(Network::Packet & p) const
 {
     p << _type << _index;
     serializeImpl(p);

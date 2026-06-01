@@ -6,11 +6,11 @@
 // Project includes
 #include "../../../../game/actor/Actor.hpp"
 
-using Network::Packet::Server::ActorDiePacket;
+using Network::Packets::Server::ActorDiePacket;
 
 namespace
 {
-    void write(l2cpp::Network::Packet & p, Actor const & actor,
+    void write(Network::Packet & p, Actor const & actor,
                bool const canMoveToVillage, bool const canMoveToClanHall, bool const canMoveToCastle,
                bool const canMoveToSiegeHq, bool const isSweepable,       bool const canReviveOnTheSpot)
     {

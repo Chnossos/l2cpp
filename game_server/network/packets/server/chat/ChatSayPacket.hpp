@@ -9,9 +9,9 @@
 
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct ChatSayPacket; }
+namespace Network::Packets::Server { struct ChatSayPacket; }
 
-struct Network::Packet::Server::ChatSayPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ChatSayPacket final : public Network::Packet
 {
     ChatSayPacket(u32 senderId, std::wstring_view sender, ChatType type, std::wstring_view message);
 };

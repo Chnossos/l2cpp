@@ -9,7 +9,7 @@
 // C++ includes
 #include <algorithm>
 
-using Network::Packet::Server::UiShortcutListPacket;
+using Network::Packets::Server::UiShortcutListPacket;
 
 UiShortcutListPacket::UiShortcutListPacket(ShortcutBar const & shortcutBar)
     : Packet(0x45, "UiShortcutList")

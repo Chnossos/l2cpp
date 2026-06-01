@@ -21,13 +21,13 @@ DEFINE_PACKET_HANDLER(SocialActionPerform) try
     reader >> actionId;
 
     using enum SocialActionId;
-    L2CPP_B_ASSERT(l2cpp::Utils::Enum::isInContiguousInclusiveRange(actionId, Hello, Sad),
+    L2CPP_B_ASSERT(Utils::Enum::isInContiguousInclusiveRange(actionId, Hello, Sad),
                    "Invalid social action id '{}'", std::to_underlying(actionId));
 
     player.currentCharacter()->doNext<SocialAction>(actionId);
 }
-catch (l2cpp::Exception const & e)
+catch (Core::Exception const & e)
 {
-    SPDLOG_ERROR("Failed to perform social action:\n{}", l2cpp::formatExceptionStack(e));
+    SPDLOG_ERROR("Failed to perform social action:\n{}", Core::formatExceptionStack(e));
     player.connection().send(ActionFailedPacket{});
 }

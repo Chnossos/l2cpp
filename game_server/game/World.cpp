@@ -51,9 +51,9 @@
 // C++ includes
 #include <ranges>
 
-namespace SC = Network::Packet::Server; // Server -> Client
+namespace SC = Network::Packets::Server; // Server -> Client
 
-using l2cpp::Network::Packet;
+using Network::Packet;
 
 static void addGremlin()
 {
@@ -131,13 +131,13 @@ void World::update(ClockDuration const elapsed)
             if (auto const action = a->currentAction())
                 action->update(elapsed);
         }
-        catch (l2cpp::Exception const & e)
+        catch (Core::Exception const & e)
         {
-            SPDLOG_ERROR("Failed to update action for character '{}':\n{}", a->id(), l2cpp::formatExceptionStack(e));
+            SPDLOG_ERROR("Failed to update action for character '{}':\n{}", a->id(), Core::formatExceptionStack(e));
         }
         catch (std::exception const & e)
         {
-            SPDLOG_ERROR("Failed to update action for character '{}':\n{}", a->id(), l2cpp::formatExceptionStack(e));
+            SPDLOG_ERROR("Failed to update action for character '{}':\n{}", a->id(), Core::formatExceptionStack(e));
         }
     }
 

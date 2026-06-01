@@ -17,7 +17,7 @@ struct SystemMessageArgument
     SystemMessageArgument & operator=(SystemMessageArgument &&) noexcept = default;
     virtual ~SystemMessageArgument() noexcept = default;
 
-    virtual void serialize(l2cpp::Network::Packet &) const = 0;
+    virtual void serialize(Network::Packet &) const = 0;
 };
 
 namespace details
@@ -41,7 +41,7 @@ namespace details
             : value(v)
         {}
 
-        void serialize(l2cpp::Network::Packet & p) const override { p << type << value; }
+        void serialize(Network::Packet & p) const override { p << type << value; }
     };
 }
 

@@ -7,7 +7,7 @@
 #include "../../../../game/actor/Actor.hpp"
 #include "../../../../game/skill/Skill.hpp"
 
-using Network::Packet::Server::SkillSetTargetsPacket;
+using Network::Packets::Server::SkillSetTargetsPacket;
 
 SkillSetTargetsPacket::SkillSetTargetsPacket(Actor const & caster, SkillTemplate const & skill,
                                              std::span<Ref<Actor const> const> const targets)

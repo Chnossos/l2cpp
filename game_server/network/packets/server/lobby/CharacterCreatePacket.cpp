@@ -3,7 +3,7 @@
 
 #include "CharacterCreatePacket.hpp"
 
-using Network::Packet::Server::CharacterCreatePacket;
+using Network::Packets::Server::CharacterCreatePacket;
 
 CharacterCreatePacket::CharacterCreatePacket(CharacterCreationResult const result)
     : Packet(result == CharacterCreationResult::Success ? 0x19 : 0x1a,

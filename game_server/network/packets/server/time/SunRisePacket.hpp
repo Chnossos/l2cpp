@@ -6,8 +6,8 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server
+namespace Network::Packets::Server
 {
     /// Sun rises at 7am IG.
-    using SunRisePacket = l2cpp::Network::HeaderOnlyPacket<0x1c>;
+    using SunRisePacket = Network::HeaderOnlyPacket<0x1c>;
 }

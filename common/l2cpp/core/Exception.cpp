@@ -17,24 +17,24 @@ namespace
         return pos != std::string::npos ? path.substr(pos + 1) : path;
     }
 
-    void getExceptionStack(l2cpp::Exception const & e, l2cpp::ExceptionStack & stack)
+    void getExceptionStack(Core::Exception const & e, Core::ExceptionStack & stack)
     {
         stack.emplace_back(e);
         try
         {
             std::rethrow_if_nested(e);
         }
-        catch (l2cpp::Exception const & nested)
+        catch (Core::Exception const & nested)
         {
             getExceptionStack(nested, stack);
         }
         catch (std::exception const & nested)
         {
-            getExceptionStack(l2cpp::Exception({}, 0, "{}",  nested.what()), stack);
+            getExceptionStack(Core::Exception({}, 0, "{}",  nested.what()), stack);
         }
     }
 
-    std::string formatSourceLocation(l2cpp::Exception const & e)
+    std::string formatSourceLocation(Core::Exception const & e)
     {
         std::string src;
 
@@ -56,48 +56,48 @@ namespace
     }
 } // !namespace
 
-l2cpp::Exception::Exception() noexcept
+Core::Exception::Exception() noexcept
     : Exception(0)
 {}
 
-l2cpp::Exception::Exception(int const code) noexcept
+Core::Exception::Exception(int const code) noexcept
     : Exception({}, code)
 {}
 
-l2cpp::Exception::Exception(std::source_location src, int const code) noexcept
+Core::Exception::Exception(std::source_location src, int const code) noexcept
     : _source(std::move(src))
     , _code(code)
 {}
 
-auto l2cpp::Exception::code() const -> int { return _code;          }
-auto l2cpp::Exception::line() const -> int { return _source.line(); }
+auto Core::Exception::code() const -> int { return _code;          }
+auto Core::Exception::line() const -> int { return _source.line(); }
 
-auto l2cpp::Exception::fileBaseName() const  -> std::string_view
+auto Core::Exception::fileBaseName() const  -> std::string_view
 {
     return fileName(_source.file_name());
 }
 
-auto l2cpp::Exception::functionName() const  -> std::string_view { return _source.function_name(); }
-auto l2cpp::Exception::what() const noexcept -> char const *     { return _message.c_str();        }
+auto Core::Exception::functionName() const  -> std::string_view { return _source.function_name(); }
+auto Core::Exception::what() const noexcept -> char const *     { return _message.c_str();        }
 
-void l2cpp::Exception::init(std::source_location src, std::string message)
+void Core::Exception::init(std::source_location src, std::string message)
 {
     init(std::move(src), 0, std::move(message));
 }
 
-void l2cpp::Exception::init(std::source_location src, int const code)
+void Core::Exception::init(std::source_location src, int const code)
 {
     init(std::move(src), code, std::string());
 }
 
-void l2cpp::Exception::init(std::source_location src, int const code, std::string message)
+void Core::Exception::init(std::source_location src, int const code, std::string message)
 {
     _source  = std::move(src);
     _message = std::move(message);
     _code    = code;
 }
 
-auto l2cpp::sandBox(std::source_location src, std::function<void()> f) -> ExceptionBox
+auto Core::sandBox(std::source_location src, std::function<void()> f) -> ExceptionBox
 {
     ExceptionBox box { nullptr, std::move(src) };
     try         { f();                                }
@@ -105,14 +105,14 @@ auto l2cpp::sandBox(std::source_location src, std::function<void()> f) -> Except
     return box;
 }
 
-auto l2cpp::getExceptionStack(Exception const & e) -> ExceptionStack
+auto Core::getExceptionStack(Exception const & e) -> ExceptionStack
 {
     ExceptionStack stack;
     ::getExceptionStack(e, stack);
     return stack;
 }
 
-auto l2cpp::formatExceptionStack(std::exception const & e, int level, int increment,
+auto Core::formatExceptionStack(std::exception const & e, int level, int increment,
                                  std::string_view prefix, std::string_view suffix)
     -> std::string
 {
@@ -133,14 +133,14 @@ auto l2cpp::formatExceptionStack(std::exception const & e, int level, int increm
     return formatExceptionStack(stack, level, increment, prefix, suffix);
 }
 
-auto l2cpp::formatExceptionStack(Exception const & e, int level, int increment,
+auto Core::formatExceptionStack(Exception const & e, int level, int increment,
                                  std::string_view prefix, std::string_view suffix)
     -> std::string
 {
     return formatExceptionStack(getExceptionStack(e), level, increment, prefix, suffix);
 }
 
-auto l2cpp::formatExceptionStack(ExceptionStack const & s, int level, int increment,
+auto Core::formatExceptionStack(ExceptionStack const & s, int level, int increment,
                                  std::string_view prefix, std::string_view suffix)
     -> std::string
 {

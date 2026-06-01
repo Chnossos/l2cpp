@@ -6,12 +6,12 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server
+namespace Network::Packets::Server
 {
     namespace details
     {
         template<bool ok>
-        struct ProtocolHandshakeBase : public l2cpp::Network::Packet
+        struct ProtocolHandshakeBase : public Network::Packet
         {
             ProtocolHandshakeBase(): Packet(0x00, ok ? "ProtocolHandshakeOk" : "ProtocolHandshakeFail") { *this << ok; }
         };

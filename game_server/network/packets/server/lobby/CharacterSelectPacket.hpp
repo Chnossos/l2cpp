@@ -8,9 +8,9 @@
 
 class Character;
 
-namespace Network::Packet::Server { struct CharacterSelectPacket; }
+namespace Network::Packets::Server { struct CharacterSelectPacket; }
 
-struct Network::Packet::Server::CharacterSelectPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::CharacterSelectPacket final : public Network::Packet
 {
     CharacterSelectPacket(Character const & c, u32 encryptionKey);
 };

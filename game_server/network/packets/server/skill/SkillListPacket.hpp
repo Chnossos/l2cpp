@@ -8,9 +8,9 @@
 
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct SkillListPacket; }
+namespace Network::Packets::Server { struct SkillListPacket; }
 
-struct Network::Packet::Server::SkillListPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::SkillListPacket final : public Network::Packet
 {
     explicit SkillListPacket(SkillDirectory const &);
 };

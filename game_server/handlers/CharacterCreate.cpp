@@ -36,7 +36,7 @@ DEFINE_PACKET_HANDLER(CharacterCreate) try
     ;
 
     using enum Race;
-    using l2cpp::Utils::Enum::isAnyOf;
+    using Utils::Enum::isAnyOf;
     L2CPP_B_ASSERT(isAnyOf(params.race, Human, Elf, DarkElf, Orc, Dwarf),
                    "Invalid race value '{}'", std::to_underlying(params.race));
 

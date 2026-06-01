@@ -48,7 +48,7 @@ DEFINE_PACKET_HANDLER(ItemUse)
                         p.appendModifiedItem(oldItem);
 
                         using enum ItemCategory;
-                        if (l2cpp::Utils::Enum::isAnyOf(oldItem.tmplate.category, Armor, Accessory, Weapon))
+                        if (Utils::Enum::isAnyOf(oldItem.tmplate.category, Armor, Accessory, Weapon))
                         {
                             ChatSystemSayPacket msg{SystemMessageId::_1_HasBeenDisarmed};
                             msg.appendArg(SysMsgArg::ItemName{oldItem.tmplate.id});

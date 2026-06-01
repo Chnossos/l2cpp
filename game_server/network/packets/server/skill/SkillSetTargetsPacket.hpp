@@ -9,9 +9,9 @@
 class Actor;
 class SkillTemplate;
 
-namespace Network::Packet::Server { struct SkillSetTargetsPacket; }
+namespace Network::Packets::Server { struct SkillSetTargetsPacket; }
 
-struct Network::Packet::Server::SkillSetTargetsPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::SkillSetTargetsPacket final : public Network::Packet
 {
     SkillSetTargetsPacket(Actor const & caster, SkillTemplate const & skill, std::span<Ref<Actor const> const> targets);
 };

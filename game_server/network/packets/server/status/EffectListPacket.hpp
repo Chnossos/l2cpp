@@ -8,9 +8,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct EffectListPacket; }
+namespace Network::Packets::Server { struct EffectListPacket; }
 
-struct Network::Packet::Server::EffectListPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::EffectListPacket final : public Network::Packet
 {
     explicit EffectListPacket(Actor const &);
 };

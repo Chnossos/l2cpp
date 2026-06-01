@@ -3,7 +3,7 @@
 
 #include "UiGaugePacket.hpp"
 
-using Network::Packet::Server::UiGaugePacket;
+using Network::Packets::Server::UiGaugePacket;
 
 UiGaugePacket::UiGaugePacket(GaugeColor const color, ClockDuration const duration)
     : Packet(0x6d, "UiGauge")

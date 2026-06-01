@@ -2,10 +2,10 @@
 /// @date      Created on 2026-02-24
 
 // Project includes
-#include "_Common.hpp"
 #include "../network/packets/server/auth/ProtocolHandshakePacket.hpp"
+#include "_Common.hpp"
 
-using namespace Network::Packet::Server;
+using namespace Network::Packets::Server;
 
 DEFINE_PACKET_HANDLER(Protocol)
 {

@@ -8,9 +8,9 @@
 
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct InventoryUpdatePacket; }
+namespace Network::Packets::Server { struct InventoryUpdatePacket; }
 
-struct Network::Packet::Server::InventoryUpdatePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::InventoryUpdatePacket final : public Network::Packet
 {
     InventoryUpdatePacket();
 

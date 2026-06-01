@@ -7,7 +7,7 @@
 #include "../../../../game/actor/Npc.hpp"
 #include "../../../../game/components/NpcAppearance.hpp"
 
-using Network::Packet::Server::ChatNpcSayPacket;
+using Network::Packets::Server::ChatNpcSayPacket;
 
 ChatNpcSayPacket::ChatNpcSayPacket(Actor const & emitter, ChatType type, std::wstring_view const & message)
     : Packet(0x02, "ChatNpcSay")

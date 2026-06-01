@@ -8,9 +8,9 @@
 
 class Character;
 
-namespace Network::Packet::Server { struct TargetClearPacket; }
+namespace Network::Packets::Server { struct TargetClearPacket; }
 
-struct Network::Packet::Server::TargetClearPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::TargetClearPacket final : public Network::Packet
 {
     explicit TargetClearPacket(Character const &);
 };

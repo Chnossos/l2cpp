@@ -8,7 +8,7 @@
 #include "../../../../game/components/NpcAppearance.hpp"
 #include "../../../../game/skill/Skill.hpp"
 
-using Network::Packet::Server::ChatSystemSayPacket;
+using Network::Packets::Server::ChatSystemSayPacket;
 
 ChatSystemSayPacket::ChatSystemSayPacket(SystemMessageId const messageId)
     : Packet(0x64, "ChatSystemSay")

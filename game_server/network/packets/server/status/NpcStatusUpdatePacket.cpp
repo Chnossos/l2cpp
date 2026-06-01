@@ -10,7 +10,7 @@
 #include "../../../../game/components/Position.hpp"
 #include "../../../../game/components/Stats.hpp"
 
-using Network::Packet::Server::NpcStatusUpdatePacket;
+using Network::Packets::Server::NpcStatusUpdatePacket;
 
 NpcStatusUpdatePacket::NpcStatusUpdatePacket(Npc const & actor)
     : Packet(0x16, "NpcStatusUpdate")

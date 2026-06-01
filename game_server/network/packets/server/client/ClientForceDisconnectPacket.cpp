@@ -3,7 +3,7 @@
 
 #include "ClientForceDisconnectPacket.hpp"
 
-using namespace Network::Packet::Server;
+using namespace Network::Packets::Server;
 
 ClientForceDisconnectPacket::ClientForceDisconnectPacket()
     : Packet(0x26, "ClientForceDisconnect")

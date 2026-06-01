@@ -7,7 +7,7 @@
 #include "../crypto/Blowfish.hpp"
 #include "../crypto/Checksum.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/network/Packet.hpp>
 
 // Third-party includes
@@ -19,7 +19,7 @@
 #include <filesystem>
 
 using boost::asio::ip::tcp;
-using l2cpp::Network::Packet;
+using Network::Packet;
 
 Connection::Connection(tcp::socket socket)
     : socket(std::move(socket))

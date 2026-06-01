@@ -45,9 +45,9 @@ enum class Stat
     MaxCp      = 0x22,
 };
 
-namespace Network::Packet::Server { class StatsUpdatePacket; }
+namespace Network::Packets::Server { class StatsUpdatePacket; }
 
-class Network::Packet::Server::StatsUpdatePacket final : public l2cpp::Network::Packet
+class Network::Packets::Server::StatsUpdatePacket final : public Network::Packet
 {
 public:
     explicit StatsUpdatePacket(Actor const & emitter);

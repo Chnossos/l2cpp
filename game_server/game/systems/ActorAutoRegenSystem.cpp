@@ -43,7 +43,7 @@ void ActorAutoRegenSystem::updateImpl(ClockDuration const elapsed, Actor & actor
 
         if (!updates.empty())
         {
-            Network::Packet::Server::StatsUpdatePacket p(actor);
+            Network::Packets::Server::StatsUpdatePacket p(actor);
 
             for (auto const [stat, value] : updates)
                 p.addStat(stat, value);

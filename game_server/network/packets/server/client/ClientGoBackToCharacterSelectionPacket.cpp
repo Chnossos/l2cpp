@@ -3,7 +3,7 @@
 
 #include "ClientGoBackToCharacterSelectionPacket.hpp"
 
-using Network::Packet::Server::ClientGoBackToCharacterSelectionPacket;
+using Network::Packets::Server::ClientGoBackToCharacterSelectionPacket;
 
 ClientGoBackToCharacterSelectionPacket::ClientGoBackToCharacterSelectionPacket(bool const ok)
     : Packet(0x5f, "ClientGoBackToCharacterSelection")

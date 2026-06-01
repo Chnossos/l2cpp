@@ -15,7 +15,7 @@
 
 #include <l2cpp/network/Packet.hpp>
 
-namespace SM = Network::Packet::Server;
+namespace SM = Network::Packets::Server;
 
 AttackAction::AttackAction(Actor & performer, Actor & target, StatValue const pAtkSpeed) noexcept
     : Action(ActionType::Attack, performer)

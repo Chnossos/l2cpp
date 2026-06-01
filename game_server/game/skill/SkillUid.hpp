@@ -8,12 +8,12 @@
 
 #include <l2cpp/network/Serialization.hpp>
 
-namespace Network::Packet::Server { struct EffectListPacket; }
+namespace Network::Packets::Server { struct EffectListPacket; }
 
 class SkillUid
 {
     DECLARE_PACKET_SERIALIZATION_OPERATOR(SkillUid);
-    DECLARE_CUSTOM_PACKET_SERIALIZATION_OPERATOR(Network::Packet::Server::EffectListPacket, SkillUid);
+    DECLARE_CUSTOM_PACKET_SERIALIZATION_OPERATOR(Network::Packets::Server::EffectListPacket, SkillUid);
 
 public:
     SkillUid(SkillId const id, SkillLevel const level) noexcept: _uid(id | level << 24) {}

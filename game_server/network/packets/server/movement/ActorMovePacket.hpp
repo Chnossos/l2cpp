@@ -9,9 +9,9 @@
 class Actor;
 struct Position;
 
-namespace Network::Packet::Server { struct ActorMovePacket; }
+namespace Network::Packets::Server { struct ActorMovePacket; }
 
-struct Network::Packet::Server::ActorMovePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ActorMovePacket final : public Network::Packet
 {
     ActorMovePacket(Actor const & actor, Position const & origin, Position const & destination);
 };

@@ -8,9 +8,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct ActorRevivePacket; }
+namespace Network::Packets::Server { struct ActorRevivePacket; }
 
-struct Network::Packet::Server::ActorRevivePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ActorRevivePacket final : public Network::Packet
 {
     explicit ActorRevivePacket(Actor const & target);
 };

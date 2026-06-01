@@ -30,7 +30,7 @@ void MoveAction::onStarted()
     performer().setPosition(_origin);
 
     // Make character start moving, position will be validated in MoveUpdate handler
-    World::broadcastAround(performer(), Network::Packet::Server::ActorMovePacket{performer(), _origin, _target}, true);
+    World::broadcastAround(performer(), Network::Packets::Server::ActorMovePacket{performer(), _origin, _target}, true);
 }
 
 void MoveAction::updateImpl(ClockDuration)
@@ -46,5 +46,5 @@ void MoveAction::onFinished()
 void MoveAction::onCanceled()
 {
     performer().state = _previousState;
-    World::broadcastAround(performer(), Network::Packet::Server::ActorMoveStopPacket{performer()}, true);
+    World::broadcastAround(performer(), Network::Packets::Server::ActorMoveStopPacket{performer()}, true);
 }

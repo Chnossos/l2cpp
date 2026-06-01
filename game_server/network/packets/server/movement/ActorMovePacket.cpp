@@ -7,7 +7,7 @@
 #include "../../../../game/actor/Actor.hpp"
 #include "../../../../game/components/Position.hpp"
 
-using Network::Packet::Server::ActorMovePacket;
+using Network::Packets::Server::ActorMovePacket;
 
 ActorMovePacket::ActorMovePacket(Actor const & actor, Position const & origin, Position const & destination)
     : Packet(0x01, "ActorMove")

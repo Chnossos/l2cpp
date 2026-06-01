@@ -16,7 +16,7 @@
 #include "../components/Stats.hpp"
 #include "../skill/Skill.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <l2cpp/details/Pimpl.hpp>
 #include <l2cpp/utils/Enum.hpp>
@@ -25,10 +25,10 @@
 #include <algorithm>
 #include <ranges>
 
-namespace SC = Network::Packet::Server;
+namespace SC = Network::Packets::Server;
 using enum EffectTargetType;
 using enum SkillOperatingType;
-using l2cpp::Utils::Enum::isAnyOf;
+using Utils::Enum::isAnyOf;
 using Utils::Target::isValidTarget;
 
 struct SkillAction::Impl

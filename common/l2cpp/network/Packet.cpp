@@ -9,7 +9,7 @@
 // C++ includes
 #include <vector>
 
-using l2cpp::Network::Packet;
+using Network::Packet;
 
 struct Packet::Impl
 {

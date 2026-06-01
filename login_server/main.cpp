@@ -10,8 +10,8 @@
 #include "network/Connection.hpp"
 #include "network/OpCodes.hpp"
 
-#include <l2cpp/Exception.hpp>
 #include <l2cpp/Typedefs.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/network/Packet.hpp>
 #include <l2cpp/network/SocketListener.hpp>
 #include <l2cpp/services/Database.hpp>
@@ -22,7 +22,7 @@
 #include <openssl/rand.h>
 #include <spdlog/spdlog.h>
 
-using l2cpp::Network::Packet;
+using Network::Packet;
 
 static void sendInitPacket(Connection & conn)
 {
@@ -109,7 +109,7 @@ static void handleAuthPacket(Connection & conn) try
 }
 catch (std::exception const & e)
 {
-    SPDLOG_ERROR("Failed to authenticate user:\n{}", l2cpp::formatExceptionStack(e));
+    SPDLOG_ERROR("Failed to authenticate user:\n{}", Core::formatExceptionStack(e));
     conn.send(Packet(ServerOpCode::AuthenticationFailed) << 20); // system error
 }
 
@@ -181,10 +181,10 @@ static void handlePacket(Connection & conn)
     {
         (*it->second)(conn);
     }
-    catch (l2cpp::Exception const & e)
+    catch (Core::Exception const & e)
     {
         SPDLOG_ERROR("Something wrong happened during packet handling of connection {}. Closing connection."
-                     "\nBacktrace:\n{}", conn.sessionId, l2cpp::formatExceptionStack(e));
+                     "\nBacktrace:\n{}", conn.sessionId, Core::formatExceptionStack(e));
         return conn.close();
     }
     else
@@ -210,7 +210,7 @@ int main() try
     std::list<Connection> connections;
 
     boost::asio::io_context ioContext;
-    l2cpp::Network::SocketListener listener(ioContext);
+    Network::SocketListener listener(ioContext);
 
     boost::asio::signal_set signals(ioContext, SIGINT);
     signals.async_wait([&] (auto const &, auto)
@@ -246,14 +246,14 @@ int main() try
     SPDLOG_INFO("Goodbye!");
     return EXIT_SUCCESS;
 }
-catch (l2cpp::Exception const & e)
+catch (Core::Exception const & e)
 {
-    SPDLOG_CRITICAL("Exception caught:\n{}", l2cpp::formatExceptionStack(e));
+    SPDLOG_CRITICAL("Exception caught:\n{}", Core::formatExceptionStack(e));
     return EXIT_FAILURE;
 }
 catch (std::exception const & e)
 {
-    SPDLOG_CRITICAL("Exception caught:\n{}", l2cpp::formatExceptionStack(e));
+    SPDLOG_CRITICAL("Exception caught:\n{}", Core::formatExceptionStack(e));
     return EXIT_FAILURE;
 }
 catch (...)

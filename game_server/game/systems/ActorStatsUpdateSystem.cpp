@@ -15,7 +15,7 @@
 // C++ includes
 #include <unordered_set>
 
-namespace SC = Network::Packet::Server;
+namespace SC = Network::Packets::Server;
 
 void ActorStatsUpdateSystem::updateImpl(ClockDuration, Actor & actor)
 {

@@ -8,9 +8,9 @@
 
 class Npc;
 
-namespace Network::Packet::Server { struct NpcStatusUpdatePacket; }
+namespace Network::Packets::Server { struct NpcStatusUpdatePacket; }
 
-struct Network::Packet::Server::NpcStatusUpdatePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::NpcStatusUpdatePacket final : public Network::Packet
 {
     explicit NpcStatusUpdatePacket(Npc const &);
 };

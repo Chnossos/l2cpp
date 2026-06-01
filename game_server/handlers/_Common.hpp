@@ -6,18 +6,18 @@
 // Project includes
 #include "../Player.hpp"
 #include "../network/Connection.hpp"
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/network/Packet.hpp>
 #include <l2cpp/network/PacketReader.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>
 
-using namespace l2cpp::Network;
+using namespace Network;
 
 // Forward-declare
-namespace Network::Packet::Server {}
-using namespace Network::Packet::Server;
+namespace Network::Packets::Server {}
+using namespace Network::Packets::Server;
 
 #define DECLARE_PACKET_HANDLER(name) namespace Handler { void handle ## name(Player & player); }
 

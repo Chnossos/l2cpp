@@ -13,9 +13,9 @@
 #include <span>
 #include <string_view>
 
-namespace l2cpp::Network { class Packet; template<u16> struct HeaderOnlyPacket; }
+namespace Network { class Packet; template<u16> struct HeaderOnlyPacket; }
 
-class l2cpp::Network::Packet
+class Network::Packet
 {
 public:
     explicit Packet(PacketOpCode opCode, std::string_view name = {});
@@ -111,7 +111,7 @@ private:
 };
 
 template<typename T> requires std::is_class_v<T>
-l2cpp::Network::Packet & operator<<(l2cpp::Network::Packet && p, T const & t)
+Network::Packet & operator<<(Network::Packet && p, T const & t)
 {
     return p << t;
 }

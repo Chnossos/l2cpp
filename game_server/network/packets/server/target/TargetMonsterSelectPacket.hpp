@@ -9,9 +9,9 @@
 class Character;
 class Monster;
 
-namespace Network::Packet::Server { struct TargetMonsterSelectPacket; }
+namespace Network::Packets::Server { struct TargetMonsterSelectPacket; }
 
-struct Network::Packet::Server::TargetMonsterSelectPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::TargetMonsterSelectPacket final : public Network::Packet
 {
     explicit TargetMonsterSelectPacket(Character const & source, Monster const & target);
 };

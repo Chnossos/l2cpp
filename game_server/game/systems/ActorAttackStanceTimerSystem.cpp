@@ -23,7 +23,7 @@ void ActorAttackStanceTimerSystem::updateImpl(ClockDuration const elapsed, Actor
             if (actor.state == ActorState::CombatIdle)
                 actor.state = ActorState::Idle;
 
-            World::broadcastAround(actor, Network::Packet::Server::AttackStanceTogglePacket(false, actor), true);
+            World::broadcastAround(actor, Network::Packets::Server::AttackStanceTogglePacket(false, actor), true);
 
             actor.delComponent<AttackStanceTimer>();
         }

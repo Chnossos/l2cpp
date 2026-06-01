@@ -6,7 +6,7 @@
 // Project includes
 #include "../gameplay/ExperienceTable.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 
 NpcStatus::NpcStatus()
     : _level(ExperienceTable::maxLevel())

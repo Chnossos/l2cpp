@@ -22,7 +22,7 @@ struct CharacterCreationParameters;
 struct Loot;
 struct System;
 
-namespace l2cpp::Network { class Packet; }
+namespace Network { class Packet; }
 
 class World
 {
@@ -74,23 +74,22 @@ public:
     static bool isInBroadcastRange(Actor const & source, Actor const & target);
 
     /// Sends a packet to specified actor if it is a Character with an active player
-    static void send(Actor const & to, l2cpp::Network::Packet & packet,
+    static void send(Actor const & to, Network::Packet & packet,
                      std::source_location const & src = std::source_location::current());
 
     /// Sends a packet to specified actor if it is a Character with an active player
-    static void send(Actor const & to, l2cpp::Network::Packet && packet,
+    static void send(Actor const & to, Network::Packet && packet,
         std::source_location const & src = std::source_location::current()) { send(to, packet, std::move(src)); }
 
     /// @warning This broadcasts given packet to ALL online players, regardless of distance!
-    static void broadcast(l2cpp::Network::Packet &&,
-                          std::source_location const & src = std::source_location::current());
+    static void broadcast(Network::Packet &&, std::source_location const & src = std::source_location::current());
 
     /// Broadcasts given packet to all online players around emitter, including the emitter if needed
-    static void broadcastAround(Actor const & emitter, l2cpp::Network::Packet &&, bool includeEmitter = false,
+    static void broadcastAround(Actor const & emitter, Network::Packet &&, bool includeEmitter = false,
                                 std::source_location const & src = std::source_location::current());
 
     /// Broadcasts given packet to all online players whose current target is the emitter
-    static void broadcastToSubscribers(Actor const & emitter, l2cpp::Network::Packet &&, bool includeEmitter = false,
+    static void broadcastToSubscribers(Actor const & emitter, Network::Packet &&, bool includeEmitter = false,
                                        std::source_location const & src = std::source_location::current());
 
 private:

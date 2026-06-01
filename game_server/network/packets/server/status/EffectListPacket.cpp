@@ -7,7 +7,7 @@
 #include "../../../../game/actor/Actor.hpp"
 #include "../../../../game/skill/SkillUid.hpp"
 
-using Network::Packet::Server::EffectListPacket;
+using Network::Packets::Server::EffectListPacket;
 
 EffectListPacket::EffectListPacket(Actor const & actor)
     : Packet(0x7f, "EffectList")

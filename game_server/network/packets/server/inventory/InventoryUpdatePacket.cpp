@@ -3,7 +3,7 @@
 
 #include "InventoryUpdatePacket.hpp"
 
-using Network::Packet::Server::InventoryUpdatePacket;
+using Network::Packets::Server::InventoryUpdatePacket;
 
 namespace
 {

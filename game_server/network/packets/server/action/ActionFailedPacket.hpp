@@ -6,9 +6,9 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct ActionFailedPacket; }
+namespace Network::Packets::Server { struct ActionFailedPacket; }
 
-struct Network::Packet::Server::ActionFailedPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::ActionFailedPacket final : public Network::Packet
 {
     ActionFailedPacket();
 };

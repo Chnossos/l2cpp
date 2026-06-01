@@ -3,7 +3,7 @@
 
 #include "ChatSayPacket.hpp"
 
-using Network::Packet::Server::ChatSayPacket;
+using Network::Packets::Server::ChatSayPacket;
 
 ChatSayPacket::ChatSayPacket(u32 const senderId,  std::wstring_view const sender,
                              ChatType const type, std::wstring_view const message)

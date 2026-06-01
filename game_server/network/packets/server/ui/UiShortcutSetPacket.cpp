@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/ui/Shortcut.hpp"
 
-using Network::Packet::Server::UiShortcutSetPacket;
+using Network::Packets::Server::UiShortcutSetPacket;
 
 UiShortcutSetPacket::UiShortcutSetPacket(Shortcut const & shortcut)
     : Packet(0x44, "UiShortcutSet")

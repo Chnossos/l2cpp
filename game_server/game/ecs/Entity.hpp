@@ -6,7 +6,7 @@
 // Project includes
 #include "Component.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/OptRef.hpp>
 
 // C++ includes

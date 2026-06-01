@@ -6,7 +6,7 @@
 // Project includes
 #include "SkillTemplateDirectory.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/details/Pimpl.hpp>
 
 // C++ includes

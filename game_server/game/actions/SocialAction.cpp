@@ -8,7 +8,7 @@
 #include "../World.hpp"
 #include "../actor/Actor.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/utils/Enum.hpp>
 
 SocialAction::SocialAction(Actor & performer, SocialActionId const actionId)
@@ -19,9 +19,9 @@ SocialAction::SocialAction(Actor & performer, SocialActionId const actionId)
 void SocialAction::onStarted()
 {
     using enum ActorState;
-    L2CPP_B_ASSERT(l2cpp::Utils::Enum::isAnyOf(performer().state, Idle, CombatIdle),
+    L2CPP_B_ASSERT(Utils::Enum::isAnyOf(performer().state, Idle, CombatIdle),
                    "Cannot perform social action in this state");
 
-    using Network::Packet::Server::SocialActionPerformPacket;
+    using Network::Packets::Server::SocialActionPerformPacket;
     World::broadcastAround(performer(), SocialActionPerformPacket{performer(), _actionId}, true);
 }

@@ -10,9 +10,9 @@
 
 class Actor;
 
-namespace Network::Packet::Server { struct SocialActionPerformPacket; }
+namespace Network::Packets::Server { struct SocialActionPerformPacket; }
 
-struct Network::Packet::Server::SocialActionPerformPacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::SocialActionPerformPacket final : public Network::Packet
 {
     SocialActionPerformPacket(Actor const & performer, SocialActionId actionId);
 };

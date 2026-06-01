@@ -6,7 +6,7 @@
 // Project includes
 #include "../gameplay/ExperienceTable.hpp"
 
-#include <l2cpp/Exception.hpp>
+#include <l2cpp/core/Exception.hpp>
 
 auto CharacterStatus::level()      const -> u32  { return ExperienceTable::level(_xp); }
 auto CharacterStatus::xp()         const -> u32  { return _xp;                         }

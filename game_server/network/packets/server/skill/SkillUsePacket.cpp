@@ -8,7 +8,7 @@
 #include "../../../../game/components/Position.hpp"
 #include "../../../../game/skill/Skill.hpp"
 
-using Network::Packet::Server::SkillUsePacket;
+using Network::Packets::Server::SkillUsePacket;
 
 SkillUsePacket::SkillUsePacket(
     Actor         const & caster

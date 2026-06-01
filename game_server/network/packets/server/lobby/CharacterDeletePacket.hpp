@@ -6,7 +6,7 @@
 // Project includes
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { struct CharacterDeletePacket; }
+namespace Network::Packets::Server { struct CharacterDeletePacket; }
 
 enum class CharacterDeletionFailureReason : u32
 {
@@ -16,7 +16,7 @@ enum class CharacterDeletionFailureReason : u32
     YouAreClanLeader,
 };
 
-struct Network::Packet::Server::CharacterDeletePacket final : public l2cpp::Network::Packet
+struct Network::Packets::Server::CharacterDeletePacket final : public Network::Packet
 {
     CharacterDeletePacket();
     explicit CharacterDeletePacket(CharacterDeletionFailureReason);

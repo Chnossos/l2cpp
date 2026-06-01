@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/actor/Actor.hpp"
 
-using Network::Packet::Server::AttackStanceTogglePacket;
+using Network::Packets::Server::AttackStanceTogglePacket;
 
 AttackStanceTogglePacket::AttackStanceTogglePacket(bool const enable, Actor const & target)
     : Packet(enable ? 0x2b : 0x2c, enable ? "AttackStanceEnable" : "AttackStanceDisable")

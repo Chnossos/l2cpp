@@ -8,9 +8,9 @@
 
 #include <l2cpp/network/Packet.hpp>
 
-namespace Network::Packet::Server { class UiConfirmationModalShowPacket; }
+namespace Network::Packets::Server { class UiConfirmationModalShowPacket; }
 
-class Network::Packet::Server::UiConfirmationModalShowPacket final : public l2cpp::Network::Packet
+class Network::Packets::Server::UiConfirmationModalShowPacket final : public Network::Packet
 {
 public:
     explicit UiConfirmationModalShowPacket(u32 messageId);
@@ -27,7 +27,7 @@ private:
 };
 
 template<class T> requires std::is_base_of_v<SystemMessageArgument, T>
-Network::Packet::Server::UiConfirmationModalShowPacket &
-operator<<(Network::Packet::Server::UiConfirmationModalShowPacket & p, T && arg) {
+Network::Packets::Server::UiConfirmationModalShowPacket &
+operator<<(Network::Packets::Server::UiConfirmationModalShowPacket & p, T && arg) {
     return p.appendArg(std::forward<T>(arg));
 }

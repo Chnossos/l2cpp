@@ -5,11 +5,11 @@
 
 // Project includes
 #include <l2cpp/CompileTimeConfig.hpp>
-#include <l2cpp/Exception.hpp>
-#include <l2cpp/Misc.hpp>
+#include <l2cpp/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <l2cpp/details/Pimpl.hpp>
 #include <l2cpp/network/Packet.hpp>
+#include <l2cpp/utils/Misc.hpp>
 
 // Third-party includes
 #include <boost/asio/read.hpp>
@@ -168,14 +168,14 @@ void Connection::asyncReadNextPacket()
                             [this] (auto const & ec, auto) { _impl->onSizeRead(ec); });
 }
 
-void Connection::send(l2cpp::Network::Packet & p, std::source_location const & src)
+void Connection::send(Network::Packet & p, std::source_location const & src)
 {
     if (!isAlive())
         return;
 
     [[maybe_unused]] std::string hexdump;
     if constexpr (Config::hexdumpPackets)
-        hexdump = l2cpp::hexdump(p.body());
+        hexdump = Utils::hexdump(p.body());
 
     if (_impl->encryptionKey) [[likely]]
         _impl->encrypt(p.body(), *_impl->encryptionKey);

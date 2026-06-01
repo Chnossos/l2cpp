@@ -10,9 +10,9 @@
 // Third-party includes
 #include <boost/asio/ip/tcp.hpp>
 
-namespace l2cpp::Network { class SocketListener; }
+namespace Network { class SocketListener; }
 
-class l2cpp::Network::SocketListener
+class Network::SocketListener
 {
     using AcceptCallback = std::function<void(boost::asio::ip::tcp::socket)>;
 

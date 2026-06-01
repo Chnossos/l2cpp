@@ -11,7 +11,7 @@
 #include <string_view>
 #include <vector>
 
-namespace l2cpp
+namespace Core
 {
     /// Extends @c std::runtime_error with string formatting and an error code
     class Exception : public std::exception
@@ -118,28 +118,28 @@ namespace l2cpp
 
 #define L2CPP_SOURCE_LOCATION std::source_location::current()
 
-#define L2CPP_EXCEPTION(...) l2cpp::Exception(L2CPP_SOURCE_LOCATION, __VA_ARGS__)
+#define L2CPP_EXCEPTION(...) Core::Exception(L2CPP_SOURCE_LOCATION, __VA_ARGS__)
 
-/// Same as a regular throw of a @c l2cpp::Exception but adds source location info to the call
+/// Same as a regular throw of a @c Core::Exception but adds source location info to the call
 #define L2CPP_THROW(...) throw L2CPP_EXCEPTION(__VA_ARGS__)
 
-/// Rethrows the current exception but nested under a new @c l2cpp::Exception formatted
+/// Rethrows the current exception but nested under a new @c Core::Exception formatted
 /// with format and variadic arguments
 #define L2CPP_THROW_NESTED(...) std::throw_with_nested(L2CPP_EXCEPTION(__VA_ARGS__))
 
-/// Boolean assertion. Throws a @c l2cpp::Exception formatted with format and variadic arguments
+/// Boolean assertion. Throws a @c Core::Exception formatted with format and variadic arguments
 /// if @p expr is @c false
 #define L2CPP_B_ASSERT(expr, ...) do { if (!(expr)) L2CPP_THROW(__VA_ARGS__); } while (0)
 
-/// Status code assertion. Throws a @c l2cpp::Exception initialized with @p code and formatted
+/// Status code assertion. Throws a @c Core::Exception initialized with @p code and formatted
 /// with format and variadic arguments if @p code is not 0
 #define L2CPP_C_ASSERT(code, ...) L2CPP_B_ASSERT((code) == 0, code, __VA_ARGS__)
 
-/// Boolean assertion. Throws a @c l2cpp::Exception formatted with format and variadic arguments
+/// Boolean assertion. Throws a @c Core::Exception formatted with format and variadic arguments
 /// if @p expr is @c false
 #define L2CPP_BC_ASSERT(expr, code, ...) L2CPP_B_ASSERT(expr, code, __VA_ARGS__)
 
-/// Status code assertion. Throws a @c l2cpp::Exception initialized with @p code and formatted
+/// Status code assertion. Throws a @c Core::Exception initialized with @p code and formatted
 /// with format and variadic arguments if @p exitCode is not 0
 #define L2CPP_CC_ASSERT(exitCode, code, ...) L2CPP_B_ASSERT((exitCode) == 0, code, __VA_ARGS__)
 
@@ -153,4 +153,4 @@ namespace l2cpp
 #define L2CPP_E_ASSERT(exceptionPtr, ...) \
     L2CPP_F_ASSERT([&] { if (exceptionPtr) std::rethrow_exception(exceptionPtr); }, __VA_ARGS__)
 
-#define L2CPP_SANDBOX(callable) l2cpp::sandBox(L2CPP_SOURCE_LOCATION, callable)
+#define L2CPP_SANDBOX(callable) Core::sandBox(L2CPP_SOURCE_LOCATION, callable)

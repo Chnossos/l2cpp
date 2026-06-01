@@ -16,7 +16,7 @@ auto SkillShortcut::targetId() const -> u32
     return _skillUid.id();
 }
 
-void SkillShortcut::serializeImpl(l2cpp::Network::Packet & p) const
+void SkillShortcut::serializeImpl(Network::Packet & p) const
 {
     p
         << static_cast<u32>(_skillUid.id())

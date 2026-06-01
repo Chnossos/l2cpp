@@ -11,7 +11,7 @@
 #include "../../../../game/components/Position.hpp"
 #include "../../../../game/components/PlayerAppearance.hpp"
 
-using namespace Network::Packet::Server;
+using namespace Network::Packets::Server;
 
 CharacterStatusUpdateBroadcastPacket::CharacterStatusUpdateBroadcastPacket(Character const & c)
     : Packet(0x03, "CharacterStatusUpdateBroadcast")

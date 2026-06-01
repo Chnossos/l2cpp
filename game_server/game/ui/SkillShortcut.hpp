@@ -16,7 +16,7 @@ public:
     auto targetId()  const -> u32 override;
 
 private:
-    void serializeImpl(l2cpp::Network::Packet &) const override;
+    void serializeImpl(Network::Packet &) const override;
 
 private:
     SkillUid _skillUid;

@@ -17,12 +17,12 @@
 #include "utils/Chrono.hpp"
 
 #include <l2cpp/CompileTimeConfig.hpp>
-#include <l2cpp/Exception.hpp>
-#include <l2cpp/Misc.hpp>
+#include <l2cpp/core/Exception.hpp>
 #include <l2cpp/details/Pimpl.hpp>
 #include <l2cpp/network/Packet.hpp>
 #include <l2cpp/network/SocketListener.hpp>
 #include <l2cpp/services/Database.hpp>
+#include <l2cpp/utils/Misc.hpp>
 
 // Third-party includes
 #include <boost/asio.hpp>
@@ -35,18 +35,18 @@ static void hexdump(std::span<byte const> const buffer)
 {
     if constexpr (Config::hexdumpPackets)
     {
-        if (auto const dump = l2cpp::hexdump(buffer.data(), buffer.size()); !dump.empty())
+        if (auto const dump = Utils::hexdump(buffer.data(), buffer.size()); !dump.empty())
             std::println("{}", dump);
     }
 }
 
 struct Application::Impl
 {
-    std::vector<std::string_view>  args;
-    boost::asio::io_context        ioContext;
-    boost::asio::signal_set        signalSet;
-    l2cpp::Network::SocketListener socketListener;
-    std::list<Player>              players;
+    std::vector<std::string_view> args;
+    boost::asio::io_context       ioContext;
+    boost::asio::signal_set       signalSet;
+    Network::SocketListener        socketListener;
+    std::list<Player>             players;
 
     explicit Impl(std::vector<std::string_view> args_)
         : args(std::move(args_))
@@ -101,9 +101,9 @@ bool Application::Impl::load() const try
     SPDLOG_INFO("World systems loaded.");
     return true;
 }
-catch (l2cpp::Exception const & e)
+catch (Core::Exception const & e)
 {
-    SPDLOG_ERROR("Failed to load application:\n{}", l2cpp::formatExceptionStack(e));
+    SPDLOG_ERROR("Failed to load application:\n{}", Core::formatExceptionStack(e));
     return false;
 }
 
@@ -159,8 +159,8 @@ void Application::Impl::shutdown()
     for (auto & player : players)
     {
         auto & conn = player.connection();
-        conn.send(Network::Packet::Server::ChatSystemSayPacket{SystemMessageId::DisconnectedFromServer});
-        conn.send(Network::Packet::Server::ClientForceDisconnectPacket{});
+        conn.send(Network::Packets::Server::ChatSystemSayPacket{SystemMessageId::DisconnectedFromServer});
+        conn.send(Network::Packets::Server::ClientForceDisconnectPacket{});
         conn.close();
     }
 
@@ -222,10 +222,10 @@ void Application::Impl::onSocketAccepted(boost::asio::ip::tcp::socket socket) tr
             hexdump(body);
 
             try { (*handler)(player); }
-            catch (l2cpp::Exception const & e)
+            catch (Core::Exception const & e)
             {
                 SPDLOG_ERROR("'{}' → handler '{}' failed:\n{}",
-                             player.connection().id(), handlerName, l2cpp::formatExceptionStack(e));
+                             player.connection().id(), handlerName, Core::formatExceptionStack(e));
             }
         }
         else
@@ -252,9 +252,9 @@ void Application::Impl::onSocketAccepted(boost::asio::ip::tcp::socket socket) tr
 
     conn.asyncReadNextPacket();
 }
-catch (l2cpp::Exception const & e)
+catch (Core::Exception const & e)
 {
-    SPDLOG_ERROR("Packet reading failed, disconnecting client:\n{}", l2cpp::formatExceptionStack(e));
+    SPDLOG_ERROR("Packet reading failed, disconnecting client:\n{}", Core::formatExceptionStack(e));
 }
 
 // ---------------------------------------------------------------------------------------------------------------------

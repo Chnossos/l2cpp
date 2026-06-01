@@ -12,7 +12,7 @@
 #include "../../../../game/components/Stats.hpp"
 #include "../../../../game/inventory/ItemStorage.hpp"
 
-using namespace Network::Packet::Server;
+using namespace Network::Packets::Server;
 
 CharacterStatusUpdatePacket::CharacterStatusUpdatePacket(Character const & c)
     : Packet(0x04, "CharacterStatusUpdate")

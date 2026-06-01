@@ -19,7 +19,7 @@ auto ItemShortcut::targetId() const -> u32
     return static_cast<u32>(_itemId);
 }
 
-void ItemShortcut::serializeImpl(l2cpp::Network::Packet & p) const
+void ItemShortcut::serializeImpl(Network::Packet & p) const
 {
     p << _itemObjectId;
 }

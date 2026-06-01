@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/actor/Actor.hpp"
 
-using Network::Packet::Server::SkillCancelPacket;
+using Network::Packets::Server::SkillCancelPacket;
 
 SkillCancelPacket::SkillCancelPacket(Actor const & caster)
     : Packet(0x49, "SkillCancel")
