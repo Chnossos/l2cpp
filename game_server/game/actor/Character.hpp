@@ -31,6 +31,8 @@ public:
     u32 accessLevel = 1;
 
 public:
+    auto isFullyLoaded() const -> bool;
+
     auto profession() const -> Profession;
 
     auto status()       -> CharacterStatus       &;
@@ -48,6 +50,7 @@ public:
     bool isAttackable() const override { return false; }
 
 public:
+    void setIsFullyLoaded(bool);
     void setProfession(Profession);
 
     void offerResurrection(Actor const & emitter);

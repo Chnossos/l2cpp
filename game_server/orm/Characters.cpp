@@ -70,6 +70,9 @@ void Orm::saveCharacter(Character const & c)
 
 void Orm::loadCharacter(Character & c)
 {
+    if (c.isFullyLoaded())
+        return;
+
     // Here we do not load the preview fields again, we load the rest in order to enter the World
     SQLite::Statement query(Database::instance(), R"(
         SELECT
@@ -92,6 +95,8 @@ void Orm::loadCharacter(Character & c)
     auto const id = query.getColumn("id").getUInt();
     loadInventory(id, c);
     loadShortcuts(id, c);
+
+    c.setIsFullyLoaded(true);
 }
 
 namespace
