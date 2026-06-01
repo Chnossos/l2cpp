@@ -8,7 +8,7 @@
 #include "../network/Connection.hpp"
 #include "../network/packets/server/action/SocialActionPerformPacket.hpp"
 #include "../network/packets/server/chat/ChatSystemSayPacket.hpp"
-#include "../network/packets/server/status/AbnormalEffectListPacket.hpp"
+#include "../network/packets/server/status/EffectListPacket.hpp"
 #include "../network/packets/server/status/ActorDiePacket.hpp"
 #include "../network/packets/server/status/ActorRevivePacket.hpp"
 #include "../network/packets/server/target/TargetClearPacket.hpp"
@@ -37,7 +37,7 @@
 #include "constants/SystemMessageId.hpp"
 #include "ecs/System.hpp"
 #include "lobby/CharacterCreationParameters.hpp"
-#include "systems/ActorAbnormalEffectSystem.hpp"
+#include "systems/ActorEffectSystem.hpp"
 #include "systems/ActorAttackStanceTimerSystem.hpp"
 #include "systems/ActorAutoRegenSystem.hpp"
 #include "systems/ActorDeletionTimerSystem.hpp"
@@ -85,7 +85,7 @@ void World::init()
     registerSystem<ActorAttackStanceTimerSystem>();
     registerSystem<ActorAutoRegenSystem>();
     registerSystem<ActorDeletionTimerSystem>();
-    registerSystem<ActorAbnormalEffectSystem>();
+    registerSystem<ActorEffectSystem>();
     // Must be last!
     registerSystem<ActorStatsUpdateSystem>();
 
@@ -217,7 +217,7 @@ void World::moveCharacterBackToPreviews(Character & c)
 {
     L2CPP_B_ASSERT(_actors.contains(c.id()), "Character '{}' is not present in the world", c.id());
 
-    c.onAbnormalEffectListChanged.clear();
+    c.onEffectListChanged.clear();
     c.onDied                     .clear();
     c.onLeveledUp                .clear();
     c.onRevived                  .clear();
@@ -266,8 +266,8 @@ catch (...)
 auto World::addCharacter(OptRef<Player> p) -> Character &
 {
     auto & c = addActor<Character>(std::move(p));
-    c.onAbnormalEffectListChanged += [&c] { send(c, SC::AbnormalEffectListPacket{c});                                 };
-    c.onLeveledUp                 += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
+    c.onEffectListChanged += [&c] { send(c, SC::EffectListPacket{c});                                         };
+    c.onLeveledUp         += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
     return c;
 }
 

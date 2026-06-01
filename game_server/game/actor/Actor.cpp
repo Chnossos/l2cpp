@@ -237,7 +237,7 @@ void Actor::heal(Actor const & emitter, double const amount)
 void Actor::die()
 {
     _impl->_effects.clear();
-    fire onAbnormalEffectListChanged();
+    fire onEffectListChanged();
 
     delComponent<ActorAutoRegen>();
     delComponent<AttackStanceTimer>();

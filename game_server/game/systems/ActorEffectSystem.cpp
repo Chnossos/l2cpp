@@ -1,7 +1,7 @@
 /// @author    Chnossos
 /// @date      Created on 2026-04-14
 
-#include "ActorAbnormalEffectSystem.hpp"
+#include "ActorEffectSystem.hpp"
 
 // Project includes
 #include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
@@ -18,7 +18,7 @@ static bool needToUpdateList(bool const currentValue, Effect const & effect)
         || effect.duration() != ClockDuration::zero();              // is damage or heal over time (it has an icon)
 }
 
-void ActorAbnormalEffectSystem::updateImpl(ClockDuration const elapsed, Actor & actor)
+void ActorEffectSystem::updateImpl(ClockDuration const elapsed, Actor & actor)
 {
     bool updateList = false;
 
@@ -61,6 +61,6 @@ void ActorAbnormalEffectSystem::updateImpl(ClockDuration const elapsed, Actor & 
             World::send(actor, std::move(msg));
         }
 
-        fire actor.onAbnormalEffectListChanged();
+        fire actor.onEffectListChanged();
     }
 }

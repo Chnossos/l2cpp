@@ -1,16 +1,16 @@
 /// @author    Chnossos
 /// @date      Created on 2026-04-16
 
-#include "AbnormalEffectListPacket.hpp"
+#include "EffectListPacket.hpp"
 
 // Project includes
 #include "../../../../game/actor/Actor.hpp"
 #include "../../../../game/skill/SkillUid.hpp"
 
-using Network::Packet::Server::AbnormalEffectListPacket;
+using Network::Packet::Server::EffectListPacket;
 
-AbnormalEffectListPacket::AbnormalEffectListPacket(Actor const & actor)
-    : Packet(0x7f, "AbnormalEffectList")
+EffectListPacket::EffectListPacket(Actor const & actor)
+    : Packet(0x7f, "EffectList")
 {
     auto const & effects = actor.effects();
 

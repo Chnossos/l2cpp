@@ -37,7 +37,7 @@ public:
     bool operator==(Actor const &) const;
 
 public:
-    Event<> onAbnormalEffectListChanged;
+    Event<> onEffectListChanged;
     Event<> onDied;
     Event<> onLeveledUp;
     Event<> onRevived;
