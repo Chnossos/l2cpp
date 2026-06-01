@@ -30,9 +30,11 @@ Unless explicitely specified, don't assume anything to be available. Here's what
 - [x] World entering (every character spawns at Talking Island)
 - [x] Moving around
 - [x] Inventory list (gear items can be equipped and unequipped)
+- [x] Starting items (customizable globally / per profession, can be already equipped at creation)
 - [x] Mini-map
 - [x] Character status
-- [x] Target select and unselect
+- [x] Status (health, mana…) modifications broadcasting (once per world update)
+- [x] Target select and unselect (status depends on target type + target danger level)
 - [x] game loop to handle over-time actions and updates (regen, auto-attacks, DoTs…)
 - [x] Skills list (admins can use `//learn <skill_id> <skill_level>` command)
 - [x] Skill use, available effects:
@@ -43,13 +45,13 @@ Unless explicitely specified, don't assume anything to be available. Here's what
   - Instant heal (e.g. `Battle Heal`)
   - Heal over time (e.g. `Chant of Life`)
   - Resurrection (e.g. `Mass Resurrection`)
-- [x] Skill target types: `self`, `single`, `aura`, `aoe`
-- [x] Skill target nature (can be combined): `self`, `enemy`, `friendly`, `corpse`, `character`, `monster`, `npc`, etc. 
+- [x] Skills can have multiple effects, where each effect can have different targets (be creative!)
+- [x] Skill effects target types: `Self`, `Single`, `Multiple`, `Aura`, `AuraIncludingSelf`
+- [x] Skill target nature (can be combined): `Self`, `Enemy`, `Friendly`, `Corpse`, `Character`, `Monster`, `Npc`, etc. 
 - [x] Skill casting cancellation with ESC key
-- [x] Shortcuts: `skill`, `item`, `action`
+- [x] Shortcuts: `skill`, `item`, `action` (no macro yet)
 - [x] Chat (no restrictions)
 - [x] Auto-attacking (until target is dead)
-- [x] Status (health, mana…) modifications broadcasting (once per world update)
 - [x] In-game time
 - [x] Corpse removal after a few seconds
 - [x] System messages and confirmation modals (e.g. for resurrection)

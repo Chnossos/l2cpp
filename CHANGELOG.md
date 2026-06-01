@@ -9,15 +9,34 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.29.0] - 2026-06-01
+### Added
+- Skill effects of the same skill can be applied to different targets from one another
+- New effect target type: `AuraIncludingSelf` so that `Aura` doesn't always target self when it's not desirable
+- New demonstration skills: `Aura Flare` (dmg + self buff), `Punch of Doom` (dmg + self stun (not implemented yet))
+- System message when interrupting a skill cast
+
+### Changed
+- `SkillType` renamed to `SkillOperatingType`
+- `SkillTargetType` renamed to `EffectTargetType`
+- `EffectTargetType::AoE` renamed to `Multiple`
+- `AbnormalEffect` renamed to `Effect`
+
+### Fixed
+- TargetNatures `Party`/`Clan`/`Alliance` now always include `Self` as a player is always its own party/clan/alliance
+- `Mass Resurrection` doesn't target ennemies anymore
+
 ## [0.28.0] - 2026-05-26
 ### Added
 - Starting items can be assigned globally, and/or per profession
+- `Tutorial Guide` is given to every new character
 
 ### Changed
 - Database foreign key checks enabled
 
 ### Fixed
 - `character_statuses.sql` was missing during database initialization
+- Items were cascade-removed at each server boot because item templates are reinserted
 
 ## [0.27.1] - 2026-05-26
 ### Fixed
