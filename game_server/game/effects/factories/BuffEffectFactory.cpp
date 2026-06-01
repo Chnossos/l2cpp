@@ -23,11 +23,9 @@ BuffEffectFactory::BuffEffectFactory(
 
 void BuffEffectFactory::apply(Actor & source, Actor & target)
 {
-    if (target.type() == source.type()) // characters can buff other characters, monsters can buff other monsters
-    {
-        target.addEffect<BuffEffect>(source, target, _skillTemplate.uid(),
-            _skillTemplate.operatingType() == SkillOperatingType::Toggle ? -1s : _totalDuration, _modifiedStat, _value);
-    }
+    if (source.type() == ActorType::Character && target.type() != ActorType::Character)
+        return;
+
+    target.addEffect<BuffEffect>(source, target, _skillTemplate.uid(),
+        _skillTemplate.operatingType() == SkillOperatingType::Toggle ? -1s : _totalDuration, _modifiedStat, _value);
 }
-
-
