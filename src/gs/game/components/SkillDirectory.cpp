@@ -6,8 +6,8 @@
 // Project includes
 #include "../skill/SkillTemplateDirectory.hpp"
 
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/details/Pimpl.hpp>
+#include <common/core/Exception.hpp>
+#include <common/details/Pimpl.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

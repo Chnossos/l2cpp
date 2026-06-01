@@ -6,7 +6,7 @@
 // Project includes
 #include "../game/inventory/Item.hpp"
 
-#include <l2cpp/services/Database.hpp>
+#include <common/services/Database.hpp>
 
 void Orm::loadUids()
 {

@@ -4,8 +4,8 @@
 #include "Database.hpp"
 
 // Project includes
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/utils/File.hpp>
+#include <common/core/Exception.hpp>
+#include <common/utils/File.hpp>
 
 void Database::init(std::vector<std::filesystem::path> const & files)
 {

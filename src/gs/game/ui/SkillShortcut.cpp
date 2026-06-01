@@ -4,7 +4,7 @@
 #include "SkillShortcut.hpp"
 
 // Project includes
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 SkillShortcut::SkillShortcut(Index const index, SkillUid const skillUid)
     : Shortcut{index, ShortcutType::Skill}

@@ -6,7 +6,7 @@
 // Project includes
 #include "../../utils/Conversion.hpp"
 
-#include <l2cpp/core/Exception.hpp>
+#include <common/core/Exception.hpp>
 
 // Third-pary includes
 #include <boost/algorithm/string/predicate.hpp>

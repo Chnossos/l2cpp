@@ -4,7 +4,7 @@
 #include "Orm.hpp"
 
 // Project includes
-#include <l2cpp/services/Database.hpp>
+#include <common/services/Database.hpp>
 
 // C++ includes
 #include <span>

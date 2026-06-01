@@ -7,7 +7,7 @@
 #include "../network/packets/server/lobby/CharacterCreatePacket.hpp"
 #include "_Common.hpp"
 
-#include <l2cpp/utils/Enum.hpp>
+#include <common/utils/Enum.hpp>
 
 // C++ includes
 #include <regex>

@@ -4,7 +4,7 @@
 #include "ActionShortcut.hpp"
 
 // Project includes
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 ActionShortcut::ActionShortcut(Index const index, u32 const actionId)
     : Shortcut{index, ShortcutType::Action}

@@ -7,7 +7,7 @@
 #include "../../../../Typedefs.hpp"
 #include "../../../../game/constants/StatId.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 class Actor;
 

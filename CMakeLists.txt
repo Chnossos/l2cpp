@@ -12,8 +12,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
     add_compile_options(/EHsc /W4 /utf-8)
 endif()
 
+include_directories(src)
 add_subdirectory(src/common)
-include_directories(src/common)
-
 add_subdirectory(src/ls)
 add_subdirectory(src/gs)

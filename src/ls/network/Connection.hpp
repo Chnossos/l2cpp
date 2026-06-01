@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include <l2cpp/Typedefs.hpp>
+#include <common/Typedefs.hpp>
 
 // Third-party
 #include <boost/asio/ip/tcp.hpp>

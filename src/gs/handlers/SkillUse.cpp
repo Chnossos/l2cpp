@@ -8,7 +8,7 @@
 #include "../network/packets/server/action/ActionFailedPacket.hpp"
 #include "_Common.hpp"
 
-#include <l2cpp/utils/Enum.hpp>
+#include <common/utils/Enum.hpp>
 
 DEFINE_PACKET_HANDLER(SkillUse) try
 {

@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/constants/CharacterCreationResult.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 namespace Network::Packets::Server { struct CharacterCreatePacket; }
 

@@ -7,7 +7,7 @@
 #include "../game/actor/Actor.hpp"
 #include "../game/skill/SkillTemplate.hpp"
 
-#include <l2cpp/utils/EnumMask.hpp>
+#include <common/utils/EnumMask.hpp>
 
 bool Utils::Target::isValidTarget(Actor const & emitter, SkillTargetNature const targetNature,
                                   Actor const & target, bool const forceAttack, bool const ignoreDeathStatus)

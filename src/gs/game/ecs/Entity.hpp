@@ -6,8 +6,8 @@
 // Project includes
 #include "Component.hpp"
 
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/OptRef.hpp>
+#include <common/core/Exception.hpp>
+#include <common/OptRef.hpp>
 
 // C++ includes
 #include <memory>

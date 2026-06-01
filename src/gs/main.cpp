@@ -4,8 +4,8 @@
 // Project includes
 #include "Application.hpp"
 
-#include <l2cpp/CompileTimeConfig.hpp>
-#include <l2cpp/core/Exception.hpp>
+#include <common/CompileTimeConfig.hpp>
+#include <common/core/Exception.hpp>
 
 // Third-party
 #include <spdlog/spdlog.h>

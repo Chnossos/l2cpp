@@ -6,7 +6,7 @@
 // Project includes
 #include "../../Typedefs.hpp"
 
-#include <l2cpp/network/Serialization.hpp>
+#include <common/network/Serialization.hpp>
 
 namespace Network::Packets::Server { struct EffectListPacket; }
 

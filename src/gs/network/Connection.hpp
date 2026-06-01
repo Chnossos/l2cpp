@@ -6,7 +6,7 @@
 // Project includes
 #include "../Typedefs.hpp"
 
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 // Third-party includes
 #include <boost/asio/ip/tcp.hpp>

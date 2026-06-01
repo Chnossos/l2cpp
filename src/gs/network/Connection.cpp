@@ -4,12 +4,12 @@
 #include "Connection.hpp"
 
 // Project includes
-#include <l2cpp/CompileTimeConfig.hpp>
-#include <l2cpp/core/Exception.hpp>
+#include <common/CompileTimeConfig.hpp>
+#include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
-#include <l2cpp/details/Pimpl.hpp>
-#include <l2cpp/network/Packet.hpp>
-#include <l2cpp/utils/Misc.hpp>
+#include <common/details/Pimpl.hpp>
+#include <common/network/Packet.hpp>
+#include <common/utils/Misc.hpp>
 
 // Third-party includes
 #include <boost/asio/read.hpp>

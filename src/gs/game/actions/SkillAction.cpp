@@ -16,10 +16,10 @@
 #include "../components/Stats.hpp"
 #include "../skill/Skill.hpp"
 
-#include <l2cpp/core/Exception.hpp>
+#include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
-#include <l2cpp/details/Pimpl.hpp>
-#include <l2cpp/utils/Enum.hpp>
+#include <common/details/Pimpl.hpp>
+#include <common/utils/Enum.hpp>
 
 // C++ includes
 #include <algorithm>

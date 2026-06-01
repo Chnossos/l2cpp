@@ -6,8 +6,8 @@
 // Project includes
 #include "../../Typedefs.hpp"
 
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/details/Pimpl.hpp>
+#include <common/core/Exception.hpp>
+#include <common/details/Pimpl.hpp>
 
 // C++ includes
 #include <ranges>

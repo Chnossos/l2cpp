@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 // C++ includes
 #include <string_view>

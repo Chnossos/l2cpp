@@ -43,7 +43,7 @@
 #include "systems/ActorDeletionTimerSystem.hpp"
 #include "systems/ActorStatsUpdateSystem.hpp"
 
-#include <l2cpp/CompileTimeConfig.hpp>
+#include <common/CompileTimeConfig.hpp>
 
 // Third-party
 #include <spdlog/spdlog.h>

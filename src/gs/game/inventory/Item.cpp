@@ -4,8 +4,8 @@
 #include "Item.hpp"
 
 // Project includes
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/network/Packet.hpp>
+#include <common/core/Exception.hpp>
+#include <common/network/Packet.hpp>
 
 namespace
 {

@@ -7,7 +7,7 @@
 #include "../ecs/Component.hpp"
 #include "../skill/Skill.hpp"
 
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 /// List of skills a (N)PC has learned.
 class SkillDirectory : public Component

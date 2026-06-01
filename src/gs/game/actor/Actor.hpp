@@ -12,8 +12,8 @@
 #include "../ecs/Entity.hpp"
 #include "../effects/Effect.hpp"
 
-#include <l2cpp/Event.hpp>
-#include <l2cpp/Pimpl.hpp>
+#include <common/Event.hpp>
+#include <common/Pimpl.hpp>
 
 class Gear;
 class SkillDirectory;

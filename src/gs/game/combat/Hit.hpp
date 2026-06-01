@@ -8,8 +8,8 @@
 #include "../../game/constants/HitStatus.hpp"
 #include "../../game/constants/ItemGrade.hpp"
 
-#include <l2cpp/Pimpl.hpp>
-#include <l2cpp/network/Serialization.hpp>
+#include <common/Pimpl.hpp>
+#include <common/network/Serialization.hpp>
 
 class Actor;
 

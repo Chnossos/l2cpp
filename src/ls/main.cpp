@@ -10,11 +10,11 @@
 #include "network/Connection.hpp"
 #include "network/OpCodes.hpp"
 
-#include <l2cpp/Typedefs.hpp>
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/network/Packet.hpp>
-#include <l2cpp/network/SocketListener.hpp>
-#include <l2cpp/services/Database.hpp>
+#include <common/Typedefs.hpp>
+#include <common/core/Exception.hpp>
+#include <common/network/Packet.hpp>
+#include <common/network/SocketListener.hpp>
+#include <common/services/Database.hpp>
 
 // Third-party includes
 #include <boost/asio/signal_set.hpp>

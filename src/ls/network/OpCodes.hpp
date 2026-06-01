@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include <l2cpp/Typedefs.hpp>
+#include <common/Typedefs.hpp>
 
 /// Packet types received from client
 enum class ClientOpCode : u8

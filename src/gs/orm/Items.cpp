@@ -4,7 +4,7 @@
 #include "Items.hpp"
 
 // Project includes
-#include <l2cpp/services/Database.hpp>
+#include <common/services/Database.hpp>
 
 void Orm::loadItemTemplates(std::unordered_map<decltype(ItemTemplate::id), ItemTemplate> & templates)
 {

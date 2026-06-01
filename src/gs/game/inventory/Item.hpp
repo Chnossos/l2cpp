@@ -7,7 +7,7 @@
 #include "../GameObject.hpp"
 #include "ItemTemplate.hpp"
 
-#include <l2cpp/network/Serialization.hpp>
+#include <common/network/Serialization.hpp>
 
 struct Item : public GameObject
 {

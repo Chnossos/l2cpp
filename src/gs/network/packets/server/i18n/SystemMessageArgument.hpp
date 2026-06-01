@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/skill/SkillUid.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 struct SystemMessageArgument
 {

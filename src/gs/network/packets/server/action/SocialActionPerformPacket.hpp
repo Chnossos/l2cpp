@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/constants/SocialActionId.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 class Actor;
 

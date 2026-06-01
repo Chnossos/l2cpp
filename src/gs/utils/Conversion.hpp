@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include <l2cpp/core/Exception.hpp>
+#include <common/core/Exception.hpp>
 
 // C++ includes
 #include <string_view>

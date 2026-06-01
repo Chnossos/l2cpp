@@ -8,7 +8,7 @@
 #include "../constants/SkillTargetNature.hpp"
 #include "Action.hpp"
 
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 // C++ includes
 #include <functional>

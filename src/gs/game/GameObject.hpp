@@ -6,7 +6,7 @@
 // Project includes
 #include "../Typedefs.hpp"
 
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 class GameObject
 {

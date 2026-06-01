@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 class Character;
 class Player;

@@ -6,7 +6,7 @@
 // Project includes
 #include "../actor/Actor.hpp"
 
-#include <l2cpp/utils/Enum.hpp>
+#include <common/utils/Enum.hpp>
 
 // C++ includes
 #include <algorithm>

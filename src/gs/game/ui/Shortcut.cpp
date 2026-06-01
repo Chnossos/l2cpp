@@ -4,7 +4,7 @@
 #include "Shortcut.hpp"
 
 // Project includes
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 Network::Packet & operator<<(Network::Packet & p, Shortcut const & s)
 {

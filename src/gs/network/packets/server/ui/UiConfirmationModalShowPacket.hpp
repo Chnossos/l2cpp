@@ -6,7 +6,7 @@
 // Project includes
 #include "../i18n/SystemMessageArgument.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 namespace Network::Packets::Server { class UiConfirmationModalShowPacket; }
 

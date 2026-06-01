@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/combat/Hit.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 class Actor;
 

@@ -16,13 +16,13 @@
 #include "orm/Uids.hpp"
 #include "utils/Chrono.hpp"
 
-#include <l2cpp/CompileTimeConfig.hpp>
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/details/Pimpl.hpp>
-#include <l2cpp/network/Packet.hpp>
-#include <l2cpp/network/SocketListener.hpp>
-#include <l2cpp/services/Database.hpp>
-#include <l2cpp/utils/Misc.hpp>
+#include <common/CompileTimeConfig.hpp>
+#include <common/core/Exception.hpp>
+#include <common/details/Pimpl.hpp>
+#include <common/network/Packet.hpp>
+#include <common/network/SocketListener.hpp>
+#include <common/services/Database.hpp>
+#include <common/utils/Misc.hpp>
 
 // Third-party includes
 #include <boost/asio.hpp>

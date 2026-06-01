@@ -6,7 +6,7 @@
 // Project includes
 #include "SkillTemplate.hpp"
 
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 // C++ includes
 #include <unordered_map>

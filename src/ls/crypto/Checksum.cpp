@@ -4,7 +4,7 @@
 #include "Checksum.hpp"
 
 // Project includes
-#include <l2cpp/core/Exception.hpp>
+#include <common/core/Exception.hpp>
 
 u64 Checksum::calculate(std::span<byte const> const buffer)
 {

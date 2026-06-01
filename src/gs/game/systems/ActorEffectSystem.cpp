@@ -7,7 +7,7 @@
 #include "../../network/packets/server/chat/ChatSystemSayPacket.hpp"
 #include "../World.hpp"
 
-#include <l2cpp/utils/Enum.hpp>
+#include <common/utils/Enum.hpp>
 
 /// Update the effect list if we remove any non-damage effect, or it's damage over time
 static bool needToUpdateList(bool const currentValue, Effect const & effect)

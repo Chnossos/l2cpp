@@ -9,30 +9,30 @@ target_link_libraries(${PROJECT_NAME} PUBLIC Boost::headers spdlog::spdlog_heade
 
 target_sources(${PROJECT_NAME}
     PRIVATE
-               l2cpp/core/Exception.cpp
-               l2cpp/network/Packet.cpp
-               l2cpp/network/SocketListener.cpp
-               l2cpp/services/Database.cpp
-               l2cpp/utils/File.cpp
-               l2cpp/utils/Misc.cpp
+        core/Exception.cpp
+        network/Packet.cpp
+        network/SocketListener.cpp
+        services/Database.cpp
+        utils/File.cpp
+        utils/Misc.cpp
 )
 target_sources(${PROJECT_NAME} PUBLIC
     FILE_SET HEADERS
     FILES
-               l2cpp/CompileTimeConfig.hpp
-               l2cpp/Event.hpp
-               l2cpp/OptRef.hpp
-               l2cpp/Pimpl.hpp
-               l2cpp/Typedefs.hpp
-               l2cpp/core/Exception.hpp
-               l2cpp/network/Packet.hpp
-               l2cpp/network/PacketReader.hpp
-               l2cpp/network/Serialization.hpp
-               l2cpp/network/SocketListener.hpp
-               l2cpp/services/Database.hpp
-               l2cpp/utils/Enum.hpp
-               l2cpp/utils/EnumMask.hpp
-               l2cpp/utils/File.hpp
-               l2cpp/utils/Misc.hpp
-               l2cpp/utils/Traits.hpp
+        CompileTimeConfig.hpp
+        Event.hpp
+        OptRef.hpp
+        Pimpl.hpp
+        Typedefs.hpp
+        core/Exception.hpp
+        network/Packet.hpp
+        network/PacketReader.hpp
+        network/Serialization.hpp
+        network/SocketListener.hpp
+        services/Database.hpp
+        utils/Enum.hpp
+        utils/EnumMask.hpp
+        utils/File.hpp
+        utils/Misc.hpp
+        utils/Traits.hpp
 )

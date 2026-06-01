@@ -7,7 +7,7 @@
 #include "../../Typedefs.hpp"
 #include "../ecs/Component.hpp"
 
-#include <l2cpp/Network/Serialization.hpp>
+#include <common/Network/Serialization.hpp>
 
 struct Position : public Component
 {

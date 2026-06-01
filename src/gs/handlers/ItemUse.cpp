@@ -14,7 +14,7 @@
 #include "../network/packets/server/status/CharacterStatusUpdatePacket.hpp"
 #include "_Common.hpp"
 
-#include <l2cpp/utils/Enum.hpp>
+#include <common/utils/Enum.hpp>
 
 // C++ includes
 #include <ranges>

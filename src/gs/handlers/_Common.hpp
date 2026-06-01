@@ -6,9 +6,9 @@
 // Project includes
 #include "../Player.hpp"
 #include "../network/Connection.hpp"
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/network/Packet.hpp>
-#include <l2cpp/network/PacketReader.hpp>
+#include <common/core/Exception.hpp>
+#include <common/network/Packet.hpp>
+#include <common/network/PacketReader.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

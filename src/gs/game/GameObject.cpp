@@ -4,8 +4,8 @@
 #include "GameObject.hpp"
 
 // Project includes
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/details/Pimpl.hpp>
+#include <common/core/Exception.hpp>
+#include <common/details/Pimpl.hpp>
 
 struct GameObject::Impl
 {

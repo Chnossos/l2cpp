@@ -8,8 +8,8 @@
 #include "../World.hpp"
 #include "../actor/Actor.hpp"
 
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/utils/Enum.hpp>
+#include <common/core/Exception.hpp>
+#include <common/utils/Enum.hpp>
 
 SocialAction::SocialAction(Actor & performer, SocialActionId const actionId)
     : Action{ActionType::Social, performer}

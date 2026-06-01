@@ -7,7 +7,7 @@
 #include "../ecs/Component.hpp"
 #include "../inventory/GearTransaction.hpp"
 
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 /// Handles the items that the character currently wears
 class Gear : public Component

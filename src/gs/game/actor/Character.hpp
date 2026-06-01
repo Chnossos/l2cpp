@@ -8,7 +8,7 @@
 #include "../constants/Profession.hpp"
 #include "Actor.hpp"
 
-#include <l2cpp/Pimpl.hpp>
+#include <common/Pimpl.hpp>
 
 class CharacterStatus;
 class ItemStorage;

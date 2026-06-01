@@ -4,8 +4,8 @@
 #include "Position.hpp"
 
 // Projet includes
-#include <l2cpp/network/Packet.hpp>
-#include <l2cpp/network/PacketReader.hpp>
+#include <common/network/Packet.hpp>
+#include <common/network/PacketReader.hpp>
 
 DEFINE_PACKET_SERIALIZATION_OPERATOR(Position, pos)
 {

@@ -6,7 +6,7 @@
 // Project includes
 #include "../utils/Conversion.hpp"
 
-#include <l2cpp/services/Database.hpp>
+#include <common/services/Database.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

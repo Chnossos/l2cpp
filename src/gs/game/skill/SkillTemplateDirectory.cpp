@@ -10,8 +10,8 @@
 #include "../effects/factories/ResurrectionEffectFactory.hpp"
 #include "../effects/factories/ToggleBuffEffectFactory.hpp"
 
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/utils/EnumMask.hpp>
+#include <common/core/Exception.hpp>
+#include <common/utils/EnumMask.hpp>
 
 // Third-pary includes
 #include <boost/algorithm/string/classification.hpp>

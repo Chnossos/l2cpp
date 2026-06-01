@@ -13,7 +13,7 @@
 #include "../components/Gear.hpp"
 #include "../components/Stats.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 namespace SM = Network::Packets::Server;
 

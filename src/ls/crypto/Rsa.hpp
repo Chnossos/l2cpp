@@ -4,8 +4,8 @@
 #pragma once
 
 // Project includes
-#include <l2cpp/Pimpl.hpp>
-#include <l2cpp/Typedefs.hpp>
+#include <common/Pimpl.hpp>
+#include <common/Typedefs.hpp>
 
 // C++ includes
 #include <span>

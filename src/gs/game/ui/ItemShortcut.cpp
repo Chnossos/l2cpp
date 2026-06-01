@@ -6,7 +6,7 @@
 // Project includes
 #include "../inventory/Item.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 ItemShortcut::ItemShortcut(Index const index, Item const & item)
     : Shortcut{index, ShortcutType::Item}

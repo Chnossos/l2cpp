@@ -18,7 +18,7 @@
 #include "../components/Stats.hpp"
 
 // ReSharper disable once CppUnusedIncludeDirective
-#include <l2cpp/details/Pimpl.hpp>
+#include <common/details/Pimpl.hpp>
 
 namespace SC = Network::Packets::Server; // Server -> Client
 

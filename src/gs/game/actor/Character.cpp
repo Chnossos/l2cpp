@@ -13,9 +13,9 @@
 #include "../skill/SkillTemplateDirectory.hpp"
 #include "../ui/ShortcutBar.hpp"
 
-#include <l2cpp/core/Exception.hpp>
+#include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
-#include <l2cpp/details/Pimpl.hpp>
+#include <common/details/Pimpl.hpp>
 
 enum class ConfirmationModalSystemMessageId : u32
 {

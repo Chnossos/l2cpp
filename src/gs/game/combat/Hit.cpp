@@ -6,8 +6,8 @@
 // Project includes
 #include "../actor/Actor.hpp"
 
-#include <l2cpp/details/Pimpl.hpp>
-#include <l2cpp/network/Packet.hpp>
+#include <common/details/Pimpl.hpp>
+#include <common/network/Packet.hpp>
 
 struct Hit::Impl
 {

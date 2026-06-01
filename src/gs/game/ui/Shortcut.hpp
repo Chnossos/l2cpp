@@ -7,7 +7,7 @@
 #include "../../Typedefs.hpp"
 #include "../constants/ShortcutType.hpp"
 
-#include <l2cpp/network/Serialization.hpp>
+#include <common/network/Serialization.hpp>
 
 class Shortcut
 {

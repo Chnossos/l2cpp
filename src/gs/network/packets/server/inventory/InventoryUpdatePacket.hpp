@@ -6,7 +6,7 @@
 // Project includes
 #include "../../../../game/inventory/Item.hpp"
 
-#include <l2cpp/network/Packet.hpp>
+#include <common/network/Packet.hpp>
 
 namespace Network::Packets::Server { struct InventoryUpdatePacket; }
 

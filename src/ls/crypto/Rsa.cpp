@@ -6,9 +6,9 @@
 // Project includes
 #include "../Constants.hpp"
 
-#include <l2cpp/core/Exception.hpp>
+#include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
-#include <l2cpp/details/Pimpl.hpp>
+#include <common/details/Pimpl.hpp>
 
 // Third-party includes
 #include <openssl/err.h>

@@ -12,7 +12,7 @@
 #include "../actor/Npc.hpp"
 #include "../components/Stats.hpp"
 
-#include <l2cpp/utils/Enum.hpp>
+#include <common/utils/Enum.hpp>
 
 namespace
 {

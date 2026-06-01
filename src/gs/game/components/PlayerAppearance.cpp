@@ -4,8 +4,8 @@
 #include "PlayerAppearance.hpp"
 
 // Project includes
-#include <l2cpp/core/Exception.hpp>
-#include <l2cpp/utils/Enum.hpp>
+#include <common/core/Exception.hpp>
+#include <common/utils/Enum.hpp>
 
 PlayerAppearance::PlayerAppearance() noexcept
   : _race(Race::Human)
