@@ -11,7 +11,7 @@
 #include <ranges>
 #include <unordered_map>
 
-struct Gear::GearImpl
+struct Gear::Impl
 {
 public:
     auto itemAt(GearSlot slot)       -> OptRef<Item> &;
@@ -28,9 +28,9 @@ private:
     std::unordered_map<GearSlot, OptRef<Item>> gear;
 };
 
-template class Pimpl<Gear::GearImpl>;
+template class Pimpl<Gear::Impl>;
 
-auto Gear::GearImpl::itemAt(GearSlot const slot) -> OptRef<Item> &
+auto Gear::Impl::itemAt(GearSlot const slot) -> OptRef<Item> &
 {
     L2CPP_B_ASSERT(slot != GearSlot::None, "Tried to reference gear item @ slot None");
     switch (slot)
@@ -43,13 +43,13 @@ auto Gear::GearImpl::itemAt(GearSlot const slot) -> OptRef<Item> &
     }
 }
 
-auto Gear::GearImpl::itemAt(GearSlot const slot) const -> OptRef<Item const>
+auto Gear::Impl::itemAt(GearSlot const slot) const -> OptRef<Item const>
 {
-    return *const_cast<GearImpl *>(this)->itemAt(slot);
+    return *const_cast<Impl *>(this)->itemAt(slot);
 }
 
 template<typename Func>
-auto Gear::GearImpl::applyToDependentSlots(GearSlot slot, Func apply)
+auto Gear::Impl::applyToDependentSlots(GearSlot slot, Func apply)
 {
     std::vector<GearSlot> slots;
     slots.reserve(4);
@@ -69,7 +69,7 @@ auto Gear::GearImpl::applyToDependentSlots(GearSlot slot, Func apply)
         std::invoke(apply, gear[s]);
 }
 
-auto Gear::GearImpl::equipItem(Item & item) -> GearTransaction
+auto Gear::Impl::equipItem(Item & item) -> GearTransaction
 {
     GearTransaction transaction {.target = item};
 
@@ -138,7 +138,7 @@ auto Gear::GearImpl::equipItem(Item & item) -> GearTransaction
     return transaction;
 }
 
-auto Gear::GearImpl::unequipItem(Item const & item, OptRef<GearTransaction> const & curTransaction)
+auto Gear::Impl::unequipItem(Item const & item, OptRef<GearTransaction> const & curTransaction)
     -> GearTransaction
 {
     GearTransaction t{.target = item};

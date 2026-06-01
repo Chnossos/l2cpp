@@ -104,6 +104,6 @@ private:
     void addEffect(std::unique_ptr<Effect>);
 
 private:
-    struct ActorImpl;
-    Pimpl<ActorImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

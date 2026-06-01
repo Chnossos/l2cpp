@@ -14,13 +14,13 @@
 
 using namespace std::chrono;
 
-struct Skill::SkillImpl
+struct Skill::Impl
 {
     Ref<SkillTemplate const> tmplate;
     system_clock::time_point lastUse{};
 };
 
-template class Pimpl<Skill::SkillImpl>;
+template class Pimpl<Skill::Impl>;
 
 // ---------------------------------------------------------------------------------------------------------------------
 

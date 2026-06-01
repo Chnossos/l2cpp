@@ -11,14 +11,14 @@
 
 using l2cpp::Network::Packet;
 
-struct Packet::PacketImpl
+struct Packet::Impl
 {
     std::vector<byte> buffer;
     PacketOpCode      opCode;
     std::string_view  name;
 
-    PacketImpl(PacketOpCode opCode_, std::string_view name_);
-    PacketImpl(PacketImpl const & other);
+    Impl(PacketOpCode opCode_, std::string_view name_);
+    Impl(Impl const & other);
 
     void append(std::span<byte const> data);
     void erase(size_t size);
@@ -27,33 +27,33 @@ private:
     void writeSize();
 };
 
-template class Pimpl<Packet::PacketImpl>;
+template class Pimpl<Packet::Impl>;
 
-Packet::PacketImpl::PacketImpl(PacketOpCode const opCode_, std::string_view const name_)
+Packet::Impl::Impl(PacketOpCode const opCode_, std::string_view const name_)
     : buffer(sizeof(PacketHeader))
     , opCode(opCode_)
     , name(name_)
 {}
 
-Packet::PacketImpl::PacketImpl(PacketImpl const & other)
+Packet::Impl::Impl(Impl const & other)
     : buffer(other.buffer)
     , opCode(other.opCode)
     , name(other.name)
 {}
 
-void Packet::PacketImpl::append(std::span<byte const> const data)
+void Packet::Impl::append(std::span<byte const> const data)
 {
     buffer.append_range(data);
     writeSize();
 }
 
-void Packet::PacketImpl::erase(size_t const size)
+void Packet::Impl::erase(size_t const size)
 {
     buffer.erase(buffer.cend() - size);
     writeSize();
 }
 
-void Packet::PacketImpl::writeSize()
+void Packet::Impl::writeSize()
 {
     // Write total size on the first two bytes of the buffer
     *reinterpret_cast<PacketHeader *>(buffer.data()) = static_cast<PacketHeader>(buffer.size());

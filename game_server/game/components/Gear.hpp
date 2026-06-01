@@ -33,6 +33,6 @@ public:
     auto unequipItem(Item const & item) -> GearTransaction;
 
 private:
-    struct GearImpl;
-    Pimpl<GearImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

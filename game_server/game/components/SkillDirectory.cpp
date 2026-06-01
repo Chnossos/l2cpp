@@ -15,12 +15,12 @@
 // C++ includes
 #include <unordered_map>
 
-struct SkillDirectory::SkillDirectoryImpl
+struct SkillDirectory::Impl
 {
     std::unordered_map<SkillId, Skill> skills;
 };
 
-template class Pimpl<SkillDirectory::SkillDirectoryImpl>;
+template class Pimpl<SkillDirectory::Impl>;
 
 // ---------------------------------------------------------------------------------------------------------------------
 

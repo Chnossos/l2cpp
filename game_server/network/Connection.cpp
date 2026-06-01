@@ -26,7 +26,7 @@ using Network::Connection;
 using EncryptionKey = std::array<byte, sizeof(u64)>;
 constexpr EncryptionKey gEncryptionKey{{0x94, 0x35, 0x00, 0x00, 0xa1, 0x6c, 0x54, 0x87}};
 
-struct Connection::ConnectionImpl
+struct Connection::Impl
 {
     ConnectionId                 id;
     boost::asio::ip::tcp::socket socket;
@@ -35,7 +35,7 @@ struct Connection::ConnectionImpl
     ConnectionClosedHandler      closedHandler;
     PacketReceivedHandler        packetHandler;
 
-    explicit ConnectionImpl(boost::asio::ip::tcp::socket && socket);
+    explicit Impl(boost::asio::ip::tcp::socket && socket);
 
     void encrypt(std::span<byte>, EncryptionKey &) const;
     void decrypt(std::span<byte>, EncryptionKey &) const;
@@ -46,9 +46,9 @@ struct Connection::ConnectionImpl
     bool handleReadError(boost::system::error_code const &, std::string_view);
 };
 
-template class Pimpl<Connection::ConnectionImpl>;
+template class Pimpl<Connection::Impl>;
 
-Connection::ConnectionImpl::ConnectionImpl(boost::asio::ip::tcp::socket && socket)
+Connection::Impl::Impl(boost::asio::ip::tcp::socket && socket)
     : socket(std::move(socket))
 {
     static decltype(id) uid = 0;
@@ -56,7 +56,7 @@ Connection::ConnectionImpl::ConnectionImpl(boost::asio::ip::tcp::socket && socke
     readBuffer.resize(sizeof(PacketHeader));
 }
 
-void Connection::ConnectionImpl::encrypt(std::span<byte> data, EncryptionKey & key) const
+void Connection::Impl::encrypt(std::span<byte> data, EncryptionKey & key) const
 {
     decltype(data)::value_type tmp = 0;
     for (size_t i = 0; i < data.size(); tmp = data[i++])
@@ -65,7 +65,7 @@ void Connection::ConnectionImpl::encrypt(std::span<byte> data, EncryptionKey & k
     *reinterpret_cast<u32 *>(key.data()) += static_cast<u32>(data.size());
 }
 
-void Connection::ConnectionImpl::decrypt(std::span<byte> data, EncryptionKey & key) const
+void Connection::Impl::decrypt(std::span<byte> data, EncryptionKey & key) const
 {
     decltype(data)::value_type tmp1 = 0, tmp2 = 0;
     for (size_t i = 0; i < data.size(); ++i)
@@ -78,7 +78,7 @@ void Connection::ConnectionImpl::decrypt(std::span<byte> data, EncryptionKey & k
     *reinterpret_cast<u32 *>(key.data()) += static_cast<u32>(data.size());
 }
 
-void Connection::ConnectionImpl::close()
+void Connection::Impl::close()
 {
     if (socket.is_open())
     {
@@ -94,7 +94,7 @@ void Connection::ConnectionImpl::close()
     }
 }
 
-void Connection::ConnectionImpl::onSizeRead(boost::system::error_code const & ec)
+void Connection::Impl::onSizeRead(boost::system::error_code const & ec)
 {
     if (ec.value() == boost::asio::error::operation_aborted || !handleReadError(ec, "size"))
         return;
@@ -104,7 +104,7 @@ void Connection::ConnectionImpl::onSizeRead(boost::system::error_code const & ec
     boost::asio::async_read(socket, boost::asio::buffer(payload), [this] (auto const & e, auto) { onBodyRead(e); });
 }
 
-void Connection::ConnectionImpl::onBodyRead(boost::system::error_code const & ec)
+void Connection::Impl::onBodyRead(boost::system::error_code const & ec)
 {
     if (ec.value() == boost::asio::error::operation_aborted || !handleReadError(ec, "body"))
         return;
@@ -118,7 +118,7 @@ void Connection::ConnectionImpl::onBodyRead(boost::system::error_code const & ec
         packetHandler(readBuffer);
 }
 
-bool Connection::ConnectionImpl::handleReadError(boost::system::error_code const & ec, std::string_view source)
+bool Connection::Impl::handleReadError(boost::system::error_code const & ec, std::string_view source)
 {
     switch (auto const code = ec.value())
     {

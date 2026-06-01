@@ -22,7 +22,7 @@
 
 namespace SC = Network::Packet::Server; // Server -> Client
 
-struct Actor::ActorImpl
+struct Actor::Impl
 {
     ActorType type;
     Team team = Team::None;
@@ -37,7 +37,7 @@ struct Actor::ActorImpl
     DamageDealtTable attackerDamageAmounts;
 };
 
-template class Pimpl<Actor::ActorImpl>;
+template class Pimpl<Actor::Impl>;
 
 // ---------------------------------------------------------------------------------------------------------------------
 

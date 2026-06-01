@@ -40,6 +40,6 @@ public:
     void clear();
 
 private:
-    struct ItemStorageImpl;
-    Pimpl<ItemStorageImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

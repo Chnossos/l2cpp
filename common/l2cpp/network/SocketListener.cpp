@@ -20,25 +20,25 @@ using boost::system::error_code;
 using SL = l2cpp::Network::SocketListener;
 using TcpAcceptor = ip::tcp::acceptor;
 
-struct SL::SocketListenerImpl
+struct SL::Impl
 {
     boost::asio::io_context &               ioContext;
     std::unordered_map<u16, TcpAcceptor>    acceptors;
     std::unordered_map<u16, AcceptCallback> callbacks;
 
-    explicit SocketListenerImpl(boost::asio::io_context & ioc)
+    explicit Impl(boost::asio::io_context & ioc)
         : ioContext(ioc)
     {}
-    ~SocketListenerImpl() = default;
+    ~Impl() = default;
 
     bool listen(ip::address addr, u16 port, AcceptCallback cb);
     void onAccept(u16 port, error_code const & ec, ip::tcp::socket socket);
     bool handleError(u16 port, error_code const & ec);
 };
 
-template class Pimpl<l2cpp::Network::SocketListener::SocketListenerImpl>;
+template class Pimpl<l2cpp::Network::SocketListener::Impl>;
 
-bool SL::SocketListenerImpl::listen(ip::address addr, u16 const port, AcceptCallback cb)
+bool SL::Impl::listen(ip::address addr, u16 const port, AcceptCallback cb)
 {
     ip::tcp::acceptor acceptor { ioContext };
     try
@@ -55,23 +55,23 @@ bool SL::SocketListenerImpl::listen(ip::address addr, u16 const port, AcceptCall
     }
 
     using namespace std::placeholders;
-    acceptor.async_accept(std::bind(&SocketListenerImpl::onAccept, this, port, _1, _2));
+    acceptor.async_accept(std::bind(&Impl::onAccept, this, port, _1, _2));
 
     acceptors.emplace(port, std::move(acceptor));
     callbacks.emplace(port, std::move(cb));
     return true;
 }
 
-void SL::SocketListenerImpl::onAccept(u16 port, error_code const & ec, ip::tcp::socket socket)
+void SL::Impl::onAccept(u16 port, error_code const & ec, ip::tcp::socket socket)
 {
     if (!handleError(port, ec)) return;
 
     using namespace std::placeholders;
     std::invoke(callbacks.at(port), std::move(socket));
-    acceptors.at(port).async_accept(std::bind(&SocketListenerImpl::onAccept, this, port, _1, _2));
+    acceptors.at(port).async_accept(std::bind(&Impl::onAccept, this, port, _1, _2));
 }
 
-bool SL::SocketListenerImpl::handleError(u16 port, error_code const & ec)
+bool SL::Impl::handleError(u16 port, error_code const & ec)
 {
     switch (auto const code = ec.default_error_condition().value())
     {

@@ -29,21 +29,21 @@ namespace
     try { rsaAssert(func, __VA_ARGS__); } catch (...) { L2CPP_THROW_NESTED("RSA {}() failed", #func); }
 }
 
-struct Rsa::RsaImpl
+struct Rsa::Impl
 {
     std::unique_ptr<RSA,    decltype(&RSA_free)> rsaKey;
     std::unique_ptr<BIGNUM, decltype(&BN_free)>  rsaExp;
     std::vector<byte>                            modulus;
 
-    explicit RsaImpl(std::string_view exponent);
+    explicit Impl(std::string_view exponent);
 
 private:
     static auto initExponent(std::string_view exponent) -> BIGNUM *;
 };
 
-template class Pimpl<Rsa::RsaImpl>;
+template class Pimpl<Rsa::Impl>;
 
-Rsa::RsaImpl::RsaImpl(std::string_view const exponent)
+Rsa::Impl::Impl(std::string_view const exponent)
     : rsaKey(RSA_new(), &RSA_free)
     , rsaExp(initExponent(exponent), &BN_free)
 {
@@ -61,7 +61,7 @@ Rsa::RsaImpl::RsaImpl(std::string_view const exponent)
     for (size_t i = 0; i < 0x40; ++i) modulus[0x40 + i] ^= modulus[0x00 + i];
 }
 
-auto Rsa::RsaImpl::initExponent(std::string_view const exponent) -> BIGNUM *
+auto Rsa::Impl::initExponent(std::string_view const exponent) -> BIGNUM *
 {
     BIGNUM * n = nullptr;
     RSA_ASSERT(BN_dec2bn, &n, exponent.data());

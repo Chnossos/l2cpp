@@ -39,6 +39,6 @@ private:
     void forEachTarget(std::function<void(Actor &)> const &) const;
 
 private:
-    struct SkillActionImpl;
-    Pimpl<SkillActionImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

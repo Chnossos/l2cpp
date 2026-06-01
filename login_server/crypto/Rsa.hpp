@@ -26,6 +26,6 @@ public:
     void decrypt(std::span<byte> buffer);
 
 private:
-    struct RsaImpl;
-    Pimpl<RsaImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

@@ -32,6 +32,6 @@ public:
     auto flags() const -> u8;
 
 private:
-    struct HitImpl;
-    Pimpl<HitImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

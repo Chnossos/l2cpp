@@ -22,7 +22,7 @@ enum class ConfirmationModalSystemMessageId : u32
     ResurrectionProposal = 1510,
 };
 
-struct Character::CharacterImpl
+struct Character::Impl
 {
     bool fullyLoaded = false;
 
@@ -34,7 +34,7 @@ struct Character::CharacterImpl
     std::optional<ConfirmationModalSystemMessageId> confirmationModalMessageId;
 };
 
-template class Pimpl<Character::CharacterImpl>;
+template class Pimpl<Character::Impl>;
 
 // ---------------------------------------------------------------------------------------------------------------------
 

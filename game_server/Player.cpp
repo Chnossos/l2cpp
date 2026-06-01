@@ -12,7 +12,7 @@
 // ReSharper disable once CppUnusedIncludeDirective
 #include <l2cpp/details/Pimpl.hpp>
 
-struct Player::PlayerImpl
+struct Player::Impl
 {
     Network::Connection conn;
     AccountId           id;
@@ -21,12 +21,12 @@ struct Player::PlayerImpl
 
     OptRef<Character> currentCharacter;
 
-    explicit PlayerImpl(boost::asio::ip::tcp::socket && socket);
+    explicit Impl(boost::asio::ip::tcp::socket && socket);
 };
 
-template class Pimpl<Player::PlayerImpl>;
+template class Pimpl<Player::Impl>;
 
-Player::PlayerImpl::PlayerImpl(boost::asio::ip::tcp::socket && socket)
+Player::Impl::Impl(boost::asio::ip::tcp::socket && socket)
     : conn(std::move(socket))
     , id()
     , playOk1()

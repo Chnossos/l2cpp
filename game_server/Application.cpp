@@ -40,7 +40,7 @@ static void hexdump(std::span<byte const> const buffer)
     }
 }
 
-struct Application::ApplicationImpl
+struct Application::Impl
 {
     std::vector<std::string_view>  args;
     boost::asio::io_context        ioContext;
@@ -48,7 +48,7 @@ struct Application::ApplicationImpl
     l2cpp::Network::SocketListener socketListener;
     std::list<Player>              players;
 
-    explicit ApplicationImpl(std::vector<std::string_view> args_)
+    explicit Impl(std::vector<std::string_view> args_)
         : args(std::move(args_))
         , signalSet(ioContext, SIGINT)
         , socketListener(ioContext)
@@ -63,9 +63,9 @@ private:
     void onSocketAccepted(boost::asio::ip::tcp::socket socket);
 };
 
-template class Pimpl<Application::ApplicationImpl>;
+template class Pimpl<Application::Impl>;
 
-bool Application::ApplicationImpl::load() const try
+bool Application::Impl::load() const try
 {
     SPDLOG_INFO("Initializing database…");
     Database::init({
@@ -107,7 +107,7 @@ catch (l2cpp::Exception const & e)
     return false;
 }
 
-int Application::ApplicationImpl::run() try
+int Application::Impl::run() try
 {
     signalSet.async_wait([this] (auto const & ec, int s) { onSignal(ec, s); });
 
@@ -148,7 +148,7 @@ catch (...)
     throw;
 }
 
-void Application::ApplicationImpl::shutdown()
+void Application::Impl::shutdown()
 {
     SPDLOG_INFO("Beginning shutting down sequence…");
 
@@ -167,7 +167,7 @@ void Application::ApplicationImpl::shutdown()
     boost::asio::post(ioContext, [] { SPDLOG_INFO("Shutting down sequence done."); });
 }
 
-void Application::ApplicationImpl::onSignal(boost::system::error_code const & ec, int)
+void Application::Impl::onSignal(boost::system::error_code const & ec, int)
 {
     switch (ec.default_error_condition().value())
     {
@@ -186,7 +186,7 @@ void Application::ApplicationImpl::onSignal(boost::system::error_code const & ec
     }
 }
 
-void Application::ApplicationImpl::onSocketAccepted(boost::asio::ip::tcp::socket socket) try
+void Application::Impl::onSocketAccepted(boost::asio::ip::tcp::socket socket) try
 {
     auto & player = players.emplace_back(std::move(socket));
     auto & conn   = player.connection();

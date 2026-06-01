@@ -106,8 +106,8 @@ private:
     auto counterAtOffset(size_t offset) const -> void const *;
 
 private:
-    struct PacketImpl;
-    Pimpl<PacketImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };
 
 template<typename T> requires std::is_class_v<T>

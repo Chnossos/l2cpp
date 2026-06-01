@@ -9,7 +9,7 @@
 #include <l2cpp/details/Pimpl.hpp>
 #include <l2cpp/network/Packet.hpp>
 
-struct Hit::HitImpl
+struct Hit::Impl
 {
     u32 targetId;
     u32 damage;
@@ -18,8 +18,8 @@ struct Hit::HitImpl
     HitStatus status;
     u8 flags;
 
-    HitImpl(u32 const targetId_, u32 const damage_, bool const isCritical_,
-            std::optional<ItemGrade> soulShotUsed_, HitStatus const status_
+    Impl(u32 const targetId_, u32 const damage_, bool const isCritical_,
+         std::optional<ItemGrade> soulShotUsed_, HitStatus const status_
     )
         : targetId(targetId_)
         , damage(damage_)
@@ -38,7 +38,7 @@ struct Hit::HitImpl
     }
 };
 
-template class Pimpl<Hit::HitImpl>;
+template class Pimpl<Hit::Impl>;
 
 // ---------------------------------------------------------------------------------------------------------------------
 

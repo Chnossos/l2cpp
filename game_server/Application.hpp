@@ -21,6 +21,6 @@ public:
     int  run();
 
 private:
-    struct ApplicationImpl;
-    Pimpl<ApplicationImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

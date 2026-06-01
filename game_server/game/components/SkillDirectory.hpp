@@ -37,6 +37,6 @@ public:
     auto cend()   const -> std::unordered_map<SkillId, Skill>::const_iterator;
 
 private:
-    struct SkillDirectoryImpl;
-    Pimpl<SkillDirectoryImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

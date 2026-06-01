@@ -20,6 +20,6 @@ public:
     auto id() const -> GameObjectId;
 
 private:
-    struct GameObjectImpl;
-    Pimpl<GameObjectImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

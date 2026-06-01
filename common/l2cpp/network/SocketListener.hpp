@@ -25,6 +25,6 @@ public:
     void shutdown();
 
 private:
-    struct SocketListenerImpl;
-    Pimpl<SocketListenerImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

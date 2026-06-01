@@ -31,7 +31,7 @@ using enum SkillOperatingType;
 using l2cpp::Utils::Enum::isAnyOf;
 using Utils::Target::isValidTarget;
 
-struct SkillAction::SkillActionImpl
+struct SkillAction::Impl
 {
     SkillTemplate const &       skill;
     bool                        forceAttack, castingStarted = false;
@@ -44,7 +44,7 @@ struct SkillAction::SkillActionImpl
     std::unordered_map<EffectTargetType, std::vector<Ref<Actor>>> targets;
 };
 
-template class Pimpl<SkillAction::SkillActionImpl>;
+template class Pimpl<SkillAction::Impl>;
 
 // ---------------------------------------------------------------------------------------------------------------------
 

@@ -29,8 +29,8 @@ public:
     operator SkillTemplate const &() const { return tmplate(); }
 
 private:
-    struct SkillImpl;
-    Pimpl<SkillImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };
 
 using SkillRegistry = std::unordered_map<SkillUid, Skill>;

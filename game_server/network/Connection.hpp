@@ -44,6 +44,6 @@ public:
     void setOnPacketReceivedHandler(PacketReceivedHandler);
 
 private:
-    struct ConnectionImpl;
-    Pimpl<ConnectionImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

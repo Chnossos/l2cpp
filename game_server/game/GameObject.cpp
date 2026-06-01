@@ -7,12 +7,12 @@
 #include <l2cpp/Exception.hpp>
 #include <l2cpp/details/Pimpl.hpp>
 
-struct GameObject::GameObjectImpl
+struct GameObject::Impl
 {
     GameObjectId id = 0;
 };
 
-template class Pimpl<GameObject::GameObjectImpl>;
+template class Pimpl<GameObject::Impl>;
 
 GameObject::GameObject()
 {

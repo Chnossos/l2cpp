@@ -41,6 +41,6 @@ public:
     void unsetCurrentCharacter();
 
 private:
-    struct PlayerImpl;
-    Pimpl<PlayerImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };

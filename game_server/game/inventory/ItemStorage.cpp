@@ -13,12 +13,12 @@
 #include <ranges>
 #include <unordered_map>
 
-struct ItemStorage::ItemStorageImpl
+struct ItemStorage::Impl
 {
     std::unordered_map<GameObjectId, Item> items;
 };
 
-template class Pimpl<ItemStorage::ItemStorageImpl>;
+template class Pimpl<ItemStorage::Impl>;
 
 ItemStorage::ItemStorage() = default;
 ItemStorage::ItemStorage(ItemStorage &&) noexcept = default;

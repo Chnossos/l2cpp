@@ -57,6 +57,6 @@ public:
     void answerConfirmationModal(u32 systemMessageId, bool accepted);
 
 private:
-    struct CharacterImpl;
-    Pimpl<CharacterImpl> _impl;
+    struct Impl;
+    Pimpl<Impl> _impl;
 };
