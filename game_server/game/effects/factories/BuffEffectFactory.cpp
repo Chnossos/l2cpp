@@ -26,6 +26,5 @@ void BuffEffectFactory::apply(Actor & source, Actor & target)
     if (source.type() == ActorType::Character && target.type() != ActorType::Character)
         return;
 
-    target.addEffect<BuffEffect>(source, target, _skillTemplate.uid(),
-        _skillTemplate.operatingType() == SkillOperatingType::Toggle ? -1s : _totalDuration, _modifiedStat, _value);
+    target.addEffect<BuffEffect>(source, target, skill().uid(), totalDuration(), _modifiedStat, _value);
 }

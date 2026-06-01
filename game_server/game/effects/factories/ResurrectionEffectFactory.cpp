@@ -18,5 +18,5 @@ ResurrectionEffectFactory::ResurrectionEffectFactory(
 
 void ResurrectionEffectFactory::apply(Actor & source, Actor & target)
 {
-    target.addEffect<ResurrectionEffect>(source, target, _skillTemplate.uid());
+    target.addEffect<ResurrectionEffect>(source, target, skill().uid());
 }

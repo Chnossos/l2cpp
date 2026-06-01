@@ -26,6 +26,6 @@ HealEffectFactory::HealEffectFactory(
 
 void HealEffectFactory::apply(Actor & source, Actor & target)
 {
-    target.addEffect<HealEffect>(source, target, _skillTemplate.uid(), _power,
-                                 _totalDuration, _tickDuration, _initialTriggerDuration);
+    target.addEffect<HealEffect>(source, target, skill().uid(), _power,
+                                 totalDuration(), tickDuration(), initialTriggerDuration());
 }

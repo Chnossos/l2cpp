@@ -27,21 +27,23 @@ public:
     virtual ~EffectFactory() = default;
 
 public:
-    auto type()         const -> EffectType        { return _type;         }
-    auto targetType()   const -> EffectTargetType  { return _targetType;   }
-    auto targetNature() const -> SkillTargetNature { return _targetNature; }
+    auto type()                   const -> EffectType            { return _type;                   }
+    auto skill()                  const -> SkillTemplate const & { return _skillTemplate;          }
+    auto targetType()             const -> EffectTargetType      { return _targetType;             }
+    auto targetNature()           const -> SkillTargetNature     { return _targetNature;           }
+    auto totalDuration()          const -> ClockDuration         { return _totalDuration;          }
+    auto tickDuration()           const -> ClockDuration         { return _tickDuration;           }
+    auto initialTriggerDuration() const -> ClockDuration         { return _initialTriggerDuration; }
 
 public:
     virtual void apply(Actor & source, Actor & target) = 0;
 
-protected:
+private:
+    EffectType            _type;
     SkillTemplate const & _skillTemplate;
+    EffectTargetType      _targetType;
+    SkillTargetNature     _targetNature;
     ClockDuration         _totalDuration;
     ClockDuration         _tickDuration;
     ClockDuration         _initialTriggerDuration;
-
-private:
-    EffectType        _type;
-    EffectTargetType  _targetType;
-    SkillTargetNature _targetNature;
 };
