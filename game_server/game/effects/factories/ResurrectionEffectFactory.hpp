@@ -4,12 +4,16 @@
 #pragma once
 
 // Project includes
-#include "AbnormalEffectFactory.hpp"
+#include "EffectFactory.hpp"
 
-class ResurrectionEffectFactory : public AbnormalEffectFactory
+class ResurrectionEffectFactory : public EffectFactory
 {
 public:
-    explicit ResurrectionEffectFactory(SkillTemplate const & skillTemplate);
+    ResurrectionEffectFactory(
+        SkillTemplate     const & skillTemplate
+      , EffectTargetType          targetType
+      , SkillTargetNature         targetNature
+    );
 
 public:
     void apply(Actor & source, Actor & target) override;

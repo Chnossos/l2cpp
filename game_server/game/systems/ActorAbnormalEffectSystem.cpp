@@ -10,9 +10,9 @@
 #include <l2cpp/utils/Enum.hpp>
 
 /// Update the effect list if we remove any non-damage effect, or it's damage over time
-static bool needToUpdateList(bool const currentValue, AbnormalEffect const & effect)
+static bool needToUpdateList(bool const currentValue, Effect const & effect)
 {
-    using enum AbnormalEffectType;
+    using enum EffectType;
     return currentValue                                             // short-circuit
         || l2cpp::Utils::Enum::isAnyOf(effect.type(), Buff, Debuff) // Non hp modifying effect
         || effect.duration() != ClockDuration::zero();              // is damage or heal over time (it has an icon)
@@ -24,7 +24,7 @@ void ActorAbnormalEffectSystem::updateImpl(ClockDuration const elapsed, Actor & 
 
     std::list<SkillUid> addedEffects, removedEffects;
 
-    auto & effects = actor.abnormalEffects();
+    auto & effects = actor.effects();
     for (auto it = effects.begin(); it != effects.end(); )
     {
         if ((*it)->elapsed() == ClockDuration::zero()) // Effect just got applied

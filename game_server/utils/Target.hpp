@@ -3,10 +3,13 @@
 
 #pragma once
 
+// Project includes
+#include "../game/constants/SkillTargetNature.hpp"
+
 class Actor;
-class SkillTemplate;
 
 namespace Utils::Target
 {
-    bool isValidTarget(Actor const & emitter, SkillTemplate const & skill, Actor const & target, bool forceAttack);
+    bool isValidTarget(Actor const & emitter, SkillTargetNature, Actor const & target, bool forceAttack,
+                       bool ignoreDeathStatus = false);
 }

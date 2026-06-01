@@ -4,15 +4,20 @@
 #pragma once
 
 // Project includes
-#include "AbnormalEffectFactory.hpp"
+#include "EffectFactory.hpp"
 
-class HealEffectFactory : public AbnormalEffectFactory
+class HealEffectFactory : public EffectFactory
 {
 public:
-    HealEffectFactory(SkillTemplate const & skillTemplate, u32 power,
-                      ClockDuration totalDuration          = ClockDuration::zero(),
-                      ClockDuration tickDuration           = ClockDuration::zero(),
-                      ClockDuration initialTriggerDuration = ClockDuration::zero());
+    HealEffectFactory(
+        SkillTemplate     const & skillTemplate
+      , EffectTargetType          targetType
+      , SkillTargetNature         targetNature
+      , u32                       power
+      , ClockDuration             totalDuration          = ClockDuration::zero()
+      , ClockDuration             tickDuration           = ClockDuration::zero()
+      , ClockDuration             initialTriggerDuration = ClockDuration::zero()
+    );
 
 public:
     void apply(Actor & source, Actor & target) override;

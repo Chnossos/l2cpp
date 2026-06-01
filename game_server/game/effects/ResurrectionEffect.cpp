@@ -7,7 +7,7 @@
 #include "../actor/Character.hpp"
 
 ResurrectionEffect::ResurrectionEffect(Actor & source, Actor & target, SkillUid const skillUid)
-    : AbnormalEffect(AbnormalEffectType::Resurrection, source, target, skillUid)
+    : Effect{EffectType::Resurrection, source, target, skillUid}
 {}
 
 void ResurrectionEffect::onStarted()

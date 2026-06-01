@@ -4,9 +4,9 @@
 #pragma once
 
 // Project includes
-#include "AbnormalEffect.hpp"
+#include "Effect.hpp"
 
-class ResurrectionEffect : public AbnormalEffect
+class ResurrectionEffect : public Effect
 {
 public:
     ResurrectionEffect(Actor & source, Actor & target, SkillUid skillUid);

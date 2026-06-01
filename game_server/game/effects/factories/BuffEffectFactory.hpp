@@ -5,18 +5,25 @@
 
 // Project includes
 #include "../../constants/StatId.hpp"
-#include "AbnormalEffectFactory.hpp"
+#include "EffectFactory.hpp"
 
-class BuffEffectFactory : public AbnormalEffectFactory
+class BuffEffectFactory : public EffectFactory
 {
 public:
-    BuffEffectFactory(SkillTemplate const & skillTemplate, ClockDuration duration, StatId modifiedStat, double value);
+    BuffEffectFactory(
+        SkillTemplate     const & skillTemplate
+      , EffectTargetType          targetType
+      , SkillTargetNature         targetNature
+      , ClockDuration             duration
+      , StatId                    modifiedStat
+      , StatValue                 value
+    );
 
 public:
     void apply(Actor & source, Actor & target) override;
 
 private:
-    StatId _modifiedStat;
-    double _value;
+    StatId    _modifiedStat;
+    StatValue _value;
 };
 

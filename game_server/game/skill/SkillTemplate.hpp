@@ -4,10 +4,10 @@
 #pragma once
 
 // Project includes
+#include "../constants/EffectTargetType.hpp"
+#include "../constants/SkillOperatingType.hpp"
 #include "../constants/SkillTargetNature.hpp"
-#include "../constants/SkillTargetType.hpp"
-#include "../constants/SkillType.hpp"
-#include "../effects/factories/AbnormalEffectFactory.hpp"
+#include "../effects/factories/EffectFactory.hpp"
 #include "SkillUid.hpp"
 
 // C++ includes
@@ -24,42 +24,38 @@ public:
     auto name()             const -> std::string_view;
     auto fullName()         const -> std::string_view;
     auto level()            const -> SkillLevel;
-    auto type()             const -> SkillType;
-    auto targetType()       const -> SkillTargetType;
+    auto operatingType()    const -> SkillOperatingType;
+    auto targetType()       const -> EffectTargetType;
     auto targetNature()     const -> SkillTargetNature;
-    auto isMagic()          const -> bool;
     auto needsTarget()      const -> bool;
+    auto isMagic()          const -> bool;
     auto castDuration()     const -> ClockDuration;
     auto cooldownDuration() const -> ClockDuration;
-    auto effects()          const -> std::span<std::unique_ptr<AbnormalEffectFactory> const>;
+    auto effects()          const -> std::span<std::unique_ptr<EffectFactory> const>;
 
 public:
-    void setType(SkillType type);
-    void setTargetType(SkillTargetType type);
-    void setTargetNature(SkillTargetNature nature);
-    void setIsMagic(bool isMagic);
-    void setCastDuration(ClockDuration castDuration);
+    void setOperatingType(SkillOperatingType);
+    void setIsMagic(bool);
+    void setCastDuration(ClockDuration);
 
-    template<class T> requires std::is_base_of_v<AbnormalEffectFactory, T>
-    void addAbnormalEffectFactory(auto &&... args) {
-        _effects.emplace_back(std::make_unique<T>(*this, std::forward<decltype(args)>(args)...));
+    template<class T> requires std::is_base_of_v<EffectFactory, T>
+    void addEffectFactory(auto &&... args) {
+        addEffectFactoryImpl(std::make_unique<T>(*this, std::forward<decltype(args)>(args)...));
     }
 
-public:
-    void applyEffects(Actor & source, Actor & target) const;
+private:
+    void addEffectFactoryImpl(std::unique_ptr<EffectFactory>);
 
 private:
-    SkillId           _id;
-    SkillLevel        _level;
-    SkillType         _type;
-    SkillTargetType   _targetType;
-    SkillTargetNature _targetNature;
-    std::string       _name;
-    std::string       _fullName;
-    std::string       _icon;
-    bool              _isMagic;
-    ClockDuration     _castDuration;
-    ClockDuration     _cooldownDuration;
+    SkillId            _id;
+    SkillLevel         _level;
+    SkillOperatingType _operatingType;
+    std::string        _name;
+    std::string        _fullName;
+    std::string        _icon;
+    bool               _isMagic;
+    ClockDuration      _castDuration;
+    ClockDuration      _cooldownDuration;
 
-    std::vector<std::unique_ptr<AbnormalEffectFactory>> _effects;
+    std::vector<std::unique_ptr<EffectFactory>> _effects;
 };

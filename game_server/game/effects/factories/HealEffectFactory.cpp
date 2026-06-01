@@ -9,19 +9,23 @@
 #include "../HealEffect.hpp"
 
 HealEffectFactory::HealEffectFactory(
-    SkillTemplate const & skillTemplate
-  , u32           const   power
-  , ClockDuration const   totalDuration
-  , ClockDuration const   tickDuration
-  , ClockDuration const   initialTriggerDuration
+    SkillTemplate     const & skillTemplate
+  , EffectTargetType  const   targetType
+  , SkillTargetNature const   targetNature
+  , u32               const   power
+  , ClockDuration     const   totalDuration
+  , ClockDuration     const   tickDuration
+  , ClockDuration     const   initialTriggerDuration
 )
-    : AbnormalEffectFactory(AbnormalEffectType::Damage, skillTemplate,
-                            totalDuration, tickDuration, initialTriggerDuration)
-    , _power(power)
+    : EffectFactory{
+        EffectType::Damage, skillTemplate, targetType, targetNature,
+        totalDuration, tickDuration, initialTriggerDuration
+    }
+    , _power{power}
 {}
 
 void HealEffectFactory::apply(Actor & source, Actor & target)
 {
-    target.addAbnormalEffect<HealEffect>(source, target, _skillTemplate.uid(), _power,
-                                         _totalDuration, _tickDuration, _initialTriggerDuration);
+    target.addEffect<HealEffect>(source, target, skill().uid(), _power,
+                                 totalDuration(), tickDuration(), initialTriggerDuration());
 }

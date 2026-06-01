@@ -12,7 +12,7 @@ using Network::Packet::Server::AbnormalEffectListPacket;
 AbnormalEffectListPacket::AbnormalEffectListPacket(Actor const & actor)
     : Packet(0x7f, "AbnormalEffectList")
 {
-    auto const & effects = actor.abnormalEffects();
+    auto const & effects = actor.effects();
 
     std::list<std::pair<SkillUid, ClockDuration>> uniqueSkillEffects;
 

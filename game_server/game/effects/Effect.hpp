@@ -6,24 +6,26 @@
 // Project includes
 #include "../constants/StatId.hpp"
 #include "../skill/SkillUid.hpp"
-#include "../constants/AbnormalEffectType.hpp"
+#include "../constants/EffectType.hpp"
 
 class Actor;
 
-class AbnormalEffect
+class Effect
 {
 public:
-    AbnormalEffect(AbnormalEffectType type,
-                   Actor &            source,
-                   Actor &            target,
-                   SkillUid           skillUid,
-                   ClockDuration      effectDuration         = ClockDuration::zero(),
-                   ClockDuration      tickDuration           = ClockDuration::zero(),
-                   ClockDuration      initialTriggerDuration = ClockDuration::zero());
-    virtual ~AbnormalEffect();
+    Effect(
+        EffectType      type
+      , Actor         & source
+      , Actor         & target
+      , SkillUid        skillUid
+      , ClockDuration   effectDuration         = ClockDuration::zero()
+      , ClockDuration   tickDuration           = ClockDuration::zero()
+      , ClockDuration   initialTriggerDuration = ClockDuration::zero()
+    );
+    virtual ~Effect();
 
 public:
-    auto type()              const -> AbnormalEffectType;
+    auto type()              const -> EffectType;
     auto skillUid()          const -> SkillUid;
     auto duration()          const -> ClockDuration;
     auto elapsed()           const -> ClockDuration;
@@ -45,12 +47,12 @@ private:
     virtual void onFinished() {}
 
 private:
-    AbnormalEffectType _type;
-    Actor &            _source;
-    Actor &            _target;
-    SkillUid           _skillUid;
-    ClockDuration      _duration, _elapsed, _elapsedSinceLastTick, _tickDuration, _initialTriggerDuration;
-    bool               _finished;
+    EffectType    _type;
+    Actor &       _source;
+    Actor &       _target;
+    SkillUid      _skillUid;
+    ClockDuration _duration, _elapsed, _elapsedSinceLastTick, _tickDuration, _initialTriggerDuration;
+    bool          _finished;
 };
 
 /*
@@ -59,7 +61,7 @@ private:
     "default_name": "Wind Walk",
     "category": "active/magic",
     "target_type": "Single",
-    "target_nature": ["Self", "Friendly", "Ennemy"],
+    "target_nature": ["Self", "Friendly", "Enemy"],
     "cast_duration": 4000,
     "cooldown": 6000,
     "cast_range": 400,

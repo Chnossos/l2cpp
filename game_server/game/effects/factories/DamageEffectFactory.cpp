@@ -10,21 +10,22 @@
 
 DamageEffectFactory::DamageEffectFactory(
     SkillTemplate     const & skillTemplate
+  , EffectTargetType  const   targetType
+  , SkillTargetNature const   targetNature
   , DamageElementType const   elementType
   , u32               const   power
   , ClockDuration     const   totalDuration
   , ClockDuration     const   tickDuration
   , ClockDuration     const   initialTriggerDuration
 )
-    : AbnormalEffectFactory(AbnormalEffectType::Damage, skillTemplate,
-                            totalDuration, tickDuration, initialTriggerDuration)
-    , _elementType(elementType)
-    , _power(power)
+    : EffectFactory{EffectType::Damage, skillTemplate, targetType, targetNature,
+                    totalDuration, tickDuration, initialTriggerDuration}
+    , _elementType{elementType}
+    , _power{power}
 {}
 
 void DamageEffectFactory::apply(Actor & source, Actor & target)
 {
-    target.addAbnormalEffect<DamageEffect>(source, target, _skillTemplate.uid(), _elementType, _power,
-                                           _totalDuration, _tickDuration, _initialTriggerDuration);
+    target.addEffect<DamageEffect>(source, target, skill().uid(), _elementType, _power,
+                                   totalDuration(), tickDuration(), initialTriggerDuration());
 }
-

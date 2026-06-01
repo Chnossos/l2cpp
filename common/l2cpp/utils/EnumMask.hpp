@@ -55,3 +55,8 @@ template<typename E> requires std::is_enum_v<E>
 constexpr auto operator^(E const value1, E const value2) -> EnumMask<E> {
     return EnumMask(value1) ^= value2;
 }
+
+template<typename E> requires std::is_enum_v<E>
+constexpr auto operator~(E const value) -> E {
+    return static_cast<E>(~std::to_underlying(value));
+}

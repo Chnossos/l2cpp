@@ -16,10 +16,9 @@ DamageEffect::DamageEffect(
   , ClockDuration     const   tickDuration
   , ClockDuration     const   initialTriggerDuration
 )
-    : AbnormalEffect(AbnormalEffectType::Damage, source, target, skillUid,
-                     effectDuration, tickDuration, initialTriggerDuration)
-    , _elementType(type)
-    , _damage(damage)
+    : Effect{EffectType::Damage, source, target, skillUid, effectDuration, tickDuration, initialTriggerDuration}
+    , _elementType{type}
+    , _damage{damage}
 {}
 
 void DamageEffect::onTick()

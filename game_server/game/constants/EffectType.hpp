@@ -3,7 +3,7 @@
 
 #pragma once
 
-enum class AbnormalEffectType
+enum class EffectType
 {
     Buff,
     Debuff,

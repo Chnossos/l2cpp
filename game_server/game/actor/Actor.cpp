@@ -32,7 +32,7 @@ struct Actor::ActorImpl
     OptRef<Actor> target;
     std::unique_ptr<Action> currentAction, nextAction;
 
-    std::list<std::unique_ptr<AbnormalEffect>> _abnormalEffects;
+    std::list<std::unique_ptr<Effect>> _effects;
 
     DamageDealtTable attackerDamageAmounts;
 };
@@ -53,6 +53,7 @@ Actor::Actor(ActorType const type)
     auto & skills = addComponent<SkillDirectory>();
     skills.learn(18,   1); // Hate Aura
     skills.learn(78,   1); // War Cry
+    skills.learn(81,   1); // Punch of Doom
     skills.learn(129,  1); // Poison
     skills.learn(1016, 1); // Resurrection
     skills.learn(1027, 1); // Group Heal
@@ -61,6 +62,7 @@ Actor::Actor(ActorType const type)
     skills.learn(1216, 1); // Self Heal
     skills.learn(1217, 1); // Greater Heal
     skills.learn(1229, 1); // Chant of Life
+    skills.learn(1231, 1); // Aura Flare
     skills.learn(1254, 1); // Mass Resurrection
     skills.learn(1256, 1); // Heart of Paagrio
     skills.learn(1295, 1); // Aqua Splash
@@ -147,13 +149,8 @@ auto Actor::currentAction() -> OptRef<Action>
 
 auto Actor::nextAction() -> OptRef<Action> { return _impl->nextAction ? OptRef(*_impl->nextAction) : std::nullopt; }
 
-auto Actor::abnormalEffects() -> std::list<std::unique_ptr<AbnormalEffect>> & {
-    return _impl->_abnormalEffects;
-}
-
-auto Actor::abnormalEffects() const -> std::list<std::unique_ptr<AbnormalEffect>> const & {
-    return _impl->_abnormalEffects;
-}
+auto Actor::effects()       -> std::list<std::unique_ptr<Effect>>       & { return _impl->_effects; }
+auto Actor::effects() const -> std::list<std::unique_ptr<Effect>> const & { return _impl->_effects; }
 
 auto Actor::attackerDamageAmounts() const -> DamageDealtTable const & {
     return _impl->attackerDamageAmounts;
@@ -239,7 +236,7 @@ void Actor::heal(Actor const & emitter, double const amount)
 
 void Actor::die()
 {
-    _impl->_abnormalEffects.clear();
+    _impl->_effects.clear();
     fire onAbnormalEffectListChanged();
 
     delComponent<ActorAutoRegen>();
@@ -280,4 +277,4 @@ void Actor::doNext(std::unique_ptr<Action> action)
         _impl->nextAction = std::move(action);
 }
 
-void Actor::addAbnormalEffect(std::unique_ptr<AbnormalEffect> e) { _impl->_abnormalEffects.emplace_back(std::move(e)); }
+void Actor::addEffect(std::unique_ptr<Effect> e) { _impl->_effects.emplace_back(std::move(e)); }

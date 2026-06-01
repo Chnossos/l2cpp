@@ -10,7 +10,7 @@
 #include "../constants/ActorType.hpp"
 #include "../constants/Team.hpp"
 #include "../ecs/Entity.hpp"
-#include "../effects/AbnormalEffect.hpp"
+#include "../effects/Effect.hpp"
 
 #include <l2cpp/Event.hpp>
 #include <l2cpp/Pimpl.hpp>
@@ -67,8 +67,8 @@ public:
     auto currentAction() -> OptRef<Action>;
     auto nextAction()    -> OptRef<Action>;
 
-    auto abnormalEffects()       -> std::list<std::unique_ptr<AbnormalEffect>>       &;
-    auto abnormalEffects() const -> std::list<std::unique_ptr<AbnormalEffect>> const &;
+    auto effects()       -> std::list<std::unique_ptr<Effect>>       &;
+    auto effects() const -> std::list<std::unique_ptr<Effect>> const &;
 
     auto attackerDamageAmounts() const -> DamageDealtTable const &;
 
@@ -96,12 +96,12 @@ public:
     void die();
     void revive();
 
-    template<typename T, typename... Args> requires std::is_base_of_v<AbnormalEffect, T>
-    void addAbnormalEffect(Args &&... args) { addAbnormalEffect(std::make_unique<T>(std::forward<Args>(args)...)); }
+    template<typename T, typename... Args> requires std::is_base_of_v<Effect, T>
+    void addEffect(Args &&... args) { addEffect(std::make_unique<T>(std::forward<Args>(args)...)); }
 
 private:
     void doNext(std::unique_ptr<Action>);
-    void addAbnormalEffect(std::unique_ptr<AbnormalEffect>);
+    void addEffect(std::unique_ptr<Effect>);
 
 private:
     struct ActorImpl;

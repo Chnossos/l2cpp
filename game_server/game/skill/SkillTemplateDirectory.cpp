@@ -96,105 +96,103 @@ namespace
             {
                 case SkillOperateType::ActiveTarget:
                 case SkillOperateType::ActiveNoTarget:
-                    skill.setType(SkillType::Active);
+                    skill.setOperatingType(SkillOperatingType::Active);
                     break;
 
                 case SkillOperateType::Passive:
-                    skill.setType(SkillType::Passive);
+                    skill.setOperatingType(SkillOperatingType::Passive);
                     break;
 
                 case SkillOperateType::Toggle:
-                    skill.setType(SkillType::Toggle);
-                    skill.setTargetNature(SkillTargetNature::Self);
+                    skill.setOperatingType(SkillOperatingType::Toggle);
                     break;
             }
 
-            using enum SkillTargetNature;
+            using Nature = SkillTargetNature;
+            using Type   = EffectTargetType;
 
             /**/ if (id == 18) // Hate Aura
             {
-                skill.setTargetType(SkillTargetType::Aura);
-                skill.setTargetNature(Ennemy);
+                skill.addEffectFactory<DamageEffectFactory>(Type::Aura, Nature::Enemy, DamageElementType::Neutral, 0);
             }
             else if (id == 78) // War Cry
             {
-                skill.setTargetNature(Self);
-                skill.addAbnormalEffectFactory<BuffEffectFactory>(20s, StatId::PAtkMultiplier, .2);
+                skill.addEffectFactory<BuffEffectFactory>(Type::Self, Nature::Self, 20s, StatId::PAtkMultiplier, .2);
+            }
+            else if (id == 81) // Punch of Doom
+            {
+                skill.addEffectFactory<DamageEffectFactory>(Type::Single, Nature::Enemy, DamageElementType::Fire, 9214);
+
+                // skill.addEffectFactory<StateEffectFactory>(
+                //  Type::Self, Nature::Self, StateModifier::Shock, 9s);
             }
             else if (id == 129) // Poison
             {
-                skill.setTargetType(SkillTargetType::Single);
-                skill.setTargetNature(Ennemy);
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Poison, 72, 30s, 3s);
+                skill.addEffectFactory<DamageEffectFactory>(
+                    Type::Single, Nature::Enemy, DamageElementType::Poison, 72, 30s, 3s);
             }
             else if (id == 1016) // Resurrection
             {
-                skill.setTargetType(SkillTargetType::Single);
-                skill.setTargetNature(Corpse | Character);
-                skill.addAbnormalEffectFactory<ResurrectionEffectFactory>();
+                skill.addEffectFactory<ResurrectionEffectFactory>(Type::Single, Nature::Corpse | Nature::Character);
             }
             else if (id == 1027) // Group Heal
             {
-                skill.setTargetType(SkillTargetType::Aura);
-                skill.setTargetNature(Self | Party | Character);
-                skill.addAbnormalEffectFactory<HealEffectFactory>(66);
+                skill.addEffectFactory<HealEffectFactory>(Type::AuraIncludingSelf, Nature::Party, 66);
             }
             else if (id == 1177) // Wind Strike
             {
-                skill.setTargetType(SkillTargetType::Single);
-                // skill.setTargetNature(Ennemy);
-                // skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Wind, 12);
-                skill.setTargetNature(Self | Ennemy);
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Wind, 120);
+                skill.addEffectFactory<DamageEffectFactory>(
+                    Type::Single, Nature::Self | Nature::Enemy, DamageElementType::Wind, 120);
             }
             else if (id == 1204) // Wind Walk
             {
-                skill.setTargetType(SkillTargetType::Single);
-                skill.setTargetNature(Self | Friendly | Ennemy);
-                skill.addAbnormalEffectFactory<BuffEffectFactory>(20s, StatId::MoveSpeedBonus, 33);
+                skill.addEffectFactory<BuffEffectFactory>(
+                    Type::Single, Nature::Self | Nature::Friendly | Nature::Enemy, 20s, StatId::MoveSpeedBonus, 33);
             }
             else if (id == 1216) // Self Heal
             {
-                skill.setTargetType(SkillTargetType::Self);
-                skill.addAbnormalEffectFactory<HealEffectFactory>(42);
+                skill.addEffectFactory<HealEffectFactory>(Type::Self, Nature::Self, 42);
             }
             else if (id == 1217) // Greater Heal
             {
-                skill.setTargetType(SkillTargetType::Single);
-                skill.setTargetNature(Self | Friendly | Ennemy);
-                skill.addAbnormalEffectFactory<HealEffectFactory>(371);
+                skill.addEffectFactory<HealEffectFactory>(
+                    Type::Single, Nature::Self | Nature::Friendly | Nature::Enemy, 371);
             }
             else if (id == 1229) // Chant of Life
             {
-                skill.setTargetType(SkillTargetType::Aura);
-                skill.setTargetNature(Self | Party);
-                skill.addAbnormalEffectFactory<HealEffectFactory>(12, 15s, 1s);
+                skill.addEffectFactory<HealEffectFactory>(Type::AuraIncludingSelf, Nature::Party, 12, 15s, 1s);
+            }
+            else if (id == 1231) // Aura Flare
+            {
+                skill.addEffectFactory<DamageEffectFactory>(
+                    Type::Single, Nature::Enemy, DamageElementType::Neutral, 39);
+
+                skill.addEffectFactory<BuffEffectFactory>(Type::Self, Nature::Self, 3s, StatId::MDefMultiplier, .5);
             }
             else if (id == 1254) // Mass Resurrection
             {
-                skill.setTargetType(SkillTargetType::AoE);
-                skill.setTargetNature(Corpse | Character);
-                skill.addAbnormalEffectFactory<ResurrectionEffectFactory>();
+                skill.addEffectFactory<ResurrectionEffectFactory>(
+                    Type::Multiple, Nature::Corpse | Nature::Character | Nature::Friendly);
             }
             else if (id == 1256) // Heart of Paagrio
             {
-                skill.setTargetType(SkillTargetType::Aura);
-                skill.setTargetNature(Self | Party | Clan | Alliance);
-                skill.addAbnormalEffectFactory<HealEffectFactory>(91);
-                skill.addAbnormalEffectFactory<HealEffectFactory>(31, 15s, 1s);
+                skill.addEffectFactory<HealEffectFactory>(
+                    Type::AuraIncludingSelf, Nature::Party | Nature::Clan | Nature::Alliance, 91);
+
+                skill.addEffectFactory<HealEffectFactory>(
+                    Type::AuraIncludingSelf, Nature::Party | Nature::Clan | Nature::Alliance, 31, 15s, 1s);
             }
             else if (id == 1295) // Aqua Splash
             {
-                skill.setTargetType(SkillTargetType::AoE);
-                skill.setTargetNature(Ennemy);
-                skill.addAbnormalEffectFactory<DamageEffectFactory>(DamageElementType::Water, 41);
+                skill.addEffectFactory<DamageEffectFactory>(
+                    Type::Multiple, Nature::Enemy, DamageElementType::Water, 41);
             }
             else if (id == 7029) // Super Haste
             {
-                skill.setType(SkillType::Toggle); // Enforce toggle mode for this one because it makes more sense
-                skill.addAbnormalEffectFactory<ToggleBuffEffectFactory>(StatId::MoveSpeedMultiplier, 5);
-                skill.addAbnormalEffectFactory<ToggleBuffEffectFactory>(StatId::PAtkSpeedMultiplier, 5);
-                skill.addAbnormalEffectFactory<ToggleBuffEffectFactory>(StatId::MAtkSpeedMultiplier, 5);
+                skill.setOperatingType(SkillOperatingType::Toggle); // Enforce toggle mode for this one because it makes more sense
+                skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::MoveSpeedMultiplier, 5);
+                skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::PAtkSpeedMultiplier, 5);
+                skill.addEffectFactory<ToggleBuffEffectFactory>(StatId::MAtkSpeedMultiplier, 5);
             }
         }
         catch (l2cpp::Exception const & e)

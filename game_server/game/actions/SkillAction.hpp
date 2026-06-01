@@ -4,9 +4,14 @@
 #pragma once
 
 // Project includes
+#include "../constants/EffectTargetType.hpp"
+#include "../constants/SkillTargetNature.hpp"
 #include "Action.hpp"
 
 #include <l2cpp/Pimpl.hpp>
+
+// C++ includes
+#include <functional>
 
 class SkillTemplate;
 
@@ -26,8 +31,12 @@ private:
     void updateImpl(ClockDuration) override;
     void onFinished() override;
     void onCanceled() override;
-    void selectTargets();
-    void sendUseSystemMessage() const;
+    void sendUseSkillSystemMessage() const;
+    void selectTargets(EffectTargetType, SkillTargetNature);
+    void adjustCastingDuration();
+    void cancelCurrentEffects() const;
+    void applyEffects() const;
+    void forEachTarget(std::function<void(Actor &)> const &) const;
 
 private:
     struct SkillActionImpl;
