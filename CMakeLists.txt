@@ -15,5 +15,5 @@ endif()
 add_subdirectory(src/common)
 include_directories(src/common)
 
-add_subdirectory(src/login_server)
-add_subdirectory(src/game_server)
+add_subdirectory(src/ls)
+add_subdirectory(src/gs)
