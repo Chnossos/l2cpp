@@ -206,6 +206,23 @@ catch (SQLite::Exception const & e)
     L2CPP_THROW(e.getErrorCode(), "SQL error '{}'", e.what());
 }
 
+void Orm::deleteCharacter(std::wstring_view const charName)
+try
+{
+    SQLite::Statement query(Database::instance(), R"(
+        DELETE FROM
+            characters
+        WHERE
+            id = (SELECT id FROM characters WHERE name = :name LIMIT 1)
+    )");
+    query.bind(":name", Utils::toString(charName));
+    L2CPP_F_ASSERT([&] { query.exec(); }, "Failed to delete character");
+}
+catch (SQLite::Exception const & e)
+{
+    L2CPP_THROW(e.getErrorCode(), "SQL error '{}'", e.what());
+}
+
 void loadGear(u32 const characterId, Character & c)
 {
     SQLite::Statement query{Database::instance(), R"(

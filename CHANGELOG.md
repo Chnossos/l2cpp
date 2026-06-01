@@ -9,6 +9,14 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.30.0] - 2026-06-01
+### Added
+- Character deletion (instantaneous)
+
+### Fixed
+- Starting items were duplicated at each start-up
+- Inventory content was duplicated when entering the world more than once
+
 ## [0.29.0] - 2026-06-01
 ### Added
 - Skill effects of the same skill can be applied to different targets from one another

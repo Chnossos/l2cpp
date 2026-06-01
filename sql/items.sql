@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS items (
-    id            INTEGER PRIMARY KEY AUTOINCREMENT
+    id            INTEGER PRIMARY KEY
   , template_id   INTEGER NOT NULL
   , owner_id      INTEGER          -- items on the ground have no owner
   , storage_id    INTEGER          -- conversely, can't have a storage id either

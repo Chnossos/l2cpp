@@ -24,6 +24,8 @@ enum class ConfirmationModalSystemMessageId : u32
 
 struct Character::CharacterImpl
 {
+    bool fullyLoaded = false;
+
     Profession profession = Profession::HumanFighter;
 
     ItemStorage inventory;
@@ -54,7 +56,8 @@ Character::Character(Character &&) noexcept = default;
 Character & Character::operator=(Character &&) noexcept = default;
 Character::~Character() = default;
 
-auto Character::profession() const -> Profession { return _impl->profession; }
+auto Character::isFullyLoaded() const -> bool       { return _impl->fullyLoaded; }
+auto Character::profession()    const -> Profession { return _impl->profession;  }
 
 auto Character::status()       -> CharacterStatus       & { return component<CharacterStatus>(); }
 auto Character::status() const -> CharacterStatus const & { return component<CharacterStatus>(); }
@@ -68,7 +71,8 @@ auto Character::inventory() const -> ItemStorage const & { return _impl->invento
 auto Character::shortcutBar()       -> ShortcutBar       & { return _impl->shortcutBar; }
 auto Character::shortcutBar() const -> ShortcutBar const & { return _impl->shortcutBar; }
 
-void Character::setProfession(Profession const profession) { _impl->profession = profession; }
+void Character::setIsFullyLoaded(bool const isFullyLoaded) { _impl->fullyLoaded = isFullyLoaded; }
+void Character::setProfession(Profession const profession) { _impl->profession  = profession;    }
 
 void Character::offerResurrection(Actor const & emitter)
 {

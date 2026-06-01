@@ -13,4 +13,5 @@ namespace Orm
     auto loadCharacterPreviews(AccountId) -> std::vector<Ref<Character>>;
     void createCharacter(AccountId, Character &);
     void selectCharacter(AccountId, std::wstring_view selectedCharName);
+    void deleteCharacter(std::wstring_view charName);
 }
