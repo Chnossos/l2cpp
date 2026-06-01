@@ -245,6 +245,24 @@ void World::moveCharacterBackToPreviews(Character & c)
     _actors.erase(id);
 }
 
+void World::delCharacterPreview(AccountId const accountId, size_t const index)
+try
+{
+    L2CPP_B_ASSERT(_characterPreviewsIndex.contains(accountId), "Account have no character previews existing/loaded");
+    auto & previewIds = _characterPreviewsIndex.at(accountId);
+
+    L2CPP_B_ASSERT(index < previewIds.size(), "Requested index is out of range");
+
+    auto const & c = *_characterPreviews.at(previewIds[index]);
+    Orm::deleteCharacter(c.name());
+    _characterPreviews.erase(previewIds[index]);
+    previewIds.erase(previewIds.begin() + index, previewIds.end());
+}
+catch (...)
+{
+    L2CPP_THROW_NESTED("Failed to delete character preview");
+}
+
 auto World::addCharacter(OptRef<Player> p) -> Character &
 {
     auto & c = addActor<Character>(std::move(p));

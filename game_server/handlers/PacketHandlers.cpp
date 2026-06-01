@@ -13,6 +13,7 @@ namespace Handler
     HANDLER(Authenticate)
     HANDLER(CharacterCancelDeletion)
     HANDLER(CharacterCreate)
+    HANDLER(CharacterDelete)
     HANDLER(CharacterSelect)
     HANDLER(CharacterShowCreationScreen)
     HANDLER(ChatAdminCommand)
@@ -46,6 +47,7 @@ std::unordered_map<PacketOpCode, std::pair<PacketHandler, std::string_view>> gPa
     HANDLER(Authenticate),
     HANDLER(CharacterCancelDeletion),
     HANDLER(CharacterCreate),
+    HANDLER(CharacterDelete),
     HANDLER(CharacterSelect),
     HANDLER(CharacterShowCreationScreen),
     HANDLER(ChatAdminCommand),

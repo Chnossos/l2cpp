@@ -17,6 +17,7 @@ namespace Network
         Authenticate                = 0x08,
         ConnectionClosing           = 0x09,
         CharacterCreate             = 0x0b,
+        CharacterDelete             = 0x0c,
         CharacterSelect             = 0x0d,
         CharacterShowCreationScreen = 0x0e,
         InventoryOpen               = 0x0f,

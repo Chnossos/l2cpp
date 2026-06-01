@@ -51,6 +51,7 @@ public:
     static auto addCharacterPreview(AccountId) -> Character &;
     static auto loadCharacterFromPreview(Character const &) -> Character &;
     static void moveCharacterBackToPreviews(Character &);
+    static void delCharacterPreview(AccountId, size_t index);
 
     static auto addCharacter(OptRef<Player> = std::nullopt) -> Character &;
     static auto addNpc(u32 id) -> OptRef<Npc>;
