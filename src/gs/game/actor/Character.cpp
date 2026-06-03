@@ -41,8 +41,8 @@ Character::Character(OptRef<Player> p)
     , player(std::move(p))
 {
     auto & appearance = addComponent<PlayerAppearance>();
-    appearance.collisionHeight = 23;
-    appearance.collisionRadius = 9;
+    appearance.setCollisionHeight(23);
+    appearance.setCollisionRadius(9);
 
     addComponent<CharacterStatus>();
 

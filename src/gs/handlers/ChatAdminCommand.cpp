@@ -127,8 +127,8 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand)
         d.setPosition(c.position());
         d.appearance().setStartingProfession(Profession::ElvenMystic);
         d.appearance().setSex(Sex::Female);
-        d.appearance().collisionHeight = 23;
-        d.appearance().collisionRadius = 7.5;
+        d.appearance().setCollisionHeight(23);
+        d.appearance().setCollisionRadius(7.5);
         d.setProfession(d.appearance().startingProfession());
         World::broadcastAround(d, CharacterStatusUpdateBroadcastPacket(d));
     }

@@ -69,8 +69,8 @@ static void addDummy()
     d.setName(std::format(L"dummy{}", d.id()));
     d.appearance().setStartingProfession(Profession::ElvenMystic);
     d.appearance().setSex(Sex::Female);
-    d.appearance().collisionHeight = 23;
-    d.appearance().collisionRadius = 7.5;
+    d.appearance().setCollisionHeight(23);
+    d.appearance().setCollisionRadius(7.5);
     d.setProfession(d.appearance().startingProfession());
 
     auto & loot = d.addComponent<Loot>();
@@ -282,8 +282,8 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
         else
             npc->setTitle(Utils::toWideString(info->title));
 
-        npc->appearance().collisionHeight = 15;
-        npc->appearance().collisionRadius = 10;
+        npc->appearance().setCollisionHeight(15);
+        npc->appearance().setCollisionRadius(10);
 
         if (npc->type() == ActorType::Monster)
         {
