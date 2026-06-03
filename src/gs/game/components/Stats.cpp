@@ -6,44 +6,24 @@
 // Project includes
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/effects/BuffEffect.hpp>
+
+// C++ includes
+#include <algorithm>
+#include <ranges>
+
+using enum StatId;
 
 Stats::Stats()
 {
-    using enum StatId;
-#define INIT_MULTIPLIER(stat) _stats[std::to_underlying(stat##Multiplier)] = 1.
-
     (*this)[BaseHpRegen] = 1;
     (*this)[BaseMpRegen] = 1;
     (*this)[BaseCpRegen] = 1;
-
-    INIT_MULTIPLIER(MaxHp); INIT_MULTIPLIER(HpRegen);
-    INIT_MULTIPLIER(MaxMp); INIT_MULTIPLIER(MpRegen);
-    INIT_MULTIPLIER(MaxCp); INIT_MULTIPLIER(CpRegen);
-
-    INIT_MULTIPLIER(PAtk);      INIT_MULTIPLIER(PDef);
-    INIT_MULTIPLIER(MAtk);      INIT_MULTIPLIER(MDef);
-    INIT_MULTIPLIER(PAtkSpeed); INIT_MULTIPLIER(MAtkSpeed);
-    INIT_MULTIPLIER(PAtkRange); INIT_MULTIPLIER(PAtkRandom);
-    INIT_MULTIPLIER(Accuracy);  INIT_MULTIPLIER(Evasion);
-    INIT_MULTIPLIER(PCritRate); INIT_MULTIPLIER(MCritRate);
-
-    INIT_MULTIPLIER(MoveSpeed);
-
-    INIT_MULTIPLIER(MaxWeight);
-
-    INIT_MULTIPLIER(InventoryLimit);
-    INIT_MULTIPLIER(WharehouseLimit);
-    INIT_MULTIPLIER(FreightLimit);
-    INIT_MULTIPLIER(StoreLimit);
-    INIT_MULTIPLIER(CommonCraftLimit);
-    INIT_MULTIPLIER(DwarvenCraftLimit);
-
-#undef INIT_MULTIPLIER
 }
 
 void Stats::compute(Actor const & a)
 {
-    using enum StatId;
+    reset(a);
 
 #define STAT(s)                 (*this)[s]
 #define CALCULATE_CORE_STAT(s)  STAT(s) = STAT(Base##s) + STAT(Bonus##s           )
@@ -82,8 +62,10 @@ void Stats::compute(Actor const & a)
 
     CALCULATE_STAT(MoveSpeed);
     CALCULATE_SPEED_STAT(RunSpeed),     CALCULATE_SPEED_STAT(WalkSpeed),
-    CALCULATE_SPEED_STAT(SwimRunSpeed), CALCULATE_SPEED_STAT(SwimWalkSpeed),
-    CALCULATE_SPEED_STAT(FlyRunSpeed),  CALCULATE_SPEED_STAT(FlyWalkSpeed),
+    // CALCULATE_SPEED_STAT(SwimRunSpeed), CALCULATE_SPEED_STAT(SwimWalkSpeed),
+    // CALCULATE_SPEED_STAT(FlyRunSpeed),  CALCULATE_SPEED_STAT(FlyWalkSpeed),
+    STAT(SwimRunSpeed) = STAT(RunSpeed);
+    STAT(FlyRunSpeed)  = STAT(RunSpeed);
 
     CALCULATE_STAT(MaxWeight);
 
@@ -105,7 +87,51 @@ void Stats::compute(Actor const & a)
         STAT(RunSpeed) = std::min(STAT(RunSpeed), 250.);
 }
 
-void Stats::regenHpFully() { (*this)[StatId::CurHp] = (*this)[StatId::MaxHp]; }
-void Stats::regenMpFully() { (*this)[StatId::CurMp] = (*this)[StatId::MaxMp]; }
-void Stats::regenCpFully() { (*this)[StatId::CurCp] = (*this)[StatId::MaxCp]; }
-void Stats::regenFully()   { regenHpFully(); regenMpFully(); regenCpFully();  }
+void Stats::regenHpFully() { (*this)[CurHp] = (*this)[MaxHp];                }
+void Stats::regenMpFully() { (*this)[CurMp] = (*this)[MaxMp];                }
+void Stats::regenCpFully() { (*this)[CurCp] = (*this)[MaxCp];                }
+void Stats::regenFully()   { regenHpFully(); regenMpFully(); regenCpFully(); }
+
+void Stats::reset(Actor const & actor)
+{
+#define RESET_STAT(stat) (*this)[stat##Multiplier] = 1.; (*this)[stat##Bonus] = 0
+
+    RESET_STAT(MaxHp); RESET_STAT(HpRegen);
+    RESET_STAT(MaxMp); RESET_STAT(MpRegen);
+    RESET_STAT(MaxCp); RESET_STAT(CpRegen);
+
+    RESET_STAT(PAtk);      RESET_STAT(PDef);
+    RESET_STAT(MAtk);      RESET_STAT(MDef);
+    RESET_STAT(PAtkSpeed); RESET_STAT(MAtkSpeed);
+    RESET_STAT(PAtkRange); RESET_STAT(PAtkRandom);
+    RESET_STAT(Accuracy);  RESET_STAT(Evasion);
+    RESET_STAT(PCritRate); RESET_STAT(MCritRate);
+
+    RESET_STAT(MoveSpeed);
+
+    RESET_STAT(MaxWeight);
+
+    RESET_STAT(InventoryLimit);
+    RESET_STAT(WharehouseLimit);
+    RESET_STAT(FreightLimit);
+    RESET_STAT(StoreLimit);
+    RESET_STAT(CommonCraftLimit);
+    RESET_STAT(DwarvenCraftLimit);
+
+#undef RESET_STAT
+
+    computeSkillEffects(actor);
+}
+
+void Stats::computeSkillEffects(Actor const & actor)
+{
+    auto const & effects = actor.effects();
+
+    using namespace std::ranges::views;
+    auto v = effects
+           | filter([] (auto const & e) { return e->type() == EffectType::Buff; })
+           | transform([] (auto const & e) -> BuffEffect const & { return static_cast<BuffEffect const &>(*e); });
+
+    for (auto const & e : v)
+        (*this)[e.modifiedStat()] += e.modifiedStatValue();
+}

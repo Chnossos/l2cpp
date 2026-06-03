@@ -3,6 +3,9 @@
 
 #pragma once
 
+// Project includes
+#include <common/utils/Enum.hpp>
+
 #define CORE_STAT(name)  name, Base##name, Bonus##name
 #define STAT(name)       name, Base##name, name##Multiplier, name##Bonus
 #define SPEED_STAT(name) name, Base##name
@@ -39,6 +42,11 @@ enum class StatId
 
     Count,
 };
+
+constexpr bool isVisualSpeedStat(StatId const id)
+{
+    return Utils::Enum::isAnyOf(id, StatId::MoveSpeed, StatId::PAtkSpeed);
+}
 
 #undef SPEED_STAT
 #undef STAT

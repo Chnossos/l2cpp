@@ -279,8 +279,12 @@ catch (...)
 auto World::addCharacter(OptRef<Player> p) -> Character &
 {
     auto & c = addActor<Character>(std::move(p));
-    c.onEffectListChanged += [&c] { send(c, SC::EffectListPacket{c});                                         };
-    c.onLeveledUp         += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
+    c.onEffectListChanged += [&c]
+    {
+        send(c, SC::EffectListPacket{c});
+        c.stats().compute(c);
+    };
+    c.onLeveledUp += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
     return c;
 }
 

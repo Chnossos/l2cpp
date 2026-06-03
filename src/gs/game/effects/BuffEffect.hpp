@@ -19,10 +19,9 @@ public:
       , StatValue       value
     );
 
-private:
-    void onStarted() override;
-    void onFinished() override;
-    void modifyStat(StatValue newValue) const;
+public:
+    auto modifiedStat()      const -> StatId    { return _modifiedStat; }
+    auto modifiedStatValue() const -> StatValue { return _value;        }
 
 private:
     StatId    _modifiedStat;
