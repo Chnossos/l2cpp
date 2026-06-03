@@ -7,10 +7,8 @@
 #include <common/CompileTimeConfig.hpp>
 #include <gs/Player.hpp>
 #include <gs/game/actor/Character.hpp>
-#include <gs/game/actor/CharacterTemplateInfo.hpp>
 #include <gs/game/actor/Monster.hpp>
 #include <gs/game/actor/Npc.hpp>
-#include <gs/game/actor/NpcDirectory.hpp>
 #include <gs/game/components/ActorAutoRegen.hpp>
 #include <gs/game/components/AttackStanceTimer.hpp>
 #include <gs/game/components/CharacterSelectionData.hpp>
@@ -24,6 +22,8 @@
 #include <gs/game/constants/Profession.hpp>
 #include <gs/game/constants/Sex.hpp>
 #include <gs/game/constants/SystemMessageId.hpp>
+#include <gs/game/directories/CharacterTemplateDirectory.hpp>
+#include <gs/game/directories/NpcDirectory.hpp>
 #include <gs/game/ecs/System.hpp>
 #include <gs/game/lobby/CharacterCreationParameters.hpp>
 #include <gs/game/systems/ActorAttackStanceTimerSystem.hpp>
@@ -167,8 +167,8 @@ auto World::createCharacter(Player const & p, CharacterCreationParameters const 
     a.setHairStyle         (params.hairStyle);
     a.setHairColor         (params.hairColor);
     a.setFace              (params.face);
-    a.setCollisionHeight   (CharacterTemplateInfo::collisionHeight(a.startingProfession(), a.sex()));
-    a.setCollisionRadius   (CharacterTemplateInfo::collisionRadius(a.startingProfession(), a.sex()));
+    a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
+    a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
 
     Orm::createCharacter(p.accountId(), c);
     return CharacterCreationResult::Success;

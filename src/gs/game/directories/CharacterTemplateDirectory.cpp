@@ -1,18 +1,18 @@
 /// @author    Chnossos
 /// @date      Created on 2026-06-02
 
-#include "CharacterTemplateInfo.hpp"
+#include "CharacterTemplateDirectory.hpp"
 
 // Project includes
 #include <core/Exception.hpp>
 #include <gs/orm/Characters.hpp>
 
-auto CharacterTemplateInfo::count() -> size_t
+auto CharacterTemplateDirectory::count() -> size_t
 {
     return _properties.size();
 }
 
-auto CharacterTemplateInfo::collisionHeight(Profession const startingProfession, Sex const sex) -> double
+auto CharacterTemplateDirectory::collisionHeight(Profession const startingProfession, Sex const sex) -> double
 {
     auto const it = _properties.find(makeId(startingProfession, sex));
     L2CPP_B_ASSERT(it != _properties.end(),
@@ -22,7 +22,7 @@ auto CharacterTemplateInfo::collisionHeight(Profession const startingProfession,
     return it->second.first;
 }
 
-auto CharacterTemplateInfo::collisionRadius(Profession const startingProfession, Sex const sex) -> double
+auto CharacterTemplateDirectory::collisionRadius(Profession const startingProfession, Sex const sex) -> double
 {
     auto const it = _properties.find(makeId(startingProfession, sex));
     L2CPP_B_ASSERT(it != _properties.end(),
@@ -32,14 +32,14 @@ auto CharacterTemplateInfo::collisionRadius(Profession const startingProfession,
     return it->second.second;
 }
 
-void CharacterTemplateInfo::load()
+void CharacterTemplateDirectory::load()
 {
     Orm::loadCharacterTemplates();
 }
 
-auto CharacterTemplateInfo::makeId(Profession const startingProfession, Sex const sex) -> u64
+auto CharacterTemplateDirectory::makeId(Profession const startingProfession, Sex const sex) -> u64
 {
     return std::to_underlying(startingProfession) << 1 | std::to_underlying(sex);
 }
 
-std::unordered_map<u64, PairOf<double>> CharacterTemplateInfo::_properties;
+std::unordered_map<u64, PairOf<double>> CharacterTemplateDirectory::_properties;

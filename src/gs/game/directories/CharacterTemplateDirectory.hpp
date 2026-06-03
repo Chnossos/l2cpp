@@ -16,11 +16,11 @@ namespace Orm
     void loadCharacterTemplates();
 }
 
-class CharacterTemplateInfo
+class CharacterTemplateDirectory
 {
     friend void Orm::loadCharacterTemplates();
 
-    CharacterTemplateInfo() noexcept = delete;
+    CharacterTemplateDirectory() noexcept = delete;
 
 public:
     static auto count() -> size_t;

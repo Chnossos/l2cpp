@@ -6,14 +6,14 @@
 // Project includes
 #include <common/services/Database.hpp>
 #include <gs/game/actor/Character.hpp>
-#include <gs/game/actor/CharacterTemplateInfo.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
 #include <gs/game/components/Stats.hpp>
+#include <gs/game/directories/CharacterTemplateDirectory.hpp>
+#include <gs/game/directories/ItemTemplateDirectory.hpp>
 #include <gs/game/inventory/Item.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
-#include <gs/game/inventory/ItemTemplateDirectory.hpp>
 #include <gs/game/ui/ActionShortcut.hpp>
 #include <gs/game/ui/ItemShortcut.hpp>
 #include <gs/game/ui/ShortcutBar.hpp>
@@ -36,7 +36,7 @@ namespace
 
 void Orm::loadCharacterTemplates()
 {
-    auto & properties = CharacterTemplateInfo::_properties;
+    auto & properties = CharacterTemplateDirectory::_properties;
 
     SQLite::Statement query(Database::instance(), R"(SELECT * FROM character_templates)");
     while (query.executeStep())
@@ -46,7 +46,7 @@ void Orm::loadCharacterTemplates()
         auto const collisionHeight    =                         query.getColumn("collision_height"   ).getDouble();
         auto const collisionRadius    =                         query.getColumn("collision_radius"   ).getDouble();
 
-        properties.try_emplace(CharacterTemplateInfo::makeId(startingProfession, sex),
+        properties.try_emplace(CharacterTemplateDirectory::makeId(startingProfession, sex),
                                collisionHeight, collisionRadius);
     }
 }

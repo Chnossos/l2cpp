@@ -8,10 +8,10 @@
 #include <gs/game/actions/SocialAction.hpp>
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/actor/Monster.hpp>
-#include <gs/game/actor/NpcDirectory.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/directories/NpcDirectory.hpp>
 #include <gs/handlers/_Common.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/skill/SkillListPacket.hpp>

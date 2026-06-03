@@ -13,8 +13,8 @@
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/Stats.hpp>
+#include <gs/game/directories/ItemTemplateDirectory.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
-#include <gs/game/inventory/ItemTemplateDirectory.hpp>
 #include <gs/utils/Conversion.hpp>
 
 // Third-party includes
