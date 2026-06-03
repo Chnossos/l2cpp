@@ -422,12 +422,8 @@ void World::distributeLoot(Loot const & loot, DamageDealtTable const & attackerD
     c.status().addSp(loot.sp);
 
     auto const newLevel  = c.status().level();
-    bool const leveledUp = newLevel > oldLevel;
     auto const newXp     = c.status().xp();
     auto const newSp     = c.status().sp();
-
-    if (leveledUp)
-        c.status().setLevel(newLevel);
 
     std::optional<SC::ChatSystemSayPacket> msg;
     /**/ if (newXp > oldXp && newSp > oldSp)
@@ -449,7 +445,7 @@ void World::distributeLoot(Loot const & loot, DamageDealtTable const & attackerD
     if (msg)
         send(c, std::move(*msg));
 
-    if (leveledUp)
+    if (newLevel > oldLevel)
         fire c.onLeveledUp();
 }
 
