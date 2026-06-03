@@ -21,6 +21,7 @@
 #include <gs/utils/Conversion.hpp>
 
 // Third-party includes
+#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <spdlog/spdlog.h>
 
 namespace
@@ -32,6 +33,49 @@ namespace
 
     void saveShortcuts(u32 characterId, Character const & c);
     void loadShortcuts(u32 characterId, Character & c);
+}
+
+void Orm::loadProfessions()
+try
+{
+    auto & entries = ProfessionDirectory::_professions;
+
+    SQLite::Statement query(Database::instance(), R"(SELECT * FROM professions)");
+    while (query.executeStep())
+    {
+        auto & p               = entries[query.getColumn("id").getUInt()];
+        p.profession           = static_cast<Profession>(query.getColumn("id"       ).getUInt());
+        p.parentProfession     = static_cast<Profession>(query.getColumn("parent_id").getUInt());
+        p.name                 =                         query.getColumn("name"             ).getString();
+        p.canBeSubclassed      =                         query.getColumn("can_be_subclassed").getUInt();
+        p.STR                  = static_cast<u8        >(query.getColumn("str"              ).getUInt());
+        p.DEX                  = static_cast<u8        >(query.getColumn("dex"              ).getUInt());
+        p.CON                  = static_cast<u8        >(query.getColumn("con"              ).getUInt());
+        p.INT                  = static_cast<u8        >(query.getColumn("int"              ).getUInt());
+        p.WIT                  = static_cast<u8        >(query.getColumn("wit"              ).getUInt());
+        p.MEN                  = static_cast<u8        >(query.getColumn("men"              ).getUInt());
+        p.pAtk                 = static_cast<u16       >(query.getColumn("patk"             ).getUInt());
+        p.mAtk                 = static_cast<u16       >(query.getColumn("matk"             ).getUInt());
+        p.pDef                 = static_cast<u16       >(query.getColumn("pdef"             ).getUInt());
+        p.mDef                 = static_cast<u16       >(query.getColumn("mdef"             ).getUInt());
+        p.pAtkSpeed            = static_cast<u16       >(query.getColumn("patk_speed"       ).getUInt());
+        p.mAtkSpeed            = static_cast<u16       >(query.getColumn("matk_speed"       ).getUInt());
+        p.runSpeed             = static_cast<u16       >(query.getColumn("run_speed"        ).getUInt());
+        p.walkSpeed            = static_cast<u16       >(query.getColumn("walk_speed"       ).getUInt());
+        p.maxHp                = static_cast<float     >(query.getColumn("max_hp"           ).getDouble());
+        p.maxMp                = static_cast<float     >(query.getColumn("max_mp"           ).getDouble());
+        p.maxCp                = static_cast<float     >(query.getColumn("max_cp"           ).getDouble());
+        p.hpFlatPerLevel       = static_cast<float     >(query.getColumn("hp_flat_per_level").getDouble());
+        p.mpFlatPerLevel       = static_cast<float     >(query.getColumn("mp_flat_per_level").getDouble());
+        p.cpFlatPerLevel       = static_cast<float     >(query.getColumn("cp_flat_per_level").getDouble());
+        p.hpMultiplierPerLevel = static_cast<float     >(query.getColumn("hp_mult_per_level").getDouble());
+        p.mpMultiplierPerLevel = static_cast<float     >(query.getColumn("mp_mult_per_level").getDouble());
+        p.cpMultiplierPerLevel = static_cast<float     >(query.getColumn("cp_mult_per_level").getDouble());
+    }
+}
+catch (...)
+{
+    L2CPP_THROW_NESTED("Failed to load professions");
 }
 
 void Orm::loadCharacterTemplates()
@@ -302,7 +346,7 @@ namespace
             {
                 case ShortcutType::Item:
                 {
-                    if (auto const item = c.inventory().find_if([=](auto const & item){ return item.uid == targetId; }))
+                    if (auto const item = c.inventory().find_if([=] (auto const & i) { return i.uid == targetId; }))
                         c.shortcutBar().set<ItemShortcut>(index, item);
                     else
                     {

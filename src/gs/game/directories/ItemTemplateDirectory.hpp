@@ -17,7 +17,7 @@ class ItemTemplateDirectory
 
 public:
     static auto size() -> size_t;
-    static auto find(TemplateId) -> OptRef<ItemTemplate>;
+    static auto find(TemplateId) -> OptRef<ItemTemplate const>;
 
 public:
     static void load();
