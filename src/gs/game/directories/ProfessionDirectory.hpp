@@ -7,6 +7,8 @@
 #include <gs/Typedefs.hpp>
 #include <gs/game/constants/Profession.hpp>
 
+class Actor;
+
 namespace Orm
 {
     void loadProfessions();
@@ -16,9 +18,6 @@ class ProfessionDirectory
 {
     friend void Orm::loadProfessions();
 
-    ProfessionDirectory() = delete;
-
-// public:
     struct ProfessionInfo
     {
         std::string name;
@@ -32,7 +31,12 @@ class ProfessionDirectory
         u16         runSpeed,  walkSpeed;
         u8          STR, DEX, CON, INT, WIT, MEN;
         bool        canBeSubclassed;
+
+        void applyStats(Actor &) const;
     };
+
+public:
+    ProfessionDirectory() = delete;
 
 public:
     static auto count() -> size_t;

@@ -12,9 +12,9 @@ enum class StatId
     CORE_STAT(Str), CORE_STAT(Dex), CORE_STAT(Con),
     CORE_STAT(Int), CORE_STAT(Wit), CORE_STAT(Men),
 
-    CurHp,  STAT(MaxHp), STAT(HpRegen),
-    CurMp,  STAT(MaxMp), STAT(MpRegen),
-    CurCp,  STAT(MaxCp), STAT(CpRegen),
+    CurHp,  STAT(MaxHp), STAT(HpRegen), HpFlatPerLevel, HpMultiplierPerLevel,
+    CurMp,  STAT(MaxMp), STAT(MpRegen), MpFlatPerLevel, MpMultiplierPerLevel,
+    CurCp,  STAT(MaxCp), STAT(CpRegen), CpFlatPerLevel, CpMultiplierPerLevel,
 
     STAT(PAtk),      STAT(PDef),
     STAT(MAtk),      STAT(MDef),

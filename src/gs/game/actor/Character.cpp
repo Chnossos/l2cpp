@@ -43,8 +43,25 @@ Character::Character(OptRef<Player> p)
     addComponent<CharacterStatus>();
     addComponent<PlayerAppearance>();
 
+    auto & skills = this->skills();
+    skills.learn(18,   1); // Hate Aura
+    skills.learn(78,   1); // War Cry
+    skills.learn(81,   1); // Punch of Doom
+    skills.learn(129,  1); // Poison
+    skills.learn(1016, 1); // Resurrection
+    skills.learn(1027, 1); // Group Heal
+    skills.learn(1177, 1); // Wind Strike
+    skills.learn(1204, 1); // Wind Walk
+    skills.learn(1216, 1); // Self Heal
+    skills.learn(1217, 1); // Greater Heal
+    skills.learn(1229, 1); // Chant of Life
+    skills.learn(1231, 1); // Aura Flare
+    skills.learn(1254, 1); // Mass Resurrection
+    skills.learn(1256, 1); // Heart of Paagrio
+    skills.learn(1295, 1); // Aqua Splash
+
     if (accessLevel > 0)
-        skills().learn(7029, 4); // Super Haste
+        skills.learn(7029, 4); // Super Haste
 }
 
 Character::Character(Character &&) noexcept = default;

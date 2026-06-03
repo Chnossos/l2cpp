@@ -13,6 +13,7 @@
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
 #include <gs/game/components/Stats.hpp>
+#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/network/Connection.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
@@ -47,63 +48,15 @@ Actor::Actor(ActorType const type)
 
     addComponent<ActorIdentity>();
     addComponent<Gear>();
-    addComponent<Position>(-83968, 244634, -3500); // Talking Island GK
-    // addComponent<Position>(-71338, 258271, -3104); // Human Fighter creation spawn point
+    addComponent<Position>();
+    addComponent<SkillDirectory>();
 
-    auto & skills = addComponent<SkillDirectory>();
-    skills.learn(18,   1); // Hate Aura
-    skills.learn(78,   1); // War Cry
-    skills.learn(81,   1); // Punch of Doom
-    skills.learn(129,  1); // Poison
-    skills.learn(1016, 1); // Resurrection
-    skills.learn(1027, 1); // Group Heal
-    skills.learn(1177, 1); // Wind Strike
-    skills.learn(1204, 1); // Wind Walk
-    skills.learn(1216, 1); // Self Heal
-    skills.learn(1217, 1); // Greater Heal
-    skills.learn(1229, 1); // Chant of Life
-    skills.learn(1231, 1); // Aura Flare
-    skills.learn(1254, 1); // Mass Resurrection
-    skills.learn(1256, 1); // Heart of Paagrio
-    skills.learn(1295, 1); // Aqua Splash
-
-    auto & stats = addComponent<Stats>();
-    stats[StatId::BaseStr]           = 40;
-    stats[StatId::BaseDex]           = 30;
-    stats[StatId::BaseCon]           = 43;
-    stats[StatId::BaseInt]           = 21;
-    stats[StatId::BaseWit]           = 11;
-    stats[StatId::BaseMen]           = 25;
-    stats[StatId::BasePAtk]          = 4;
-    stats[StatId::BasePDef]          = 80;
-    stats[StatId::BaseMAtk]          = 6;
-    stats[StatId::BaseMDef]          = 41;
-    stats[StatId::BasePAtkSpeed]     = 300;
-    stats[StatId::BaseMAtkSpeed]     = 333;
-    stats[StatId::BasePAtkRange]     = 20;
-    stats[StatId::BasePAtkRandom]    = 10;
-    stats[StatId::BaseAccuracy]      = 10;
-    stats[StatId::BaseEvasion]       = 10;
-    stats[StatId::BasePCritRate]     = 10;
-    stats[StatId::BaseMCritRate]     = 10;
-    stats[StatId::BaseRunSpeed]      = 115;
-    stats[StatId::BaseWalkSpeed]     = 80;
-    stats[StatId::BaseSwimRunSpeed]  = 50;
-    stats[StatId::BaseSwimWalkSpeed] = 50;
-
-    stats[StatId::BaseHpRegen] = 2.0;
-    stats[StatId::BaseMpRegen] = 0.8;
-    stats[StatId::BaseCpRegen] = 1.4;
-
-    stats[StatId::BaseMaxCp] = 500;
-    stats[StatId::BaseMaxHp] = 500;
-    stats[StatId::BaseMaxMp] = 500;
-
-    stats.compute(*this);
-
-    stats[StatId::CurCp] = stats[StatId::MaxCp];
+    auto & stats          = addComponent<Stats>();
+    auto const profession = ProfessionDirectory::find(Profession::HumanFighter);
+    profession->applyStats(*this);
     stats[StatId::CurHp] = stats[StatId::MaxHp];
     stats[StatId::CurMp] = stats[StatId::MaxMp];
+    stats[StatId::CurCp] = stats[StatId::MaxCp];
 }
 
 Actor::Actor(Actor &&) noexcept = default;

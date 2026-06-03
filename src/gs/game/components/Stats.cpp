@@ -5,11 +5,16 @@
 
 // Project includes
 #include <gs/game/actor/Character.hpp>
+#include <gs/game/components/CharacterStatus.hpp>
 
 Stats::Stats()
 {
     using enum StatId;
 #define INIT_MULTIPLIER(stat) _stats[std::to_underlying(stat##Multiplier)] = 1.
+
+    (*this)[BaseHpRegen] = 1;
+    (*this)[BaseMpRegen] = 1;
+    (*this)[BaseCpRegen] = 1;
 
     INIT_MULTIPLIER(MaxHp); INIT_MULTIPLIER(HpRegen);
     INIT_MULTIPLIER(MaxMp); INIT_MULTIPLIER(MpRegen);
@@ -47,6 +52,22 @@ void Stats::compute(Actor const & a)
 
     CALCULATE_CORE_STAT(Str); CALCULATE_CORE_STAT(Dex); CALCULATE_CORE_STAT(Con);
     CALCULATE_CORE_STAT(Int); CALCULATE_CORE_STAT(Wit); CALCULATE_CORE_STAT(Men);
+
+    if (a.type() == ActorType::Character)
+    {
+        auto & c = static_cast<Character const &>(a);
+        if (auto const status = c.component<CharacterStatus>())
+        {
+            auto const level = status->level();
+
+            STAT(MaxHpBonus)      += level * STAT(HpFlatPerLevel);
+            STAT(MaxMpBonus)      += level * STAT(MpFlatPerLevel);
+            STAT(MaxCpBonus)      += level * STAT(CpFlatPerLevel);
+            STAT(MaxHpMultiplier) += level * STAT(HpMultiplierPerLevel);
+            STAT(MaxMpMultiplier) += level * STAT(MpMultiplierPerLevel);
+            STAT(MaxCpMultiplier) += level * STAT(CpMultiplierPerLevel);
+        }
+    }
 
     CALCULATE_STAT(MaxHp); CALCULATE_STAT(HpRegen);
     CALCULATE_STAT(MaxMp); CALCULATE_STAT(MpRegen);

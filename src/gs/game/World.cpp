@@ -24,6 +24,7 @@
 #include <gs/game/constants/SystemMessageId.hpp>
 #include <gs/game/directories/CharacterTemplateDirectory.hpp>
 #include <gs/game/directories/NpcDirectory.hpp>
+#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/ecs/System.hpp>
 #include <gs/game/lobby/CharacterCreationParameters.hpp>
 #include <gs/game/systems/ActorAttackStanceTimerSystem.hpp>
@@ -68,14 +69,16 @@ static void addDummy()
     auto & d = World::addCharacter();
     d.setPosY(d.position().y + (count++ % 2 ? 35 : -35));
     d.setName(std::format(L"dummy{}", d.id()));
-    d.appearance().setStartingProfession(Profession::ElvenMystic);
-    d.appearance().setSex(Sex::Female);
-    d.appearance().setCollisionHeight(23);
-    d.appearance().setCollisionRadius(7.5);
-    d.setProfession(d.appearance().startingProfession());
 
-    auto & loot = d.addComponent<Loot>();
-    loot.xp = 50;
+    auto & a = d.appearance();
+    a.setStartingProfession(Profession::ElvenMystic);
+    a.setSex(Sex::Female);
+    d.setProfession(a.startingProfession());
+    a.setCollisionHeight(CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
+    a.setCollisionRadius(CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
+
+    auto const profession = ProfessionDirectory::find(a.startingProfession());
+    profession->applyStats(d);
 }
 
 void World::init()
@@ -158,9 +161,6 @@ auto World::createCharacter(Player const & p, CharacterCreationParameters const 
     c.setProfession(params.profession);
     c.addComponent<CharacterSelectionData>().selected = true;
 
-    // FIXME: change values depending on race & class
-    c.setPosition(-83968, 244634, -3500); // Talking Island GK
-
     auto & a = c.appearance();
     a.setStartingProfession(params.profession);
     a.setSex               (params.sex);
@@ -169,6 +169,10 @@ auto World::createCharacter(Player const & p, CharacterCreationParameters const 
     a.setFace              (params.face);
     a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
     a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
+
+    auto const profession = ProfessionDirectory::find(a.startingProfession());
+    L2CPP_B_ASSERT(profession, "Profession '{}' has no info registered", std::to_underlying(a.startingProfession()));
+    profession->applyStats(c);
 
     Orm::createCharacter(p.accountId(), c);
     return CharacterCreationResult::Success;
@@ -508,6 +512,8 @@ auto World::addActor(std::unique_ptr<Actor> actor) -> Actor &
 {
     auto const id = actor->id();
     auto & a = *_actors.try_emplace(id, std::move(actor)).first->second;
+
+    a.setPosition(-83968, 244634, -3500); // Talking Island GK
 
     a.onDied    += [&a] { broadcastAround(a, SC::ActorDiePacket{a}, true); };
     a.onRevived += [&a]
