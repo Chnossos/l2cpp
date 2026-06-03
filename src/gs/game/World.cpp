@@ -7,6 +7,7 @@
 #include <common/CompileTimeConfig.hpp>
 #include <gs/Player.hpp>
 #include <gs/game/actor/Character.hpp>
+#include <gs/game/actor/CharacterTemplateInfo.hpp>
 #include <gs/game/actor/Monster.hpp>
 #include <gs/game/actor/Npc.hpp>
 #include <gs/game/actor/NpcDirectory.hpp>
@@ -155,14 +156,20 @@ auto World::createCharacter(Player const & p, CharacterCreationParameters const 
     auto & c = addCharacterPreview(p.accountId());
     c.setName(params.name);
     c.setProfession(params.profession);
-    c.appearance().setStartingProfession(params.profession);
-    c.appearance().setSex(params.sex);
-    c.appearance().setHairStyle(params.hairStyle);
-    c.appearance().setHairColor(params.hairColor);
-    c.appearance().setFace(params.face);
     c.addComponent<CharacterSelectionData>().selected = true;
+
     // FIXME: change values depending on race & class
     c.setPosition(-83968, 244634, -3500); // Talking Island GK
+
+    auto & a = c.appearance();
+    a.setStartingProfession(params.profession);
+    a.setSex               (params.sex);
+    a.setHairStyle         (params.hairStyle);
+    a.setHairColor         (params.hairColor);
+    a.setFace              (params.face);
+    a.setCollisionHeight   (CharacterTemplateInfo::collisionHeight(a.startingProfession(), a.sex()));
+    a.setCollisionRadius   (CharacterTemplateInfo::collisionRadius(a.startingProfession(), a.sex()));
+
     Orm::createCharacter(p.accountId(), c);
     return CharacterCreationResult::Success;
 }

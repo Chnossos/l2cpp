@@ -13,6 +13,7 @@
 #include <common/utils/Misc.hpp>
 #include <gs/Player.hpp>
 #include <gs/game/World.hpp>
+#include <gs/game/actor/CharacterTemplateInfo.hpp>
 #include <gs/game/actor/NpcDirectory.hpp>
 #include <gs/game/inventory/ItemTemplateDirectory.hpp>
 #include <gs/game/skill/SkillTemplateDirectory.hpp>
@@ -69,6 +70,7 @@ bool Application::Impl::load() const try
     SPDLOG_INFO("Initializing database…");
     Database::init({
         // Order is significant
+        "sql/character_templates.sql",
         "sql/characters.sql",
         "sql/character_previews.sql",
         "sql/character_professions.sql",
@@ -81,6 +83,10 @@ bool Application::Impl::load() const try
     });
     Orm::loadUids();
     SPDLOG_INFO("Database initialization done.");
+
+    SPDLOG_INFO("Loading character templates…");
+    CharacterTemplateInfo::load();
+    SPDLOG_INFO("Registered {:L} character templates", CharacterTemplateInfo::count());
 
     SPDLOG_INFO("Loading item templates…");
     ItemTemplateDirectory::load();

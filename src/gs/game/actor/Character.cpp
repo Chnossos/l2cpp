@@ -40,11 +40,8 @@ Character::Character(OptRef<Player> p)
     : Actor(ActorType::Character)
     , player(std::move(p))
 {
-    auto & appearance = addComponent<PlayerAppearance>();
-    appearance.setCollisionHeight(23);
-    appearance.setCollisionRadius(9);
-
     addComponent<CharacterStatus>();
+    addComponent<PlayerAppearance>();
 
     if (accessLevel > 0)
         skills().learn(7029, 4); // Super Haste

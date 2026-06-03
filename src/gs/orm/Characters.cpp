@@ -6,6 +6,7 @@
 // Project includes
 #include <common/services/Database.hpp>
 #include <gs/game/actor/Character.hpp>
+#include <gs/game/actor/CharacterTemplateInfo.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
@@ -31,6 +32,23 @@ namespace
 
     void saveShortcuts(u32 characterId, Character const & c);
     void loadShortcuts(u32 characterId, Character & c);
+}
+
+void Orm::loadCharacterTemplates()
+{
+    auto & properties = CharacterTemplateInfo::_properties;
+
+    SQLite::Statement query(Database::instance(), R"(SELECT * FROM character_templates)");
+    while (query.executeStep())
+    {
+        auto const startingProfession = static_cast<Profession>(query.getColumn("starting_profession").getUInt());
+        auto const sex                = static_cast<Sex       >(query.getColumn("sex"                ).getUInt());
+        auto const collisionHeight    =                         query.getColumn("collision_height"   ).getDouble();
+        auto const collisionRadius    =                         query.getColumn("collision_radius"   ).getDouble();
+
+        properties.try_emplace(CharacterTemplateInfo::makeId(startingProfession, sex),
+                               collisionHeight, collisionRadius);
+    }
 }
 
 void Orm::saveCharacter(Character const & c)
