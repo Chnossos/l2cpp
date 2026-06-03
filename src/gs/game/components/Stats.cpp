@@ -104,3 +104,8 @@ void Stats::compute(Actor const & a)
     if (a.type() != ActorType::Character || static_cast<Character const &>(a).accessLevel == 0) // GMs can speed up
         STAT(RunSpeed) = std::min(STAT(RunSpeed), 250.);
 }
+
+void Stats::regenHpFully() { (*this)[StatId::CurHp] = (*this)[StatId::MaxHp]; }
+void Stats::regenMpFully() { (*this)[StatId::CurMp] = (*this)[StatId::MaxMp]; }
+void Stats::regenCpFully() { (*this)[StatId::CurCp] = (*this)[StatId::MaxCp]; }
+void Stats::regenFully()   { regenHpFully(); regenMpFully(); regenCpFully();  }

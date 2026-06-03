@@ -19,6 +19,7 @@
 #include <gs/game/components/NpcStatus.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/Position.hpp>
+#include <gs/game/components/Stats.hpp>
 #include <gs/game/constants/Profession.hpp>
 #include <gs/game/constants/Sex.hpp>
 #include <gs/game/constants/SystemMessageId.hpp>
@@ -79,6 +80,7 @@ static void addDummy()
 
     auto const profession = ProfessionDirectory::find(a.startingProfession());
     profession->applyStats(d);
+    d.stats().regenFully();
 }
 
 void World::init()
@@ -173,6 +175,9 @@ auto World::createCharacter(Player const & p, CharacterCreationParameters const 
     auto const profession = ProfessionDirectory::find(a.startingProfession());
     L2CPP_B_ASSERT(profession, "Profession '{}' has no info registered", std::to_underlying(a.startingProfession()));
     profession->applyStats(c);
+
+    auto & stats = c.stats();
+    stats.regenFully();
 
     Orm::createCharacter(p.accountId(), c);
     return CharacterCreationResult::Success;

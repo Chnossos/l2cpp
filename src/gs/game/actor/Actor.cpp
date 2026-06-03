@@ -54,9 +54,7 @@ Actor::Actor(ActorType const type)
     auto & stats          = addComponent<Stats>();
     auto const profession = ProfessionDirectory::find(Profession::HumanFighter);
     profession->applyStats(*this);
-    stats[StatId::CurHp] = stats[StatId::MaxHp];
-    stats[StatId::CurMp] = stats[StatId::MaxMp];
-    stats[StatId::CurCp] = stats[StatId::MaxCp];
+    stats.regenFully();
 }
 
 Actor::Actor(Actor &&) noexcept = default;
