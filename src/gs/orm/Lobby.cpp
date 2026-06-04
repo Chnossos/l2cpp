@@ -13,6 +13,7 @@
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/Stats.hpp>
+#include <gs/game/directories/CharacterTemplateDirectory.hpp>
 #include <gs/game/directories/ItemTemplateDirectory.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
 #include <gs/utils/Conversion.hpp>
@@ -64,11 +65,15 @@ try
     {
         auto & c = previews.emplace_back(World::addCharacterPreview(accountId)).get();
         c.setName(Utils::toWideString(query.getColumn("name").getString()));
-        c.appearance().setStartingProfession(static_cast<Profession>(query.getColumn("starting_profession").getUInt()));
-        c.appearance().setSex               (static_cast<Sex>(query.getColumn("sex").getUInt()));
-        c.appearance().setHairStyle         (query.getColumn("hair_style").getUInt());
-        c.appearance().setHairColor         (query.getColumn("hair_color").getUInt());
-        c.appearance().setFace              (query.getColumn("face"      ).getUInt());
+
+        auto & a = c.appearance();
+        a.setStartingProfession(static_cast<Profession>(query.getColumn("starting_profession").getUInt()));
+        a.setSex               (static_cast<Sex>(query.getColumn("sex").getUInt()));
+        a.setHairStyle         (query.getColumn("hair_style").getUInt());
+        a.setHairColor         (query.getColumn("hair_color").getUInt());
+        a.setFace              (query.getColumn("face"      ).getUInt());
+        a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
+        a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
 
         c.setPosX(query.getColumn("pos_x").getInt());
         c.setPosY(query.getColumn("pos_y").getInt());
