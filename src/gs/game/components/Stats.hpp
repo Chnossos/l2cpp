@@ -24,6 +24,15 @@ struct Stats : public Component
 
     void compute(Actor const &);
 
+    void regenHpFully();
+    void regenMpFully();
+    void regenCpFully();
+    void regenFully();
+
+private:
+    void reset(Actor const &);
+    void computeSkillEffects(Actor const &);
+
 private:
     std::array<StatValue, std::to_underlying(StatId::Count)> _stats{};
 };

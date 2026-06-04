@@ -38,8 +38,8 @@ NpcStatusUpdatePacket::NpcStatusUpdatePacket(Npc const & actor)
         << static_cast<u32>(stats[StatId::FlyWalkSpeed])
         << stats[StatId::RunSpeed ] / stats[StatId::BaseRunSpeed ]
         << stats[StatId::PAtkSpeed] / stats[StatId::BasePAtkSpeed]
-        << appearance.collisionRadius
-        << appearance.collisionHeight
+        << appearance.collisionRadius()
+        << appearance.collisionHeight()
         << gear.itemTemplateId(GearSlot::RightHand)
         << gear.itemTemplateId(GearSlot::Chest)
         << gear.itemTemplateId(GearSlot::LeftHand)
@@ -61,8 +61,8 @@ NpcStatusUpdatePacket::NpcStatusUpdatePacket(Npc const & actor)
         << 0 // no ally crest
         << false // not in water nor flying
         << actor.team()
-        << appearance.collisionRadius
-        << appearance.collisionHeight
+        << appearance.collisionRadius()
+        << appearance.collisionHeight()
     ;
 
     auto const weapon = gear.weapon();

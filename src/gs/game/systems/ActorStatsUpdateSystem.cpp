@@ -10,6 +10,9 @@
 #include <gs/game/components/CharacterStatus.hpp>
 #include <gs/game/components/Stats.hpp>
 #include <gs/network/packets/server/action/SocialActionPerformPacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdatePacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
+#include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
 #include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
 
 // C++ includes
@@ -27,16 +30,27 @@ void ActorStatsUpdateSystem::updateImpl(ClockDuration, Actor & actor)
         if (actor.type() == ActorType::Character)
         {
             SC::StatsUpdatePacket privatePacket(actor), publicPacket(actor);
-            updateCharacterStats (privatePacket, publicPacket,
-                                  static_cast<Character &>(actor), it->second);
+
+            bool const visualSpeedModified = updateCharacterStats(
+                privatePacket, publicPacket, static_cast<Character &>(actor), it->second);
+
             updateCharacterStatus(privatePacket, publicPacket,
                                   static_cast<Character &>(actor), statusSnapshots.at(actor.id()));
 
-            if (!privatePacket.empty())
-                World::send(actor, std::move(privatePacket));
+            if (visualSpeedModified)
+            {
+                auto const & c = static_cast<Character const &>(actor);
+                World::send(actor, SC::CharacterStatusUpdatePacket{c});
+                World::broadcastAround(actor, SC::CharacterStatusUpdateBroadcastPacket{c});
+            }
+            else
+            {
+                if (!privatePacket.empty())
+                    World::send(actor, std::move(privatePacket));
 
-            if (!publicPacket.empty())
-                World::broadcastAround(actor, std::move(publicPacket));
+                if (!publicPacket.empty())
+                    World::broadcastAround(actor, std::move(publicPacket));
+            }
         }
         else
             updateNpcStats(static_cast<Npc &>(actor), it->second);
@@ -48,23 +62,31 @@ void ActorStatsUpdateSystem::updateImpl(ClockDuration, Actor & actor)
         statusSnapshots.insert_or_assign(actor.id(), static_cast<Character const &>(actor).status());
 }
 
-void ActorStatsUpdateSystem::updateCharacterStats(SC::StatsUpdatePacket & privatePacket,
+bool ActorStatsUpdateSystem::updateCharacterStats(SC::StatsUpdatePacket & privatePacket,
                                                   SC::StatsUpdatePacket & /*publicPacket*/,
                                                   Character & c, Stats const & oldStats) const
 {
-    auto const & newStats = c.stats();
+    bool visualSpeedModified = false;
 
+    auto const & newStats = c.stats();
     for (size_t i = 0; i < std::to_underlying(StatId::Count); ++i)
     {
         if (oldStats[i] != newStats[i])
         {
             auto const statId = static_cast<StatId>(i);
+            if (isVisualSpeedStat(statId))
+            {
+                visualSpeedModified = true;
+                break; // Don't bother, we'll send a full update
+            }
             privatePacket.addStat(statId, newStats[i]);
         }
     }
 
     if (newStats[StatId::CurHp] == 0 && oldStats[StatId::CurHp] > 0)
         c.die();
+
+    return visualSpeedModified;
 }
 
 void ActorStatsUpdateSystem::updateCharacterStatus(SC::StatsUpdatePacket & privatePacket,
@@ -92,6 +114,7 @@ void ActorStatsUpdateSystem::updateNpcStats(Npc & npc, Stats const & oldStats) c
     static std::unordered_set publicStats { StatId::CurHp, StatId::MaxHp };
 
     auto const & newStats = npc.stats();
+    bool visualSpeedModified = false;
 
     SC::StatsUpdatePacket publicPacket(npc);
     for (size_t i = 0; i < std::to_underlying(StatId::Count); ++i)
@@ -99,10 +122,16 @@ void ActorStatsUpdateSystem::updateNpcStats(Npc & npc, Stats const & oldStats) c
         if (oldStats[i] != newStats[i])
         {
             auto const statId = static_cast<StatId>(i);
+
+            visualSpeedModified |= isVisualSpeedStat(statId);
+
             if (publicStats.contains(statId))
                 publicPacket.addStat(statId, newStats[i]);
         }
     }
+
+    if (visualSpeedModified)
+        World::broadcastAround(npc, SC::NpcStatusUpdatePacket{npc});
 
     if (!publicPacket.empty())
         World::broadcastToSubscribers(npc, std::move(publicPacket));

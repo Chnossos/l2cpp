@@ -100,8 +100,8 @@ CharacterStatusUpdatePacket::CharacterStatusUpdatePacket(Character const & c)
         << static_cast<u32>(stats[StatId::BaseFlyWalkSpeed])
         << stats[StatId::RunSpeed ] / stats[StatId::BaseRunSpeed ]
         << stats[StatId::PAtkSpeed] / stats[StatId::BasePAtkSpeed]
-        << c.appearance().collisionRadius
-        << c.appearance().collisionHeight
+        << c.appearance().collisionRadius()
+        << c.appearance().collisionHeight()
         << c.appearance().hairStyle()
         << c.appearance().hairColor()
         << c.appearance().face()

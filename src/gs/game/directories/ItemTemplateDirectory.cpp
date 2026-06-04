@@ -11,10 +11,10 @@ auto ItemTemplateDirectory::size() -> size_t
     return _templates.size();
 }
 
-auto ItemTemplateDirectory::find(TemplateId const id) -> OptRef<ItemTemplate>
+auto ItemTemplateDirectory::find(TemplateId const id) -> OptRef<ItemTemplate const>
 {
     auto const it = _templates.find(id);
-    return it != _templates.end() ? OptRef(it->second) : std::nullopt;
+    return it != _templates.end() ? OptRef{it->second} : std::nullopt;
 }
 
 void ItemTemplateDirectory::load()

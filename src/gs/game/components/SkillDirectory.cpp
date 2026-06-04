@@ -6,7 +6,7 @@
 // Project includes
 #include <common/core/Exception.hpp>
 #include <common/details/Pimpl.hpp>
-#include <gs/game/skill/SkillTemplateDirectory.hpp>
+#include <gs/game/directories/SkillTemplateDirectory.hpp>
 
 // Third-party includes
 #include <spdlog/spdlog.h>

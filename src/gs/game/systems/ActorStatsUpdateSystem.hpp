@@ -17,7 +17,7 @@ struct ActorStatsUpdateSystem : public ActorSystem
     void updateImpl(ClockDuration elapsed, Actor &) override;
 
 private:
-    void updateCharacterStats(Network::Packets::Server::StatsUpdatePacket & privatePacket,
+    bool updateCharacterStats(Network::Packets::Server::StatsUpdatePacket & privatePacket,
                               Network::Packets::Server::StatsUpdatePacket & publicPacket,
                               Character &, Stats const & oldStats) const;
 

@@ -5,7 +5,6 @@
 
 // Project includes
 #include <common/services/Database.hpp>
-#include <gs/game/World.hpp>
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/components/CharacterSelectionData.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
@@ -13,8 +12,9 @@
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/Stats.hpp>
+#include <gs/game/directories/CharacterTemplateDirectory.hpp>
+#include <gs/game/directories/ItemTemplateDirectory.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
-#include <gs/game/inventory/ItemTemplateDirectory.hpp>
 #include <gs/utils/Conversion.hpp>
 
 // Third-party includes
@@ -22,7 +22,7 @@
 
 static void loadGear(u32 characterId, Character & c);
 
-auto Orm::loadCharacterPreviews(AccountId const accountId) -> std::vector<Ref<Character>>
+auto Orm::loadCharacterPreviews(AccountId const accountId) -> std::vector<std::unique_ptr<Character>>
 try
 {
     SQLite::Statement query(Database::instance(), R"(
@@ -59,16 +59,20 @@ try
     )");
     query.bind(":account_id", accountId);
 
-    std::vector<Ref<Character>> previews;
+    std::vector<std::unique_ptr<Character>> previews;
     while (query.executeStep())
     {
-        auto & c = previews.emplace_back(World::addCharacterPreview(accountId)).get();
+        auto & c = *previews.emplace_back(std::make_unique<Character>());
         c.setName(Utils::toWideString(query.getColumn("name").getString()));
-        c.appearance().setStartingProfession(static_cast<Profession>(query.getColumn("starting_profession").getUInt()));
-        c.appearance().setSex               (static_cast<Sex>(query.getColumn("sex").getUInt()));
-        c.appearance().setHairStyle         (query.getColumn("hair_style").getUInt());
-        c.appearance().setHairColor         (query.getColumn("hair_color").getUInt());
-        c.appearance().setFace              (query.getColumn("face"      ).getUInt());
+
+        auto & a = c.appearance();
+        a.setStartingProfession(static_cast<Profession>(query.getColumn("starting_profession").getUInt()));
+        a.setSex               (static_cast<Sex>(query.getColumn("sex").getUInt()));
+        a.setHairStyle         (query.getColumn("hair_style").getUInt());
+        a.setHairColor         (query.getColumn("hair_color").getUInt());
+        a.setFace              (query.getColumn("face"      ).getUInt());
+        a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
+        a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
 
         c.setPosX(query.getColumn("pos_x").getInt());
         c.setPosY(query.getColumn("pos_y").getInt());

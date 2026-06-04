@@ -11,6 +11,7 @@
 #include <gs/game/components/CharacterStatus.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
 #include <gs/game/ui/ShortcutBar.hpp>
 #include <gs/network/packets/server/ui/UiConfirmationModalShowPacket.hpp>
@@ -40,14 +41,28 @@ Character::Character(OptRef<Player> p)
     : Actor(ActorType::Character)
     , player(std::move(p))
 {
-    auto & appearance = addComponent<PlayerAppearance>();
-    appearance.collisionHeight = 23;
-    appearance.collisionRadius = 9;
-
     addComponent<CharacterStatus>();
+    addComponent<PlayerAppearance>();
+
+    auto & skills = this->skills();
+    skills.learn(18,   1); // Hate Aura
+    skills.learn(78,   1); // War Cry
+    skills.learn(81,   1); // Punch of Doom
+    skills.learn(129,  1); // Poison
+    skills.learn(1016, 1); // Resurrection
+    skills.learn(1027, 1); // Group Heal
+    skills.learn(1177, 1); // Wind Strike
+    skills.learn(1204, 1); // Wind Walk
+    skills.learn(1216, 1); // Self Heal
+    skills.learn(1217, 1); // Greater Heal
+    skills.learn(1229, 1); // Chant of Life
+    skills.learn(1231, 1); // Aura Flare
+    skills.learn(1254, 1); // Mass Resurrection
+    skills.learn(1256, 1); // Heart of Paagrio
+    skills.learn(1295, 1); // Aqua Splash
 
     if (accessLevel > 0)
-        skills().learn(7029, 4); // Super Haste
+        skills.learn(7029, 4); // Super Haste
 }
 
 Character::Character(Character &&) noexcept = default;
@@ -70,7 +85,14 @@ auto Character::shortcutBar()       -> ShortcutBar       & { return _impl->short
 auto Character::shortcutBar() const -> ShortcutBar const & { return _impl->shortcutBar; }
 
 void Character::setIsFullyLoaded(bool const isFullyLoaded) { _impl->fullyLoaded = isFullyLoaded; }
-void Character::setProfession(Profession const profession) { _impl->profession  = profession;    }
+void Character::setProfession(Profession const profession)
+{
+    auto const professionInfo = ProfessionDirectory::find(profession);
+    L2CPP_B_ASSERT(professionInfo, "Failed to find info for profession '{}'", std::to_underlying(profession));
+
+    _impl->profession = professionInfo->profession;
+    professionInfo->applyBaseStats(*this);
+}
 
 void Character::offerResurrection(Actor const & emitter)
 {

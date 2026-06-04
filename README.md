@@ -45,8 +45,8 @@ If it's not in the list, it's probably not implemented, or very (very) partially
   <tr>
     <td align="center" rowspan=3>Lobby</td>
     <td>Character creation</td>
-    <td align="center">🟠</td>
-    <td>Base stats are the same for all races/profession.</td>
+    <td align="center">🟢</td>
+    <td></td>
   </tr>
   <tr>
     <td>Character deletion</td>

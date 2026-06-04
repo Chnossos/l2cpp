@@ -6,12 +6,22 @@
 // Project includes
 #include <gs/game/ecs/Component.hpp>
 
-struct ActorAppearance : public Component
+class ActorAppearance : public Component
 {
-    double collisionRadius = 0;
-    double collisionHeight = 0;
-
+public:
     ~ActorAppearance() override = 0;
+
+public:
+    auto collisionHeight() const -> double { return _collisionHeight; }
+    auto collisionRadius() const -> double { return _collisionRadius; }
+
+public:
+    void setCollisionHeight(double const height) { _collisionHeight = height; }
+    void setCollisionRadius(double const radius) { _collisionRadius = radius; }
+
+private:
+    double _collisionHeight = 0;
+    double _collisionRadius = 0;
 };
 
 inline ActorAppearance::~ActorAppearance() = default;

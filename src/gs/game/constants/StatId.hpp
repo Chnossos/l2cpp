@@ -3,6 +3,9 @@
 
 #pragma once
 
+// Project includes
+#include <common/utils/Enum.hpp>
+
 #define CORE_STAT(name)  name, Base##name, Bonus##name
 #define STAT(name)       name, Base##name, name##Multiplier, name##Bonus
 #define SPEED_STAT(name) name, Base##name
@@ -12,9 +15,9 @@ enum class StatId
     CORE_STAT(Str), CORE_STAT(Dex), CORE_STAT(Con),
     CORE_STAT(Int), CORE_STAT(Wit), CORE_STAT(Men),
 
-    CurHp,  STAT(MaxHp), STAT(HpRegen),
-    CurMp,  STAT(MaxMp), STAT(MpRegen),
-    CurCp,  STAT(MaxCp), STAT(CpRegen),
+    CurHp,  STAT(MaxHp), STAT(HpRegen), HpFlatPerLevel, HpMultiplierPerLevel,
+    CurMp,  STAT(MaxMp), STAT(MpRegen), MpFlatPerLevel, MpMultiplierPerLevel,
+    CurCp,  STAT(MaxCp), STAT(CpRegen), CpFlatPerLevel, CpMultiplierPerLevel,
 
     STAT(PAtk),      STAT(PDef),
     STAT(MAtk),      STAT(MDef),
@@ -39,6 +42,11 @@ enum class StatId
 
     Count,
 };
+
+constexpr bool isVisualSpeedStat(StatId const id)
+{
+    return Utils::Enum::isAnyOf(id, StatId::MoveSpeed, StatId::PAtkSpeed);
+}
 
 #undef SPEED_STAT
 #undef STAT

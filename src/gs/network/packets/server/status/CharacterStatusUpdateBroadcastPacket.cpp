@@ -58,8 +58,8 @@ CharacterStatusUpdateBroadcastPacket::CharacterStatusUpdateBroadcastPacket(Chara
         << static_cast<u32>(stats[StatId::BaseFlyWalkSpeed])
         << stats[StatId::RunSpeed ] / stats[StatId::BaseRunSpeed ]
         << stats[StatId::PAtkSpeed] / stats[StatId::BasePAtkSpeed]
-        << appearance.collisionRadius
-        << appearance.collisionHeight
+        << appearance.collisionRadius()
+        << appearance.collisionHeight()
         << appearance.hairStyle()
         << appearance.hairColor()
         << appearance.face()

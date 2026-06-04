@@ -8,10 +8,11 @@
 #include <gs/game/actions/SocialAction.hpp>
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/actor/Monster.hpp>
-#include <gs/game/actor/NpcDirectory.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/directories/NpcDirectory.hpp>
+#include <gs/game/lobby/CharacterCreationParameters.hpp>
 #include <gs/handlers/_Common.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/skill/SkillListPacket.hpp>
@@ -122,20 +123,17 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand)
     }
     else if (args[0] == L"char")
     {
-        auto & d = World::addCharacter();
-        d.setName(L"dummy");
-        d.setPosition(c.position());
-        d.appearance().setStartingProfession(Profession::ElvenMystic);
-        d.appearance().setSex(Sex::Female);
-        d.appearance().collisionHeight = 23;
-        d.appearance().collisionRadius = 7.5;
-        d.setProfession(d.appearance().startingProfession());
+        auto & d = World::addCharacter({
+            .name               = L"dummy",
+            .sex                = Sex::Female,
+            .startingProfession = Profession::ElvenMystic,
+        });
         World::broadcastAround(d, CharacterStatusUpdateBroadcastPacket(d));
     }
     else if (args[0] == L"xp" || args[0] == L"sp")
     {
         std::wistringstream iss(text);
-        std::wstring cmd, subCmd;
+        std::wstring cmd;
         u32 nbr = 0;
         iss >> cmd >> nbr;
         if (cmd == L"xp")

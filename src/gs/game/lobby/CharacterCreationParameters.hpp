@@ -12,8 +12,8 @@
 struct CharacterCreationParameters
 {
     std::wstring name;
-    Race         race;
-    Sex          sex;
-    Profession   profession;
-    u32          INT, STR, CON, MEN, DEX, WIT, hairStyle, hairColor, face;
+    Race         race{};
+    Sex          sex{};
+    Profession   startingProfession{}, profession = startingProfession;
+    u32          hairStyle{}, hairColor{}, face{};
 };

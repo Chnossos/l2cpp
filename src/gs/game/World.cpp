@@ -9,7 +9,6 @@
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/actor/Monster.hpp>
 #include <gs/game/actor/Npc.hpp>
-#include <gs/game/actor/NpcDirectory.hpp>
 #include <gs/game/components/ActorAutoRegen.hpp>
 #include <gs/game/components/AttackStanceTimer.hpp>
 #include <gs/game/components/CharacterSelectionData.hpp>
@@ -20,9 +19,13 @@
 #include <gs/game/components/NpcStatus.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/Position.hpp>
+#include <gs/game/components/Stats.hpp>
 #include <gs/game/constants/Profession.hpp>
 #include <gs/game/constants/Sex.hpp>
 #include <gs/game/constants/SystemMessageId.hpp>
+#include <gs/game/directories/CharacterTemplateDirectory.hpp>
+#include <gs/game/directories/NpcDirectory.hpp>
+#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/ecs/System.hpp>
 #include <gs/game/lobby/CharacterCreationParameters.hpp>
 #include <gs/game/systems/ActorAttackStanceTimerSystem.hpp>
@@ -64,17 +67,12 @@ static void addDummy()
 {
     static u32 count = 1;
 
-    auto & d = World::addCharacter();
+    auto & d = World::addCharacter({
+        .sex                = Sex::Female,
+        .startingProfession = Profession::ElvenMystic,
+    });
     d.setPosY(d.position().y + (count++ % 2 ? 35 : -35));
     d.setName(std::format(L"dummy{}", d.id()));
-    d.appearance().setStartingProfession(Profession::ElvenMystic);
-    d.appearance().setSex(Sex::Female);
-    d.appearance().collisionHeight = 23;
-    d.appearance().collisionRadius = 7.5;
-    d.setProfession(d.appearance().startingProfession());
-
-    auto & loot = d.addComponent<Loot>();
-    loot.xp = 50;
 }
 
 void World::init()
@@ -152,17 +150,9 @@ void World::update(ClockDuration const elapsed)
 
 auto World::createCharacter(Player const & p, CharacterCreationParameters const & params) -> CharacterCreationResult
 {
-    auto & c = addCharacterPreview(p.accountId());
-    c.setName(params.name);
-    c.setProfession(params.profession);
-    c.appearance().setStartingProfession(params.profession);
-    c.appearance().setSex(params.sex);
-    c.appearance().setHairStyle(params.hairStyle);
-    c.appearance().setHairColor(params.hairColor);
-    c.appearance().setFace(params.face);
+    auto & c = addCharacterPreview(p.accountId(), params);
     c.addComponent<CharacterSelectionData>().selected = true;
-    // FIXME: change values depending on race & class
-    c.setPosition(-83968, 244634, -3500); // Talking Island GK
+
     Orm::createCharacter(p.accountId(), c);
     return CharacterCreationResult::Success;
 }
@@ -171,25 +161,38 @@ auto World::getCharacterPreviews(Player const & p) -> std::vector<Ref<Character>
 {
     std::vector<Ref<Character>> result;
 
+    OptRef<std::vector<GameObjectId>> index;
     if (!_characterPreviewsIndex.contains(p.accountId())) // no index means first connection since server booted
-        result = Orm::loadCharacterPreviews(p.accountId());
-    else
     {
-        auto const & index = _characterPreviewsIndex[p.accountId()];
-        result.reserve(index.size());
+        auto previews = Orm::loadCharacterPreviews(p.accountId());
 
-        for (auto const id : index)
-            result.emplace_back(*_characterPreviews.at(id));
+        std::vector<GameObjectId> ids;
+        ids.reserve(previews.size());
+
+        for (auto & ptr : previews)
+        {
+            auto const id = ptr->id();
+            _characterPreviews.try_emplace(id, ptr.release());
+            ids.emplace_back(id);
+        }
+
+        index = _characterPreviewsIndex.try_emplace(p.accountId(), std::move(ids)).first->second;
     }
+    else
+        index = _characterPreviewsIndex[p.accountId()];
+
+    result.reserve(index->size());
+    for (auto const id : *index)
+        result.emplace_back(*_characterPreviews.at(id));
 
     return result;
 }
 
-auto World::addCharacterPreview(AccountId const accountId) -> Character &
+auto World::addCharacterPreview(AccountId const accountId, CharacterCreationParameters const & params) -> Character &
 {
     L2CPP_B_ASSERT(accountId, "Player account id unknown, cannot create character preview");
 
-    Ref c = addCharacter();
+    Ref c = addCharacter(params);
     auto const id = c.get().id();
     _characterPreviewsIndex[accountId].emplace_back(id);
     c = *_characterPreviews.try_emplace(id, static_cast<Character *>(_actors[id].release())).first->second;
@@ -260,11 +263,31 @@ catch (...)
     L2CPP_THROW_NESTED("Failed to delete character preview");
 }
 
-auto World::addCharacter(OptRef<Player> p) -> Character &
+auto World::addCharacter(CharacterCreationParameters const & params, OptRef<Player> p) -> Character &
 {
     auto & c = addActor<Character>(std::move(p));
-    c.onEffectListChanged += [&c] { send(c, SC::EffectListPacket{c});                                         };
-    c.onLeveledUp         += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
+    c.setName      (params.name);
+    c.setProfession(params.profession);
+
+    auto & a = c.appearance();
+    a.setFace              (params.face);
+    a.setHairColor         (params.hairColor);
+    a.setHairStyle         (params.hairStyle);
+    a.setSex               (params.sex);
+    a.setStartingProfession(params.startingProfession);
+    a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
+    a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
+
+    auto const profession = ProfessionDirectory::find(params.profession);
+    profession->applyBaseStats(c);
+    c.stats().regenFully();
+
+    c.onEffectListChanged += [&c]
+    {
+        send(c, SC::EffectListPacket{c});
+        c.stats().compute(c);
+    };
+    c.onLeveledUp += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
     return c;
 }
 
@@ -282,8 +305,8 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
         else
             npc->setTitle(Utils::toWideString(info->title));
 
-        npc->appearance().collisionHeight = 15;
-        npc->appearance().collisionRadius = 10;
+        npc->appearance().setCollisionHeight(15);
+        npc->appearance().setCollisionRadius(10);
 
         if (npc->type() == ActorType::Monster)
         {
@@ -402,12 +425,8 @@ void World::distributeLoot(Loot const & loot, DamageDealtTable const & attackerD
     c.status().addSp(loot.sp);
 
     auto const newLevel  = c.status().level();
-    bool const leveledUp = newLevel > oldLevel;
     auto const newXp     = c.status().xp();
     auto const newSp     = c.status().sp();
-
-    if (leveledUp)
-        c.status().setLevel(newLevel);
 
     std::optional<SC::ChatSystemSayPacket> msg;
     /**/ if (newXp > oldXp && newSp > oldSp)
@@ -429,7 +448,7 @@ void World::distributeLoot(Loot const & loot, DamageDealtTable const & attackerD
     if (msg)
         send(c, std::move(*msg));
 
-    if (leveledUp)
+    if (newLevel > oldLevel)
         fire c.onLeveledUp();
 }
 
@@ -501,6 +520,8 @@ auto World::addActor(std::unique_ptr<Actor> actor) -> Actor &
 {
     auto const id = actor->id();
     auto & a = *_actors.try_emplace(id, std::move(actor)).first->second;
+
+    a.setPosition(-83968, 244634, -3500); // Talking Island GK
 
     a.onDied    += [&a] { broadcastAround(a, SC::ActorDiePacket{a}, true); };
     a.onRevived += [&a]

@@ -7,7 +7,7 @@
 #include <common/core/Exception.hpp>
 // ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
-#include <gs/game/skill/SkillTemplateDirectory.hpp>
+#include <gs/game/directories/SkillTemplateDirectory.hpp>
 
 // C++ includes
 #include <chrono>
