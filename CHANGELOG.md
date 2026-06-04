@@ -7,7 +7,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 In no particular order:
 - Restore buffs on reconnection;
 - Move static data from files to database;
-- Skill usage prerequisites + effects conditions.
+- Skill usage prerequisites + effects conditions
+- Starting locations.
+
+## [0.31.0] - 2026-06-04
+### Added
+- Character templates (e.g. model collision data)
+- Profession templates (e.g. stats)
+
+### Fixed
+- Stats are computed more correctly (especially buffs)
+
+### Changed
+- All `<class>Directory` classes moved to `game/directories`
 
 ## [0.30.0.1] - 2026-06-01
 ### Changed
