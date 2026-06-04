@@ -275,11 +275,9 @@ auto World::addCharacter(CharacterCreationParameters const & params, OptRef<Play
     a.setHairStyle         (params.hairStyle);
     a.setSex               (params.sex);
     a.setStartingProfession(params.startingProfession);
-    a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
-    a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
 
-    auto const profession = ProfessionDirectory::find(params.profession);
-    profession->applyBaseStats(c);
+    auto const charTemplate = CharacterTemplateDirectory::find(a.startingProfession());
+    charTemplate->apply(c);
     c.stats().regenFully();
 
     c.onEffectListChanged += [&c]
