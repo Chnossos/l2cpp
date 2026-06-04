@@ -10,6 +10,13 @@ In no particular order:
 - Skill usage prerequisites + effects conditions
 - Starting locations.
 
+## [0.31.1] - 2026-06-04
+### Fixed
+- Starting profession was ok while profession was not on creation
+
+### Changed
+- Some properties in table `professions` got moved to `character_templates`
+
 ## [0.31.0] - 2026-06-04
 ### Added
 - Character templates (e.g. model collision data)
