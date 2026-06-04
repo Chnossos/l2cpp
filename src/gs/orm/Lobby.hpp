@@ -10,7 +10,7 @@ class Character;
 
 namespace Orm
 {
-    auto loadCharacterPreviews(AccountId) -> std::vector<Ref<Character>>;
+    auto loadCharacterPreviews(AccountId) -> std::vector<std::unique_ptr<Character>>;
     void createCharacter(AccountId, Character &);
     void selectCharacter(AccountId, std::wstring_view selectedCharName);
     void deleteCharacter(std::wstring_view charName);

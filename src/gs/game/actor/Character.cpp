@@ -11,6 +11,7 @@
 #include <gs/game/components/CharacterStatus.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
+#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
 #include <gs/game/ui/ShortcutBar.hpp>
 #include <gs/network/packets/server/ui/UiConfirmationModalShowPacket.hpp>
@@ -84,7 +85,14 @@ auto Character::shortcutBar()       -> ShortcutBar       & { return _impl->short
 auto Character::shortcutBar() const -> ShortcutBar const & { return _impl->shortcutBar; }
 
 void Character::setIsFullyLoaded(bool const isFullyLoaded) { _impl->fullyLoaded = isFullyLoaded; }
-void Character::setProfession(Profession const profession) { _impl->profession  = profession;    }
+void Character::setProfession(Profession const profession)
+{
+    auto const professionInfo = ProfessionDirectory::find(profession);
+    L2CPP_B_ASSERT(professionInfo, "Failed to find info for profession '{}'", std::to_underlying(profession));
+
+    _impl->profession = professionInfo->profession;
+    professionInfo->applyBaseStats(*this);
+}
 
 void Character::offerResurrection(Actor const & emitter)
 {

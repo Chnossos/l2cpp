@@ -15,20 +15,17 @@ DECLARE_PACKET_HANDLER(CharacterList)
 
 DEFINE_PACKET_HANDLER(CharacterCreate) try
 {
-    CharacterCreationParameters params;
-
     PacketReader reader(player.connection().readBuffer().subspan(3));
+
+    CharacterCreationParameters params;
+    std::array<u32, 6>          ignore;
+
     reader
         >> params.name
         >> params.race
         >> params.sex
-        >> params.profession
-        >> params.INT
-        >> params.STR
-        >> params.CON
-        >> params.MEN
-        >> params.DEX
-        >> params.WIT
+        >> params.startingProfession
+        >> ignore
         >> params.hairStyle
         >> params.hairColor
         >> params.face
@@ -45,7 +42,8 @@ DEFINE_PACKET_HANDLER(CharacterCreate) try
     bool isValidProfessionForRace = false;
     switch (params.race)
     {
-#define CHECK_PROFESSION(race, ...) case race: isValidProfessionForRace = isAnyOf(params.profession, __VA_ARGS__); break
+#define CHECK_PROFESSION(race, ...) \
+    case race: isValidProfessionForRace = isAnyOf(params.startingProfession, __VA_ARGS__); break
 
         using enum Profession;
         CHECK_PROFESSION(Human,   HumanFighter, HumanMystic);
@@ -61,7 +59,7 @@ DEFINE_PACKET_HANDLER(CharacterCreate) try
     }
 
     L2CPP_B_ASSERT(isValidProfessionForRace, "Invalid profession value '{}' for race '{}'",
-                   std::to_underlying(params.profession), std::to_underlying(params.race));
+                   std::to_underlying(params.startingProfession), std::to_underlying(params.race));
 
     // TODO: check hair style/color + face values for each race & sex combinations
 

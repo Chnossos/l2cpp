@@ -8,7 +8,7 @@
 #include <gs/game/components/Stats.hpp>
 #include <gs/game/constants/StatId.hpp>
 
-void ProfessionDirectory::ProfessionInfo::applyStats(Actor & actor) const
+void ProfessionDirectory::ProfessionInfo::applyBaseStats(Actor & actor) const
 {
     using enum StatId;
     auto & stats = actor.stats();

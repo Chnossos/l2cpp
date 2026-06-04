@@ -32,7 +32,7 @@ class ProfessionDirectory
         u8          STR, DEX, CON, INT, WIT, MEN;
         bool        canBeSubclassed;
 
-        void applyStats(Actor &) const;
+        void applyBaseStats(Actor &) const;
     };
 
 public:

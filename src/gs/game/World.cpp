@@ -67,20 +67,12 @@ static void addDummy()
 {
     static u32 count = 1;
 
-    auto & d = World::addCharacter();
+    auto & d = World::addCharacter({
+        .sex                = Sex::Female,
+        .startingProfession = Profession::ElvenMystic,
+    });
     d.setPosY(d.position().y + (count++ % 2 ? 35 : -35));
     d.setName(std::format(L"dummy{}", d.id()));
-
-    auto & a = d.appearance();
-    a.setStartingProfession(Profession::ElvenMystic);
-    a.setSex(Sex::Female);
-    d.setProfession(a.startingProfession());
-    a.setCollisionHeight(CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
-    a.setCollisionRadius(CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
-
-    auto const profession = ProfessionDirectory::find(a.startingProfession());
-    profession->applyStats(d);
-    d.stats().regenFully();
 }
 
 void World::init()
@@ -158,26 +150,8 @@ void World::update(ClockDuration const elapsed)
 
 auto World::createCharacter(Player const & p, CharacterCreationParameters const & params) -> CharacterCreationResult
 {
-    auto & c = addCharacterPreview(p.accountId());
-    c.setName(params.name);
-    c.setProfession(params.profession);
+    auto & c = addCharacterPreview(p.accountId(), params);
     c.addComponent<CharacterSelectionData>().selected = true;
-
-    auto & a = c.appearance();
-    a.setStartingProfession(params.profession);
-    a.setSex               (params.sex);
-    a.setHairStyle         (params.hairStyle);
-    a.setHairColor         (params.hairColor);
-    a.setFace              (params.face);
-    a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
-    a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
-
-    auto const profession = ProfessionDirectory::find(a.startingProfession());
-    L2CPP_B_ASSERT(profession, "Profession '{}' has no info registered", std::to_underlying(a.startingProfession()));
-    profession->applyStats(c);
-
-    auto & stats = c.stats();
-    stats.regenFully();
 
     Orm::createCharacter(p.accountId(), c);
     return CharacterCreationResult::Success;
@@ -187,25 +161,38 @@ auto World::getCharacterPreviews(Player const & p) -> std::vector<Ref<Character>
 {
     std::vector<Ref<Character>> result;
 
+    OptRef<std::vector<GameObjectId>> index;
     if (!_characterPreviewsIndex.contains(p.accountId())) // no index means first connection since server booted
-        result = Orm::loadCharacterPreviews(p.accountId());
-    else
     {
-        auto const & index = _characterPreviewsIndex[p.accountId()];
-        result.reserve(index.size());
+        auto previews = Orm::loadCharacterPreviews(p.accountId());
 
-        for (auto const id : index)
-            result.emplace_back(*_characterPreviews.at(id));
+        std::vector<GameObjectId> ids;
+        ids.reserve(previews.size());
+
+        for (auto & ptr : previews)
+        {
+            auto const id = ptr->id();
+            _characterPreviews.try_emplace(id, ptr.release());
+            ids.emplace_back(id);
+        }
+
+        index = _characterPreviewsIndex.try_emplace(p.accountId(), std::move(ids)).first->second;
     }
+    else
+        index = _characterPreviewsIndex[p.accountId()];
+
+    result.reserve(index->size());
+    for (auto const id : *index)
+        result.emplace_back(*_characterPreviews.at(id));
 
     return result;
 }
 
-auto World::addCharacterPreview(AccountId const accountId) -> Character &
+auto World::addCharacterPreview(AccountId const accountId, CharacterCreationParameters const & params) -> Character &
 {
     L2CPP_B_ASSERT(accountId, "Player account id unknown, cannot create character preview");
 
-    Ref c = addCharacter();
+    Ref c = addCharacter(params);
     auto const id = c.get().id();
     _characterPreviewsIndex[accountId].emplace_back(id);
     c = *_characterPreviews.try_emplace(id, static_cast<Character *>(_actors[id].release())).first->second;
@@ -276,9 +263,25 @@ catch (...)
     L2CPP_THROW_NESTED("Failed to delete character preview");
 }
 
-auto World::addCharacter(OptRef<Player> p) -> Character &
+auto World::addCharacter(CharacterCreationParameters const & params, OptRef<Player> p) -> Character &
 {
     auto & c = addActor<Character>(std::move(p));
+    c.setName      (params.name);
+    c.setProfession(params.profession);
+
+    auto & a = c.appearance();
+    a.setFace              (params.face);
+    a.setHairColor         (params.hairColor);
+    a.setHairStyle         (params.hairStyle);
+    a.setSex               (params.sex);
+    a.setStartingProfession(params.startingProfession);
+    a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
+    a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
+
+    auto const profession = ProfessionDirectory::find(params.profession);
+    profession->applyBaseStats(c);
+    c.stats().regenFully();
+
     c.onEffectListChanged += [&c]
     {
         send(c, SC::EffectListPacket{c});

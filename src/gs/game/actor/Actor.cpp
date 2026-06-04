@@ -53,7 +53,7 @@ Actor::Actor(ActorType const type)
 
     auto & stats          = addComponent<Stats>();
     auto const profession = ProfessionDirectory::find(Profession::HumanFighter);
-    profession->applyStats(*this);
+    profession->applyBaseStats(*this);
     stats.regenFully();
 }
 

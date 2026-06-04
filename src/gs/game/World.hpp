@@ -48,12 +48,12 @@ public:
 
     static auto createCharacter(Player const &, CharacterCreationParameters const &) -> CharacterCreationResult;
     static auto getCharacterPreviews(Player const &) -> std::vector<Ref<Character>>;
-    static auto addCharacterPreview(AccountId) -> Character &;
+    static auto addCharacterPreview(AccountId, CharacterCreationParameters const &) -> Character &;
     static auto loadCharacterFromPreview(Character const &) -> Character &;
     static void moveCharacterBackToPreviews(Character &);
     static void delCharacterPreview(AccountId, size_t index);
 
-    static auto addCharacter(OptRef<Player> = std::nullopt) -> Character &;
+    static auto addCharacter(CharacterCreationParameters const &, OptRef<Player> = std::nullopt) -> Character &;
     static auto addNpc(u32 id) -> OptRef<Npc>;
 
     static void scheduleForDeletion(Actor &, ClockDuration timeFromNow = ClockDuration::zero());

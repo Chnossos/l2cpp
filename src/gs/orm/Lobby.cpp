@@ -5,7 +5,6 @@
 
 // Project includes
 #include <common/services/Database.hpp>
-#include <gs/game/World.hpp>
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/components/CharacterSelectionData.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
@@ -23,7 +22,7 @@
 
 static void loadGear(u32 characterId, Character & c);
 
-auto Orm::loadCharacterPreviews(AccountId const accountId) -> std::vector<Ref<Character>>
+auto Orm::loadCharacterPreviews(AccountId const accountId) -> std::vector<std::unique_ptr<Character>>
 try
 {
     SQLite::Statement query(Database::instance(), R"(
@@ -60,10 +59,10 @@ try
     )");
     query.bind(":account_id", accountId);
 
-    std::vector<Ref<Character>> previews;
+    std::vector<std::unique_ptr<Character>> previews;
     while (query.executeStep())
     {
-        auto & c = previews.emplace_back(World::addCharacterPreview(accountId)).get();
+        auto & c = *previews.emplace_back(std::make_unique<Character>());
         c.setName(Utils::toWideString(query.getColumn("name").getString()));
 
         auto & a = c.appearance();
