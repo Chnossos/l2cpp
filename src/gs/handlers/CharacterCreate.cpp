@@ -31,6 +31,8 @@ DEFINE_PACKET_HANDLER(CharacterCreate) try
         >> params.face
     ;
 
+    params.profession = params.startingProfession;
+
     using enum Race;
     using Utils::Enum::isAnyOf;
     L2CPP_B_ASSERT(isAnyOf(params.race, Human, Elf, DarkElf, Orc, Dwarf),
