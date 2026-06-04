@@ -13,7 +13,6 @@
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
 #include <gs/game/components/Stats.hpp>
-#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/network/Connection.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
@@ -50,11 +49,7 @@ Actor::Actor(ActorType const type)
     addComponent<Gear>();
     addComponent<Position>();
     addComponent<SkillDirectory>();
-
-    auto & stats          = addComponent<Stats>();
-    auto const profession = ProfessionDirectory::find(Profession::HumanFighter);
-    profession->applyBaseStats(*this);
-    stats.regenFully();
+    addComponent<Stats>();
 }
 
 Actor::Actor(Actor &&) noexcept = default;
