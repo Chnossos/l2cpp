@@ -59,10 +59,8 @@ void Stats::compute(Actor const & a)
 
     CALCULATE_STAT(MoveSpeed);
     CALCULATE_SPEED_STAT(RunSpeed),     CALCULATE_SPEED_STAT(WalkSpeed),
-    // CALCULATE_SPEED_STAT(SwimRunSpeed), CALCULATE_SPEED_STAT(SwimWalkSpeed),
-    // CALCULATE_SPEED_STAT(FlyRunSpeed),  CALCULATE_SPEED_STAT(FlyWalkSpeed),
-    STAT(SwimRunSpeed) = STAT(RunSpeed);
-    STAT(FlyRunSpeed)  = STAT(RunSpeed);
+    CALCULATE_SPEED_STAT(SwimRunSpeed), CALCULATE_SPEED_STAT(SwimWalkSpeed),
+    CALCULATE_SPEED_STAT(FlyRunSpeed),  CALCULATE_SPEED_STAT(FlyWalkSpeed),
 
     CALCULATE_STAT(MaxWeight);
 
