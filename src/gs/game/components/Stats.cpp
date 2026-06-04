@@ -40,12 +40,9 @@ void Stats::compute(Actor const & a)
         {
             auto const level = status->level();
 
-            STAT(MaxHpBonus)      += level * STAT(HpFlatPerLevel);
-            STAT(MaxMpBonus)      += level * STAT(MpFlatPerLevel);
-            STAT(MaxCpBonus)      += level * STAT(CpFlatPerLevel);
-            STAT(MaxHpMultiplier) += level * STAT(HpMultiplierPerLevel);
-            STAT(MaxMpMultiplier) += level * STAT(MpMultiplierPerLevel);
-            STAT(MaxCpMultiplier) += level * STAT(CpMultiplierPerLevel);
+            STAT(MaxHpBonus) += level * (STAT(HpMultiplierPerLevel) + STAT(HpFlatPerLevel));
+            STAT(MaxMpBonus) += level * (STAT(MpMultiplierPerLevel) + STAT(MpFlatPerLevel));
+            STAT(MaxCpBonus) += level * (STAT(CpMultiplierPerLevel) + STAT(CpFlatPerLevel));
         }
     }
 
