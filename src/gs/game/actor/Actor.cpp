@@ -142,14 +142,17 @@ void Actor::takeDamage(OptRef<Actor> emitter, double const amount)
     {
         _impl->attackerDamageAmounts[emitter->id()] += amount;
 
-        SC::ChatSystemSayPacket msg1{SystemMessageId::_1_HitYouFor_2_Damage};
-        msg1.appendName(emitter);
+        SC::ChatSystemSayPacket msg1{SystemMessageId::YouHitFor_1_Damage};
         msg1.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
-        World::send(*this, std::move(msg1));
+        World::send(emitter, std::move(msg1));
 
-        SC::ChatSystemSayPacket msg2{SystemMessageId::YouHitFor_1_Damage};
-        msg2.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
-        World::send(emitter, std::move(msg2));
+        if (emitter != *this)
+        {
+            SC::ChatSystemSayPacket msg2{SystemMessageId::_1_HitYouFor_2_Damage};
+            msg2.appendName(emitter);
+            msg2.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
+            World::send(*this, std::move(msg2));
+        }
     }
 }
 
