@@ -4,10 +4,9 @@
 #include "Npc.hpp"
 
 // Project includes
-#include <gs/game/components/Stats.hpp>
 #include <gs/game/components/NpcAppearance.hpp>
 #include <gs/game/components/NpcStatus.hpp>
-#include <gs/game/directories/ProfessionDirectory.hpp>
+#include <gs/game/components/Stats.hpp>
 
 Npc::Npc(u32 const id)
     : Npc(ActorType::Npc, id)
@@ -20,9 +19,10 @@ Npc::Npc(ActorType const type, u32 const id)
     addComponent<NpcStatus>();
 
     auto & stats = *component<Stats>();
-    auto const profession = ProfessionDirectory::find(Profession::HumanFighter);
-    profession->applyBaseStats(*this);
-    stats.regenFully();
+    stats[StatId::BaseRunSpeed] = 50;
+    stats[StatId::BaseMaxHp   ] = 500;
+    stats[StatId::CurHp       ] = 500;
+    stats.compute(*this);
 }
 
 auto Npc::appearance()       -> NpcAppearance       & { return component<NpcAppearance>(); }

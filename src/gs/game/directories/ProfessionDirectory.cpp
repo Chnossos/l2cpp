@@ -12,20 +12,6 @@ void ProfessionDirectory::ProfessionInfo::applyBaseStats(Actor & actor) const
 {
     using enum StatId;
     auto & stats = actor.stats();
-    stats[BaseStr             ] = STR;
-    stats[BaseDex             ] = DEX;
-    stats[BaseCon             ] = CON;
-    stats[BaseInt             ] = INT;
-    stats[BaseWit             ] = WIT;
-    stats[BaseMen             ] = MEN;
-    stats[BasePAtk            ] = pAtk;
-    stats[BaseMAtk            ] = mAtk;
-    stats[BasePDef            ] = pDef;
-    stats[BaseMDef            ] = mDef;
-    stats[BasePAtkSpeed       ] = pAtkSpeed;
-    stats[BaseMAtkSpeed       ] = mAtkSpeed;
-    stats[BaseRunSpeed        ] = runSpeed;
-    stats[BaseWalkSpeed       ] = walkSpeed;
     stats[BaseMaxHp           ] = maxHp;
     stats[BaseMaxMp           ] = maxMp;
     stats[BaseMaxCp           ] = maxCp;

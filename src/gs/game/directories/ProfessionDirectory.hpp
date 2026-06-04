@@ -25,11 +25,7 @@ class ProfessionDirectory
         float       maxMp, mpFlatPerLevel, mpMultiplierPerLevel;
         float       maxCp, cpFlatPerLevel, cpMultiplierPerLevel;
         Profession  profession, parentProfession;
-        u16         pAtk,      mAtk;
-        u16         pDef,      mDef;
-        u16         pAtkSpeed, mAtkSpeed;
-        u16         runSpeed,  walkSpeed;
-        u8          STR, DEX, CON, INT, WIT, MEN;
+        u8          minimumLevel;
         bool        canBeSubclassed;
 
         void applyBaseStats(Actor &) const;

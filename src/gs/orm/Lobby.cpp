@@ -71,8 +71,9 @@ try
         a.setHairStyle         (query.getColumn("hair_style").getUInt());
         a.setHairColor         (query.getColumn("hair_color").getUInt());
         a.setFace              (query.getColumn("face"      ).getUInt());
-        a.setCollisionHeight   (CharacterTemplateDirectory::collisionHeight(a.startingProfession(), a.sex()));
-        a.setCollisionRadius   (CharacterTemplateDirectory::collisionRadius(a.startingProfession(), a.sex()));
+
+        if (auto const charTemplate = CharacterTemplateDirectory::find(a.startingProfession()))
+            charTemplate->apply(c);
 
         c.setPosX(query.getColumn("pos_x").getInt());
         c.setPosY(query.getColumn("pos_y").getInt());

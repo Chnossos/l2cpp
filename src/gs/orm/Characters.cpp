@@ -38,30 +38,17 @@ namespace
 void Orm::loadProfessions()
 try
 {
-    auto & entries = ProfessionDirectory::_professions;
+    auto & professions = ProfessionDirectory::_professions;
 
     SQLite::Statement query(Database::instance(), R"(SELECT * FROM professions)");
     while (query.executeStep())
     {
-        auto & p               = entries[query.getColumn("id").getUInt()];
-        p.profession           = static_cast<Profession>(query.getColumn("id"       ).getUInt());
-        p.parentProfession     = static_cast<Profession>(query.getColumn("parent_id").getUInt());
+        auto & p               = professions[            query.getColumn("id"               ).getUInt()];
         p.name                 =                         query.getColumn("name"             ).getString();
+        p.profession           = static_cast<Profession>(query.getColumn("id"               ).getUInt());
+        p.parentProfession     = static_cast<Profession>(query.getColumn("parent_id"        ).getUInt());
         p.canBeSubclassed      =                         query.getColumn("can_be_subclassed").getUInt();
-        p.STR                  = static_cast<u8        >(query.getColumn("str"              ).getUInt());
-        p.DEX                  = static_cast<u8        >(query.getColumn("dex"              ).getUInt());
-        p.CON                  = static_cast<u8        >(query.getColumn("con"              ).getUInt());
-        p.INT                  = static_cast<u8        >(query.getColumn("int"              ).getUInt());
-        p.WIT                  = static_cast<u8        >(query.getColumn("wit"              ).getUInt());
-        p.MEN                  = static_cast<u8        >(query.getColumn("men"              ).getUInt());
-        p.pAtk                 = static_cast<u16       >(query.getColumn("patk"             ).getUInt());
-        p.mAtk                 = static_cast<u16       >(query.getColumn("matk"             ).getUInt());
-        p.pDef                 = static_cast<u16       >(query.getColumn("pdef"             ).getUInt());
-        p.mDef                 = static_cast<u16       >(query.getColumn("mdef"             ).getUInt());
-        p.pAtkSpeed            = static_cast<u16       >(query.getColumn("patk_speed"       ).getUInt());
-        p.mAtkSpeed            = static_cast<u16       >(query.getColumn("matk_speed"       ).getUInt());
-        p.runSpeed             = static_cast<u16       >(query.getColumn("run_speed"        ).getUInt());
-        p.walkSpeed            = static_cast<u16       >(query.getColumn("walk_speed"       ).getUInt());
+        p.minimumLevel         = static_cast<u8        >(query.getColumn("minimum_level"    ).getUInt());
         p.maxHp                = static_cast<float     >(query.getColumn("max_hp"           ).getDouble());
         p.maxMp                = static_cast<float     >(query.getColumn("max_mp"           ).getDouble());
         p.maxCp                = static_cast<float     >(query.getColumn("max_cp"           ).getDouble());
@@ -80,18 +67,30 @@ catch (...)
 
 void Orm::loadCharacterTemplates()
 {
-    auto & properties = CharacterTemplateDirectory::_properties;
+    auto & templates = CharacterTemplateDirectory::_templates;
 
     SQLite::Statement query(Database::instance(), R"(SELECT * FROM character_templates)");
     while (query.executeStep())
     {
-        auto const startingProfession = static_cast<Profession>(query.getColumn("starting_profession").getUInt());
-        auto const sex                = static_cast<Sex       >(query.getColumn("sex"                ).getUInt());
-        auto const collisionHeight    =                         query.getColumn("collision_height"   ).getDouble();
-        auto const collisionRadius    =                         query.getColumn("collision_radius"   ).getDouble();
-
-        properties.try_emplace(CharacterTemplateDirectory::makeId(startingProfession, sex),
-                               collisionHeight, collisionRadius);
+        auto & t             = templates[       query.getColumn("starting_profession"    ).getUInt()];
+        t.collisionHeight[0] =                  query.getColumn("male_collision_height"  ).getDouble();
+        t.collisionRadius[0] =                  query.getColumn("male_collision_radius"  ).getDouble();
+        t.collisionHeight[1] =                  query.getColumn("female_collision_height").getDouble();
+        t.collisionRadius[1] =                  query.getColumn("female_collision_radius").getDouble();
+        t.STR                = static_cast<u8 >(query.getColumn("str"                    ).getUInt());
+        t.DEX                = static_cast<u8 >(query.getColumn("dex"                    ).getUInt());
+        t.CON                = static_cast<u8 >(query.getColumn("con"                    ).getUInt());
+        t.INT                = static_cast<u8 >(query.getColumn("int"                    ).getUInt());
+        t.WIT                = static_cast<u8 >(query.getColumn("wit"                    ).getUInt());
+        t.MEN                = static_cast<u8 >(query.getColumn("men"                    ).getUInt());
+        t.pAtk               = static_cast<u16>(query.getColumn("patk"                   ).getUInt());
+        t.mAtk               = static_cast<u16>(query.getColumn("matk"                   ).getUInt());
+        t.pDef               = static_cast<u16>(query.getColumn("pdef"                   ).getUInt());
+        t.mDef               = static_cast<u16>(query.getColumn("mdef"                   ).getUInt());
+        t.pAtkSpeed          = static_cast<u16>(query.getColumn("patk_speed"             ).getUInt());
+        t.mAtkSpeed          = static_cast<u16>(query.getColumn("matk_speed"             ).getUInt());
+        t.runSpeed           = static_cast<u16>(query.getColumn("run_speed"              ).getUInt());
+        t.walkSpeed          = static_cast<u16>(query.getColumn("walk_speed"             ).getUInt());
     }
 }
 
