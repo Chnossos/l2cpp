@@ -59,7 +59,10 @@ static void addGremlin()
     static u32 count = 1;
 
     if (auto const gremlin = World::addNpc(1))
+    {
+        gremlin->setPosition(-83968, 244634, -3500); // Talking Island GK
         gremlin->setPosX(gremlin->position().x + (count++ % 2 ? 35 : -35));
+    }
 }
 
 static void addDummy()
@@ -69,6 +72,7 @@ static void addDummy()
     auto & d = World::addCharacter({
         .sex                = Sex::Female,
         .startingProfession = Profession::ElvenMystic,
+        .position           = Position{-83968, 244634, -3500} // Talking Island GK
     });
     d.setPosY(d.position().y + (count++ % 2 ? 35 : -35));
     d.setName(std::format(L"dummy{}", d.id()));
@@ -518,8 +522,6 @@ auto World::addActor(std::unique_ptr<Actor> actor) -> Actor &
 {
     auto const id = actor->id();
     auto & a = *_actors.try_emplace(id, std::move(actor)).first->second;
-
-    a.setPosition(-83968, 244634, -3500); // Talking Island GK
 
     a.onDied    += [&a] { broadcastAround(a, SC::ActorDiePacket{a}, true); };
     a.onRevived += [&a]
