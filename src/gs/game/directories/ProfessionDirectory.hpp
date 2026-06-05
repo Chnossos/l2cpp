@@ -5,6 +5,7 @@
 
 // Project includes
 #include <gs/Typedefs.hpp>
+#include <gs/game/components/Position.hpp>
 #include <gs/game/constants/Profession.hpp>
 
 class Actor;
@@ -20,6 +21,8 @@ class ProfessionDirectory
 
     struct ProfessionInfo
     {
+        std::vector<Position> startingLocations;
+
         std::string name;
         float       maxHp{}, hpFlatPerLevel{}, hpMultiplierPerLevel{};
         float       maxMp{}, mpFlatPerLevel{}, mpMultiplierPerLevel{};
@@ -38,11 +41,14 @@ public:
 
 public:
     static auto count() -> size_t;
-    static auto find(Profession) -> OptRef<ProfessionInfo const>;
+    static auto find              (Profession) -> OptRef<ProfessionInfo const>;
+    static auto parent            (Profession) -> OptRef<ProfessionInfo const>;
+    static auto startingProfession(Profession) -> OptRef<ProfessionInfo const>;
+    static auto rank              (Profession) -> u8;
 
 public:
     static void load();
 
 private:
-    static std::unordered_map<u32, ProfessionInfo> _professions;
+    static std::unordered_map<Profession, ProfessionInfo> _professions;
 };

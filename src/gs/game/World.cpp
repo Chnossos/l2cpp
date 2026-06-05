@@ -25,7 +25,6 @@
 #include <gs/game/constants/SystemMessageId.hpp>
 #include <gs/game/directories/CharacterTemplateDirectory.hpp>
 #include <gs/game/directories/NpcDirectory.hpp>
-#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/ecs/System.hpp>
 #include <gs/game/lobby/CharacterCreationParameters.hpp>
 #include <gs/game/systems/ActorAttackStanceTimerSystem.hpp>
@@ -267,6 +266,7 @@ auto World::addCharacter(CharacterCreationParameters const & params, OptRef<Play
 {
     auto & c = addActor<Character>(std::move(p));
     c.setName      (params.name);
+    c.setPosition  (params.position);
     c.setProfession(params.profession);
 
     auto & a = c.appearance();

@@ -81,6 +81,7 @@ bool Application::Impl::load() const try
         "sql/item_templates.sql",
         "sql/items.sql",
         "sql/starting_items.sql",
+        "sql/starting_locations.sql",
         "sql/gs_data.sql",
     });
     Orm::loadUids();

@@ -4,6 +4,7 @@
 // Project includes
 #include <common/utils/Enum.hpp>
 #include <gs/game/World.hpp>
+#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/lobby/CharacterCreationParameters.hpp>
 #include <gs/handlers/_Common.hpp>
 #include <gs/network/packets/server/lobby/CharacterCreatePacket.hpp>
@@ -64,6 +65,9 @@ DEFINE_PACKET_HANDLER(CharacterCreate) try
                    std::to_underlying(params.startingProfession), std::to_underlying(params.race));
 
     // TODO: check hair style/color + face values for each race & sex combinations
+
+    if (auto const info = ProfessionDirectory::find(params.startingProfession))
+        params.position = info->startingLocations.front();
 
     std::wregex const namePattern{LR"([A-Za-z0-9]{1,16})"};
 
