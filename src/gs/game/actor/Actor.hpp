@@ -82,7 +82,7 @@ public:
     void setPosX(s32);
     void setPosY(s32);
     void setPosZ(s32);
-    void setOrientation(s32);
+    void setOrientation(u16);
     void setTeam(Team team);
     void setTarget(OptRef<Actor>);
 

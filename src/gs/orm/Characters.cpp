@@ -72,11 +72,11 @@ try
     while (query.executeStep())
     {
         auto location = Position{
-            query.getColumn("pos_x").getInt(),
-            query.getColumn("pos_y").getInt(),
-            query.getColumn("pos_z").getInt(),
+                             query.getColumn("pos_x"      ).getInt(),
+                             query.getColumn("pos_y"      ).getInt(),
+                             query.getColumn("pos_z"      ).getInt(),
+            static_cast<u16>(query.getColumn("orientation").getUInt()),
         };
-        location.orientation = query.getColumn("orientation").getUInt();
 
         auto const professionColumn = query.getColumn("starting_profession");
         if (professionColumn.isNull())
@@ -84,8 +84,8 @@ try
             auto & locations = globalStartingLocations ? *globalStartingLocations : globalStartingLocations.emplace();
             locations.emplace_back(std::move(location));
         }
-        else if (globalStartingLocations) // skip class-specific locations if there are global ones
-            continue;
+        else if (globalStartingLocations)
+            break; // Skip class-specific locations if there are global ones (ORDER BY puts NULLs first)
         else
         {
             auto const professionId = professionColumn.getUInt();
@@ -283,7 +283,7 @@ void Orm::loadCharacter(Character & c)
     L2CPP_B_ASSERT(query.executeStep(), "Failed to load character");
 
     c.setTitle(Utils::toWideString(query.getColumn("title").getString()));
-    c.setOrientation(query.getColumn("orientation").getInt());
+    c.setOrientation(static_cast<u16>(query.getColumn("orientation").getInt()));
 
     auto const id = query.getColumn("id").getUInt();
     loadInventory(id, c);

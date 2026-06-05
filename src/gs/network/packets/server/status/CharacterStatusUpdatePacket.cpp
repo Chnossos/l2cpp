@@ -24,7 +24,7 @@ CharacterStatusUpdatePacket::CharacterStatusUpdatePacket(Character const & c)
 
     *this
         << c.position()
-        << c.position().orientation
+        << static_cast<u32>(c.position().orientation)
         << c.id()
         << c.name()
         << c.appearance().race()
