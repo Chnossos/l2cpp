@@ -45,9 +45,8 @@ try
     {
         auto & p               = professions[            query.getColumn("id"               ).getUInt()];
         p.name                 =                         query.getColumn("name"             ).getString();
-        p.profession           = static_cast<Profession>(query.getColumn("id"               ).getUInt());
-        p.parentProfession     = static_cast<Profession>(query.getColumn("parent_id"        ).getUInt());
         p.canBeSubclassed      =                         query.getColumn("can_be_subclassed").getUInt();
+        p.profession           = static_cast<Profession>(query.getColumn("id"               ).getUInt());
         p.minimumLevel         = static_cast<u8        >(query.getColumn("minimum_level"    ).getUInt());
         p.maxHp                = static_cast<float     >(query.getColumn("max_hp"           ).getDouble());
         p.maxMp                = static_cast<float     >(query.getColumn("max_mp"           ).getDouble());
@@ -58,6 +57,9 @@ try
         p.hpMultiplierPerLevel = static_cast<float     >(query.getColumn("hp_mult_per_level").getDouble());
         p.mpMultiplierPerLevel = static_cast<float     >(query.getColumn("mp_mult_per_level").getDouble());
         p.cpMultiplierPerLevel = static_cast<float     >(query.getColumn("cp_mult_per_level").getDouble());
+
+        if (auto const parentProfession = query.getColumn("parent_id"); !parentProfession.isNull())
+            p.parentProfession = static_cast<Profession>(parentProfession.getUInt());
     }
 }
 catch (...)

@@ -21,12 +21,14 @@ class ProfessionDirectory
     struct ProfessionInfo
     {
         std::string name;
-        float       maxHp, hpFlatPerLevel, hpMultiplierPerLevel;
-        float       maxMp, mpFlatPerLevel, mpMultiplierPerLevel;
-        float       maxCp, cpFlatPerLevel, cpMultiplierPerLevel;
-        Profession  profession, parentProfession;
-        u8          minimumLevel;
-        bool        canBeSubclassed;
+        float       maxHp{}, hpFlatPerLevel{}, hpMultiplierPerLevel{};
+        float       maxMp{}, mpFlatPerLevel{}, mpMultiplierPerLevel{};
+        float       maxCp{}, cpFlatPerLevel{}, cpMultiplierPerLevel{};
+
+        std::optional<Profession> parentProfession;
+        Profession                profession{};
+        u8                        minimumLevel{1};
+        bool                      canBeSubclassed{};
 
         void applyBaseStats(Actor &) const;
     };
