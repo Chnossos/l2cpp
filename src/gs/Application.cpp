@@ -18,6 +18,7 @@
 #include <gs/game/directories/NpcDirectory.hpp>
 #include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/directories/SkillTemplateDirectory.hpp>
+#include <gs/game/directories/StartingLocationDirectory.hpp>
 #include <gs/handlers/PacketHandlers.hpp>
 #include <gs/network/Connection.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
@@ -94,6 +95,10 @@ bool Application::Impl::load() const try
     SPDLOG_INFO("Loading character templates…");
     CharacterTemplateDirectory::load();
     SPDLOG_INFO("Registered {:L} character templates", CharacterTemplateDirectory::count());
+
+    SPDLOG_INFO("Loading starting locations…");
+    StartingLocationDirectory::load();
+    SPDLOG_INFO("Registered {:L} starting locations", StartingLocationDirectory::count());
 
     SPDLOG_INFO("Loading item templates…");
     ItemTemplateDirectory::load();

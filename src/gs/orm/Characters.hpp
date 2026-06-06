@@ -8,6 +8,7 @@ class Character;
 namespace Orm
 {
     void loadProfessions();
+    void loadStartingLocations();
     void loadCharacterTemplates();
 
     void saveCharacter(Character const &);

@@ -13,6 +13,7 @@
 #include <gs/game/directories/CharacterTemplateDirectory.hpp>
 #include <gs/game/directories/ItemTemplateDirectory.hpp>
 #include <gs/game/directories/ProfessionDirectory.hpp>
+#include <gs/game/directories/StartingLocationDirectory.hpp>
 #include <gs/game/inventory/Item.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
 #include <gs/game/ui/ActionShortcut.hpp>
@@ -65,10 +66,19 @@ try
         if (auto const parentProfession = query.getColumn("parent_id"); !parentProfession.isNull())
             p.parentProfession = static_cast<Profession>(parentProfession.getUInt());
     }
+}
+catch (...)
+{
+    L2CPP_THROW_NESTED("Failed to load professions");
+}
 
-    std::optional<std::vector<Position>> globalStartingLocations;
+void Orm::loadStartingLocations()
+try
+{
+    auto & globalLocations   = StartingLocationDirectory::_globalLocations;
+    auto & specificLocations = StartingLocationDirectory::_professionLocations;
 
-    query = SQLite::Statement{Database::instance(), R"(SELECT * from starting_locations ORDER BY starting_profession)"};
+    SQLite::Statement query{Database::instance(), R"(SELECT * from starting_locations ORDER BY starting_profession)"};
     while (query.executeStep())
     {
         auto location = Position{
@@ -80,31 +90,23 @@ try
 
         auto const professionColumn = query.getColumn("starting_profession");
         if (professionColumn.isNull())
-        {
-            auto & locations = globalStartingLocations ? *globalStartingLocations : globalStartingLocations.emplace();
-            locations.emplace_back(std::move(location));
-        }
-        else if (globalStartingLocations)
+            globalLocations.positions.emplace_back(std::move(location));
+        else if (!globalLocations.positions.empty())
             break; // Skip class-specific locations if there are global ones (ORDER BY puts NULLs first)
         else
         {
             auto const professionId = professionColumn.getUInt();
             // Resolve the starting profession in case someone put a higher-ranked profession in there
             if (auto const info = ProfessionDirectory::startingProfession(static_cast<Profession>(professionId)))
-                professions.at(info->profession).startingLocations.emplace_back(std::move(location));
+                specificLocations[info->profession].positions.emplace_back(std::move(location));
             else
                 SPDLOG_WARN("Starting location specified for profession '{}' that doesn't exist", professionId);
         }
     }
 
-    if (globalStartingLocations)
+    if (globalLocations.positions.empty())
     {
-        using namespace std::views;
-        for (auto & p : professions | values | filter([] (auto const & p) { return !p.parentProfession; }))
-            p.startingLocations = *globalStartingLocations;
-    }
-    else // Insert default locations when no global nor class-specific exist
-    {
+        // Assign default starting locations to starting professions that have none
         std::unordered_map<Profession, std::vector<Position>> defaultLocations
         {
             { Profession::HumanFighter, {
@@ -177,25 +179,17 @@ try
             }},
         };
 
-        // Assign default starting locations to starting professions that have none
         for (auto & [profession, locations] : defaultLocations)
         {
-            auto const p = professions.find(profession);
-            if (p == professions.end())
-                SPDLOG_WARN("Missing retail starting profession '{}'", std::to_underlying(profession));
-            else if (p->second.startingLocations.empty())
-            {
-                SPDLOG_TRACE("Starting profession '{}' assigned default starting locations",
-                             std::to_underlying(profession));
-
-                p->second.startingLocations = std::move(locations);
-            }
+            auto it = specificLocations.find(profession);
+            if (it == specificLocations.end() || it->second.positions.empty())
+                it->second.positions = std::move(locations);
         }
     }
 }
 catch (...)
 {
-    L2CPP_THROW_NESTED("Failed to load professions and/or starting locations");
+    L2CPP_THROW_NESTED("Failed to load starting locations");
 }
 
 void Orm::loadCharacterTemplates()

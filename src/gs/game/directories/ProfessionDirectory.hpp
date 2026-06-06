@@ -5,7 +5,6 @@
 
 // Project includes
 #include <gs/Typedefs.hpp>
-#include <gs/game/components/Position.hpp>
 #include <gs/game/constants/Profession.hpp>
 
 class Actor;
@@ -21,8 +20,6 @@ class ProfessionDirectory
 
     struct ProfessionInfo
     {
-        std::vector<Position> startingLocations;
-
         std::string name;
         float       maxHp{}, hpFlatPerLevel{}, hpMultiplierPerLevel{};
         float       maxMp{}, mpFlatPerLevel{}, mpMultiplierPerLevel{};
