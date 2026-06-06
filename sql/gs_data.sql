@@ -41,4 +41,4 @@ INSERT OR IGNORE INTO character_statuses VALUES
 (1, 88, 2099275833, 0, 1, 1, 1), -- Duelist      lv. 78 100%xp 0sp 1hp 1mp 1cp
 (2, 25,          0, 0, 1, 1, 1); -- Elven Mystic lv.  1    0xp 0sp 1hp 1mp 1cp
 
-INSERT INTO starting_locations (pos_x, pos_y, pos_z) VALUES (-83968, 244634, -3500); -- Talking Island GK
+INSERT OR IGNORE INTO starting_locations (pos_x, pos_y, pos_z) VALUES (-83968, 244634, -3500); -- Talking Island GK
