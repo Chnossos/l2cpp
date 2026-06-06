@@ -181,9 +181,8 @@ try
 
         for (auto & [profession, locations] : defaultLocations)
         {
-            auto it = specificLocations.find(profession);
-            if (it == specificLocations.end() || it->second.positions.empty())
-                it->second.positions = std::move(locations);
+            if (auto & loc = specificLocations[profession]; loc.positions.empty())
+                loc.positions = std::move(locations);
         }
     }
 }
