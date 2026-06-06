@@ -5,6 +5,7 @@
 
 // Project includes
 #include <gs/Typedefs.hpp>
+#include <gs/game/components/Position.hpp>
 #include <gs/game/constants/Profession.hpp>
 #include <gs/game/constants/Race.hpp>
 #include <gs/game/constants/Sex.hpp>
@@ -16,4 +17,5 @@ struct CharacterCreationParameters
     Sex          sex{};
     Profession   startingProfession{}, profession = startingProfession;
     u32          hairStyle{}, hairColor{}, face{};
+    Position     position{};
 };

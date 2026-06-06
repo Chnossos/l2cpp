@@ -7,8 +7,18 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 In no particular order:
 - Restore buffs on reconnection;
 - Move static data from files to database;
-- Skill usage prerequisites + effects conditions
-- Starting locations.
+- Skill usage prerequisites + effects conditions.
+
+## [0.32.0] - 2026-06-06
+### Added
+- Default starting locations per race/profession, or globally overridden
+
+### Changed
+- `Position::orientation` type changed and initialization is possible in constructor
+- Actors don't spawn at Talking Island GK by default anymore
+
+### Fixed
+- Parent profession was already filled, even for starting professions
 
 ## [0.31.1] - 2026-06-04
 ### Fixed

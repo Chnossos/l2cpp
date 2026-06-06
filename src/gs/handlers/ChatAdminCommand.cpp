@@ -127,6 +127,7 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand)
             .name               = L"dummy",
             .sex                = Sex::Female,
             .startingProfession = Profession::ElvenMystic,
+            .position           = c.position(),
         });
         World::broadcastAround(d, CharacterStatusUpdateBroadcastPacket(d));
     }

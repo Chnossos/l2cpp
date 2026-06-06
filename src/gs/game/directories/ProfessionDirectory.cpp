@@ -31,8 +31,34 @@ auto ProfessionDirectory::count() -> size_t
 
 auto ProfessionDirectory::find(Profession const profession) -> OptRef<ProfessionInfo const>
 {
-    auto const it = _professions.find(std::to_underlying(profession));
+    auto const it = _professions.find(profession);
     return it != _professions.end() ? OptRef<ProfessionInfo const>{it->second} : std::nullopt;
+}
+
+auto ProfessionDirectory::parent(Profession const profession) -> OptRef<ProfessionInfo const>
+{
+    auto const info = find(profession);
+    return info && info->parentProfession ? find(*info->parentProfession) : std::nullopt;
+}
+
+auto ProfessionDirectory::startingProfession(Profession const profession) -> OptRef<ProfessionInfo const>
+{
+    auto info = find(profession);
+
+    while (info && info->parentProfession)
+        info = find(*info->parentProfession);
+
+    return info;
+}
+
+auto ProfessionDirectory::rank(Profession const profession) -> u8
+{
+    u8 rank = 0;
+
+    for (auto info = find(profession); info && info->parentProfession; info = find(*info->parentProfession))
+        ++rank;
+
+    return rank;
 }
 
 void ProfessionDirectory::load()
@@ -40,4 +66,4 @@ void ProfessionDirectory::load()
     Orm::loadProfessions();
 }
 
-std::unordered_map<u32, ProfessionDirectory::ProfessionInfo> ProfessionDirectory::_professions;
+std::unordered_map<Profession, ProfessionDirectory::ProfessionInfo> ProfessionDirectory::_professions;

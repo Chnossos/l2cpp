@@ -1,5 +1,6 @@
--- For test purposes only:
+-- Can't check for duplicates, so we reinsert all entries each time
 DELETE FROM starting_items;
+-- For test purposes only:
 INSERT INTO starting_items (profession, item_template_id, quantity, equipped) VALUES
 (NULL, 6408, NULL, TRUE),  -- Formal Wear
 (NULL, 6621, NULL, FALSE), -- Infinity Spear
@@ -39,3 +40,5 @@ INSERT OR IGNORE INTO character_statuses VALUES
 (1,  0,          0, 0, 1, 1, 1), -- Human Figter lv.  1    0xp 0sp 1hp 1mp 1cp
 (1, 88, 2099275833, 0, 1, 1, 1), -- Duelist      lv. 78 100%xp 0sp 1hp 1mp 1cp
 (2, 25,          0, 0, 1, 1, 1); -- Elven Mystic lv.  1    0xp 0sp 1hp 1mp 1cp
+
+-- INSERT OR IGNORE INTO starting_locations (pos_x, pos_y, pos_z) VALUES (-83968, 244634, -3500); -- Talking Island GK

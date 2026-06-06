@@ -14,7 +14,7 @@ DEFINE_PACKET_HANDLER(MoveUpdate)
 
     auto & c = *player.currentCharacter();
     c.setPosition(x, y, z);
-    c.setOrientation(orientation);
+    c.setOrientation(static_cast<u16>(orientation));
 
     // if (player.actions().empty())
     // {

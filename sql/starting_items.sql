@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS starting_items (
   , item_template_id INTEGER NOT NULL
   , quantity         INTEGER          -- NULL means item is not stackable
   , equipped         BOOLEAN          -- NULL means item is not equippable
+  , FOREIGN KEY (profession)       REFERENCES professions    (id) ON DELETE CASCADE
   , FOREIGN KEY (item_template_id) REFERENCES item_templates (id) ON DELETE CASCADE
 );
 

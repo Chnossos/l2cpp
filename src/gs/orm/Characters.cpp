@@ -12,6 +12,8 @@
 #include <gs/game/components/Stats.hpp>
 #include <gs/game/directories/CharacterTemplateDirectory.hpp>
 #include <gs/game/directories/ItemTemplateDirectory.hpp>
+#include <gs/game/directories/ProfessionDirectory.hpp>
+#include <gs/game/directories/StartingLocationDirectory.hpp>
 #include <gs/game/inventory/Item.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
 #include <gs/game/ui/ActionShortcut.hpp>
@@ -21,8 +23,10 @@
 #include <gs/utils/Conversion.hpp>
 
 // Third-party includes
-#include <gs/game/directories/ProfessionDirectory.hpp>
 #include <spdlog/spdlog.h>
+
+// C++ includes
+#include <ranges>
 
 namespace
 {
@@ -40,29 +44,151 @@ try
 {
     auto & professions = ProfessionDirectory::_professions;
 
-    SQLite::Statement query(Database::instance(), R"(SELECT * FROM professions)");
+    SQLite::Statement query{Database::instance(), R"(SELECT * FROM professions)"};
     while (query.executeStep())
     {
-        auto & p               = professions[            query.getColumn("id"               ).getUInt()];
-        p.name                 =                         query.getColumn("name"             ).getString();
-        p.profession           = static_cast<Profession>(query.getColumn("id"               ).getUInt());
-        p.parentProfession     = static_cast<Profession>(query.getColumn("parent_id"        ).getUInt());
-        p.canBeSubclassed      =                         query.getColumn("can_be_subclassed").getUInt();
-        p.minimumLevel         = static_cast<u8        >(query.getColumn("minimum_level"    ).getUInt());
-        p.maxHp                = static_cast<float     >(query.getColumn("max_hp"           ).getDouble());
-        p.maxMp                = static_cast<float     >(query.getColumn("max_mp"           ).getDouble());
-        p.maxCp                = static_cast<float     >(query.getColumn("max_cp"           ).getDouble());
-        p.hpFlatPerLevel       = static_cast<float     >(query.getColumn("hp_flat_per_level").getDouble());
-        p.mpFlatPerLevel       = static_cast<float     >(query.getColumn("mp_flat_per_level").getDouble());
-        p.cpFlatPerLevel       = static_cast<float     >(query.getColumn("cp_flat_per_level").getDouble());
-        p.hpMultiplierPerLevel = static_cast<float     >(query.getColumn("hp_mult_per_level").getDouble());
-        p.mpMultiplierPerLevel = static_cast<float     >(query.getColumn("mp_mult_per_level").getDouble());
-        p.cpMultiplierPerLevel = static_cast<float     >(query.getColumn("cp_mult_per_level").getDouble());
+        auto const profession  = static_cast<Profession>(query.getColumn("id").getUInt());
+        auto & p               = professions[profession];
+        p.profession           = profession;
+        p.name                 =                    query.getColumn("name"             ).getString();
+        p.canBeSubclassed      =                    query.getColumn("can_be_subclassed").getUInt();
+        p.minimumLevel         = static_cast<u8   >(query.getColumn("minimum_level"    ).getUInt());
+        p.maxHp                = static_cast<float>(query.getColumn("max_hp"           ).getDouble());
+        p.maxMp                = static_cast<float>(query.getColumn("max_mp"           ).getDouble());
+        p.maxCp                = static_cast<float>(query.getColumn("max_cp"           ).getDouble());
+        p.hpFlatPerLevel       = static_cast<float>(query.getColumn("hp_flat_per_level").getDouble());
+        p.mpFlatPerLevel       = static_cast<float>(query.getColumn("mp_flat_per_level").getDouble());
+        p.cpFlatPerLevel       = static_cast<float>(query.getColumn("cp_flat_per_level").getDouble());
+        p.hpMultiplierPerLevel = static_cast<float>(query.getColumn("hp_mult_per_level").getDouble());
+        p.mpMultiplierPerLevel = static_cast<float>(query.getColumn("mp_mult_per_level").getDouble());
+        p.cpMultiplierPerLevel = static_cast<float>(query.getColumn("cp_mult_per_level").getDouble());
+
+        if (auto const parentProfession = query.getColumn("parent_id"); !parentProfession.isNull())
+            p.parentProfession = static_cast<Profession>(parentProfession.getUInt());
     }
 }
 catch (...)
 {
     L2CPP_THROW_NESTED("Failed to load professions");
+}
+
+void Orm::loadStartingLocations()
+try
+{
+    auto & globalLocations   = StartingLocationDirectory::_globalLocations;
+    auto & specificLocations = StartingLocationDirectory::_professionLocations;
+
+    SQLite::Statement query{Database::instance(), R"(SELECT * from starting_locations ORDER BY starting_profession)"};
+    while (query.executeStep())
+    {
+        auto location = Position{
+                             query.getColumn("pos_x"      ).getInt(),
+                             query.getColumn("pos_y"      ).getInt(),
+                             query.getColumn("pos_z"      ).getInt(),
+            static_cast<u16>(query.getColumn("orientation").getUInt()),
+        };
+
+        auto const professionColumn = query.getColumn("starting_profession");
+        if (professionColumn.isNull())
+            globalLocations.positions.emplace_back(std::move(location));
+        else if (!globalLocations.positions.empty())
+            break; // Skip class-specific locations if there are global ones (ORDER BY puts NULLs first)
+        else
+        {
+            auto const professionId = professionColumn.getUInt();
+            // Resolve the starting profession in case someone put a higher-ranked profession in there
+            if (auto const info = ProfessionDirectory::startingProfession(static_cast<Profession>(professionId)))
+                specificLocations[info->profession].positions.emplace_back(std::move(location));
+            else
+                SPDLOG_WARN("Starting location specified for profession '{}' that doesn't exist", professionId);
+        }
+    }
+
+    if (globalLocations.positions.empty())
+    {
+        // Assign default starting locations to starting professions that have none
+        std::unordered_map<Profession, std::vector<Position>> defaultLocations
+        {
+            { Profession::HumanFighter, {
+                Position{-71338, 258271, -3104},
+                Position{-71417, 258270, -3104},
+                Position{-71453, 258305, -3104},
+                Position{-71467, 258378, -3104},
+            }},
+            { Profession::HumanMystic, {
+                Position{-90875, 248162, -3570},
+                Position{-90954, 248118, -3570},
+                Position{-90918, 248070, -3570},
+                Position{-90890, 248027, -3570},
+            }},
+            { Profession::ElvenFighter, {
+                Position{46045, 41251, -3440},
+                Position{46117, 41247, -3440},
+                Position{46182, 41198, -3440},
+                Position{46115, 41141, -3440},
+                Position{46048, 41141, -3440},
+                Position{45978, 41196, -3440},
+            }},
+            { Profession::ElvenMystic, {
+                Position{46045, 41251, -3440},
+                Position{46117, 41247, -3440},
+                Position{46182, 41198, -3440},
+                Position{46115, 41141, -3440},
+                Position{46048, 41141, -3440},
+                Position{45978, 41196, -3440},
+            }},
+            { Profession::DarkFighter, {
+                Position{28295, 11063, -4224},
+                Position{28302, 11008, -4224},
+                Position{28377, 10916, -4224},
+                Position{28456, 10997, -4224},
+                Position{28461, 11044, -4224},
+                Position{28395, 11127, -4224},
+            }},
+            { Profession::DarkMystic, {
+                Position{28295, 11063, -4224},
+                Position{28302, 11008, -4224},
+                Position{28377, 10916, -4224},
+                Position{28456, 10997, -4224},
+                Position{28461, 11044, -4224},
+                Position{28395, 11127, -4224},
+            }},
+            { Profession::OrcFighter, {
+                Position{-56733, -113459, -690},
+                Position{-56686, -113470, -690},
+                Position{-56728, -113610, -690},
+                Position{-56693, -113610, -690},
+                Position{-56743, -113757, -690},
+                Position{-56682, -113730, -690},
+            }},
+            { Profession::OrcMystic, {
+                Position{-56733, -113459, -690},
+                Position{-56686, -113470, -690},
+                Position{-56728, -113610, -690},
+                Position{-56693, -113610, -690},
+                Position{-56743, -113757, -690},
+                Position{-56682, -113730, -690},
+            }},
+            { Profession::DwarvenFighter, {
+                Position{108644, -173947, -400},
+                Position{108678, -174002, -400},
+                Position{108505, -173964, -400},
+                Position{108512, -174026, -400},
+                Position{108549, -174075, -400},
+                Position{108576, -174122, -400},
+            }},
+        };
+
+        for (auto & [profession, locations] : defaultLocations)
+        {
+            if (auto & loc = specificLocations[profession]; loc.positions.empty())
+                loc.positions = std::move(locations);
+        }
+    }
+}
+catch (...)
+{
+    L2CPP_THROW_NESTED("Failed to load starting locations");
 }
 
 void Orm::loadCharacterTemplates()
@@ -150,7 +276,7 @@ void Orm::loadCharacter(Character & c)
     L2CPP_B_ASSERT(query.executeStep(), "Failed to load character");
 
     c.setTitle(Utils::toWideString(query.getColumn("title").getString()));
-    c.setOrientation(query.getColumn("orientation").getInt());
+    c.setOrientation(static_cast<u16>(query.getColumn("orientation").getInt()));
 
     auto const id = query.getColumn("id").getUInt();
     loadInventory(id, c);
