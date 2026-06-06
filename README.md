@@ -46,7 +46,7 @@ If it's not in the list, it's probably not implemented, or very (very) partially
     <td align="center" rowspan=3>Lobby</td>
     <td>Character creation</td>
     <td align="center">🟢</td>
-    <td></td>
+    <td>With customizable starting locations.</td>
   </tr>
   <tr>
     <td>Character deletion</td>
