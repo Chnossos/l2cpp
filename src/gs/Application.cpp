@@ -109,7 +109,7 @@ bool Application::Impl::load() const try
     SPDLOG_INFO("Registered {:L} unique skill variants", SkillTemplateDirectory::size());
 
     SPDLOG_INFO("Loading NPCs info…");
-    NpcDirectory::load("data/npcname-e.txt", "data/npcgrp.txt");
+    NpcDirectory::load();
     SPDLOG_INFO("Registered {:L} NPC templates ({:L} NPCs; {:L} monsters)",
                 NpcDirectory::totalCount(), NpcDirectory::npcCount(), NpcDirectory::monsterCount());
 

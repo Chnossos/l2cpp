@@ -20,12 +20,12 @@ Npc::Npc(ActorType const type, u32 const id)
 
     auto & stats = *component<Stats>();
     stats[StatId::BaseRunSpeed] = 50;
-    stats[StatId::BaseMaxHp   ] = 500;
-    stats[StatId::CurHp       ] = 500;
     stats.compute(*this);
 }
 
 auto Npc::appearance()       -> NpcAppearance       & { return component<NpcAppearance>(); }
 auto Npc::appearance() const -> NpcAppearance const & { return component<NpcAppearance>(); }
-auto Npc::status()     const -> NpcStatus     const & { return component<NpcStatus>();     }
+
+auto Npc::status()       -> NpcStatus       & { return component<NpcStatus>(); }
+auto Npc::status() const -> NpcStatus const & { return component<NpcStatus>(); }
 
