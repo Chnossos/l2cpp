@@ -9,6 +9,10 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.33.1] - 2026-06-07
+### Fixed
+- Regression: Characters loaded from database were missing some event handlers
+
 ## [0.33.0] - 2026-06-07
 ### Added
 - Retail NPC data loaded: level, xp, xp rate, sp, hp/mp, hp/mp regen, collision height/radius
