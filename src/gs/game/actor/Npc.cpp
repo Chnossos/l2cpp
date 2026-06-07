@@ -4,6 +4,7 @@
 #include "Npc.hpp"
 
 // Project includes
+#include <gs/game/components/ActorAutoRegen.hpp>
 #include <gs/game/components/NpcAppearance.hpp>
 #include <gs/game/components/NpcStatus.hpp>
 #include <gs/game/components/Stats.hpp>
@@ -15,6 +16,7 @@ Npc::Npc(u32 const id)
 Npc::Npc(ActorType const type, u32 const id)
     : Actor(type)
 {
+    addComponent<ActorAutoRegen>();
     addComponent<NpcAppearance>().setId(id);
     addComponent<NpcStatus>();
 
