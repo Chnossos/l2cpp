@@ -18,6 +18,7 @@
 #include <gs/network/packets/server/skill/SkillListPacket.hpp>
 #include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
 #include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
+#include <gs/utils/Conversion.hpp>
 
 // Third-party includes
 #include <boost/algorithm/string/split.hpp>
@@ -58,7 +59,7 @@ static std::wstring readWholeFile(std::string_view path)
     return content;
 }
 
-DEFINE_PACKET_HANDLER(ChatAdminCommand)
+DEFINE_PACKET_HANDLER(ChatAdminCommand) try
 {
     PacketReader reader(player.connection().readBuffer().subspan(3));
 
@@ -150,4 +151,12 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand)
         iss >> cmd >> actionId;
         c.doNext<SocialAction>(static_cast<SocialActionId>(actionId));
     }
+}
+catch (Core::Exception const & e)
+{
+    SPDLOG_ERROR("Admin command failed:\n{}", Core::formatExceptionStack(e));
+
+    ChatSystemSayPacket msg{SystemMessageId::_1_2};
+    msg << SysMsgArg::Text(L"Failed:") << SysMsgArg::Text(Utils::toWideString(e.what()));
+    player.connection().send(msg);
 }

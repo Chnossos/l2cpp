@@ -164,7 +164,7 @@ If it's not in the list, it's probably not implemented, or very (very) partially
     <td align="center">🟠</td>
     <td>
       Available effects:
-      <ul style="list-style: '– ';">
+      <ul>
           <li>Instant buff (e.g. <code>Wind Walk</code>)</li>
           <li>Toggle buff (e.g. <code>Super Haste</code>)</li>
           <li>Instant damage (e.g. <code>Wind Strike</code>)</li>
@@ -207,6 +207,12 @@ If it's not in the list, it's probably not implemented, or very (very) partially
     <td>Geodata</td>
     <td align="center">🔴</td>
     <td></td>
+  </tr>
+  <tr>
+    <td align="center">NPC</td>
+    <td>Loading</td>
+    <td align="center">🟠</td>
+    <td>Currently loaded: level, xp, xp rate, sp, collision data, hp/mp, hp/mp regen.</td>
   </tr>
 </table>
 

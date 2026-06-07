@@ -9,6 +9,12 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.33.0] - 2026-06-07
+### Added
+- Retail NPC data loaded: level, xp, xp rate, sp, hp/mp, hp/mp regen, collision height/radius
+- Enable auto regen on NPCs
+- Admin command failure sent to user via system message
+
 ## [0.32.0] - 2026-06-06
 ### Added
 - Default starting locations per race/profession, or globally overridden
@@ -18,7 +24,7 @@ In no particular order:
 - Actors don't spawn at Talking Island GK by default anymore
 
 ### Fixed
-- Parent profession was already filled, even for starting professions
+- Parent profession was always filled, even for starting professions
 
 ## [0.31.1] - 2026-06-04
 ### Fixed
@@ -119,7 +125,7 @@ In no particular order:
 ### Fixed
 - It's no longer possible to execute a skill that was queued on a target that died from the main action when said skill is not meant to target corpses
 - Mass Resurrection requires a valid target to be casted
-- Free-target heal spells (e.g. _Greater Heal_) are allowed to target ennemies 
+- Targetable heal spells (e.g. _Greater Heal_) are allowed to target ennemies 
 
 ## [0.24.3] - 2026-05-20
 ### Fixed

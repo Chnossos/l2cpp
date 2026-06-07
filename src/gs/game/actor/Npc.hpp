@@ -20,7 +20,9 @@ protected:
 public:
     auto appearance()       -> NpcAppearance       &;
     auto appearance() const -> NpcAppearance const &;
-    auto status()     const -> NpcStatus     const &;
+
+    auto status()       -> NpcStatus       &;
+    auto status() const -> NpcStatus const &;
 
     bool isAttackable() const override { return false; }
 };
