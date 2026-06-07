@@ -6,7 +6,7 @@
 // Project includes
 #include <gs/game/components/ActorStatus.hpp>
 
-/// @note NPCs start at max level unless overriden.
+/// @note NPCs start at level 1 unless overriden.
 class NpcStatus final : public ActorStatus
 {
 public:

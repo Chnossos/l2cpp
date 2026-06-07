@@ -302,14 +302,14 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
         npc = info->type == ActorType::Npc ? addActor<Npc>(id) : addActor<Monster>(id);
         npc->setName(Utils::toWideString(info->name));
 
+        npc->appearance().setCollisionHeight(info->collisionHeight);
+        npc->appearance().setCollisionRadius(info->collisionRadius);
+        npc->status()    .setLevel          (info->level);
+
         if (info->title.empty())
             npc->setTitle(std::format(L"Lv. {}", npc->status().level()));
         else
             npc->setTitle(Utils::toWideString(info->title));
-
-        npc->appearance().setCollisionHeight(info->collisionHeight);
-        npc->appearance().setCollisionRadius(info->collisionRadius);
-        npc->status()    .setLevel          (info->level);
 
         using enum StatId;
         auto & stats = npc->stats();
