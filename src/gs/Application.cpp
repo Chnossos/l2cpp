@@ -86,36 +86,36 @@ bool Application::Impl::load() const try
         "sql/gs_data.sql",
     });
     Orm::loadUids();
-    SPDLOG_INFO("Database initialization done.");
+    SPDLOG_INFO("… database initialization done.");
 
     SPDLOG_INFO("Loading professions…");
     ProfessionDirectory::load();
-    SPDLOG_INFO("Registered {:L} professions", ProfessionDirectory::count());
+    SPDLOG_INFO("… registered {:L} professions", ProfessionDirectory::count());
 
     SPDLOG_INFO("Loading character templates…");
     CharacterTemplateDirectory::load();
-    SPDLOG_INFO("Registered {:L} character templates", CharacterTemplateDirectory::count());
+    SPDLOG_INFO("… registered {:L} character templates", CharacterTemplateDirectory::count());
 
     SPDLOG_INFO("Loading starting locations…");
     StartingLocationDirectory::load();
-    SPDLOG_INFO("Registered {:L} starting locations", StartingLocationDirectory::count());
+    SPDLOG_INFO("… registered {:L} starting locations", StartingLocationDirectory::count());
 
     SPDLOG_INFO("Loading item templates…");
     ItemTemplateDirectory::load();
-    SPDLOG_INFO("Registered {:L} item templates", ItemTemplateDirectory::size());
+    SPDLOG_INFO("… registered {:L} item templates", ItemTemplateDirectory::size());
 
     SPDLOG_INFO("Loading skills…");
     SkillTemplateDirectory::load("data/skillname-e.txt", "data/skillgrp.txt");
-    SPDLOG_INFO("Registered {:L} unique skill variants", SkillTemplateDirectory::size());
+    SPDLOG_INFO("… registered {:L} unique skill variants", SkillTemplateDirectory::size());
 
     SPDLOG_INFO("Loading NPCs info…");
     NpcDirectory::load();
-    SPDLOG_INFO("Registered {:L} NPC templates ({:L} NPCs; {:L} monsters)",
+    SPDLOG_INFO("… registered {:L} NPC templates ({:L} NPCs; {:L} monsters)",
                 NpcDirectory::totalCount(), NpcDirectory::npcCount(), NpcDirectory::monsterCount());
 
     SPDLOG_INFO("Loading World systems…");
     World::init();
-    SPDLOG_INFO("World systems loaded.");
+    SPDLOG_INFO("… world systems loaded.");
     return true;
 }
 catch (Core::Exception const & e)
