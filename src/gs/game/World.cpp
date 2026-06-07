@@ -174,6 +174,8 @@ auto World::getCharacterPreviews(Player const & p) -> std::vector<Ref<Character>
 
         for (auto & ptr : previews)
         {
+            initCharacter(*ptr);
+
             auto const id = ptr->id();
             _characterPreviews.try_emplace(id, ptr.release());
             ids.emplace_back(id);
@@ -280,9 +282,15 @@ auto World::addCharacter(CharacterCreationParameters const & params, OptRef<Play
     a.setSex               (params.sex);
     a.setStartingProfession(params.startingProfession);
 
-    auto const charTemplate = CharacterTemplateDirectory::find(a.startingProfession());
-    charTemplate->apply(c);
+    initCharacter(c);
     c.stats().regenFully();
+    return c;
+}
+
+void World::initCharacter(Character & c)
+{
+    auto const charTemplate = CharacterTemplateDirectory::find(c.appearance().startingProfession());
+    charTemplate->apply(c);
 
     c.onEffectListChanged += [&c]
     {
@@ -290,7 +298,6 @@ auto World::addCharacter(CharacterCreationParameters const & params, OptRef<Play
         c.stats().compute(c);
     };
     c.onLeveledUp += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
-    return c;
 }
 
 auto World::addNpc(u32 id) -> OptRef<Npc>

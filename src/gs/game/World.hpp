@@ -54,6 +54,7 @@ public:
     static void delCharacterPreview(AccountId, size_t index);
 
     static auto addCharacter(CharacterCreationParameters const &, OptRef<Player> = std::nullopt) -> Character &;
+    static void initCharacter(Character &);
     static auto addNpc(u32 id) -> OptRef<Npc>;
 
     static void scheduleForDeletion(Actor &, ClockDuration timeFromNow = ClockDuration::zero());
