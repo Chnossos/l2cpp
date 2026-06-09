@@ -6,4 +6,5 @@
 namespace Orm
 {
     void loadNpcs();
+    void loadSpawnPoints();
 }

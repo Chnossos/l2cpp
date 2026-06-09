@@ -19,6 +19,7 @@
 #include <gs/game/directories/ProfessionDirectory.hpp>
 #include <gs/game/directories/SkillTemplateDirectory.hpp>
 #include <gs/game/directories/StartingLocationDirectory.hpp>
+#include <gs/game/spawn/SpawnManager.hpp>
 #include <gs/handlers/PacketHandlers.hpp>
 #include <gs/network/Connection.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
@@ -112,6 +113,10 @@ bool Application::Impl::load() const try
     NpcDirectory::load();
     SPDLOG_INFO("… registered {:L} NPC templates ({:L} NPCs; {:L} monsters)",
                 NpcDirectory::totalCount(), NpcDirectory::npcCount(), NpcDirectory::monsterCount());
+
+    SPDLOG_INFO("Loading single spawn points…");
+    sSpawnManager.load();
+    SPDLOG_INFO("… registered {:L} single spawn points", sSpawnManager.count());
 
     SPDLOG_INFO("Loading World systems…");
     World::init();

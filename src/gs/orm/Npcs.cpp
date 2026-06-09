@@ -6,11 +6,11 @@
 // Project includes
 #include <common/services/Database.hpp>
 #include <gs/game/directories/NpcDirectory.hpp>
+#include <gs/game/spawn/SpawnManager.hpp>
 
 void Orm::loadNpcs()
 {
     SQLite::Statement query{Database::instance(), R"(SELECT * FROM npc_templates)"};
-
     while (query.executeStep())
     {
         auto const id         = query.getColumn("id"        ).getUInt();
@@ -34,4 +34,27 @@ void Orm::loadNpcs()
     }
 
     NpcDirectory::_maxLevel = Database::instance().execAndGet("SELECT MAX(level) FROM npc_templates").getUInt();
+}
+
+void Orm::loadSpawnPoints()
+{
+    SQLite::Statement query{Database::instance(), R"(SELECT * FROM npc_spawn_points)"};
+    while (query.executeStep())
+    {
+        auto & p = sSpawnManager._spawnPoints.emplace_back();
+        p.npcTemplateId        =                  query.getColumn("npc_template_id").getUInt();
+        p.position.x           =                  query.getColumn("pos_x"          ).getInt();
+        p.position.y           =                  query.getColumn("pos_y"          ).getInt();
+        p.position.z           =                  query.getColumn("pos_z"          ).getInt();
+        p.position.orientation = static_cast<u16>(query.getColumn("orientation"    ).getUInt());
+
+        if (auto const chanceCol = query.getColumn("chance_percent"); !chanceCol.isNull())
+            p.chancePercent = chanceCol.getUInt();
+
+        if (auto const respawnDurationCol = query.getColumn("respawn_duration"); !respawnDurationCol.isNull())
+            p.respawnDuration = ClockDuration{respawnDurationCol.getUInt()};
+
+        if (auto const respawnWindowCol = query.getColumn("respawn_window"); !respawnWindowCol.isNull())
+            p.respawnWindow = ClockDuration{respawnWindowCol.getUInt()};
+    }
 }

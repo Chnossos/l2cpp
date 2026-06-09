@@ -7,6 +7,7 @@
 #include <gs/game/actor/Npc.hpp>
 #include <gs/game/components/ActorAutoRegen.hpp>
 #include <gs/game/components/Stats.hpp>
+#include <gs/game/spawn/SpawnManager.hpp>
 #include <gs/handlers/_Common.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/client/ClientForceDisconnectPacket.hpp>
@@ -29,6 +30,9 @@ DEFINE_PACKET_HANDLER(EnterWorld) try
     conn.send(InventoryListPacket{false, c.inventory()});
     conn.send(UiShortcutListPacket{c.shortcutBar()});
     conn.send(ChatSystemSayPacket{SystemMessageId::WelcomeToTheWorldOfL2});
+
+    // TMP: spawn surrounding NPCs
+    sSpawnManager.spawnActorsAround(c.position());
 
     // Send surrounding actors
     World::forEachActorAround(c, [&] (Actor & a)

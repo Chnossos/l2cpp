@@ -223,9 +223,9 @@ void World::moveCharacterBackToPreviews(Character & c)
     L2CPP_B_ASSERT(_actors.contains(c.id()), "Character '{}' is not present in the world", c.id());
 
     c.onEffectListChanged.clear();
-    c.onDied                     .clear();
-    c.onLeveledUp                .clear();
-    c.onRevived                  .clear();
+    c.onDied             .clear();
+    c.onLeveledUp        .clear();
+    c.onRevived          .clear();
 
     c.delComponent<ActorAutoRegen>();
     c.delComponent<AttackStanceTimer>();
