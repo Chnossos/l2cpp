@@ -33,7 +33,7 @@ void SpawnManager::spawnActorsAround(Position const & origin)
 {
     for (auto & point : _spawnPoints)
     {
-        if (Utils::Maths::distance(origin, point.position) > 6000)
+        if (Utils::Maths::distance(origin, point.position) > 25'000)
             continue;
 
         auto const npc = World::addNpc(point.npcTemplateId);

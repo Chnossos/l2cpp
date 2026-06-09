@@ -80,7 +80,13 @@ public:
 
     /// Sends a packet to specified actor if it is a Character with an active player
     static void send(Actor const & to, Network::Packet && packet,
-        std::source_location const & src = std::source_location::current()) { send(to, packet, std::move(src)); }
+                     std::source_location const & src = std::source_location::current()) { send(to, packet, src); }
+
+    static void sendStatus(Actor const & from, Player & to,
+                           std::source_location const & src = std::source_location::current());
+
+    static void sendStatus(GameObjectId id, Player & to,
+                           std::source_location const & src = std::source_location::current());
 
     /// @warning This broadcasts given packet to ALL online players, regardless of distance!
     static void broadcast(Network::Packet &&, std::source_location const & src = std::source_location::current());

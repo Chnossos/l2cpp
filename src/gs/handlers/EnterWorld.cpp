@@ -6,6 +6,7 @@
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/actor/Npc.hpp>
 #include <gs/game/components/ActorAutoRegen.hpp>
+#include <gs/game/components/KnownActors.hpp>
 #include <gs/game/components/Stats.hpp>
 #include <gs/game/spawn/SpawnManager.hpp>
 #include <gs/handlers/_Common.hpp>
@@ -35,12 +36,14 @@ DEFINE_PACKET_HANDLER(EnterWorld) try
     sSpawnManager.spawnActorsAround(c.position());
 
     // Send surrounding actors
+    auto & knownActors = c.getOrAddComponent<KnownActors>().ids;
     World::forEachActorAround(c, [&] (Actor & a)
     {
+        World::sendStatus(a, player);
+        knownActors.emplace(a.id());
+
         if (a.type() == ActorType::Character)
-            conn.send(CharacterStatusUpdateBroadcastPacket{static_cast<Character &>(a)});
-        else
-            conn.send(NpcStatusUpdatePacket{static_cast<Npc &>(a)});
+            a.getOrAddComponent<KnownActors>().ids.emplace(c.id());
     });
 
     // End the loading screen

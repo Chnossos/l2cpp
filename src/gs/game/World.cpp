@@ -36,7 +36,9 @@
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/status/ActorDiePacket.hpp>
 #include <gs/network/packets/server/status/ActorRevivePacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
 #include <gs/network/packets/server/status/EffectListPacket.hpp>
+#include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
 #include <gs/network/packets/server/target/TargetClearPacket.hpp>
 #include <gs/network/packets/server/world/GameObjectDeletePacket.hpp>
 #include <gs/orm/Characters.hpp>
@@ -498,6 +500,20 @@ void World::send(Actor const & to, Packet & packet, std::source_location const &
         if (auto const & c = static_cast<Character const &>(to); c.player)
             c.player->connection().send(packet, src);
     }
+}
+
+void World::sendStatus(Actor const & from, Player & to, std::source_location const & src)
+{
+    if (from.type() == ActorType::Character)
+        to.connection().send(SC::CharacterStatusUpdateBroadcastPacket{static_cast<Character const &>(from)}, src);
+    else
+        to.connection().send(SC::NpcStatusUpdatePacket{static_cast<Npc const &>(from)}, src);
+}
+
+void World::sendStatus(GameObjectId const id, Player & to, std::source_location const & src)
+{
+    if (auto const from = actor(id))
+        sendStatus(from, to, src);
 }
 
 void World::broadcast(Packet && packet, std::source_location const & src)
