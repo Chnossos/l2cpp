@@ -5,6 +5,7 @@
 #include <gs/game/actions/MoveAction.hpp>
 #include <gs/game/actor/Character.hpp>
 #include <gs/handlers/_Common.hpp>
+#include <gs/network/packets/server/action/ActionFailedPacket.hpp>
 
 // Taken from Ruk33
 // ================
@@ -34,6 +35,9 @@ DEFINE_PACKET_HANDLER(Move)
     Position origin, target;
     MoveAction::Input input;
     reader >> target >> origin >> input;
+
+    if (input != MoveAction::Input::Mouse)
+        return player.connection().send(ActionFailedPacket{});
 
     // TODO: trust originX/Y/Z only if they are close enough to server position
 
