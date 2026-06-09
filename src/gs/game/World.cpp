@@ -302,7 +302,7 @@ void World::initCharacter(Character & c)
     c.onLeveledUp += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
 }
 
-auto World::addNpc(u32 id) -> OptRef<Npc>
+auto World::addNpc(u32 id, Position const & position) -> OptRef<Npc>
 {
     OptRef<Npc> npc;
 
@@ -310,6 +310,7 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
     {
         npc = info->type == ActorType::Npc ? addActor<Npc>(id) : addActor<Monster>(id);
         npc->setName(Utils::toWideString(info->name));
+        npc->setPosition(position);
 
         npc->appearance().setCollisionHeight(info->collisionHeight);
         npc->appearance().setCollisionRadius(info->collisionRadius);
@@ -328,8 +329,7 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
         stats[BaseMpRegen] = info->mpRegen;
 
         stats.compute(npc);
-        stats[CurHp] = stats[MaxHp];
-        stats[CurMp] = stats[MaxMp];
+        stats.regenFully();
 
         if (npc->type() == ActorType::Monster)
         {

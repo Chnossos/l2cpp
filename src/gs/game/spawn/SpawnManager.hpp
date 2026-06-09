@@ -7,6 +7,7 @@
 #include <gs/game/components/Position.hpp>
 
 // C++ includes
+#include <unordered_set>
 #include <vector>
 
 namespace Orm
@@ -16,12 +17,10 @@ namespace Orm
 
 struct SpawnPoint
 {
-    u32                          npcTemplateId;
-    Position                     position;
-    std::optional<u32>           chancePercent;
-    std::optional<ClockDuration> respawnDuration;
-    std::optional<ClockDuration> respawnWindow;
-    std::optional<GameObjectId>  spawnedActorId;
+    std::vector<std::pair<Position, u8>> possiblePositions;
+    u32                                  npcTemplateId   = 0;
+    ClockDuration                        respawnDuration = ClockDuration::zero();
+    ClockDuration                        respawnWindow   = ClockDuration::zero();
 };
 
 class SpawnManager
@@ -35,15 +34,16 @@ public:
     static auto instance() -> SpawnManager &;
 
 public:
-    auto count() const -> size_t;
+    auto loadCount() const -> size_t;
+    auto spawnedCount() const -> size_t;
 
 public:
     void load();
     void unload();
-    void spawnActorsAround(Position const &);
 
 private:
-    std::vector<SpawnPoint> _spawnPoints;
+    std::unordered_multimap<u32, SpawnPoint> _spawnPoints;
+    std::unordered_set<GameObjectId>         _spawnedActorIds;
 };
 
 #define sSpawnManager SpawnManager::instance()

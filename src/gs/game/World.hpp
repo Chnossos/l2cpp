@@ -5,6 +5,7 @@
 
 // Project includes
 #include <gs/Typedefs.hpp>
+#include <gs/game/components/Position.hpp>
 #include <gs/game/constants/CharacterCreationResult.hpp>
 
 // C++ includes
@@ -55,7 +56,7 @@ public:
 
     static auto addCharacter(CharacterCreationParameters const &, OptRef<Player> = std::nullopt) -> Character &;
     static void initCharacter(Character &);
-    static auto addNpc(u32 id) -> OptRef<Npc>;
+    static auto addNpc(u32 id, Position const & = Position{}) -> OptRef<Npc>;
 
     static void scheduleForDeletion(Actor &, ClockDuration timeFromNow = ClockDuration::zero());
     static void unscheduleForDeletion(Actor &);

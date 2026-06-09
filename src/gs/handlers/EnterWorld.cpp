@@ -32,9 +32,6 @@ DEFINE_PACKET_HANDLER(EnterWorld) try
     conn.send(UiShortcutListPacket{c.shortcutBar()});
     conn.send(ChatSystemSayPacket{SystemMessageId::WelcomeToTheWorldOfL2});
 
-    // TMP: spawn surrounding NPCs
-    sSpawnManager.spawnActorsAround(c.position());
-
     // Send surrounding actors
     auto & knownActors = c.getOrAddComponent<KnownActors>().ids;
     World::forEachActorAround(c, [&] (Actor & a)

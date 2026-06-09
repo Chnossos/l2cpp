@@ -114,9 +114,10 @@ bool Application::Impl::load() const try
     SPDLOG_INFO("… registered {:L} NPC templates ({:L} NPCs; {:L} monsters)",
                 NpcDirectory::totalCount(), NpcDirectory::npcCount(), NpcDirectory::monsterCount());
 
-    SPDLOG_INFO("Loading single spawn points…");
+    SPDLOG_INFO("Loading spawn points…");
     sSpawnManager.load();
-    SPDLOG_INFO("… registered {:L} single spawn points", sSpawnManager.count());
+    SPDLOG_INFO("… registered {:L} single spawn points", sSpawnManager.loadCount());
+    SPDLOG_INFO("… spawned {:L} NPCs",                   sSpawnManager.spawnedCount());
 
     SPDLOG_INFO("Loading World systems…");
     World::init();
