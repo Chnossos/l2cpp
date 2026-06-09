@@ -317,7 +317,7 @@ auto World::addNpc(u32 id, Position const & position) -> OptRef<Npc>
         npc->status()    .setLevel          (info->level);
 
         if (info->title.empty())
-            npc->setTitle(std::format(L"Lv. {}", npc->status().level()));
+            npc->setTitle(std::format(L"[{}] Lv. {}", npc->id(), npc->status().level()));
         else
             npc->setTitle(Utils::toWideString(info->title));
 
