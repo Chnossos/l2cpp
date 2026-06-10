@@ -15,7 +15,8 @@ using namespace std::literals;
 using ClockDuration  = std::chrono::steady_clock::duration;
 using ClockTimePoint = std::chrono::steady_clock::time_point;
 
-using GameObjectId = u32;
+using GameObjectId  = u32;
+using NpcTemplateId = u32;
 
 using ItemId     = s64;
 using SkillId    = u16;

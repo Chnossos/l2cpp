@@ -1,6 +1,7 @@
 project(game_server)
 
 add_executable(${PROJECT_NAME})
+target_include_directories(${PROJECT_NAME} SYSTEM PRIVATE ${CMAKE_SOURCE_DIR}/deps)
 target_compile_definitions(${PROJECT_NAME} PRIVATE $<$<BOOL:WIN32>:SPDLOG_WCHAR_TO_UTF8_SUPPORT>)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_PROJECT_NAME}-common)
 
