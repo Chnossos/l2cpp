@@ -9,6 +9,17 @@ In no particular order:
 - Move static data from files to database;
 - Skill usage prerequisites + effects conditions.
 
+## [0.34.0] - 2026-06-11
+### Added
+- Fixed-position NPCs are now spawned (without any filtering, expect many overlaps for now)
+- Monster swarms are randomly generated (WIP, big time)
+- Teleportation command (`goto`) to coordinates or to an actor is possible
+- Actors appear and disappear depending on broadcast distance during movement
+
+### Changed
+- Keyboard input for movement is discarded for now
+- NPC's object ID is displayed in title now, along with its level 
+
 ## [0.33.1] - 2026-06-07
 ### Fixed
 - Regression: Characters loaded from database were missing some event handlers
