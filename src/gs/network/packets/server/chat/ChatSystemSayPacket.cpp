@@ -44,6 +44,11 @@ ChatSystemSayPacket & ChatSystemSayPacket::appendName(SkillTemplate const & skil
     return appendName(skill.uid());
 }
 
+auto ChatSystemSayPacket::argumentCount() const -> size_t
+{
+    return counterAtOffset(_argsCountOffset);
+}
+
 ChatSystemSayPacket & ChatSystemSayPacket::appendArgImpl(SystemMessageArgument const & arg)
 {
     counterAtOffset(_argsCountOffset) += 1;

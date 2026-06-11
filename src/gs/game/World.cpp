@@ -36,7 +36,9 @@
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/status/ActorDiePacket.hpp>
 #include <gs/network/packets/server/status/ActorRevivePacket.hpp>
+#include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
 #include <gs/network/packets/server/status/EffectListPacket.hpp>
+#include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
 #include <gs/network/packets/server/target/TargetClearPacket.hpp>
 #include <gs/network/packets/server/world/GameObjectDeletePacket.hpp>
 #include <gs/orm/Characters.hpp>
@@ -223,9 +225,9 @@ void World::moveCharacterBackToPreviews(Character & c)
     L2CPP_B_ASSERT(_actors.contains(c.id()), "Character '{}' is not present in the world", c.id());
 
     c.onEffectListChanged.clear();
-    c.onDied                     .clear();
-    c.onLeveledUp                .clear();
-    c.onRevived                  .clear();
+    c.onDied             .clear();
+    c.onLeveledUp        .clear();
+    c.onRevived          .clear();
 
     c.delComponent<ActorAutoRegen>();
     c.delComponent<AttackStanceTimer>();
@@ -300,7 +302,7 @@ void World::initCharacter(Character & c)
     c.onLeveledUp += [&c] { send(c, SC::ChatSystemSayPacket{SystemMessageId::YourLevelHasIncreased}); };
 }
 
-auto World::addNpc(u32 id) -> OptRef<Npc>
+auto World::addNpc(u32 id, Position const & position) -> OptRef<Npc>
 {
     OptRef<Npc> npc;
 
@@ -308,13 +310,14 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
     {
         npc = info->type == ActorType::Npc ? addActor<Npc>(id) : addActor<Monster>(id);
         npc->setName(Utils::toWideString(info->name));
+        npc->setPosition(position);
 
         npc->appearance().setCollisionHeight(info->collisionHeight);
         npc->appearance().setCollisionRadius(info->collisionRadius);
         npc->status()    .setLevel          (info->level);
 
         if (info->title.empty())
-            npc->setTitle(std::format(L"Lv. {}", npc->status().level()));
+            npc->setTitle(std::format(L"[{}] Lv. {}", npc->id(), npc->status().level()));
         else
             npc->setTitle(Utils::toWideString(info->title));
 
@@ -326,8 +329,7 @@ auto World::addNpc(u32 id) -> OptRef<Npc>
         stats[BaseMpRegen] = info->mpRegen;
 
         stats.compute(npc);
-        stats[CurHp] = stats[MaxHp];
-        stats[CurMp] = stats[MaxMp];
+        stats.regenFully();
 
         if (npc->type() == ActorType::Monster)
         {
@@ -498,6 +500,29 @@ void World::send(Actor const & to, Packet & packet, std::source_location const &
         if (auto const & c = static_cast<Character const &>(to); c.player)
             c.player->connection().send(packet, src);
     }
+}
+
+void World::sendStatus(Actor const & from, Actor const & to, std::source_location const & src)
+{
+    if (to.type() == ActorType::Character)
+    {
+        if (auto const player = static_cast<Character const &>(to).player)
+            sendStatus(from, player, src);
+    }
+}
+
+void World::sendStatus(Actor const & from, Player & to, std::source_location const & src)
+{
+    if (from.type() == ActorType::Character)
+        to.connection().send(SC::CharacterStatusUpdateBroadcastPacket{static_cast<Character const &>(from)}, src);
+    else
+        to.connection().send(SC::NpcStatusUpdatePacket{static_cast<Npc const &>(from)}, src);
+}
+
+void World::sendStatus(GameObjectId const id, Player & to, std::source_location const & src)
+{
+    if (auto const from = actor(id))
+        sendStatus(from, to, src);
 }
 
 void World::broadcast(Packet && packet, std::source_location const & src)

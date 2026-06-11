@@ -23,4 +23,5 @@ enum class ActorState
     ChasingStopped,
     BackToSpawn,
     Fishing,
+    Teleporting,
 };

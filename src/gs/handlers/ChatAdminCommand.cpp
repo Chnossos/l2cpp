@@ -6,19 +6,21 @@
 // Project includes
 #include <gs/game/World.hpp>
 #include <gs/game/actions/SocialAction.hpp>
+#include <gs/game/actions/TeleportAction.hpp>
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/actor/Monster.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
+#include <gs/game/components/KnownActors.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
 #include <gs/game/directories/NpcDirectory.hpp>
 #include <gs/game/lobby/CharacterCreationParameters.hpp>
 #include <gs/handlers/_Common.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
+#include <gs/network/packets/server/movement/ObjectTeleportPacket.hpp>
 #include <gs/network/packets/server/skill/SkillListPacket.hpp>
 #include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
 #include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
-#include <gs/utils/Conversion.hpp>
 
 // Third-party includes
 #include <boost/algorithm/string/split.hpp>
@@ -28,6 +30,15 @@
 #include <format>
 #include <fstream>
 #include <string_view>
+
+template<typename CharT> requires Utils::Traits::isAnyOf<CharT, char, wchar_t>
+auto toInt(std::basic_string_view<CharT> const & view)
+{
+    if constexpr (std::is_same_v<CharT, char>)
+        return std::stoi(std::string(view));
+    else
+        return std::stoi(std::wstring(view));
+}
 
 static std::wstring readWholeFile(std::string_view path)
 {
@@ -88,7 +99,7 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand) try
         if (args.size() == 1)
             npc = World::addNpc(1);
         else if (std::isdigit(args[1][0]))
-            npc = World::addNpc(std::stoi(std::wstring(args[1])));
+            npc = World::addNpc(toInt(args[1]));
         else if (auto const infos = NpcDirectory::find(args[1]); !infos.empty())
             npc = World::addNpc(infos[0].get().id);
 
@@ -101,11 +112,11 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand) try
         {
             ChatSystemSayPacket p{SystemMessageId::_1_2};
             if (args.size() > 1)
-                p << SysMsgArg::Text(std::format(L"Failed to spawn npc/monster \"{}\":", args[1]));
+                p << std::format(L"Failed to spawn npc/monster \"{}\":", args[1]);
             else
-                p << SysMsgArg::Text(std::format(L"Failed to spawn npc/monster:"));
+                p << std::format("Failed to spawn npc/monster:");
 
-            p << SysMsgArg::Text(L"not found.");
+            p << "not found.";
             player.connection().send(std::move(p));
         }
     }
@@ -151,12 +162,54 @@ DEFINE_PACKET_HANDLER(ChatAdminCommand) try
         iss >> cmd >> actionId;
         c.doNext<SocialAction>(static_cast<SocialActionId>(actionId));
     }
+    else if (args[0] == L"goto")
+    {
+        std::optional<Position> pos;
+        TeleportationStyle      style{};
+        ChatSystemSayPacket     msg{SystemMessageId::_1_2};
+
+        if (args.size() < 2)
+        {
+            msg << "Usages:" << R"(
+goto object_id
+goto pos_x pos_y pos_z [style])";
+        }
+        if (args.size() >= 2 && std::isdigit(args[1][0]))
+        {
+            auto const id = toInt(args[1]);
+            if (auto const actor = World::actor(id))
+            {
+                auto const orientation = c.position().orientation;
+                pos.emplace(actor->position());
+                pos->orientation = orientation; // keep current orientation
+                style = static_cast<TeleportationStyle>(args.size() == 3 ? args[2][0] - L'0' : 0);
+            }
+            else
+                msg << "Failed:" << std::format("could not find actor from id '{}'", id);
+        }
+        else if (args.size() < 3 || args.size() > 4)
+            msg << "Usage:" << "goto pos_x pos_y pos_z [style]";
+        else
+        {
+            pos.emplace(toInt(args[1]), toInt(args[2]), toInt(args[3]), c.position().orientation);
+            style = static_cast<TeleportationStyle>(args.size() == 4 ? args[3][0] - L'0' : 0);
+        }
+
+        if (msg.argumentCount() > 0)
+            player.connection().send(msg);
+
+        if (pos)
+        {
+            c.cancelAction(); // Prevent the teleport from being queued
+            c.doNext<TeleportAction>(*pos, style, true);
+        }
+    }
 }
 catch (Core::Exception const & e)
 {
     SPDLOG_ERROR("Admin command failed:\n{}", Core::formatExceptionStack(e));
 
     ChatSystemSayPacket msg{SystemMessageId::_1_2};
-    msg << SysMsgArg::Text(L"Failed:") << SysMsgArg::Text(Utils::toWideString(e.what()));
+    msg << "Failed:" << e.what();
     player.connection().send(msg);
 }

@@ -5,6 +5,7 @@
 
 // Project includes
 #include <gs/Typedefs.hpp>
+#include <gs/game/components/Position.hpp>
 #include <gs/game/constants/CharacterCreationResult.hpp>
 
 // C++ includes
@@ -55,7 +56,7 @@ public:
 
     static auto addCharacter(CharacterCreationParameters const &, OptRef<Player> = std::nullopt) -> Character &;
     static void initCharacter(Character &);
-    static auto addNpc(u32 id) -> OptRef<Npc>;
+    static auto addNpc(u32 id, Position const & = Position{}) -> OptRef<Npc>;
 
     static void scheduleForDeletion(Actor &, ClockDuration timeFromNow = ClockDuration::zero());
     static void unscheduleForDeletion(Actor &);
@@ -80,7 +81,16 @@ public:
 
     /// Sends a packet to specified actor if it is a Character with an active player
     static void send(Actor const & to, Network::Packet && packet,
-        std::source_location const & src = std::source_location::current()) { send(to, packet, std::move(src)); }
+                     std::source_location const & src = std::source_location::current()) { send(to, packet, src); }
+
+    static void sendStatus(Actor const & from, Actor const & to,
+                           std::source_location const & src = std::source_location::current());
+
+    static void sendStatus(Actor const & from, Player & to,
+                           std::source_location const & src = std::source_location::current());
+
+    static void sendStatus(GameObjectId id, Player & to,
+                           std::source_location const & src = std::source_location::current());
 
     /// @warning This broadcasts given packet to ALL online players, regardless of distance!
     static void broadcast(Network::Packet &&, std::source_location const & src = std::source_location::current());

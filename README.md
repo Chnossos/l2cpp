@@ -209,10 +209,20 @@ If it's not in the list, it's probably not implemented, or very (very) partially
     <td></td>
   </tr>
   <tr>
-    <td align="center">NPC</td>
-    <td>Loading</td>
+    <td rowspan="3" align="center">NPC</td>
+    <td>Templates</td>
     <td align="center">🟠</td>
     <td>Currently loaded: level, xp, xp rate, sp, collision data, hp/mp, hp/mp regen.</td>
+  </tr>
+  <tr>
+    <td>Fixed-position spawns</td>
+    <td align="center">🟠</td>
+    <td>Every single NPC is spawned for now (leading to overlaps).</td>
+  </tr>
+  <tr>
+    <td>Swarm spawns</td>
+    <td align="center">🟠</td>
+    <td>Random positions are generated during start-up inside delimited areas, but some are still generated outside the designated area.</td>
   </tr>
 </table>
 

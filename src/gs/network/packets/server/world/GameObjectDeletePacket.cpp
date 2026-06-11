@@ -9,9 +9,13 @@
 using Network::Packets::Server::GameObjectDeletePacket;
 
 GameObjectDeletePacket::GameObjectDeletePacket(GameObject const & object)
+    : GameObjectDeletePacket{object.id()}
+{}
+
+GameObjectDeletePacket::GameObjectDeletePacket(GameObjectId const id)
     : Packet(0x12, "GameObjectDelete")
 {
     *this
-        << object.id()
+        << id
     ;
 }
