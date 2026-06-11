@@ -25,6 +25,7 @@ namespace Network
         ItemUse                     = 0x14,
         SocialActionPerform         = 0x1b,
         SkillUse                    = 0x2f,
+        TeleportationDone           = 0x30,
         UiShortcutSet               = 0x33,
         UiShortcutUnset             = 0x35,
         TargetClear                 = 0x37,

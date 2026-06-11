@@ -16,7 +16,6 @@
 #include <gs/network/packets/server/status/ActorDiePacket.hpp>
 #include <gs/network/packets/server/status/CharacterStatusUpdateBroadcastPacket.hpp>
 #include <gs/network/packets/server/status/CharacterStatusUpdatePacket.hpp>
-#include <gs/network/packets/server/status/NpcStatusUpdatePacket.hpp>
 #include <gs/network/packets/server/ui/UiShortcutListPacket.hpp>
 
 DEFINE_PACKET_HANDLER(EnterWorld) try

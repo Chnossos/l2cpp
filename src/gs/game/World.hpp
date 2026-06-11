@@ -83,6 +83,9 @@ public:
     static void send(Actor const & to, Network::Packet && packet,
                      std::source_location const & src = std::source_location::current()) { send(to, packet, src); }
 
+    static void sendStatus(Actor const & from, Actor const & to,
+                           std::source_location const & src = std::source_location::current());
+
     static void sendStatus(Actor const & from, Player & to,
                            std::source_location const & src = std::source_location::current());
 

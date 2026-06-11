@@ -22,3 +22,8 @@ struct Position : public Component
         , orientation{orientation_}
     {}
 };
+
+inline bool operator==(Position const & lhs, Position const & rhs) noexcept
+{
+    return lhs.x == rhs.x && lhs.y == rhs.y && lhs.z == rhs.z;
+}

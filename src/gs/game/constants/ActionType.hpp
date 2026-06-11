@@ -9,4 +9,5 @@ enum class ActionType
     Attack,
     Skill,
     Social,
+    Teleport,
 };

@@ -502,6 +502,15 @@ void World::send(Actor const & to, Packet & packet, std::source_location const &
     }
 }
 
+void World::sendStatus(Actor const & from, Actor const & to, std::source_location const & src)
+{
+    if (to.type() == ActorType::Character)
+    {
+        if (auto const player = static_cast<Character const &>(to).player)
+            sendStatus(from, player, src);
+    }
+}
+
 void World::sendStatus(Actor const & from, Player & to, std::source_location const & src)
 {
     if (from.type() == ActorType::Character)

@@ -34,6 +34,7 @@ namespace Handler
     HANDLER(SkillUse)
     HANDLER(SocialActionPerform)
     HANDLER(TargetClear)
+    HANDLER(TeleportationDone)
     HANDLER(UiConfirmationModalAnswer)
     HANDLER(UiShortcutSet)
     HANDLER(UiShortcutUnset)
@@ -68,6 +69,7 @@ std::unordered_map<PacketOpCode, std::pair<PacketHandler, std::string_view>> gPa
     HANDLER(SkillUse),
     HANDLER(SocialActionPerform),
     HANDLER(TargetClear),
+    HANDLER(TeleportationDone),
     HANDLER(UiConfirmationModalAnswer),
     HANDLER(UiShortcutSet),
     HANDLER(UiShortcutUnset),
