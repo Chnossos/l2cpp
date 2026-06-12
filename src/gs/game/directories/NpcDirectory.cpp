@@ -5,6 +5,7 @@
 
 // Project includes
 #include <common/core/Exception.hpp>
+#include <gs/game/components/NpcAppearance.hpp>
 #include <gs/utils/Conversion.hpp>
 
 // Third-pary includes
@@ -43,6 +44,11 @@ auto NpcDirectory::find(std::string_view const name) -> std::vector<Ref<NpcInfo 
 auto NpcDirectory::find(std::wstring_view const wName) -> std::vector<Ref<NpcInfo const>>
 {
     return find(Utils::toString(wName));
+}
+
+auto NpcDirectory::find(Npc const & npc) -> NpcInfo const &
+{
+    return (npc.type() == ActorType::Monster ? _monsters : _npcs).at(npc.appearance().id());
 }
 
 auto NpcDirectory::find(size_t const id) -> OptRef<NpcInfo const>

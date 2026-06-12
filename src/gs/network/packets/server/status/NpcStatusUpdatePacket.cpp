@@ -10,6 +10,11 @@
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/Stats.hpp>
 
+namespace
+{
+    constexpr u32 baseNpcAppearanceId = 1'000'000;
+}
+
 using Network::Packets::Server::NpcStatusUpdatePacket;
 
 NpcStatusUpdatePacket::NpcStatusUpdatePacket(Npc const & actor)
@@ -21,7 +26,7 @@ NpcStatusUpdatePacket::NpcStatusUpdatePacket(Npc const & actor)
 
     *this
         << actor.id()
-        << appearance.id()
+        << appearance.id() + baseNpcAppearanceId
         << (actor.isAttackable() ? 1 : 0)
         << actor.position()
         << static_cast<u32>(actor.position().orientation)

@@ -338,11 +338,11 @@ auto World::addNpc(u32 id, Position const & position) -> OptRef<Npc>
             loot.sp = info->sp;
         }
 
-        npc->onDied += [&n = *npc]
+        npc->onDied += [&npc = *npc]
         {
-            scheduleForDeletion(n, 15s);
-            if (auto const loot = n.component<Loot>())
-                distributeLoot(loot, n.attackerDamageAmounts());
+            scheduleForDeletion(npc, NpcDirectory::find(npc).corpseDuration);
+            if (auto const loot = npc.component<Loot>())
+                distributeLoot(loot, npc.attackerDamageAmounts());
         };
     }
 

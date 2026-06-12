@@ -5,6 +5,7 @@
 
 // Project includes
 #include <gs/Typedefs.hpp>
+#include <gs/game/actor/Npc.hpp>
 #include <gs/game/constants/ActorType.hpp>
 
 // C++ includes
@@ -51,10 +52,11 @@ public:
 
     static auto find    (std::string_view   name) -> std::vector<Ref<NpcInfo const>>;
     static auto find    (std::wstring_view wName) -> std::vector<Ref<NpcInfo const>>;
-    static auto find    (size_t id) -> OptRef<NpcInfo const>;
-    static auto npc     (size_t id) -> OptRef<NpcInfo const>;
-    static auto monster (size_t id) -> OptRef<NpcInfo const>;
-    static auto maxLevel() -> u32;
+    static auto find    (Npc const &)             -> NpcInfo const &;
+    static auto find    (size_t id)               -> OptRef<NpcInfo const>;
+    static auto npc     (size_t id)               -> OptRef<NpcInfo const>;
+    static auto monster (size_t id)               -> OptRef<NpcInfo const>;
+    static auto maxLevel()                        -> u32;
 
 private:
     static std::unordered_map<size_t, NpcInfo> _monsters;
