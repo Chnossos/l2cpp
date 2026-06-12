@@ -28,6 +28,7 @@ struct NpcInfo
     double xpRate = 1;
     StatValue maxHp = 1, maxMp = 1;
     StatValue hpRegen = 1, mpRegen = 1;
+    ClockDuration corpseDuration;
     u32 xp = 0, sp = 0;
     u8 level = 1;
     bool attackable = false;

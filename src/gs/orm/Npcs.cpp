@@ -16,18 +16,19 @@ void Orm::loadNpcs()
     while (query.executeStep())
     {
         NpcInfo npc;
-        extract(query, "id",               npc.id);
-        extract(query, "attackable",       npc.attackable);
-        extract(query, "collision_height", npc.collisionHeight);
-        extract(query, "collision_radius", npc.collisionRadius);
-        extract(query, "level",            npc.level);
-        extract(query, "xp",               npc.xp);
-        extract(query, "xp_rate",          npc.xpRate);
-        extract(query, "sp",               npc.sp);
-        extract(query, "max_hp",           npc.maxHp);
-        extract(query, "max_mp",           npc.maxMp);
-        extract(query, "hp_regen",         npc.hpRegen);
-        extract(query, "mp_regen",         npc.mpRegen);
+        extract                      (query, "id",               npc.id);
+        extract                      (query, "attackable",       npc.attackable);
+        extract                      (query, "collision_height", npc.collisionHeight);
+        extract                      (query, "collision_radius", npc.collisionRadius);
+        extract                      (query, "level",            npc.level);
+        extract                      (query, "xp",               npc.xp);
+        extract                      (query, "xp_rate",          npc.xpRate);
+        extract                      (query, "sp",               npc.sp);
+        extract                      (query, "max_hp",           npc.maxHp);
+        extract                      (query, "max_mp",           npc.maxMp);
+        extract                      (query, "hp_regen",         npc.hpRegen);
+        extract                      (query, "mp_regen",         npc.mpRegen);
+        extract<std::chrono::seconds>(query, "corpse_duration",  npc.corpseDuration);
         npc.type = npc.attackable ? ActorType::Monster : ActorType::Npc;
 
         auto const id = npc.id;
