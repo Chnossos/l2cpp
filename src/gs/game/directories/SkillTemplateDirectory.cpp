@@ -205,10 +205,14 @@ namespace
 }
 
 void SkillTemplateDirectory::load(std::filesystem::path const & skillNamesFile,
-                                  std::filesystem::path const & skillGroupsFile)
+                                  std::filesystem::path const & skillGroupsFile) try
 {
     loadSkillNames(_templates, skillNamesFile);
     loadSkillGroups(_templates, skillGroupsFile);
+}
+catch (Core::Exception const & e)
+{
+    SPDLOG_ERROR("Failed to load SkillTemplateDirectory:\n{}", Core::formatExceptionStack(e));
 }
 
 auto SkillTemplateDirectory::size() -> size_t { return _templates.size(); }
