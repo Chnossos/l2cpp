@@ -7,6 +7,7 @@
 #include <common/Typedefs.hpp>
 
 // C++ includes
+#include <cstring>
 #include <span>
 #include <string>
 

@@ -1,8 +1,6 @@
 /// @author    Chnossos
 /// @date      Created on 2026-03-06
 
-#pragma once
-
 // Project includes
 #include <common/utils/Enum.hpp>
 #include <gs/game/World.hpp>

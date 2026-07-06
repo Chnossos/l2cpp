@@ -12,51 +12,38 @@
 template<typename E> requires std::is_enum_v<E>
 class EnumMask
 {
-    using Type = std::underlying_type_t<E>;
+public:
+    constexpr EnumMask(E const e) noexcept: _value{e} {}
 
 public:
-    constexpr EnumMask(E const value)
-        : _value(std::to_underlying(value))
-    {}
+    constexpr auto operator|(E const other) const -> EnumMask { return _value | other; }
+    constexpr auto operator&(E const other) const -> EnumMask { return _value & other; }
 
 public:
-    constexpr bool     operator==(E const value) const { return _value == std::to_underlying(value);                 }
-    constexpr EnumMask operator& (E const value) const { return static_cast<E>(_value  & std::to_underlying(value)); }
-    constexpr EnumMask operator| (E const value) const { return static_cast<E>(_value  | std::to_underlying(value)); }
-    constexpr EnumMask operator^ (E const value) const { return static_cast<E>(_value  ^ std::to_underlying(value)); }
-    constexpr EnumMask operator~ ()              const { return static_cast<E>(~_value);                             }
+    constexpr operator bool() const noexcept { return std::to_underlying(_value); }
+    constexpr operator E()    const noexcept { return _value;                     }
 
-    constexpr EnumMask & operator&=(E const value) { _value &= std::to_underlying(value); return *this; }
-    constexpr EnumMask & operator|=(E const value) { _value |= std::to_underlying(value); return *this; }
-    constexpr EnumMask & operator^=(E const value) { _value ^= std::to_underlying(value); return *this; }
-
-    constexpr operator bool() const { return _value;                 }
-    constexpr operator Type() const { return _value;                 }
-    constexpr operator E()    const { return static_cast<E>(_value); }
-
+    template<typename T> requires std::integral<T>
+    constexpr operator T() const noexcept { return static_cast<T>(_value); }
 
 private:
-    Type _value;
+    E _value;
 };
 
-template<typename E> EnumMask(E) -> EnumMask<E>;
-
 template<typename E> requires std::is_enum_v<E>
-constexpr auto operator|(E const value1, E const value2) -> EnumMask<E> {
-    return EnumMask(value1) |= value2;
-}
-
-template<typename E> requires std::is_enum_v<E>
-constexpr auto operator&(E const value1, E const value2) -> EnumMask<E> {
-    return EnumMask(value1) &= value2;
-}
-
-template<typename E> requires std::is_enum_v<E>
-constexpr auto operator^(E const value1, E const value2) -> EnumMask<E> {
-    return EnumMask(value1) ^= value2;
-}
-
-template<typename E> requires std::is_enum_v<E>
-constexpr auto operator~(E const value) -> E {
+constexpr auto operator~(E const value) -> E
+{
     return static_cast<E>(~std::to_underlying(value));
+}
+
+template<typename E> requires std::is_enum_v<E>
+constexpr auto operator|(E const e1, E const e2) -> EnumMask<E>
+{
+    return static_cast<E>(std::to_underlying(e1) | std::to_underlying(e2));
+}
+
+template<typename E> requires std::is_enum_v<E>
+constexpr auto operator&(E const e1, E const e2) -> EnumMask<E>
+{
+    return static_cast<E>(std::to_underlying(e1) & std::to_underlying(e2));
 }

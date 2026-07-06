@@ -10,6 +10,7 @@
 
 // C++ includes
 #include <functional>
+#include <list>
 #include <source_location>
 #include <unordered_map>
 #include <vector>

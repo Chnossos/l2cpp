@@ -76,7 +76,7 @@ DEFINE_PACKET_HANDLER(CharacterCreate) try
     else
     {
         result = CharacterCreationResult::InvalidName;
-        SPDLOG_TRACE(L"Player attempted to name their new character '{}' which breaks naming rules", params.name);
+        //FIXME: SPDLOG_TRACE(L"Player attempted to name their new character '{}' which breaks naming rules", params.name);
     }
 
     player.connection().send(CharacterCreatePacket{result});

@@ -8,6 +8,7 @@
 
 // C++ includes
 #include <optional>
+#include <utility>
 
 /// My own take of @code std::optional<std::reference_wrapper<T>> @endcode to avoid writing @c opt->get() everywhere.
 template<typename T>

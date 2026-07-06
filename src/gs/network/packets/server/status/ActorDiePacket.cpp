@@ -10,9 +10,9 @@ using Network::Packets::Server::ActorDiePacket;
 
 namespace
 {
-    void write(Network::Packet & p, Actor const & actor,
-               bool const canMoveToVillage, bool const canMoveToClanHall, bool const canMoveToCastle,
-               bool const canMoveToSiegeHq, bool const isSweepable,       bool const canReviveOnTheSpot)
+    void writePacket(Network::Packet & p, Actor const & actor,
+                     bool const canMoveToVillage, bool const canMoveToClanHall, bool const canMoveToCastle,
+                     bool const canMoveToSiegeHq, bool const isSweepable,       bool const canReviveOnTheSpot)
     {
         p
             << actor.id()
@@ -30,7 +30,7 @@ ActorDiePacket::ActorDiePacket(Actor const & actor)
     : Packet(0x06, "ActorDie")
 {
     if (actor.type() == ActorType::Character)
-        ::write(*this, actor, true, true, true, true, false, true);
+        ::writePacket(*this, actor, true, true, true, true, false, true);
     else
-        ::write(*this, actor, false, false, false, false, false, false);
+        ::writePacket(*this, actor, false, false, false, false, false, false);
 }

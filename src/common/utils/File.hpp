@@ -5,6 +5,7 @@
 
 // C++ includes
 #include <filesystem>
+#include <vector>
 
 namespace Utils
 {

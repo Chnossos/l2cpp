@@ -6,6 +6,9 @@
 // Project includes
 #include <gs/game/components/Position.hpp>
 
+// C++ includes
+#include <cmath>
+
 auto Utils::Maths::distance(Position const & pos1, Position const & pos2) -> double
 {
     return std::hypot(static_cast<double>(pos1.x - pos2.x),

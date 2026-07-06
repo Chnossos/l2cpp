@@ -7,6 +7,7 @@
 #include <common/core/Exception.hpp>
 
 // C++ includes
+#include <cstring>
 #include <fstream>
 
 namespace

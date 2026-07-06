@@ -11,6 +11,7 @@
 
 // C++ includes
 #include <filesystem>
+#include <vector>
 
 class Database
 {

@@ -4,7 +4,7 @@
 #pragma once
 
 // Project includes
-#include <common/Network/Serialization.hpp>
+#include <common/network/Serialization.hpp>
 #include <gs/Typedefs.hpp>
 #include <gs/game/ecs/Component.hpp>
 

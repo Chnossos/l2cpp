@@ -1,8 +1,6 @@
 /// @author    Chnossos
 /// @date      Created on 2026-04-26
 
-#pragma once
-
 // Project includes
 #include <gs/game/actor/Character.hpp>
 #include <gs/handlers/_Common.hpp>

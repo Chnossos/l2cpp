@@ -1,8 +1,6 @@
 /// @author    Chnossos
 /// @date      Created on 2026-06-01
 
-#pragma once
-
 // Project includes
 #include <gs/game/World.hpp>
 #include <gs/game/actor/Character.hpp>

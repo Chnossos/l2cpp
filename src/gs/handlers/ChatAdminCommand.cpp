@@ -1,8 +1,6 @@
 /// @author    Chnossos
 /// @date      Created on 2026-03-10
 
-#pragma once
-
 // Project includes
 #include <gs/game/World.hpp>
 #include <gs/game/actions/SocialAction.hpp>
@@ -10,7 +8,6 @@
 #include <gs/game/actor/Character.hpp>
 #include <gs/game/actor/Monster.hpp>
 #include <gs/game/components/CharacterStatus.hpp>
-#include <gs/game/components/KnownActors.hpp>
 #include <gs/game/components/PlayerAppearance.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
 #include <gs/game/directories/NpcDirectory.hpp>

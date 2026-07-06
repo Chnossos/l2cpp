@@ -20,8 +20,9 @@ DEFINE_PACKET_HANDLER(ChatSay)
     if (type == ChatType::Whisper)
         reader >> recipient;
 
-    SPDLOG_DEBUG(L"Player said ('{}'){}: “{}”",
-                 std::to_underlying(type), recipient.empty() ? L"" : std::format(L" (to '{}')", recipient), msg);
+    // FIXME:
+    // SPDLOG_DEBUG(L"Player said ('{}'){}: “{}”",
+    //              std::to_underlying(type), recipient.empty() ? L"" : std::format(L" (to '{}')", recipient), msg);
 
     auto const & c = *player.currentCharacter();
     if (recipient.empty())

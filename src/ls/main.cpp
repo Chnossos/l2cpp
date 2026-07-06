@@ -21,6 +21,9 @@
 #include <openssl/rand.h>
 #include <spdlog/spdlog.h>
 
+// C++ includes
+#include <list>
+
 using Network::Packet;
 
 static void sendInitPacket(Connection & conn)

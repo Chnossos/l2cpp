@@ -9,6 +9,7 @@
 #include <spdlog/spdlog.h>
 
 static void setupLogger();
+static void setupLocale();
 static auto getCurrentLocale() -> std::string;
 
 int main(int const argc, char const * const argv[])
@@ -20,12 +21,7 @@ int main(int const argc, char const * const argv[])
     setupLogger();
     SPDLOG_INFO("Starting {} version {}", L2CPP_SUBPROJECT_NAME, L2CPP_VERSION);
 
-    {
-        // std::locale const currentLocale(getCurrentLocale());
-        std::locale const currentLocale("en-UK");
-        std::locale::global(currentLocale);
-        SPDLOG_TRACE("Current locale: {}", currentLocale.name().c_str());
-    }
+    setupLocale();
 
     int code = EXIT_FAILURE;
     try
@@ -53,6 +49,18 @@ void setupLogger()
 {
     spdlog::set_pattern("[%^%R:%S.%e%$] [%L] %v [%s:%#]");
     spdlog::set_level(spdlog::level::trace);
+}
+
+void setupLocale()
+{
+#ifdef _WIN32
+    std::locale const currentLocale("en-UK");
+#else
+    std::locale const currentLocale(getCurrentLocale());
+#endif
+
+    std::locale::global(currentLocale);
+    SPDLOG_TRACE("Current locale: {}", currentLocale.name().c_str());
 }
 
 std::string getCurrentLocale()

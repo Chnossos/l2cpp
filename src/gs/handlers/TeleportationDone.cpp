@@ -1,8 +1,6 @@
 /// @author    Chnossos
 /// @date      Created on 2026-06-11
 
-#pragma once
-
 // Project includes
 #include <gs/game/actions/TeleportAction.hpp>
 #include <gs/game/actor/Character.hpp>

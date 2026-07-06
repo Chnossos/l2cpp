@@ -1,8 +1,6 @@
 /// @author    Chnossos
 /// @date      Created on 2026-05-22
 
-#pragma once
-
 // Project includes
 #include <common/utils/Enum.hpp>
 #include <gs/game/actions/SocialAction.hpp>

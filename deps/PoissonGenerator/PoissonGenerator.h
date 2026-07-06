@@ -50,7 +50,8 @@
  *    1.0     May  6, 2014
  */
 
-#include <stdint.h>
+#include <cstdint>
+#include <cmath>
 #include <vector>
 
 namespace PoissonGenerator {
