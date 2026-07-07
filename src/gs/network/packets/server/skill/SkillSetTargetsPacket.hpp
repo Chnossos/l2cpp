@@ -11,7 +11,7 @@ class SkillTemplate;
 
 namespace Network::Packets::Server { struct SkillSetTargetsPacket; }
 
-struct Network::Packets::Server::SkillSetTargetsPacket final : public Network::Packet
+struct Network::Packets::Server::SkillSetTargetsPacket final : public Packet
 {
     SkillSetTargetsPacket(Actor const & caster, SkillTemplate const & skill, std::span<Ref<Actor const> const> targets);
 };

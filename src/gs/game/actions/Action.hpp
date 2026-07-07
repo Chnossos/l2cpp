@@ -13,6 +13,8 @@ class Action
 {
 public:
     Action(ActionType type, Actor & performer) noexcept;
+    Action(Action const &) noexcept = default;
+    Action & operator=(Action const &) noexcept = default;
     Action(Action &&) noexcept = default;
     Action & operator=(Action &&) noexcept = default;
     virtual ~Action() noexcept;

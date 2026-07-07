@@ -10,7 +10,7 @@ class Npc;
 
 namespace Network::Packets::Server { struct NpcStatusUpdatePacket; }
 
-struct Network::Packets::Server::NpcStatusUpdatePacket final : public Network::Packet
+struct Network::Packets::Server::NpcStatusUpdatePacket final : public Packet
 {
     explicit NpcStatusUpdatePacket(Npc const &);
 };

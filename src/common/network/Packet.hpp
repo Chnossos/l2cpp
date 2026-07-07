@@ -22,6 +22,7 @@ public:
 
     /// Enables shallow copy.
     Packet(Packet const & other);
+    Packet & operator=(Packet const &) noexcept = delete;
 
     /// Permits conversion from any Packet enumerations that has the correct underlying type size
     template<typename E>

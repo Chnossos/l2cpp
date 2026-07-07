@@ -111,7 +111,7 @@ void ActorStatsUpdateSystem::updateCharacterStatus(SC::StatsUpdatePacket & priva
 
 void ActorStatsUpdateSystem::updateNpcStats(Npc & npc, Stats const & oldStats) const
 {
-    static std::unordered_set publicStats { StatId::CurHp, StatId::MaxHp };
+    static std::unordered_set const publicStats { StatId::CurHp, StatId::MaxHp };
 
     auto const & newStats = npc.stats();
     bool visualSpeedModified = false;

@@ -16,16 +16,13 @@ auto CharacterStatus::karma()      const -> u32  { return _karma;               
 auto CharacterStatus::isNoblesse() const -> bool { return _isNoblesse;                 }
 auto CharacterStatus::isHero()     const -> bool { return _isHero;                     }
 
-void CharacterStatus::setLevel(u32 const level, double percent)
+void CharacterStatus::setLevel(u32 const level, double const percent)
 {
     L2CPP_B_ASSERT(ExperienceTable::minLevel() <= level && level <= ExperienceTable::maxLevel(),
                    "Invalid level '{}'", level);
 
-    /**/ if (percent < 0)   percent = 0;
-    else if (percent > 100) percent = 100;
-
-    /**/ if (percent == 0)   _xp = ExperienceTable::floor(level);
-    else if (percent == 100) _xp = ExperienceTable::ceil (level) + (level < ExperienceTable::maxLevel());
+    /**/ if (percent <= 0)   _xp = ExperienceTable::floor(level);
+    else if (percent >= 100) _xp = ExperienceTable::ceil (level) + (level < ExperienceTable::maxLevel());
     else
     {
         _xp  = ExperienceTable::floor(level);

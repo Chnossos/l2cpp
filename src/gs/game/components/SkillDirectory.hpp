@@ -13,6 +13,8 @@ class SkillDirectory : public Component
 {
 public:
     SkillDirectory();
+    SkillDirectory(SkillDirectory const &) noexcept = delete;
+    SkillDirectory & operator=(SkillDirectory const &) noexcept = delete;
     SkillDirectory(SkillDirectory &&) noexcept;
     SkillDirectory & operator=(SkillDirectory &&) noexcept;
     ~SkillDirectory() override;

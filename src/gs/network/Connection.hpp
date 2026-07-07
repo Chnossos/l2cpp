@@ -34,9 +34,8 @@ public:
 
 public:
     void asyncReadNextPacket();
-    void send(Network::Packet & p, std::source_location const & src = std::source_location::current());
-    void send(Network::Packet && p,
-              std::source_location const & src = std::source_location::current()) { send(p, src); }
+    void send(Packet & p, std::source_location const & src = std::source_location::current());
+    void send(Packet && p, std::source_location const & src = std::source_location::current()) { send(p, src); }
     void close();
 
     void setOnConnectionClosed(ConnectionClosedHandler);

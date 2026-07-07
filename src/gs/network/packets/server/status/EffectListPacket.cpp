@@ -19,7 +19,7 @@ EffectListPacket::EffectListPacket(Actor const & actor)
     for (auto const & effect : effects)
     {
         if (effect->remainingDuration() != ClockDuration::zero())
-            uniqueSkillEffects.emplace_back(std::make_pair(effect->skillUid(), effect->remainingDuration()));
+            uniqueSkillEffects.emplace_back(effect->skillUid(), effect->remainingDuration());
     }
 
     uniqueSkillEffects.unique();

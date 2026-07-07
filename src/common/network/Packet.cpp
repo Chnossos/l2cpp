@@ -4,6 +4,7 @@
 #include "Packet.hpp"
 
 // Project includes
+// ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
 
 // C++ includes
@@ -18,7 +19,6 @@ struct Packet::Impl
     std::string_view  name;
 
     Impl(PacketOpCode opCode_, std::string_view name_);
-    Impl(Impl const & other);
 
     void append(std::span<byte const> data);
     void erase(size_t size);
@@ -35,12 +35,6 @@ Packet::Impl::Impl(PacketOpCode const opCode_, std::string_view const name_)
     , name(name_)
 {}
 
-Packet::Impl::Impl(Impl const & other)
-    : buffer(other.buffer)
-    , opCode(other.opCode)
-    , name(other.name)
-{}
-
 void Packet::Impl::append(std::span<byte const> const data)
 {
     buffer.append_range(data);
@@ -49,7 +43,7 @@ void Packet::Impl::append(std::span<byte const> const data)
 
 void Packet::Impl::erase(size_t const size)
 {
-    buffer.erase(buffer.cend() - size);
+    buffer.erase(buffer.cend() - size); // NOLINT(*-narrowing-conversions)
     writeSize();
 }
 

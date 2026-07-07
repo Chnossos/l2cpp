@@ -16,7 +16,7 @@ std::string Utils::hexdump(void const * const ptr, size_t const size)
     {
         result.reserve(size / 16 * maxLineWidth + (size % 16 ? maxLineWidth : 0));
 
-        auto const buf = static_cast<unsigned char const * const>(ptr);
+        const auto *const buf = static_cast<unsigned char const * const>(ptr);
         for (size_t i = 0; i < size; i += 16)
         {
             result += std::format("{:06X}: ", i);
@@ -27,7 +27,7 @@ std::string Utils::hexdump(void const * const ptr, size_t const size)
             for (size_t j = 0; j < 16; ++j)
             {
                 if (i + j < size)
-                    result += std::isprint(buf[i + j]) ? buf[i + j] : '.';
+                    result += std::isprint(buf[i + j]) ? static_cast<char>(buf[i + j]) : '.';
                 else
                     result += ' ';
             }

@@ -3,7 +3,7 @@
 
 #pragma once
 
-#ifndef fire
+#ifndef fire // NOLINT(*-identifier-naming)
 # define fire
 #endif
 

@@ -45,6 +45,7 @@ namespace
                            parts.size(), minPartsCount, parts);
             }
 
+            // NOLINTNEXTLINE(*-const-correctness)
             SkillTemplate tmpl(Utils::stringViewTo<u16>(parts[0]), std::string(parts[2].substr(2, parts[2].size() - 4)),
                                Utils::stringViewTo<u16>(parts[1]));
             auto const & [it, ok] = infos.try_emplace(tmpl.uid(), std::move(tmpl));

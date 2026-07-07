@@ -64,13 +64,13 @@ Core::Exception::Exception(int const code) noexcept
     : Exception({}, code)
 {}
 
-Core::Exception::Exception(std::source_location src, int const code) noexcept
-    : _source(std::move(src))
+Core::Exception::Exception(std::source_location const & src, int const code) noexcept
+    : _source(src)
     , _code(code)
 {}
 
-auto Core::Exception::code() const -> int { return _code;          }
-auto Core::Exception::line() const -> int { return _source.line(); }
+auto Core::Exception::code() const -> int      { return _code;          }
+auto Core::Exception::line() const -> unsigned { return _source.line(); }
 
 auto Core::Exception::fileBaseName() const  -> std::string_view
 {
@@ -80,26 +80,26 @@ auto Core::Exception::fileBaseName() const  -> std::string_view
 auto Core::Exception::functionName() const  -> std::string_view { return _source.function_name(); }
 auto Core::Exception::what() const noexcept -> char const *     { return _message.c_str();        }
 
-void Core::Exception::init(std::source_location src, std::string message)
+void Core::Exception::init(std::source_location const & src, std::string message)
 {
-    init(std::move(src), 0, std::move(message));
+    init(src, 0, std::move(message));
 }
 
-void Core::Exception::init(std::source_location src, int const code)
+void Core::Exception::init(std::source_location const & src, int const code)
 {
-    init(std::move(src), code, std::string());
+    init(src, code, std::string());
 }
 
-void Core::Exception::init(std::source_location src, int const code, std::string message)
+void Core::Exception::init(std::source_location const & src, int const code, std::string message)
 {
-    _source  = std::move(src);
+    _source  = src;
     _message = std::move(message);
     _code    = code;
 }
 
-auto Core::sandBox(std::source_location src, std::function<void()> f) -> ExceptionBox
+auto Core::sandBox(std::function<void()> const & f, std::source_location const & src) -> ExceptionBox
 {
-    ExceptionBox box { nullptr, std::move(src) };
+    ExceptionBox box { nullptr, src };
     try         { f();                                }
     catch (...) { box.ptr = std::current_exception(); }
     return box;
@@ -117,7 +117,7 @@ auto Core::formatExceptionStack(std::exception const & e, int level, int increme
     -> std::string
 {
     ExceptionStack stack;
-    stack.emplace_back(Exception("{}",  e.what()));
+    stack.push_back(Exception("{}",  e.what())); // NOLINT(*-use-emplace)
     try
     {
         std::rethrow_if_nested(e);

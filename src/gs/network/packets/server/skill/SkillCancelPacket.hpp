@@ -10,7 +10,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct SkillCancelPacket; }
 
-struct Network::Packets::Server::SkillCancelPacket final : public Network::Packet
+struct Network::Packets::Server::SkillCancelPacket final : public Packet
 {
     explicit SkillCancelPacket(Actor const & caster);
 };

@@ -19,14 +19,14 @@ public:
     Pimpl & operator=(Pimpl const &) = delete;
 
 public:
-    Pimpl(Pimpl && other) noexcept;
-    Pimpl & operator=(Pimpl && other) noexcept;
+    Pimpl(Pimpl &&) noexcept;
+    Pimpl & operator=(Pimpl &&) noexcept;
 
 public:
-    auto operator->()       -> T *      ;
+    auto operator->()       -> T       *;
     auto operator->() const -> T const *;
 
-    auto operator*()       -> T &      ;
+    auto operator*()       -> T       &;
     auto operator*() const -> T const &;
 
 private:

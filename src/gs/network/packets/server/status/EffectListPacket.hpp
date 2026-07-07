@@ -10,7 +10,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct EffectListPacket; }
 
-struct Network::Packets::Server::EffectListPacket final : public Network::Packet
+struct Network::Packets::Server::EffectListPacket final : public Packet
 {
     explicit EffectListPacket(Actor const &);
 };

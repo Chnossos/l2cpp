@@ -10,7 +10,7 @@ class Character;
 
 namespace Network::Packets::Server { struct TargetClearPacket; }
 
-struct Network::Packets::Server::TargetClearPacket final : public Network::Packet
+struct Network::Packets::Server::TargetClearPacket final : public Packet
 {
     explicit TargetClearPacket(Character const &);
 };

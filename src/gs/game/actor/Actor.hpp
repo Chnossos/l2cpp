@@ -21,13 +21,15 @@ struct Position;
 struct Stats;
 
 /// Base class for player characters, npcs, summons, pets…
-class Actor : public GameObject, public Entity
+class Actor : public GameObject, public Entity // NOLINT()
 {
 public:
     ActorState state = ActorState::Idle;
 
 public:
     explicit Actor(ActorType type);
+    Actor(Actor const &) noexcept = delete;
+    Actor & operator=(Actor const &) noexcept = delete;
     Actor(Actor &&) noexcept;
     Actor & operator=(Actor &&) noexcept;
     ~Actor() override = 0;

@@ -9,6 +9,6 @@
 
 struct ActorSystem : public System
 {
-    void update(ClockDuration elapsed, Entity & e) final { updateImpl(elapsed, static_cast<Actor &>(e)); }
+    void update(ClockDuration const elapsed, Entity & e) final { updateImpl(elapsed, static_cast<Actor &>(e)); }
     virtual void updateImpl(ClockDuration elapsed, Actor &) = 0;
 };

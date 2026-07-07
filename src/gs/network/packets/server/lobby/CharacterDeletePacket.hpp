@@ -16,7 +16,7 @@ enum class CharacterDeletionFailureReason : u32
     YouAreClanLeader,
 };
 
-struct Network::Packets::Server::CharacterDeletePacket final : public Network::Packet
+struct Network::Packets::Server::CharacterDeletePacket final : public Packet
 {
     CharacterDeletePacket();
     explicit CharacterDeletePacket(CharacterDeletionFailureReason);

@@ -11,14 +11,14 @@
 
 namespace
 {
-    constexpr ClockDuration attackStanceTimeout = 5s;
+    constexpr ClockDuration gAttackStanceTimeout = 5s;
 }
 
 void ActorAttackStanceTimerSystem::updateImpl(ClockDuration const elapsed, Actor & actor)
 {
     if (OptRef const timer = actor.component<AttackStanceTimer>())
     {
-        if (Utils::Chrono::thresholdCrossed(timer->elapsedSinceStart, elapsed, attackStanceTimeout))
+        if (Utils::Chrono::thresholdCrossed(timer->elapsedSinceStart, elapsed, gAttackStanceTimeout))
         {
             if (actor.state == ActorState::CombatIdle)
                 actor.state = ActorState::Idle;

@@ -41,7 +41,7 @@ namespace Handler
 #undef HANDLER
 }
 
-std::unordered_map<PacketOpCode, std::pair<PacketHandler, std::string_view>> gPacketHandlers
+std::unordered_map<PacketOpCode, std::pair<PacketHandler, std::string_view>> const gPacketHandlers
 {
 #define HANDLER(name) {std::to_underlying(Network::ClientOpCode::name), {&Handler::handle ## name, #name}}
     HANDLER(ActionRequest),

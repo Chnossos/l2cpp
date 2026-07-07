@@ -10,7 +10,7 @@ class Shortcut;
 
 namespace Network::Packets::Server { struct UiShortcutSetPacket; }
 
-struct Network::Packets::Server::UiShortcutSetPacket final : public Network::Packet
+struct Network::Packets::Server::UiShortcutSetPacket final : public Packet
 {
     explicit UiShortcutSetPacket(Shortcut const &);
 };

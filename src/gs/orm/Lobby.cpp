@@ -22,6 +22,7 @@
 
 static void loadGear(u32 characterId, Character & c);
 
+// NOLINTNEXTLINE(*-function-size)
 auto Orm::loadCharacterPreviews(AccountId const accountId) -> std::vector<std::unique_ptr<Character>>
 try
 {
@@ -102,7 +103,8 @@ catch (SQLite::Exception const & e)
     return {};
 }
 
-void Orm::createCharacter(AccountId const accountId, Character & c) try
+void Orm::createCharacter(AccountId const accountId, Character & c) // NOLINT(*-function-size)
+try
 {
     SQLite::Transaction tr(Database::instance());
 
@@ -256,7 +258,7 @@ void loadGear(u32 const characterId, Character & c)
         auto const enchantLevel = query.getColumn("enchant_level");
 
         Item item{query.getColumn("id").getInt64()};
-        item.tmplate      = std::move(*itemTemplate);
+        item.tmplate      = *itemTemplate;
         item.enchantLevel = static_cast<u8>(enchantLevel.isNull() ? 0 : enchantLevel.getUInt());
 
         gear.equipItem(inventory.add(std::move(item)));

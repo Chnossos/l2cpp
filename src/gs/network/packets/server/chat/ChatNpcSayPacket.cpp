@@ -15,7 +15,7 @@ ChatNpcSayPacket::ChatNpcSayPacket(Actor const & emitter, ChatType type, std::ws
     L2CPP_B_ASSERT(emitter.type() != ActorType::Character,
                    "Packet ChatNpcSayPacket is incompatible with Character emitter");
 
-    auto & nonPlayableActor = static_cast<Npc const &>(emitter);
+    auto const & nonPlayableActor = static_cast<Npc const &>(emitter);
 
     *this
         << emitter.id()

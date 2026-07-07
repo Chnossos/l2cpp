@@ -9,7 +9,7 @@
 
 namespace Network::Packets::Server { struct InventoryListPacket; }
 
-struct Network::Packets::Server::InventoryListPacket final : public Network::Packet
+struct Network::Packets::Server::InventoryListPacket final : public Packet
 {
     InventoryListPacket(bool openInventory, ItemStorage const & inventory);
 };

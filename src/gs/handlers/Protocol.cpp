@@ -15,9 +15,14 @@ DEFINE_PACKET_HANDLER(Protocol)
     reader >> protocol;
 
     /**/ if (protocol == -2)
+    {
         SPDLOG_INFO("Client ping");
+    }
     else if (protocol == 656)
-        return player.connection().send(ProtocolHandshakeOkPacket(player.connection().encryptionKey()));
+    {
+        player.connection().send(ProtocolHandshakeOkPacket(player.connection().encryptionKey()));
+        return;
+    }
     else
     {
         SPDLOG_ERROR("Unsupported protocol {}, closing connection", protocol);

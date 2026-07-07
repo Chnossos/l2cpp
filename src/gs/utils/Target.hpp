@@ -10,6 +10,6 @@ class Actor;
 
 namespace Utils::Target
 {
-    bool isValidTarget(Actor const & emitter, SkillTargetNature, Actor const & target, bool forceAttack,
-                       bool ignoreDeathStatus = false);
+    bool isValidTarget(Actor const & emitter, SkillTargetNature, Actor const & target,
+                       bool forceAttack, bool ignoreDeathStatus = false);
 }

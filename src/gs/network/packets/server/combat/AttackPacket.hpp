@@ -11,7 +11,7 @@ class Actor;
 
 namespace Network::Packets::Server { class AttackPacket; }
 
-class Network::Packets::Server::AttackPacket final : public Network::Packet
+class Network::Packets::Server::AttackPacket final : public Packet
 {
 public:
     explicit AttackPacket(Actor const & attacker, Actor const & mainTarget);

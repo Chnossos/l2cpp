@@ -37,7 +37,10 @@ DEFINE_PACKET_HANDLER(Move)
     reader >> target >> origin >> input;
 
     if (input != MoveAction::Input::Mouse)
-        return player.connection().send(ActionFailedPacket{});
+    {
+        player.connection().send(ActionFailedPacket{});
+        return;
+    }
 
     // TODO: trust originX/Y/Z only if they are close enough to server position
 

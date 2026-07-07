@@ -8,7 +8,7 @@
 
 namespace Network::Packets::Server { struct ActionFailedPacket; }
 
-struct Network::Packets::Server::ActionFailedPacket final : public Network::Packet
+struct Network::Packets::Server::ActionFailedPacket final : public Packet
 {
     ActionFailedPacket();
 };

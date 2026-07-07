@@ -46,7 +46,7 @@ enum class Stat
 
 namespace Network::Packets::Server { class StatsUpdatePacket; }
 
-class Network::Packets::Server::StatsUpdatePacket final : public Network::Packet
+class Network::Packets::Server::StatsUpdatePacket final : public Packet
 {
 public:
     explicit StatsUpdatePacket(Actor const & emitter);

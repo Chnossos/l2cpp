@@ -3,7 +3,7 @@
 
 #include "ClientExitGamePacket.hpp"
 
-using namespace Network::Packets::Server;
+using Network::Packets::Server::ClientExitGamePacket;
 
 ClientExitGamePacket::ClientExitGamePacket()
     : Packet(0x7e, "ClientExitGame")

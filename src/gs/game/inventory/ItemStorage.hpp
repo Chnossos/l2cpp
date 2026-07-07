@@ -21,7 +21,7 @@ public:
     virtual ~ItemStorage();
 
 public:
-    auto find_if(std::function<bool(Item const &)> const & predicate) const -> OptRef<Item const>;
+    auto findIf(std::function<bool(Item const &)> const & predicate) const -> OptRef<Item const>;
 
     auto item(GameObjectId uid)           -> OptRef<Item>;
     auto item(GameObjectId uid)     const -> OptRef<Item const>;

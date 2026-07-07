@@ -37,7 +37,7 @@ auto Gear::Impl::itemAt(GearSlot const slot) -> OptRef<Item> &
     {
         case GearSlot::Hands:         return gear[GearSlot::RightHand];
         case GearSlot::Fingers:       return gear[GearSlot::RightFinger];
-        case GearSlot::TwoPieceArmor: return gear[GearSlot::Chest];
+        case GearSlot::TwoPieceArmor: [[fallthrough]];
         case GearSlot::Dress:         return gear[GearSlot::Chest];
         default:                      return gear[slot];
     }
@@ -45,7 +45,7 @@ auto Gear::Impl::itemAt(GearSlot const slot) -> OptRef<Item> &
 
 auto Gear::Impl::itemAt(GearSlot const slot) const -> OptRef<Item const>
 {
-    return *const_cast<Impl *>(this)->itemAt(slot);
+    return *const_cast<Impl *>(this)->itemAt(slot); // NOLINT(*-pro-type-const-cast)
 }
 
 template<typename Func>
@@ -161,7 +161,8 @@ auto Gear::Impl::unequipItem(Item const & item, OptRef<GearTransaction> const & 
             transaction.oldItems.try_emplace(itemSlot->id(), *itemSlot);
     });
 
-    // Now that we're about to finish with the transaction, apply if everything succeeded and we're not a subtransaction
+    // Now that we're about to finish with the transaction,
+    // commit if everything succeeded and we're not a subtransaction
     if (!curTransaction)
     {
         for (auto const & itemRef : transaction.oldItems | std::views::values)

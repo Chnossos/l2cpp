@@ -10,7 +10,7 @@
 
 using Network::Packets::Server::AttackPacket;
 
-static constexpr size_t positionSize = sizeof(Position::x) + sizeof(Position::y) + sizeof(Position::z);
+static constexpr size_t gPositionSize = sizeof(Position::x) + sizeof(Position::y) + sizeof(Position::z);
 
 AttackPacket::AttackPacket(Actor const & attacker, Actor const & mainTarget)
     : Packet(0x05, "Attack")
@@ -36,7 +36,7 @@ void AttackPacket::addHit(Hit const & hit)
     {
         auto & counter = counterAtOffset(_hitsCountOffset);
         if (counter)
-            erase(positionSize);
+            erase(gPositionSize);
 
         *this << hit;
         ++counter;

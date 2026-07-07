@@ -39,7 +39,7 @@ namespace Utils
     {
         std::string result(wstr.size(), '\0');
 
-        auto const str = reinterpret_cast<byte const *>(wstr.data());
+        auto const * const str = reinterpret_cast<char const *>(wstr.data());
         for (size_t i = 0; i < wstr.size(); ++i)
             result[i] = str[i * 2];
 
@@ -50,7 +50,7 @@ namespace Utils
     {
         std::wstring result(str.size(), L'\0');
 
-        auto const wstr = reinterpret_cast<byte *>(result.data());
+        auto * const wstr = reinterpret_cast<char *>(result.data());
         for (size_t i = 0; i < str.size(); ++i)
             wstr[i * 2] = str[i];
 

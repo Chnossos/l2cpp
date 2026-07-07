@@ -10,7 +10,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct ActorDiePacket; }
 
-struct Network::Packets::Server::ActorDiePacket final : public Network::Packet
+struct Network::Packets::Server::ActorDiePacket final : public Packet
 {
     explicit ActorDiePacket(Actor const &);
 };

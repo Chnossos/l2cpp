@@ -11,7 +11,7 @@ class Player;
 
 namespace Network::Packets::Server { struct CharacterListPacket; }
 
-struct Network::Packets::Server::CharacterListPacket final : public Network::Packet
+struct Network::Packets::Server::CharacterListPacket final : public Packet
 {
     explicit CharacterListPacket(Player const &, std::vector<Ref<Character>> const & characters);
 };

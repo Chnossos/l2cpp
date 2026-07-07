@@ -8,6 +8,7 @@
 
 enum class SystemMessageId : u32
 {
+// NOLINTBEGIN(*-identifier-naming)
     DisconnectedFromServer       =    0,
     WelcomeToTheWorldOfL2        =   34,
     YouHitFor_1_Damage           =   35,
@@ -27,4 +28,5 @@ enum class SystemMessageId : u32
     _2sHpHasBeenRestoredBy_1     = 1067,
     MagicCriticalHit             = 1280,
     _1sCastingHasBeenInterrupted = 1299,
+// NOLINTEND(*-identifier-naming)
 };

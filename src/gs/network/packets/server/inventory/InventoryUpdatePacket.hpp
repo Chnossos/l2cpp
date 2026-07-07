@@ -9,7 +9,7 @@
 
 namespace Network::Packets::Server { struct InventoryUpdatePacket; }
 
-struct Network::Packets::Server::InventoryUpdatePacket final : public Network::Packet
+struct Network::Packets::Server::InventoryUpdatePacket final : public Packet
 {
     InventoryUpdatePacket();
 

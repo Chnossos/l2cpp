@@ -35,7 +35,7 @@ void Stats::compute(Actor const & a)
 
     if (a.type() == ActorType::Character)
     {
-        auto & c = static_cast<Character const &>(a);
+        auto const & c = static_cast<Character const &>(a);
         if (auto const status = c.component<CharacterStatus>())
         {
             auto const level = status->level();

@@ -48,7 +48,7 @@ struct Application::Impl
     std::vector<std::string_view> args;
     boost::asio::io_context       ioContext;
     boost::asio::signal_set       signalSet;
-    Network::SocketListener        socketListener;
+    Network::SocketListener       socketListener;
     std::list<Player>             players;
 
     explicit Impl(std::vector<std::string_view> args_)
@@ -68,7 +68,7 @@ private:
 
 template class Pimpl<Application::Impl>;
 
-bool Application::Impl::load() const try
+bool Application::Impl::load() const try // NOLINT(*-function-size)
 {
     SPDLOG_INFO("Initializing database…");
     Database::init({

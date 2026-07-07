@@ -11,7 +11,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct SocialActionPerformPacket; }
 
-struct Network::Packets::Server::SocialActionPerformPacket final : public Network::Packet
+struct Network::Packets::Server::SocialActionPerformPacket final : public Packet
 {
     SocialActionPerformPacket(Actor const & performer, SocialActionId actionId);
 };

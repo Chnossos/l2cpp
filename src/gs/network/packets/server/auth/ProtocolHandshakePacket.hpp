@@ -11,7 +11,7 @@ namespace Network::Packets::Server
     namespace details
     {
         template<bool ok>
-        struct ProtocolHandshakeBase : public Network::Packet
+        struct ProtocolHandshakeBase : public Packet
         {
             ProtocolHandshakeBase(): Packet(0x00, ok ? "ProtocolHandshakeOk" : "ProtocolHandshakeFail") { *this << ok; }
         };

@@ -13,7 +13,7 @@ auto ShortcutBar::at(Shortcut::Index const index) const -> OptRef<Shortcut>
     return _shortcuts[index] ? OptRef(*_shortcuts[index]) : std::nullopt;
 }
 
-auto ShortcutBar::shortcuts() const -> std::span<OptRef<Shortcut const> const, maxShortcuts>
+auto ShortcutBar::shortcuts() const -> std::span<OptRef<Shortcut const> const, gMaxShortcuts>
 {
     return _readOnlyShortcuts;
 }
@@ -28,7 +28,7 @@ void ShortcutBar::unset(Shortcut::Index const index)
 
 void ShortcutBar::unsetAll()
 {
-    for (size_t i = 0; i < maxShortcuts; ++i)
+    for (size_t i = 0; i < gMaxShortcuts; ++i)
     {
         _shortcuts        [i].reset();
         _readOnlyShortcuts[i].reset();
@@ -37,7 +37,7 @@ void ShortcutBar::unsetAll()
 
 void ShortcutBar::checkIndex(Shortcut::Index const index) const
 {
-    L2CPP_B_ASSERT(index < maxShortcuts, "Invalid index '{}': out of range", index);
+    L2CPP_B_ASSERT(index < gMaxShortcuts, "Invalid index '{}': out of range", index);
 }
 
 void ShortcutBar::setImpl(Shortcut::Index const index, std::unique_ptr<Shortcut> shortcut)

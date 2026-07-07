@@ -10,7 +10,7 @@ class ShortcutBar;
 
 namespace Network::Packets::Server { struct UiShortcutListPacket; }
 
-struct Network::Packets::Server::UiShortcutListPacket final : public Network::Packet
+struct Network::Packets::Server::UiShortcutListPacket final : public Packet
 {
     explicit UiShortcutListPacket(ShortcutBar const &);
 };

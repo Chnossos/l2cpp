@@ -9,14 +9,14 @@
 
 namespace Network::Packets::Server { class UiConfirmationModalShowPacket; }
 
-class Network::Packets::Server::UiConfirmationModalShowPacket final : public Network::Packet
+class Network::Packets::Server::UiConfirmationModalShowPacket final : public Packet
 {
 public:
-    explicit UiConfirmationModalShowPacket(u32 messageId);
+    explicit UiConfirmationModalShowPacket(u32 systemMessageId);
 
 public:
     template<class T> requires std::is_base_of_v<SystemMessageArgument, T>
-    UiConfirmationModalShowPacket & appendArg(T && arg) { return appendArgImpl(arg); }
+    UiConfirmationModalShowPacket & appendArg(T && arg) { return appendArgImpl(std::forward<T>(arg)); }
 
 private:
     UiConfirmationModalShowPacket & appendArgImpl(SystemMessageArgument const & arg);

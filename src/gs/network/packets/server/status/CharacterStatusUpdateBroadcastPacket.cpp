@@ -11,7 +11,7 @@
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/Stats.hpp>
 
-using namespace Network::Packets::Server;
+using Network::Packets::Server::CharacterStatusUpdateBroadcastPacket;
 
 CharacterStatusUpdateBroadcastPacket::CharacterStatusUpdateBroadcastPacket(Character const & c)
     : Packet(0x03, "CharacterStatusUpdateBroadcast")

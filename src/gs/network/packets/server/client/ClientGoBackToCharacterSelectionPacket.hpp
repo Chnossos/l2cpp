@@ -8,7 +8,7 @@
 
 namespace Network::Packets::Server { struct ClientGoBackToCharacterSelectionPacket; }
 
-struct Network::Packets::Server::ClientGoBackToCharacterSelectionPacket final : public Network::Packet
+struct Network::Packets::Server::ClientGoBackToCharacterSelectionPacket final : public Packet
 {
     explicit ClientGoBackToCharacterSelectionPacket(bool ok);
 };

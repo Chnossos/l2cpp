@@ -10,7 +10,7 @@ class Character;
 
 namespace Network::Packets::Server { struct CharacterSelectPacket; }
 
-struct Network::Packets::Server::CharacterSelectPacket final : public Network::Packet
+struct Network::Packets::Server::CharacterSelectPacket final : public Packet
 {
     CharacterSelectPacket(Character const & c, u32 encryptionKey);
 };

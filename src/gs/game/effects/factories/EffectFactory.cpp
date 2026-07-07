@@ -15,11 +15,11 @@ EffectFactory::EffectFactory(
   , ClockDuration     const   tickDuration
   , ClockDuration     const   initialTriggerDuration
 )
-    : _skillTemplate{skillTemplate}
+    : _type{type}
+    , _skillTemplate{skillTemplate}
+    , _targetType{targetType}
+    , _targetNature{targetNature}
     , _totalDuration{totalDuration}
     , _tickDuration{tickDuration}
     , _initialTriggerDuration{initialTriggerDuration}
-    , _type{type}
-    , _targetType{targetType}
-    , _targetNature{targetNature}
 {}

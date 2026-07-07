@@ -71,7 +71,10 @@ void SkillAction::onStarted()
     // the whole situation could've changed.
 
     if (!performer().isAlive())
-        return setFinished(true);
+    {
+        setFinished(true);
+        return;
+    }
 
     if (_impl->skill.operatingType() == Toggle)
     {
@@ -84,7 +87,8 @@ void SkillAction::onStarted()
 
         // Toggle skills don't have a cast animation, we can skip to applying the effects
         _impl->castingStarted = true;
-        return setFinished(true);
+        setFinished(true);
+        return;
     }
 
     OptRef<Actor> target;
@@ -96,7 +100,10 @@ void SkillAction::onStarted()
             target = World::actor(*_impl->targetId);
 
         if (!target || !isValidTarget(performer(), _impl->skill.targetNature(), target, _impl->forceAttack))
-            return setFinished(true); // Target doesn't exist or isn't valid anymore, do nothing
+        {
+            setFinished(true); // Target doesn't exist or isn't valid anymore, do nothing
+            return;
+        }
     }
 
     if (_impl->skill.castDuration() != ClockDuration::zero())
@@ -282,8 +289,10 @@ void SkillAction::forEachTarget(std::function<void(Actor &)> const & f) const
 {
     if (f)
     {
-        for (auto & targets : _impl->targets | std::views::values)
-            for (auto & target : targets)
+        for (auto const & targets : _impl->targets | std::views::values)
+        {
+            for (Actor & target : targets)
                 f(target);
+        }
     }
 }

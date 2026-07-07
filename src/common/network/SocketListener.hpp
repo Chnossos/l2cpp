@@ -18,6 +18,10 @@ class Network::SocketListener
 
 public:
     explicit SocketListener(boost::asio::io_context &);
+    SocketListener(SocketListener const &) noexcept = delete;
+    SocketListener & operator=(SocketListener const &) noexcept = delete;
+    SocketListener(SocketListener &&) noexcept = default;
+    SocketListener & operator=(SocketListener &&) noexcept = default;
     ~SocketListener();
 
 public:

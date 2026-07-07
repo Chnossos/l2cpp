@@ -15,7 +15,7 @@ static constexpr auto gRegenTick = 3s;
 static bool addRegenTicks(StatValue & stat, StatValue const regenPerSecond, size_t const ticks, StatValue const statMax)
 {
     auto const tmp = stat;
-    stat = std::min(stat + regenPerSecond * ticks, statMax);
+    stat = std::min(stat + regenPerSecond * static_cast<double>(ticks), statMax);
     return stat != tmp;
 }
 

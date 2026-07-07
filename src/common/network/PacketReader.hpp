@@ -16,7 +16,7 @@ namespace Network { class PacketReader; }
 class Network::PacketReader
 {
 public:
-    explicit PacketReader(std::span<byte const> packet) noexcept: cursor(std::move(packet)) {}
+    explicit PacketReader(std::span<byte const> packet) noexcept: cursor(packet) {}
 
 public:
     template<typename T> requires std::integral<T> || std::floating_point<T> || std::is_enum_v<T>

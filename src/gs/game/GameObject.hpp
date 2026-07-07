@@ -11,6 +11,8 @@ class GameObject
 {
 public:
     GameObject();
+    GameObject(GameObject const &) noexcept = delete;
+    GameObject & operator=(GameObject const &) noexcept = delete;
     GameObject(GameObject &&) noexcept;
     GameObject & operator=(GameObject &&) noexcept;
     virtual ~GameObject() = 0;

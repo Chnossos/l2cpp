@@ -10,7 +10,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct AttackStanceTogglePacket; }
 
-struct Network::Packets::Server::AttackStanceTogglePacket final : public Network::Packet
+struct Network::Packets::Server::AttackStanceTogglePacket final : public Packet
 {
     AttackStanceTogglePacket(bool enable, Actor const & target);
 };

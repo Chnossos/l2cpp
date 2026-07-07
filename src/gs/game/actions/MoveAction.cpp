@@ -11,11 +11,12 @@
 #include <gs/network/packets/server/movement/ActorMovePacket.hpp>
 #include <gs/network/packets/server/movement/ActorMoveStopPacket.hpp>
 
-MoveAction::MoveAction(Actor & performer, Position const & origin, Position const & target, Input const input)
-    : Action(ActionType::Move, performer)
-    , _origin(origin)
-    , _target(target)
-    , _input(input)
+MoveAction::MoveAction(Actor & performer, Position origin, Position target, Input const input)
+    : Action{ActionType::Move, performer}
+    , _origin{std::move(origin)}
+    , _target{std::move(target)}
+    , _input{input}
+    , _previousState{}
 {}
 
 bool MoveAction::canBeInterruptedByAnotherAction() const

@@ -11,7 +11,7 @@ class GameObject;
 
 namespace Network::Packets::Server { struct GameObjectDeletePacket; }
 
-struct Network::Packets::Server::GameObjectDeletePacket final : public Network::Packet
+struct Network::Packets::Server::GameObjectDeletePacket final : public Packet
 {
     explicit GameObjectDeletePacket(GameObject const &);
     explicit GameObjectDeletePacket(GameObjectId);

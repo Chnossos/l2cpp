@@ -4,6 +4,7 @@
 #include "SocketListener.hpp"
 
 // Project includes
+// ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
 
 // Third-party includes
@@ -13,7 +14,7 @@
 #include <functional>
 #include <unordered_map>
 
-namespace ip = boost::asio::ip;
+namespace ip = boost::asio::ip; // NOLINT(*-identifier-naming)
 
 using boost::system::error_code;
 
@@ -31,19 +32,19 @@ struct SL::Impl
     {}
     ~Impl() = default;
 
-    bool listen(ip::address addr, u16 port, AcceptCallback cb);
+    bool listen(ip::address const & addr, u16 port, AcceptCallback cb);
     void onAccept(u16 port, error_code const & ec, ip::tcp::socket socket);
-    bool handleError(u16 port, error_code const & ec);
+    bool handleError(u16 port, error_code const & ec) const;
 };
 
 template class Pimpl<Network::SocketListener::Impl>;
 
-bool SL::Impl::listen(ip::address addr, u16 const port, AcceptCallback cb)
+bool SL::Impl::listen(ip::address const & addr, u16 const port, AcceptCallback cb)
 {
-    ip::tcp::acceptor acceptor { ioContext };
+    ip::tcp::acceptor acceptor{ioContext};
     try
     {
-        ip::tcp::endpoint const endpoint { addr, port };
+        ip::tcp::endpoint const endpoint{addr, port};
         acceptor.open(endpoint.protocol());
         acceptor.set_option(ip::tcp::acceptor::reuse_address{true});
         acceptor.bind(endpoint);
@@ -71,11 +72,11 @@ void SL::Impl::onAccept(u16 port, error_code const & ec, ip::tcp::socket socket)
     acceptors.at(port).async_accept(std::bind(&Impl::onAccept, this, port, _1, _2));
 }
 
-bool SL::Impl::handleError(u16 port, error_code const & ec)
+bool SL::Impl::handleError(u16 port, error_code const & ec) const
 {
     switch (auto const code = ec.default_error_condition().value())
     {
-        namespace errc = boost::system::errc;
+        namespace errc = boost::system::errc; // NOLINT(*-identifier-naming)
 
         case errc::success:
             return true;
@@ -102,8 +103,8 @@ SL::~SocketListener() = default;
 bool SL::listen(std::string_view const host, u16 const port, AcceptCallback cb)
 {
     error_code ec;
-    auto addr = ip::make_address(host.data(), ec);
-    return ec ? _impl->handleError(port, ec) : _impl->listen(std::move(addr), port, std::move(cb));
+    auto const addr = ip::make_address(std::string{host}, ec);
+    return ec ? _impl->handleError(port, ec) : _impl->listen(addr, port, std::move(cb));
 }
 
 void SL::shutdown()

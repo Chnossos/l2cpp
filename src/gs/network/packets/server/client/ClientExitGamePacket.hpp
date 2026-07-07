@@ -8,7 +8,7 @@
 
 namespace Network::Packets::Server { struct ClientExitGamePacket; }
 
-struct Network::Packets::Server::ClientExitGamePacket final : public Network::Packet
+struct Network::Packets::Server::ClientExitGamePacket final : public Packet
 {
     ClientExitGamePacket();
 };

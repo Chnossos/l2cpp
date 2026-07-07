@@ -18,6 +18,8 @@ class SkillAction final : public Action
 {
 public:
     explicit SkillAction(Actor & performer, SkillTemplate const & skill, bool forceAttack);
+    SkillAction(SkillAction const &) noexcept = delete;
+    SkillAction & operator=(SkillAction const &) noexcept = delete;
     SkillAction(SkillAction &&) noexcept;
     SkillAction & operator=(SkillAction &&) noexcept;
     ~SkillAction() override;

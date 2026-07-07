@@ -10,7 +10,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct ActorMoveStopPacket; }
 
-struct Network::Packets::Server::ActorMoveStopPacket final : public Network::Packet
+struct Network::Packets::Server::ActorMoveStopPacket final : public Packet
 {
     explicit ActorMoveStopPacket(Actor const & actor);
 };

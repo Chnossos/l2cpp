@@ -14,6 +14,8 @@ class Skill
 {
 public:
     explicit Skill(SkillTemplate const & skillTemplate);
+    Skill(Skill const &) noexcept = delete;
+    Skill & operator=(Skill const &) noexcept = delete;
     Skill(Skill &&) noexcept;
     Skill & operator=(Skill &&) noexcept;
     ~Skill();

@@ -9,7 +9,7 @@
 
 namespace Network::Packets::Server { struct CharacterCreatePacket; }
 
-struct Network::Packets::Server::CharacterCreatePacket final : public Network::Packet
+struct Network::Packets::Server::CharacterCreatePacket final : public Packet
 {
     explicit CharacterCreatePacket(CharacterCreationResult result);
 };

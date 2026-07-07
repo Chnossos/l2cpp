@@ -168,7 +168,7 @@ void Connection::asyncReadNextPacket()
                             [this] (auto const & ec, auto) { _impl->onSizeRead(ec); });
 }
 
-void Connection::send(Network::Packet & p, std::source_location const & src)
+void Connection::send(Packet & p, std::source_location const & src)
 {
     if (!isAlive())
         return;

@@ -12,7 +12,7 @@ class Skill;
 
 namespace Network::Packets::Server { struct SkillUsePacket; }
 
-struct Network::Packets::Server::SkillUsePacket final : public Network::Packet
+struct Network::Packets::Server::SkillUsePacket final : public Packet
 {
     SkillUsePacket(Actor const & caster, Actor const & target, SkillUid skillUid,
                    ClockDuration castDuration, ClockDuration cooldown, bool isCritical);

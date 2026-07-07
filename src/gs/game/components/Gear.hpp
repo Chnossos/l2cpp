@@ -13,6 +13,8 @@ class Gear : public Component
 {
 public:
     Gear();
+    Gear(Gear const &) noexcept = delete;
+    Gear & operator=(Gear const &) noexcept = delete;
     Gear(Gear &&) noexcept;
     Gear & operator=(Gear &&) noexcept;
     ~Gear() override;

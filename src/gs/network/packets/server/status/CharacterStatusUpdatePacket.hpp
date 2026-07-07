@@ -10,7 +10,7 @@ class Character;
 
 namespace Network::Packets::Server { class CharacterStatusUpdatePacket; }
 
-class Network::Packets::Server::CharacterStatusUpdatePacket final : public Network::Packet
+class Network::Packets::Server::CharacterStatusUpdatePacket final : public Packet
 {
 public:
     explicit CharacterStatusUpdatePacket(Character const &);

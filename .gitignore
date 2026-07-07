@@ -1,6 +1,9 @@
 /.*
 !.gitignore
 
+# Clang
+!.clang-tidy
+
 # CMake
 CMakeUserPresets.json
 *.cmake

@@ -9,7 +9,7 @@
 
 namespace Network::Packets::Server { struct SkillListPacket; }
 
-struct Network::Packets::Server::SkillListPacket final : public Network::Packet
+struct Network::Packets::Server::SkillListPacket final : public Packet
 {
     explicit SkillListPacket(SkillDirectory const &);
 };

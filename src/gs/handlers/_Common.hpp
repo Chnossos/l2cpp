@@ -13,11 +13,11 @@
 // Third-party includes
 #include <spdlog/spdlog.h>
 
-using namespace Network;
+using namespace Network; // NOLINT(*-global-names-in-headers)
 
 // Forward-declare
 namespace Network::Packets::Server {}
-using namespace Network::Packets::Server;
+using namespace Network::Packets::Server; // NOLINT(*-global-names-in-headers)
 
 #define DECLARE_PACKET_HANDLER(name) namespace Handler { void handle ## name(Player & player); }
 

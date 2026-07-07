@@ -23,8 +23,8 @@ Pimpl<T> & Pimpl<T>::operator=(Pimpl && other) noexcept
     return *this;
 }
 
-template<typename T> auto Pimpl<T>::operator->() -> T * { return  _impl.get(); }
-template<typename T> auto Pimpl<T>::operator*()  -> T & { return *_impl.get(); }
-
+template<typename T> auto Pimpl<T>::operator->()       -> T       * { return  _impl.get(); }
 template<typename T> auto Pimpl<T>::operator->() const -> T const * { return  _impl.get(); }
-template<typename T> auto Pimpl<T>::operator*()  const -> T const & { return *_impl.get(); }
+
+template<typename T> auto Pimpl<T>::operator*()       -> T       & { return *_impl.get(); }
+template<typename T> auto Pimpl<T>::operator*() const -> T const & { return *_impl.get(); }

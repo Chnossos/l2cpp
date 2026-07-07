@@ -5,6 +5,7 @@
 
 // Project includes
 #include <common/core/Exception.hpp>
+// ReSharper disable once CppUnusedIncludeDirective
 #include <common/details/Pimpl.hpp>
 #include <gs/Typedefs.hpp>
 
@@ -24,7 +25,7 @@ ItemStorage::ItemStorage(ItemStorage &&) noexcept = default;
 ItemStorage & ItemStorage::operator=(ItemStorage &&) noexcept = default;
 ItemStorage::~ItemStorage() = default;
 
-auto ItemStorage::find_if(std::function<bool(Item const &)> const & predicate) const -> OptRef<Item const>
+auto ItemStorage::findIf(std::function<bool(Item const &)> const & predicate) const -> OptRef<Item const>
 {
     OptRef<Item const> result;
 
@@ -70,7 +71,7 @@ auto ItemStorage::item(ItemTemplate const & tmplate) -> std::vector<Ref<Item>>
 
 auto ItemStorage::item(ItemTemplate const & tmplate) const -> std::vector<Ref<Item const>>
 {
-    auto const v = const_cast<ItemStorage &>(*this).item(tmplate);
+    auto const v = const_cast<ItemStorage &>(*this).item(tmplate); // NOLINT(*-pro-type-const-cast)
     return {v.cbegin(), v.cend()};
 }
 

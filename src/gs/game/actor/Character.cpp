@@ -99,8 +99,11 @@ void Character::offerResurrection(Actor const & emitter)
     if (isAlive())
         return;
 
-    if (!player)
-        return revive();
+    if (!player) // FIXME: what if disconnected?
+    {
+        revive();
+        return;
+    }
 
     using enum ConfirmationModalSystemMessageId;
 

@@ -28,7 +28,7 @@ namespace Network { class Packet; }
 
 class World
 {
-private:
+public:
     World() noexcept = delete;
 
 public:

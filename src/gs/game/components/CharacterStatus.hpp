@@ -22,7 +22,7 @@ public:
 public:
     /// @param level   Level to set this character to, between min and max of course.
     /// @param percent Between @c 0.0 and @c 100.0
-    void setLevel   (u32 level, double percent = 0) override;
+    void setLevel   (u32 level, double percent) override;
     void setXp      (u32 xp);
     void setSp      (u32 sp);
     void setPvpCount(u32 pvpCount);

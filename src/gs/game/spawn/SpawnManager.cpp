@@ -118,10 +118,10 @@ void SpawnManager::load()
             continue;
 
         auto const boundingBox = makeBoundingBox(territory.edges);
-        auto const xOffset     = boundingBox.topLeft.first;
-        auto const yOffset     = boundingBox.topLeft.second;
-        auto const width       = boundingBox.topRight  .first  - xOffset;
-        auto const height      = boundingBox.bottomLeft.second - yOffset;
+        auto const xOffset     = static_cast<float>(boundingBox.topLeft.first);
+        auto const yOffset     = static_cast<float>(boundingBox.topLeft.second);
+        auto const width       = static_cast<float>(boundingBox.topRight  .first)  - xOffset;
+        auto const height      = static_cast<float>(boundingBox.bottomLeft.second) - yOffset;
 
         for (auto & p : PoissonGenerator::generateVogelPoints(swarm.maxNpcCount))
         {

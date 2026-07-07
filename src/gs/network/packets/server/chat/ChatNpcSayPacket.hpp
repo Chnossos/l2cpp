@@ -11,7 +11,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct ChatNpcSayPacket; }
 
-struct Network::Packets::Server::ChatNpcSayPacket final : public Network::Packet
+struct Network::Packets::Server::ChatNpcSayPacket final : public Packet
 {
     ChatNpcSayPacket(Actor const & emitter, ChatType type, std::wstring_view const & message);
 };

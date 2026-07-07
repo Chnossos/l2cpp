@@ -16,6 +16,10 @@ public:
     using Index = u32;
 
 public:
+    Shortcut(Shortcut const &) noexcept = default;
+    Shortcut & operator=(Shortcut const &) noexcept = default;
+    Shortcut(Shortcut &&) noexcept = default;
+    Shortcut & operator=(Shortcut &&) noexcept = default;
     virtual ~Shortcut();
 
 protected:

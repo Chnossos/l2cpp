@@ -14,7 +14,7 @@ public:
     enum class Input { Keyboard, Mouse };
 
 public:
-    MoveAction(Actor & performer, Position const & origin, Position const & target, Input input);
+    MoveAction(Actor & performer, Position origin, Position target, Input input);
 
 public:
     bool canBeInterruptedByAnotherAction() const override;

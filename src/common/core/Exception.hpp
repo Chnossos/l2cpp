@@ -26,7 +26,7 @@ namespace Core
         Exception() noexcept;
 
         explicit Exception(int code) noexcept;
-        Exception(std::source_location src, int code) noexcept;
+        Exception(std::source_location const & src, int code) noexcept;
 
         template<typename... Args>
         explicit Exception(std::format_string<Args...> fmt, Args &&... args)
@@ -35,9 +35,9 @@ namespace Core
         }
 
         template<typename... Args>
-        Exception(std::source_location src, std::format_string<Args...> fmt, Args &&... args)
+        Exception(std::source_location const & src, std::format_string<Args...> fmt, Args &&... args)
         {
-            init(std::move(src), std::format(std::move(fmt), std::forward<Args>(args)...));
+            init(src, std::format(std::move(fmt), std::forward<Args>(args)...));
         }
 
         template<typename... Args>
@@ -47,9 +47,9 @@ namespace Core
         }
 
         template<typename... Args>
-        Exception(std::source_location src, int const code, std::format_string<Args...> fmt, Args &&...args)
+        Exception(std::source_location const & src, int const code, std::format_string<Args...> fmt, Args &&...args)
         {
-            init(std::move(src), code, std::format(std::move(fmt), std::forward<Args>(args)...));
+            init(src, code, std::format(std::move(fmt), std::forward<Args>(args)...));
         }
 
     public:
@@ -59,7 +59,7 @@ namespace Core
 
         /// Gets the source code line number that generated the exception, if given
         /// @return 0 if location is unknown, else a non-zero value
-        auto line() const -> int;
+        auto line() const -> unsigned;
 
         /// Gets the source code file base name that generated the exception, if given
         /// @return Empty string if location is unknown, else a non-zero value
@@ -74,9 +74,9 @@ namespace Core
         auto what() const noexcept -> char const * override;
 
     private:
-        void init(std::source_location src, std::string message);
-        void init(std::source_location src, int code);
-        void init(std::source_location src, int code, std::string message);
+        void init(std::source_location const & src, std::string message);
+        void init(std::source_location const & src, int code);
+        void init(std::source_location const & src, int code, std::string message);
     };
 
     /// Packs a @c std::exception_ptr with a @c std::source_location to locate its origin
@@ -90,13 +90,13 @@ namespace Core
 
     using ExceptionStack = std::vector<Exception>;
 
-    auto sandBox(std::source_location, std::function<void()>) -> ExceptionBox;
+    auto sandBox(std::function<void()> const &, std::source_location const &) -> ExceptionBox;
 
     template<typename F, typename... Args>
-    auto sandBox(std::source_location src, F && f, Args &&... args) -> ExceptionBox
+    auto sandBox(std::source_location const & src, F && f, Args &&... args) -> ExceptionBox
     {
-        std::function<void()> func = std::bind(std::forward<F>(f), std::forward<Args>(args)...);
-        return sandBox(std::move(src), std::move(func));
+        std::function<void()> const func = std::bind(std::forward<F>(f), std::forward<Args>(args)...);
+        return sandBox(func, src);
     }
 
     auto getExceptionStack(Exception const & e) -> ExceptionStack;

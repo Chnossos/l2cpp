@@ -21,15 +21,15 @@ struct Hit::Impl
         u32                      const targetId_
       , u32                      const damage_
       , bool                     const isCritical_
-      , std::optional<ItemGrade>       soulShotUsed_
+      , std::optional<ItemGrade> const soulShotUsed_
       , HitStatus                const status_
     )
-        : targetId(targetId_)
-        , damage(damage_)
-        , isCritical(isCritical_)
-        , soulShotUsed(std::move(soulShotUsed_))
-        , status(status_)
-        , flags(0)
+        : targetId{targetId_}
+        , damage{damage_}
+        , isCritical{isCritical_}
+        , soulShotUsed{soulShotUsed_}
+        , status{status_}
+        , flags{0}
     {
 
         if (soulShotUsed)
@@ -46,7 +46,7 @@ template class Pimpl<Hit::Impl>;
 // ---------------------------------------------------------------------------------------------------------------------
 
 Hit::Hit(Actor const & target, u32 damage, bool isCritical, std::optional<ItemGrade> soulShotUsed, HitStatus status)
-    : _impl(target.id(), damage, isCritical, std::move(soulShotUsed), status)
+    : _impl(target.id(), damage, isCritical, soulShotUsed, status)
 {}
 
 Hit::Hit(Hit &&) noexcept = default;

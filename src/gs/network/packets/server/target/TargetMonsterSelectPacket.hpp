@@ -11,7 +11,7 @@ class Monster;
 
 namespace Network::Packets::Server { struct TargetMonsterSelectPacket; }
 
-struct Network::Packets::Server::TargetMonsterSelectPacket final : public Network::Packet
+struct Network::Packets::Server::TargetMonsterSelectPacket final : public Packet
 {
     explicit TargetMonsterSelectPacket(Character const & source, Monster const & target);
 };

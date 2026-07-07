@@ -10,7 +10,7 @@ class Actor;
 
 namespace Network::Packets::Server { struct ActorRevivePacket; }
 
-struct Network::Packets::Server::ActorRevivePacket final : public Network::Packet
+struct Network::Packets::Server::ActorRevivePacket final : public Packet
 {
     explicit ActorRevivePacket(Actor const & target);
 };

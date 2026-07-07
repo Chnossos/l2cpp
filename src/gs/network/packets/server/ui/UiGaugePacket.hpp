@@ -17,7 +17,7 @@ enum class GaugeColor : u32
     Green, ///< Used to show mount's hunger
 };
 
-struct Network::Packets::Server::UiGaugePacket final : public Network::Packet
+struct Network::Packets::Server::UiGaugePacket final : public Packet
 {
     UiGaugePacket(GaugeColor color, ClockDuration duration);
 };

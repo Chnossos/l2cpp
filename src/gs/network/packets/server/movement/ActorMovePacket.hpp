@@ -11,7 +11,7 @@ struct Position;
 
 namespace Network::Packets::Server { struct ActorMovePacket; }
 
-struct Network::Packets::Server::ActorMovePacket final : public Network::Packet
+struct Network::Packets::Server::ActorMovePacket final : public Packet
 {
     ActorMovePacket(Actor const & actor, Position const & origin, Position const & destination);
 };

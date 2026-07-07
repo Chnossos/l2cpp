@@ -8,7 +8,8 @@
 #include <gs/game/directories/NpcDirectory.hpp>
 #include <gs/game/spawn/SpawnManager.hpp>
 
-using namespace Utils::Sql;
+using Utils::Sql::extract;
+using Utils::Sql::extractOr;
 
 void Orm::loadNpcs()
 {
@@ -90,10 +91,11 @@ void Orm::loadSpawnPoints()
         auto const templateId = query.getColumn("npc_template_id").getUInt();
         auto const swarmName  = query.getColumn("swarm_name"     ).getString();
 
-        SwarmEntityInfo info{.npcTemplateId = templateId};
+        auto & info        = sSpawnManager._swarms[swarmName].composition[templateId];
+        info.npcTemplateId = templateId;
+
         extract                      (query, "npc_count",        info.npcCount);
         extract<std::chrono::seconds>(query, "respawn_duration", info.respawnDuration);
         extract<std::chrono::seconds>(query, "respawn_window",   info.respawnWindow);
-        sSpawnManager._swarms[swarmName].composition.try_emplace(templateId, std::move(info));
     }
 }

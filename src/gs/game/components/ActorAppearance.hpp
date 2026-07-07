@@ -9,6 +9,11 @@
 class ActorAppearance : public Component
 {
 public:
+    ActorAppearance() noexcept = default;
+    ActorAppearance(ActorAppearance const &) noexcept = default;
+    ActorAppearance & operator=(ActorAppearance const &) noexcept = default;
+    ActorAppearance(ActorAppearance &&) noexcept = default;
+    ActorAppearance & operator=(ActorAppearance &&) noexcept = default;
     ~ActorAppearance() override = 0;
 
 public:

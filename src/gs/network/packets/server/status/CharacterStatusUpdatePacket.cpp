@@ -12,7 +12,7 @@
 #include <gs/game/components/Stats.hpp>
 #include <gs/game/inventory/ItemStorage.hpp>
 
-using namespace Network::Packets::Server;
+using Network::Packets::Server::CharacterStatusUpdatePacket;
 
 CharacterStatusUpdatePacket::CharacterStatusUpdatePacket(Character const & c)
     : Packet(0x04, "CharacterStatusUpdate")

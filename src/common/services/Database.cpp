@@ -19,6 +19,7 @@ void Database::init(std::vector<std::filesystem::path> const & files)
 
 auto Database::instance() -> SQLite::Database &
 {
+    // NOLINTNEXTLINE(*-signed-bitwise)
     static SQLite::Database db("data/database", SQLite::OPEN_READWRITE | SQLite::OPEN_CREATE);
     return db;
 }

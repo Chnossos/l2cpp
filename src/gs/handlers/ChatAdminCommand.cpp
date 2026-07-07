@@ -42,11 +42,11 @@ static std::wstring readWholeFile(std::string_view path)
     std::wstring content;
     std::string  asciiContent;
 
-    if (std::ifstream file(path.data()); file)
+    if (std::ifstream file(std::string{path}); file)
     {
         asciiContent.resize(file.seekg(0, std::ios::end).tellg());
         file.seekg(0);
-        file.read(asciiContent.data(), asciiContent.size());
+        file.read(asciiContent.data(), static_cast<std::streamsize>(asciiContent.size()));
     }
     else
     {

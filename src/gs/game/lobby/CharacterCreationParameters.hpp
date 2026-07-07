@@ -17,5 +17,5 @@ struct CharacterCreationParameters
     Sex          sex{};
     Profession   startingProfession{}, profession = startingProfession;
     u32          hairStyle{}, hairColor{}, face{};
-    Position     position{};
+    Position     position;
 };

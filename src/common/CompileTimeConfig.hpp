@@ -7,6 +7,7 @@
 
 namespace Config
 {
+// NOLINTBEGIN(*-identifier-naming)
     constexpr inline bool enabled  = true;
     constexpr inline bool disabled = false;
 
@@ -17,4 +18,5 @@ namespace Config
 #endif
 
     constexpr inline bool hexdumpPackets = isDebugMode && disabled;
+// NOLINTEND(*-identifier-naming)
 }

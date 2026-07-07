@@ -263,7 +263,7 @@ try
     auto const & c = *_characterPreviews.at(previewIds[index]);
     Orm::deleteCharacter(c.name());
     _characterPreviews.erase(previewIds[index]);
-    previewIds.erase(previewIds.begin() + index, previewIds.end());
+    previewIds.erase(previewIds.begin() + index, previewIds.end()); // NOLINT(*-narrowing-conversions)
 }
 catch (...)
 {

@@ -8,7 +8,7 @@
 
 namespace Network::Packets::Server { struct ClientForceDisconnectPacket; }
 
-struct Network::Packets::Server::ClientForceDisconnectPacket final : public Network::Packet
+struct Network::Packets::Server::ClientForceDisconnectPacket final : public Packet
 {
     ClientForceDisconnectPacket();
 };

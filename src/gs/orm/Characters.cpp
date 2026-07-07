@@ -51,7 +51,7 @@ try
         auto & p               = professions[profession];
         p.profession           = profession;
         p.name                 =                    query.getColumn("name"             ).getString();
-        p.canBeSubclassed      =                    query.getColumn("can_be_subclassed").getUInt();
+        p.canBeSubclassed      = static_cast<bool >(query.getColumn("can_be_subclassed").getUInt());
         p.minimumLevel         = static_cast<u8   >(query.getColumn("minimum_level"    ).getUInt());
         p.maxHp                = static_cast<float>(query.getColumn("max_hp"           ).getDouble());
         p.maxMp                = static_cast<float>(query.getColumn("max_mp"           ).getDouble());
@@ -72,7 +72,7 @@ catch (...)
     L2CPP_THROW_NESTED("Failed to load professions");
 }
 
-void Orm::loadStartingLocations()
+void Orm::loadStartingLocations() // NOLINT(*-function-size)
 try
 {
     auto & globalLocations   = StartingLocationDirectory::_globalLocations;
@@ -324,6 +324,7 @@ namespace
         )"};
         query.bind(":owner_id", characterId);
 
+        // ReSharper disable once CppRangeBasedForIncompatibleReference
         for (Item const & item : c.inventory().items())
         {
             query.reset();
@@ -378,7 +379,7 @@ namespace
             auto const quantity     = query.getColumn("quantity");
 
             Item item{query.getColumn("id").getInt64()};
-            item.tmplate      = std::move(*itemTemplate);
+            item.tmplate      = *itemTemplate;
             item.enchantLevel = enchantLevel.isNull() ? 0 : static_cast<u8>(enchantLevel.getUInt());
             item.quantity     = quantity    .isNull() ? 1 : quantity.getUInt();
 
@@ -386,7 +387,7 @@ namespace
         }
     }
 
-    void saveShortcuts(u32 const characterId, Character const & c)
+    void saveShortcuts(u32 const characterId, Character const & c) // NOLINT(*-function-size)
     {
         auto const & bar = c.shortcutBar();
 
@@ -447,7 +448,7 @@ namespace
         tr.commit();
     }
 
-    void loadShortcuts(u32 const characterId, Character & c)
+    void loadShortcuts(u32 const characterId, Character & c) // NOLINT(*-function-size)
     {
         SQLite::Statement query{Database::instance(), std::format(R"(
             SELECT
@@ -471,7 +472,7 @@ namespace
             {
                 case ShortcutType::Item:
                 {
-                    if (auto const item = c.inventory().find_if([=] (auto const & i) { return i.uid == targetId; }))
+                    if (auto const item = c.inventory().findIf([=] (auto const & i) { return i.uid == targetId; }))
                         c.shortcutBar().set<ItemShortcut>(index, item);
                     else
                     {
