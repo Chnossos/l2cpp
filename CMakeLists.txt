@@ -7,9 +7,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED TRUE)
 set(CMAKE_CXX_EXTENSIONS        OFF)
 
 add_compile_definitions(SPDLOG_ACTIVE_LEVEL=SPDLOG_LEVEL_TRACE)
-if(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+if(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
     add_compile_definitions(WIN32_LEAN_AND_MEAN _CRT_SECURE_NO_WARNINGS _WIN32_WINNT=0x0601)
-    add_compile_options(/EHsc /W4 /utf-8)
+    add_compile_options(
+        /EHsc   # Enable standard C++ stack unwinding (s),
+                # and assume that functions declared as extern "C" never throw a C++ exception (c)
+        /Wall   # Display all warnings displayed by /W4 plus all other warnings
+        /utf-8  # Set source and execution character sets to UTF-8
+    )
+elif(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "GNU")
+    add_compile_options(
+        -Wall -Wextra  # Maximum warning output
+        -pedantic      # Enable strict standard conformance
+    )
 endif()
 
 include_directories(src)
