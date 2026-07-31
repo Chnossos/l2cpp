@@ -16,6 +16,7 @@ if(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
         /utf-8  # Set source and execution character sets to UTF-8
     )
 elif(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "GNU")
+elseif(CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "GNU")
     add_compile_options(
         -Wall -Wextra  # Maximum warning output
         -pedantic      # Enable strict standard conformance
