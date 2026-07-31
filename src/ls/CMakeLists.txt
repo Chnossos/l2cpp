@@ -2,7 +2,7 @@ project(login_server)
 
 add_executable(${PROJECT_NAME})
 
-find_package(OpenSSL REQUIRED COMPONENTS Crypto)
+find_package(OpenSSL CONFIG REQUIRED COMPONENTS Crypto)
 target_link_libraries(${PROJECT_NAME} PRIVATE ${CMAKE_PROJECT_NAME}-common OpenSSL::Crypto)
 
 set_property(SOURCE main.cpp APPEND PROPERTY
