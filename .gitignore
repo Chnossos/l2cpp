@@ -2,6 +2,7 @@
 !.gitignore
 
 # Clang
+!.clang-format
 !.clang-tidy
 
 # CMake

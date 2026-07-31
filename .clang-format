@@ -1,0 +1,133 @@
+# Commented options require a higher version of clang-format
+---
+Language: Cpp
+AccessModifierOffset: -4
+AlignConsecutiveAssignments:
+  Enabled: true
+  AlignCompound: true
+  PadOperators: true
+  AcrossEmptyLines: false
+  AcrossComments: false
+AlignConsecutiveDeclarations:
+  Enabled: true
+  AlignCompound: true
+AlignAfterOpenBracket: true
+AlignConsecutiveMacros:
+  Enabled: true
+  AcrossComments: false
+  AcrossEmptyLines: false
+AlignConsecutiveShortCaseStatements:
+  Enabled: true
+  AcrossComments: true
+  AcrossEmptyLines: false
+  AlignCaseColons: false
+AllowAllArgumentsOnNextLine: true
+AllowShortBlocksOnASingleLine: Empty
+AllowShortCompoundRequirementOnASingleLine: true
+AllowShortEnumsOnASingleLine: true
+AllowShortFunctionsOnASingleLine: Empty
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLambdasOnASingleLine: Inline
+AllowShortLoopsOnASingleLine: false
+AllowShortNamespacesOnASingleLine: true
+#BinPackParameters: OnePerLine
+BraceWrapping:
+  AfterCaseLabel: true
+  AfterClass: true
+  AfterControlStatement: Always
+  AfterEnum: true
+  AfterExternBlock: true
+  AfterFunction: true
+  AfterNamespace: true
+  AfterStruct: true
+  AfterUnion: true
+  BeforeCatch: true
+  BeforeElse: true
+  BeforeLambdaBody: true
+  BeforeWhile: true
+  IndentBraces: false
+  SplitEmptyFunction: false
+  SplitEmptyNamespace: false
+  SplitEmptyRecord: false
+#BreakBeforeCloseBracketBracedList: true
+#BreakBeforeCloseBracketFunction: true
+#BreakBeforeCloseBracketIf: false
+BreakBeforeBraces: Custom
+BreakBeforeConceptDeclarations: Always
+BreakBeforeTernaryOperators: true
+BreakConstructorInitializers: BeforeComma
+BreakInheritanceList: BeforeComma
+BreakTemplateDeclarations: Yes
+BreakAfterReturnType: Automatic
+ColumnLimit: 120
+Cpp11BracedListStyle: "true"
+EmptyLineBeforeAccessModifier: Always
+ExperimentalAutoDetectBinPacking: true
+FixNamespaceComments: false
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '"[^/]+"'
+    Priority: 5
+  - Regex: '<(common|ls|gs)/.+>'
+    Priority: 2
+  - Regex: '<.+/.+>'
+    Priority: 3
+  - Regex: '<[^.]+>'
+    Priority: 4
+IndentAccessModifiers: false
+IndentCaseLabels: true
+IndentPPDirectives: AfterHash
+IndentRequiresClause: false
+IndentWidth: 4
+InsertNewlineAtEOF: true
+LambdaBodyIndentation: OuterScope
+MaxEmptyLinesToKeep: 1
+NamespaceIndentation: All
+#NumericLiteralCase:
+#  ExponentLetter: Lower
+#  HexDigit: Lower
+#  Prefix: Lower
+#  Suffix: Lower
+PPIndentWidth: 1
+PointerAlignment: Middle
+QualifierAlignment: Custom
+QualifierOrder:
+  - inline
+  - static
+  - friend
+  - constexpr
+  - type
+  - const
+ReferenceAlignment: Pointer
+ReflowComments: IndentOnly
+RemoveEmptyLinesInUnwrappedLines: true
+RequiresClausePosition: OwnLine
+RequiresExpressionIndentation: OuterScope
+SeparateDefinitionBlocks: Leave
+SortUsingDeclarations: Lexicographic
+SpaceAfterOperatorKeyword: false
+SpaceAfterTemplateKeyword: false
+SpaceBeforeAssignmentOperators: true
+SpaceBeforeCaseColon: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: false
+#SpaceBeforeEnumUnderlyingTypeColon: true
+SpaceBeforeParensOptions:
+  AfterControlStatements: true
+  AfterForeachMacros: false
+  AfterFunctionDeclarationName: false
+  AfterFunctionDefinitionName: false
+  AfterIfMacros: true
+  AfterOverloadedOperator: false
+  AfterRequiresInExpression: true
+  BeforeNonEmptyParentheses: false
+#SpaceInEmptyBraces: Never
+SpacesInAngles: Leave
+SpacesBeforeTrailingComments: 1
+#SpacesInBlockComments: Always
+SpacesInLineCommentPrefix:
+  Minimum: 1
+  Maximum: 1
+Standard: Latest
+UseTab: Never
+WrapNamespaceBodyWithEmptyLines: Never
