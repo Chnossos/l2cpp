@@ -66,14 +66,12 @@ ExperimentalAutoDetectBinPacking: true
 FixNamespaceComments: false
 IncludeBlocks: Regroup
 IncludeCategories:
-  - Regex: '"[^/]+"'
-    Priority: 5
   - Regex: '<(common|ls|gs)/.+>'
-    Priority: 2
+    Priority: 1
   - Regex: '<.+/.+>'
-    Priority: 3
+    Priority: 2
   - Regex: '<[^.]+>'
-    Priority: 4
+    Priority: 3
 IndentAccessModifiers: false
 IndentCaseLabels: true
 IndentPPDirectives: AfterHash
