@@ -1,18 +1,18 @@
 CREATE TABLE IF NOT EXISTS npc_templates (
-    id               INTEGER          PRIMARY KEY CHECK(id >= 1)
-  , tag              TEXT    NOT NULL UNIQUE
-  , collision_height DOUBLE  NOT NULL             CHECK(collision_height >= 0)
-  , collision_radius DOUBLE  NOT NULL             CHECK(collision_radius >= 0)
-  , level            INTEGER NOT NULL             CHECK(level            >= 1)
-  , attackable       BOOLEAN NOT NULL             CHECK(attackable IN (0, 1))
-  , xp               INTEGER NOT NULL             CHECK(xp              >= 0)
-  , xp_rate          DOUBLE  NOT NULL             CHECK(xp_rate         >= 0)
-  , sp               INTEGER NOT NULL             CHECK(sp              >= 0)
-  , max_hp           DOUBLE  NOT NULL             CHECK(max_hp          >= 0)
-  , max_mp           DOUBLE  NOT NULL             CHECK(max_mp          >= 0)
-  , hp_regen         DOUBLE  NOT NULL             CHECK(hp_regen        >= 0)
-  , mp_regen         DOUBLE  NOT NULL             CHECK(mp_regen        >= 0)
-  , corpse_duration  INTEGER NOT NULL             CHECK(corpse_duration >  0)
+    id               INTEGER PRIMARY KEY        CHECK(id >= 1)
+  , tag              TEXT    NOT NULL    UNIQUE CHECK(TRIM(tag) <> '')
+  , collision_height DOUBLE  NOT NULL           CHECK(collision_height >= 0)
+  , collision_radius DOUBLE  NOT NULL           CHECK(collision_radius >= 0)
+  , level            INTEGER NOT NULL           CHECK(level >= 1)
+  , attackable       BOOLEAN NOT NULL           CHECK(attackable IN (0, 1))
+  , xp               INTEGER NOT NULL           CHECK(xp >= 0)
+  , xp_rate          DOUBLE  NOT NULL           CHECK(xp_rate >= 0)
+  , sp               INTEGER NOT NULL           CHECK(sp >= 0)
+  , max_hp           DOUBLE  NOT NULL           CHECK(max_hp >= 0)
+  , max_mp           DOUBLE  NOT NULL           CHECK(max_mp >= 0)
+  , hp_regen         DOUBLE  NOT NULL           CHECK(hp_regen >= 0)
+  , mp_regen         DOUBLE  NOT NULL           CHECK(mp_regen >= 0)
+  , corpse_duration  INTEGER NOT NULL           CHECK(corpse_duration > 0)
 );
 
 -- noinspection SqlWithoutWhere
