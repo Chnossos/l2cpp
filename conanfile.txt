@@ -13,5 +13,5 @@ spdlog/*:use_std_fmt=True
 cmake_layout
 
 [generators]
-CMakeDeps
+CMakeConfigDeps
 CMakeToolchain

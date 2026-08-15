@@ -2,9 +2,9 @@ project(${CMAKE_PROJECT_NAME}-common)
 
 add_library(${PROJECT_NAME} OBJECT)
 
-find_package(Boost     REQUIRED)
-find_package(spdlog    REQUIRED COMPONENTS header_only)
-find_package(SQLiteCpp REQUIRED)
+find_package(Boost     CONFIG REQUIRED)
+find_package(spdlog    CONFIG REQUIRED COMPONENTS spdlog_header_only)
+find_package(SQLiteCpp CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PUBLIC Boost::headers spdlog::spdlog_header_only SQLiteCpp)
 
 target_sources(${PROJECT_NAME}
