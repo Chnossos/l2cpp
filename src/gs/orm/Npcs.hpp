@@ -6,5 +6,8 @@
 namespace Orm
 {
     void loadNpcs();
-    void loadSpawnPoints();
+    void loadSpawnAreas();
+    void loadNpcMakers();
+    void loadFixedNpcMakers();
+    void loadRandomNpcMakers();
 }

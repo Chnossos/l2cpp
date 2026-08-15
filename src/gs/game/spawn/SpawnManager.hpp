@@ -12,49 +12,67 @@
 
 namespace Orm
 {
-    void loadSpawnPoints();
+    void loadSpawnAreas();
+    void loadNpcMakers();
+    void loadFixedNpcMakers();
+    void loadRandomNpcMakers();
 }
 
-struct SpawnPoint
+enum class SpawnBehavior
 {
-    using Chance = u8;
-    std::vector<std::pair<Position, Chance>> possiblePositions;
-    NpcTemplateId                            npcTemplateId   = 0;
-    ClockDuration                            respawnDuration = ClockDuration::zero();
-    ClockDuration                            respawnWindow   = ClockDuration::zero();
+    DefaultMaker,
+    DefaultUseDbMaker,
+    ExclusiveSpawnNormal,
+    MakerInstantSpawn,
+    MakerInstantSpawnRandom,
+    MakerInstantSpawnSerial,
+    ManageTeleportDungeon,
+    OnDayNightSpawn,
+    RandomSpawn,
+    RoyalReqNextMaker,
+    RoyalRushMaker,
+    RoyalSpawnTreasureBox,
+    UniqueNpcKillEvent,
 };
 
-struct SwarmEntityInfo
+/// Model the @code npcpos:npc@endcode and @code npcpos:npc_ex@endcode entries.
+struct NpcMakerEntry
 {
-    NpcTemplateId npcTemplateId   = 0;
-    ClockDuration respawnDuration = ClockDuration::zero();
-    ClockDuration respawnWindow   = ClockDuration::zero();
-    u16           npcCount        = 0;
+    std::optional<Position> position;
+    NpcTemplateId           npcTemplateId   = 0;
+    ClockDuration           respawnDuration = ClockDuration::zero();
+    ClockDuration           respawnWindow   = ClockDuration::zero();
+    u16                     npcCount        = 0;
 };
 
-struct SwarmInfo
+/// Model the @code npcpos:npc_maker@endcode entries.
+struct NpcMaker
 {
-    std::unordered_map<NpcTemplateId, SwarmEntityInfo> composition;
-    std::string                                        name, territoryTag;
-    u16                                                maxNpcCount{};
+    std::string                name;
+    std::vector<std::string>   areaSpan, areaExclusions;
+    std::vector<std::string>   spawnConditions; // spawn_time, ai=[on_day_night_spawn], event_name…
+    std::vector<NpcMakerEntry> npcComposition;
+    SpawnBehavior              behavior;
+    u16                        maxNpcCount{0};
 };
 
-struct SpawnTerritoryEdge
+/// Model the @code npcpos:territory@endcode entries.
+struct SpawnArea
 {
-    s32 x    = 0, y    = 0;
-    s32 minZ = 0, maxZ = 0;
-};
+    struct Vertice { s32 x, y; };
 
-struct SpawnTerritory
-{
-    std::string                     name;
-    std::vector<SpawnTerritoryEdge> edges;
-    std::vector<Position>           spawnPoints;
+    std::string           name;
+    std::vector<Vertice>  vertices;
+    std::vector<NpcMaker> subAreas;
+    s32                   minZ, maxZ;
 };
 
 class SpawnManager
 {
-    friend void Orm::loadSpawnPoints();
+    friend void Orm::loadSpawnAreas();
+    friend void Orm::loadNpcMakers();
+    friend void Orm::loadFixedNpcMakers();
+    friend void Orm::loadRandomNpcMakers();
 
 private:
     SpawnManager() noexcept = default;
@@ -63,18 +81,15 @@ public:
     static auto instance() -> SpawnManager &;
 
 public:
-    auto loadCount()    const -> size_t;
-    auto spawnedCount() const -> size_t;
+    auto spawnAreaCount() const -> size_t;
 
 public:
     void load();
     void unload();
 
 private:
-    std::unordered_multimap<NpcTemplateId, SpawnPoint> _spawnPoints;
-    std::unordered_set<GameObjectId>                   _spawnedActorIds;
-    std::unordered_map<std::string, SpawnTerritory>    _spawnTerritories;
-    std::unordered_map<std::string, SwarmInfo>         _swarms;
+    std::vector<SpawnArea> _spawnAreas;
+    std::unordered_map<std::string, NpcMaker> _npcMakers;
 };
 
 #define sSpawnManager SpawnManager::instance()
