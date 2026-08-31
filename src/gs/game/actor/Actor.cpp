@@ -13,7 +13,6 @@
 #include <gs/game/components/Position.hpp>
 #include <gs/game/components/SkillDirectory.hpp>
 #include <gs/game/components/Stats.hpp>
-#include <gs/network/Connection.hpp>
 #include <gs/network/packets/server/chat/ChatSystemSayPacket.hpp>
 #include <gs/network/packets/server/status/StatsUpdatePacket.hpp>
 
@@ -25,14 +24,14 @@ namespace SC = Network::Packets::Server; // Server -> Client
 struct Actor::Impl
 {
     ActorType type;
-    Team team = Team::None;
+    Team      team = Team::None;
 
     bool isInCombatStance = false;
 
-    OptRef<Actor> target;
+    OptRef<Actor>           target;
     std::unique_ptr<Action> currentAction, nextAction;
 
-    std::list<std::unique_ptr<Effect>> _effects;
+    std::list<std::unique_ptr<Effect>> effects;
 
     DamageDealtTable attackerDamageAmounts;
 };
@@ -52,9 +51,9 @@ Actor::Actor(ActorType const type)
     addComponent<Stats>();
 }
 
-Actor::Actor(Actor &&) noexcept = default;
+Actor::Actor(Actor &&) noexcept             = default;
 Actor & Actor::operator=(Actor &&) noexcept = default;
-Actor::~Actor() = default;
+Actor::~Actor()                             = default;
 
 bool Actor::operator==(Actor const & other) const { return id() == other.id(); }
 
@@ -95,8 +94,8 @@ auto Actor::currentAction() -> OptRef<Action>
 
 auto Actor::nextAction() -> OptRef<Action> { return _impl->nextAction ? OptRef(*_impl->nextAction) : std::nullopt; }
 
-auto Actor::effects()       -> std::list<std::unique_ptr<Effect>>       & { return _impl->_effects; }
-auto Actor::effects() const -> std::list<std::unique_ptr<Effect>> const & { return _impl->_effects; }
+auto Actor::effects()       -> std::list<std::unique_ptr<Effect>>       & { return _impl->effects; }
+auto Actor::effects() const -> std::list<std::unique_ptr<Effect>> const & { return _impl->effects; }
 
 auto Actor::attackerDamageAmounts() const -> DamageDealtTable const & {
     return _impl->attackerDamageAmounts;
@@ -146,7 +145,7 @@ void Actor::takeDamage(OptRef<Actor> emitter, double const amount)
         msg1.appendArg(SysMsgArg::Number{static_cast<u32>(amount)});
         World::send(emitter, std::move(msg1));
 
-        if (emitter != *this)
+        if (*emitter != *this)
         {
             SC::ChatSystemSayPacket msg2{SystemMessageId::_1_HitYouFor_2_Damage};
             msg2.appendName(emitter);
@@ -158,9 +157,9 @@ void Actor::takeDamage(OptRef<Actor> emitter, double const amount)
 
 void Actor::heal(Actor const & emitter, double const amount)
 {
-    auto       & stats = *component<Stats>();
-    auto       & curHp = stats[StatId::CurHp];
-    auto const   maxHp = stats[StatId::MaxHp];
+    auto &     stats = *component<Stats>();
+    auto &     curHp = stats[StatId::CurHp];
+    auto const maxHp = stats[StatId::MaxHp];
 
     auto const recovered = curHp + amount > maxHp ? maxHp - curHp : amount;
 
@@ -185,7 +184,7 @@ void Actor::heal(Actor const & emitter, double const amount)
 
 void Actor::die()
 {
-    _impl->_effects.clear();
+    _impl->effects.clear();
     fire onEffectListChanged();
 
     delComponent<ActorAutoRegen>();
@@ -203,7 +202,7 @@ void Actor::revive()
 
     fire onRevived();
 
-    auto & stats = *component<Stats>();
+    auto & stats         = *component<Stats>();
     stats[StatId::CurHp] = stats[StatId::MaxHp] * 0.65;
 
     SC::StatsUpdatePacket p(*this);
@@ -226,4 +225,4 @@ void Actor::doNext(std::unique_ptr<Action> action)
         _impl->nextAction = std::move(action);
 }
 
-void Actor::addEffect(std::unique_ptr<Effect> e) { _impl->_effects.emplace_back(std::move(e)); }
+void Actor::addEffect(std::unique_ptr<Effect> e) { _impl->effects.emplace_back(std::move(e)); }

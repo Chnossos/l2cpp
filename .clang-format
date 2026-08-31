@@ -2,6 +2,7 @@
 ---
 Language: Cpp
 AccessModifierOffset: -4
+#AlignAfterOpenBracket: AlwaysBreak
 AlignConsecutiveAssignments:
   Enabled: true
   AlignCompound: true
@@ -11,7 +12,6 @@ AlignConsecutiveAssignments:
 AlignConsecutiveDeclarations:
   Enabled: true
   AlignCompound: true
-AlignAfterOpenBracket: true
 AlignConsecutiveMacros:
   Enabled: true
   AcrossComments: false
@@ -25,7 +25,6 @@ AllowAllArgumentsOnNextLine: true
 AllowShortBlocksOnASingleLine: Empty
 AllowShortCompoundRequirementOnASingleLine: true
 AllowShortEnumsOnASingleLine: true
-AllowShortFunctionsOnASingleLine: Empty
 AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: Inline
 AllowShortLoopsOnASingleLine: false

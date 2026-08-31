@@ -18,18 +18,20 @@ class OptRef
     static_assert(!std::is_same_v<T, std::nullopt_t>, "T cannot be std::nullopt_t");
 
 public:
-    constexpr OptRef() noexcept: _ref{nullptr} {}
+    constexpr OptRef() noexcept: _ref{nullptr}          {}
     constexpr OptRef(std::nullopt_t) noexcept: OptRef{} {}
-    constexpr OptRef(T & t) noexcept: _ref{&t} {}
+    constexpr OptRef(T & t) noexcept: _ref{&t}          {}
 
-    constexpr OptRef(OptRef const & other) noexcept: _ref{other._ref} {}
-    constexpr OptRef & operator=(OptRef const & other) noexcept { return assign(other._ref); } // NOLINT(*-unhandled-self-assignment, *-oop54-cpp)
+    constexpr OptRef(OptRef const & other) noexcept = default;
+    constexpr OptRef & operator=(OptRef const & other) noexcept = default;
 
     constexpr OptRef(OptRef && other) noexcept: _ref{std::exchange(other._ref, nullptr)} {}
     constexpr OptRef & operator=(OptRef && other) noexcept { return assign(std::exchange(other._ref, nullptr)); }
 
     template<typename U> requires std::is_base_of_v<T, U>
     constexpr OptRef(OptRef<U> const & other) noexcept: _ref{other ? &*other : nullptr} {}
+
+    constexpr ~OptRef() noexcept = default;
 
 public:
     constexpr void reset()                       { _ref = nullptr;         }
